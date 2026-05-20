@@ -71,3 +71,33 @@ examples/flashlight/flythrough_output/flashlight_flythrough.mp4
 
 Close other `SpearSim` or flashlight sessions before rendering; SPEAR expects a
 single process on its RPC port.
+
+The default flythrough route uses Unreal's navmesh to find collision-aware paths
+between coarse floor-level goals, then raises the camera to human height. For
+`japanese_office_dark`, edit `ROUTE_GOALS_BY_MAP` in `render_flythrough.py` to
+tune the route. Other maps, including `apartment_0000`, sample route goals from
+the map navmesh; adjust this with `--num-route-goals`. For debugging, pass
+`--route-mode straight` to render direct line segments between fixed goals.
+
+Pass `--render-ground-truth` to save synchronized per-frame outputs in separate
+folders:
+
+```console
+python examples/flashlight/render_flythrough.py --render-ground-truth
+```
+
+This writes RGB, depth, world normals, world positions, diffuse color,
+roughness, metallic, specular-for-lighting, material AO, unlit color, object
+IDs, and segmentation ID visualizations under `flythrough_output/frames/`. The
+MP4 becomes a tiled preview video with subfigures. Add
+`--save-raw-ground-truth` to also write exact `.npy` arrays under
+`flythrough_output/raw/`.
+
+To build a tiled MP4 from already-rendered frame folders:
+
+```console
+python examples/flashlight/make_tiled_video.py
+```
+
+This scans `flythrough_output/frames/` and writes
+`flythrough_output/flashlight_flythrough_all_modalities.mp4`.
