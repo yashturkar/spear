@@ -101,3 +101,22 @@ python examples/flashlight/make_tiled_video.py
 
 This scans `flythrough_output/frames/` and writes
 `flythrough_output/flashlight_flythrough_all_modalities.mp4`.
+
+To render aligned RGB frames with and without the onboard flashlight:
+
+```console
+python examples/flashlight/render_flythrough.py \
+  --map apartment_0000 \
+  --duration-seconds 10 \
+  --fps 24 \
+  --width 1280 \
+  --height 720 \
+  --render-flashlight-comparison
+```
+
+This writes `frames/flashlight_comparison/off/`,
+`frames/flashlight_comparison/on/`,
+`frames/flashlight_comparison/side_by_side/`, and
+`flashlight_comparison.mp4`. The comparison path waits two settle frames after
+each flashlight toggle by default; tune this with
+`--flashlight-comparison-settle-frames`.
