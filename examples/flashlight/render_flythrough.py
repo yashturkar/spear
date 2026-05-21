@@ -52,6 +52,8 @@ parser.add_argument("--output-dir", default=os.path.realpath(os.path.join(os.pat
 parser.add_argument("--keep-existing-output", action="store_true")
 parser.add_argument("--render-ground-truth", action="store_true")
 parser.add_argument("--save-raw-ground-truth", action="store_true")
+parser.add_argument("--render-flashlight-comparison", action="store_true")
+parser.add_argument("--flashlight-comparison-settle-frames", type=int, default=2)
 args = parser.parse_args()
 
 
@@ -279,7 +281,15 @@ def prepare_output_dir(output_dir):
 
 def prepare_frame_dirs(frames_dir):
     if not args.render_ground_truth:
-        return {"rgb": frames_dir}
+        frame_dirs = {"rgb": frames_dir}
+        if args.render_flashlight_comparison:
+            comparison_dir = os.path.join(frames_dir, "flashlight_comparison")
+            frame_dirs["flashlight_comparison_off"] = os.path.join(comparison_dir, "off")
+            frame_dirs["flashlight_comparison_on"] = os.path.join(comparison_dir, "on")
+            frame_dirs["flashlight_comparison_side_by_side"] = os.path.join(comparison_dir, "side_by_side")
+            for frame_dir in frame_dirs.values():
+                os.makedirs(frame_dir, exist_ok=True)
+        return frame_dirs
 
     frame_dirs = {
         "preview": os.path.join(frames_dir, "preview"),
@@ -296,9 +306,14 @@ def prepare_frame_dirs(frames_dir):
         "object_ids": os.path.join(frames_dir, "object_ids"),
         "segmentation_ids": os.path.join(frames_dir, "segmentation_ids"),
     }
+    if args.render_flashlight_comparison:
+        comparison_dir = os.path.join(frames_dir, "flashlight_comparison")
+        frame_dirs["flashlight_comparison_off"] = os.path.join(comparison_dir, "off")
+        frame_dirs["flashlight_comparison_on"] = os.path.join(comparison_dir, "on")
+        frame_dirs["flashlight_comparison_side_by_side"] = os.path.join(comparison_dir, "side_by_side")
     if args.save_raw_ground_truth:
         for name in list(frame_dirs.keys()):
-            if name != "preview":
+            if name not in {"preview", "flashlight_comparison_off", "flashlight_comparison_on", "flashlight_comparison_side_by_side"}:
                 frame_dirs[f"{name}_raw"] = os.path.join(args.output_dir, "raw", name)
 
     for frame_dir in frame_dirs.values():
@@ -410,6 +425,44 @@ def build_preview_tile(images):
     return np.concatenate([top, bottom], axis=0)
 
 
+def build_side_by_side(left_image, right_image):
+    left = add_label(image=left_image, label="without flashlight")
+    right = add_label(image=right_image, label="with flashlight")
+    return np.concatenate([left, right], axis=1)
+
+
+def save_flashlight_comparison_frame(frame_dirs, frame_index, off_data, on_data):
+    off_image = visualize_rgb(data=off_data)
+    on_image = visualize_rgb(data=on_data)
+    side_by_side = build_side_by_side(left_image=off_image, right_image=on_image)
+
+    off_file = os.path.join(frame_dirs["flashlight_comparison_off"], f"frame_{frame_index:04d}.png")
+    on_file = os.path.join(frame_dirs["flashlight_comparison_on"], f"frame_{frame_index:04d}.png")
+    side_by_side_file = os.path.join(frame_dirs["flashlight_comparison_side_by_side"], f"frame_{frame_index:04d}.png")
+    cv2.imwrite(off_file, off_image)
+    cv2.imwrite(on_file, on_image)
+    cv2.imwrite(side_by_side_file, side_by_side)
+    return side_by_side_file
+
+
+def set_flashlight_enabled(spot_light_component, enabled):
+    spot_light_component.SetIntensity(NewIntensity=args.intensity if enabled else 0.0)
+    spot_light_component.SetVisibility(bNewVisibility=enabled, bPropagateToChildren=True)
+
+
+def capture_scene(camera_components):
+    for component in camera_components:
+        component.CaptureScene()
+
+
+def settle_render_state(instance, num_frames):
+    for _ in range(num_frames):
+        with instance.begin_frame():
+            pass
+        with instance.end_frame(single_step=True):
+            pass
+
+
 def save_ground_truth_frame(frame_dirs, frame_index, component_data, segmentation_id_image):
     visualizers = {
         "rgb": visualize_rgb,
@@ -463,7 +516,10 @@ if __name__ == "__main__":
     config.SPEAR.INSTANCE.COMMAND_LINE_ARGS.resy = args.height
     config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.OVERRIDE_BENCHMARKING = True
     config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.BENCHMARKING = True
-    config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.BENCHMARKING_MAX_NUM_FRAMES = int(args.duration_seconds*args.fps) + 8
+    render_frames_per_output_frame = 1
+    if args.render_flashlight_comparison:
+        render_frames_per_output_frame = 2*(args.flashlight_comparison_settle_frames + 3)
+    config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.BENCHMARKING_MAX_NUM_FRAMES = int(args.duration_seconds*args.fps)*render_frames_per_output_frame + 8
     config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.OVERRIDE_GAME_DEFAULT_MAP = True
     config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.GAME_DEFAULT_MAP = MAPS[args.map]
     config.freeze()
@@ -510,6 +566,8 @@ if __name__ == "__main__":
 
             for component in camera_components:
                 component.BufferingMode = "SingleBuffered"
+                component.bCaptureEveryFrame = False
+                component.bCaptureOnMovement = False
                 component.Initialize()
                 component.initialize_sp_funcs()
 
@@ -521,6 +579,7 @@ if __name__ == "__main__":
             spot_light_component.SetAttenuationRadius(NewRadius=args.attenuation_radius)
             spot_light_component.SetInnerConeAngle(NewInnerConeAngle=args.inner_cone_angle)
             spot_light_component.SetOuterConeAngle(NewOuterConeAngle=args.outer_cone_angle)
+            set_flashlight_enabled(spot_light_component=spot_light_component, enabled=True)
 
         with instance.end_frame(single_step=True):
             pass
@@ -532,26 +591,99 @@ if __name__ == "__main__":
         for frame_index in range(frame_count):
             alpha = frame_index / max(frame_count - 1, 1)
             location, rotation = build_pose_at_alpha(route_points=route_points, alpha=alpha)
+            comparison_frame_file = None
+            flashlight_off_data = None
 
-            with instance.begin_frame():
-                camera_sensor.K2_SetActorLocationAndRotation(
-                    NewLocation=location,
-                    NewRotation=rotation,
-                    bSweep=False,
-                    bTeleport=True)
-                flashlight.K2_SetActorLocationAndRotation(
-                    NewLocation=location,
-                    NewRotation=rotation,
-                    bSweep=False,
-                    bTeleport=True)
-            with instance.end_frame(single_step=True):
-                component_data = {}
-                for component_desc in component_descs:
-                    data_bundle = component_desc["component"].read_pixels()
-                    component_data[component_desc["name"]] = data_bundle["arrays"]["data"]
-                if args.render_ground_truth:
-                    segmentation_id_image, _ = game.segmentation_service.get_segmentation_data(
-                        object_ids_bgra_uint8_image=component_data["object_ids"])
+            if args.render_flashlight_comparison:
+                with instance.begin_frame():
+                    camera_sensor.K2_SetActorLocationAndRotation(
+                        NewLocation=location,
+                        NewRotation=rotation,
+                        bSweep=False,
+                        bTeleport=True)
+                    flashlight.K2_SetActorLocationAndRotation(
+                        NewLocation=location,
+                        NewRotation=rotation,
+                        bSweep=False,
+                        bTeleport=True)
+                    set_flashlight_enabled(spot_light_component=spot_light_component, enabled=False)
+                with instance.end_frame(single_step=True):
+                    pass
+
+                settle_render_state(instance=instance, num_frames=args.flashlight_comparison_settle_frames)
+
+                with instance.begin_frame():
+                    pass
+                with instance.end_frame(single_step=True):
+                    pass
+
+                with instance.begin_frame():
+                    capture_scene(camera_components=[camera_component])
+                with instance.end_frame(single_step=True):
+                    data_bundle = camera_component.read_pixels()
+                    flashlight_off_data = data_bundle["arrays"]["data"].copy()
+
+                with instance.begin_frame():
+                    camera_sensor.K2_SetActorLocationAndRotation(
+                        NewLocation=location,
+                        NewRotation=rotation,
+                        bSweep=False,
+                        bTeleport=True)
+                    flashlight.K2_SetActorLocationAndRotation(
+                        NewLocation=location,
+                        NewRotation=rotation,
+                        bSweep=False,
+                        bTeleport=True)
+                    set_flashlight_enabled(spot_light_component=spot_light_component, enabled=True)
+                with instance.end_frame(single_step=True):
+                    pass
+
+                settle_render_state(instance=instance, num_frames=args.flashlight_comparison_settle_frames)
+
+                with instance.begin_frame():
+                    pass
+                with instance.end_frame(single_step=True):
+                    pass
+
+                with instance.begin_frame():
+                    capture_scene(camera_components=camera_components)
+                with instance.end_frame(single_step=True):
+                    component_data = {}
+                    for component_desc in component_descs:
+                        data_bundle = component_desc["component"].read_pixels()
+                        component_data[component_desc["name"]] = data_bundle["arrays"]["data"].copy()
+                    if args.render_ground_truth:
+                        segmentation_id_image, _ = game.segmentation_service.get_segmentation_data(
+                            object_ids_bgra_uint8_image=component_data["object_ids"])
+            else:
+                with instance.begin_frame():
+                    camera_sensor.K2_SetActorLocationAndRotation(
+                        NewLocation=location,
+                        NewRotation=rotation,
+                        bSweep=False,
+                        bTeleport=True)
+                    flashlight.K2_SetActorLocationAndRotation(
+                        NewLocation=location,
+                        NewRotation=rotation,
+                        bSweep=False,
+                        bTeleport=True)
+                    set_flashlight_enabled(spot_light_component=spot_light_component, enabled=True)
+                    capture_scene(camera_components=camera_components)
+                with instance.end_frame(single_step=True):
+                    component_data = {}
+                    for component_desc in component_descs:
+                        data_bundle = component_desc["component"].read_pixels()
+                        component_data[component_desc["name"]] = data_bundle["arrays"]["data"].copy()
+                    if args.render_ground_truth:
+                        segmentation_id_image, _ = game.segmentation_service.get_segmentation_data(
+                            object_ids_bgra_uint8_image=component_data["object_ids"])
+
+            if args.render_flashlight_comparison:
+                comparison_frame_file = save_flashlight_comparison_frame(
+                    frame_dirs=frame_dirs,
+                    frame_index=frame_index,
+                    off_data=flashlight_off_data,
+                    on_data=component_data["rgb"])
 
             if args.render_ground_truth:
                 frame_file = save_ground_truth_frame(
@@ -563,6 +695,8 @@ if __name__ == "__main__":
                 frame = visualize_rgb(data=component_data["rgb"])
                 frame_file = os.path.join(frame_dirs["rgb"], f"frame_{frame_index:04d}.png")
                 cv2.imwrite(frame_file, frame)
+            if comparison_frame_file is not None:
+                frame_file = comparison_frame_file
 
             if frame_index % args.fps == 0:
                 spear.log(f"Rendered frame {frame_index + 1}/{frame_count}: {frame_file}")
@@ -571,6 +705,14 @@ if __name__ == "__main__":
         wrote_video = write_video(frames_dir=video_frames_dir, video_file=video_file, frame_count=frame_count)
         if wrote_video:
             spear.log("Wrote video: ", video_file)
+        if args.render_flashlight_comparison:
+            comparison_video_file = os.path.join(args.output_dir, "flashlight_comparison.mp4")
+            wrote_comparison_video = write_video(
+                frames_dir=frame_dirs["flashlight_comparison_side_by_side"],
+                video_file=comparison_video_file,
+                frame_count=frame_count)
+            if wrote_comparison_video:
+                spear.log("Wrote flashlight comparison video: ", comparison_video_file)
         spear.log("Wrote frames: ", frames_dir)
 
     finally:
