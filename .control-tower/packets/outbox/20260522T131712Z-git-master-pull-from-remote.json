@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "28f9d565-fe69-4f69-9f24-d3b0c134d119",
+  "trace_id": "b97cfbce-39a1-4ea3-b30a-b8fad6f00ee9",
+  "parent_packet_id": null,
+  "created_at": "2026-05-22T13:17:12Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Pull from remote",
+  "objective": "Pull latest changes from the configured remote into the current branch.",
+  "instructions": [
+    "Inspect current branch, remotes, and git status before pulling.",
+    "Pull from the configured upstream remote/branch for the current branch; if no upstream is configured, use origin/main only if current branch is main.",
+    "Preserve local commits and do not rewrite history.",
+    "Do not stage or commit unrelated files.",
+    "If pull is blocked by local changes or conflicts, stop and report the blocker without destructive cleanup."
+  ],
+  "constraints": [
+    "No force pull, no reset, no rebase unless already configured as the normal pull strategy by git.",
+    "No push."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Branch and remote pulled from.",
+    "Pull result summary.",
+    "Post-pull status summary and any conflicts/blockers."
+  ],
+  "definition_of_done": [
+    "Remote changes are pulled, or a clear non-destructive blocker is reported."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 600,
+    "hard_seconds": 1200
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {}
+}

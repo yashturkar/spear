@@ -1,0 +1,2117 @@
+{
+  "nodes": {
+    "event:black-box:0": {
+      "id": "event:black-box:0",
+      "type": "event",
+      "event_type": "bootstrap_initialized",
+      "timestamp": null,
+      "payload": {
+        "event_type": "bootstrap_initialized"
+      }
+    },
+    "question:which-repo-conventions-should-scribe-treat-as-canonical": {
+      "id": "question:which-repo-conventions-should-scribe-treat-as-canonical",
+      "type": "question",
+      "title": "Which repo conventions should Scribe treat as canonical?",
+      "status": "open",
+      "source_ref": ".control-tower/docs/state/open-questions.md"
+    },
+    "question:which-files-or-paths-should-builder-avoid-by-default": {
+      "id": "question:which-files-or-paths-should-builder-avoid-by-default",
+      "type": "question",
+      "title": "Which files or paths should Builder avoid by default?",
+      "status": "open",
+      "source_ref": ".control-tower/docs/state/open-questions.md"
+    },
+    "question:what-git-workflow-should-git-master-assume-for-this-project": {
+      "id": "question:what-git-workflow-should-git-master-assume-for-this-project",
+      "type": "question",
+      "title": "What Git workflow should Git-master assume for this project?",
+      "status": "open",
+      "source_ref": ".control-tower/docs/state/open-questions.md"
+    },
+    "risk:tower-role-leakage-into-direct-implementation-if-delegation-discipline-is-not-maintained": {
+      "id": "risk:tower-role-leakage-into-direct-implementation-if-delegation-discipline-is-not-maintained",
+      "type": "risk",
+      "title": "Tower role leakage into direct implementation if delegation discipline is not maintained.",
+      "status": "open",
+      "source_ref": ".control-tower/docs/state/known-risks.md"
+    },
+    "risk:memory-drift-if-imported-sessions-are-not-curated-into-docs-and-working-summaries": {
+      "id": "risk:memory-drift-if-imported-sessions-are-not-curated-into-docs-and-working-summaries",
+      "type": "risk",
+      "title": "Memory drift if imported sessions are not curated into docs and working summaries.",
+      "status": "open",
+      "source_ref": ".control-tower/docs/state/known-risks.md"
+    },
+    "risk:session-ambiguity-if-tower-sessions-are-not-resumed-through-tower-resume": {
+      "id": "risk:session-ambiguity-if-tower-sessions-are-not-resumed-through-tower-resume",
+      "type": "risk",
+      "title": "Session ambiguity if Tower sessions are not resumed through `tower resume`.",
+      "status": "open",
+      "source_ref": ".control-tower/docs/state/known-risks.md"
+    },
+    "commit:eaa8a93b8238fe1ccbc6ed6c34ce36da86f8c6d6": {
+      "id": "commit:eaa8a93b8238fe1ccbc6ed6c34ce36da86f8c6d6",
+      "type": "commit",
+      "sha": "eaa8a93b8238fe1ccbc6ed6c34ce36da86f8c6d6",
+      "parents": [
+        "f787869b8f60145002d584e60595d62842f61c05"
+      ],
+      "authored_at": "2026-05-20T21:11:19-04:00",
+      "subject": "Add flashlight comparison rendering",
+      "files": []
+    },
+    "commit:f542d0b7c59077a313987cb58ec00f3ec8cb3bbd": {
+      "id": "commit:f542d0b7c59077a313987cb58ec00f3ec8cb3bbd",
+      "type": "commit",
+      "sha": "f542d0b7c59077a313987cb58ec00f3ec8cb3bbd",
+      "parents": [
+        "aa023ee0d6b2a19f2537338d1364427d652de215"
+      ],
+      "authored_at": "2026-01-10T17:00:44-08:00",
+      "subject": "Update README.md",
+      "files": []
+    },
+    "commit:67633f29bbf3fecc7206c3522bcbbb222e4cec8f": {
+      "id": "commit:67633f29bbf3fecc7206c3522bcbbb222e4cec8f",
+      "type": "commit",
+      "sha": "67633f29bbf3fecc7206c3522bcbbb222e4cec8f",
+      "parents": [
+        "d91227a1ed54a610e1f86f2d191abd3a0f3c3004"
+      ],
+      "authored_at": "2026-01-09T21:38:14-08:00",
+      "subject": "Update README.md",
+      "files": []
+    },
+    "commit:02ed5d6448191858623a32298a0704e34863ea9e": {
+      "id": "commit:02ed5d6448191858623a32298a0704e34863ea9e",
+      "type": "commit",
+      "sha": "02ed5d6448191858623a32298a0704e34863ea9e",
+      "parents": [
+        "8a02aaf19d0bb97acd3bc76418e9b70b1a350f73"
+      ],
+      "authored_at": "2024-09-13T22:04:18-07:00",
+      "subject": "refactored and cleaned up SpFunc interface",
+      "files": []
+    },
+    "commit:24b76fe46ec152f959a89c7dbcf1ac31da49bdbd": {
+      "id": "commit:24b76fe46ec152f959a89c7dbcf1ac31da49bdbd",
+      "type": "commit",
+      "sha": "24b76fe46ec152f959a89c7dbcf1ac31da49bdbd",
+      "parents": [
+        "64486c43ed6c4fc1fc3746aec4a0909ff739a142"
+      ],
+      "authored_at": "2024-08-25T17:01:43-07:00",
+      "subject": "work-in-progress example app for importing meshes from the Stanford 3D Scanning Repository",
+      "files": []
+    },
+    "commit:4dbf8be1d03b40e6238e238d9dd8c7086cea7284": {
+      "id": "commit:4dbf8be1d03b40e6238e238d9dd8c7086cea7284",
+      "type": "commit",
+      "sha": "4dbf8be1d03b40e6238e238d9dd8c7086cea7284",
+      "parents": [
+        "e1165c29fff90ff045f8f36b16a3691253e11509"
+      ],
+      "authored_at": "2024-06-16T11:56:23-07:00",
+      "subject": "Update building_spearsim.md",
+      "files": []
+    },
+    "commit:886ba79ced2c686b5d59ed6eb7370d59c661a3da": {
+      "id": "commit:886ba79ced2c686b5d59ed6eb7370d59c661a3da",
+      "type": "commit",
+      "sha": "886ba79ced2c686b5d59ed6eb7370d59c661a3da",
+      "parents": [
+        "33acd4ce1b35fa666ec222efbe8c75de6be6967f"
+      ],
+      "authored_at": "2024-06-12T01:51:50-07:00",
+      "subject": "improved strategy for handling args and return values in unreal_service.call_function(...)",
+      "files": []
+    },
+    "commit:5d583e67e0953faec64e0aed54004f616ebe47f1": {
+      "id": "commit:5d583e67e0953faec64e0aed54004f616ebe47f1",
+      "type": "commit",
+      "sha": "5d583e67e0953faec64e0aed54004f616ebe47f1",
+      "parents": [
+        "a556d2ad1c8ccf86ecd837db7ce355bd7dbf8059"
+      ],
+      "authored_at": "2024-06-12T01:01:24-07:00",
+      "subject": "fix logging bug",
+      "files": []
+    },
+    "commit:5de48675fa428488b97ef6802f94f3e6ce83784b": {
+      "id": "commit:5de48675fa428488b97ef6802f94f3e6ce83784b",
+      "type": "commit",
+      "sha": "5de48675fa428488b97ef6802f94f3e6ce83784b",
+      "parents": [
+        "0d2b7e2c90e4c78ccdf79b45777f9d8c89d38e9d"
+      ],
+      "authored_at": "2024-04-15T21:14:43-07:00",
+      "subject": "feature-complete implementation of CppFunc interface",
+      "files": []
+    },
+    "commit:f65f3614fd77ae30c1eb6d655407fd97b7143c66": {
+      "id": "commit:f65f3614fd77ae30c1eb6d655407fd97b7143c66",
+      "type": "commit",
+      "sha": "f65f3614fd77ae30c1eb6d655407fd97b7143c66",
+      "parents": [
+        "ebdd9ec0fe2af19ef90a4b622f6a0b710888b137"
+      ],
+      "authored_at": "2024-04-12T22:07:29-07:00",
+      "subject": "improved tools for calling cpp functions",
+      "files": []
+    },
+    "commit:54105d318ef21a18a2770c44780abdc158db77e9": {
+      "id": "commit:54105d318ef21a18a2770c44780abdc158db77e9",
+      "type": "commit",
+      "sha": "54105d318ef21a18a2770c44780abdc158db77e9",
+      "parents": [
+        "89b63d87600779cc790393ae4f5ddda50e216b0c"
+      ],
+      "authored_at": "2023-07-31T18:35:22-07:00",
+      "subject": "update build tools to build universal binaries on macOS",
+      "files": []
+    },
+    "commit:00cc19fc78fa00be3fcf183a1205f9eb63c2e9d7": {
+      "id": "commit:00cc19fc78fa00be3fcf183a1205f9eb63c2e9d7",
+      "type": "commit",
+      "sha": "00cc19fc78fa00be3fcf183a1205f9eb63c2e9d7",
+      "parents": [
+        "08ab856324975cfa4d4b0ea178d57d3a1440aa11"
+      ],
+      "authored_at": "2023-03-31T09:35:52-07:00",
+      "subject": "consistent capitalization for unreal command-line arguments",
+      "files": []
+    },
+    "commit:3850d249c7657ff72b7cf8df0870c3c793741c61": {
+      "id": "commit:3850d249c7657ff72b7cf8df0870c3c793741c61",
+      "type": "commit",
+      "sha": "3850d249c7657ff72b7cf8df0870c3c793741c61",
+      "parents": [
+        "8c34a4c4f4ae82094a20385697a6ba34eef8ef43"
+      ],
+      "authored_at": "2023-03-30T19:40:52-07:00",
+      "subject": "additional user input validation in create_symbolic_links.py",
+      "files": []
+    },
+    "commit:613fa11f918d4057ab08964416d62caca10cda4b": {
+      "id": "commit:613fa11f918d4057ab08964416d62caca10cda4b",
+      "type": "commit",
+      "sha": "613fa11f918d4057ab08964416d62caca10cda4b",
+      "parents": [
+        "14720fcc7f54f527974d2efa8f57b68c812cb057"
+      ],
+      "authored_at": "2022-12-09T17:22:36-08:00",
+      "subject": "update submodules",
+      "files": []
+    },
+    "commit:3d46b593068d95388946435c5a79aa4cbcbf76d5": {
+      "id": "commit:3d46b593068d95388946435c5a79aa4cbcbf76d5",
+      "type": "commit",
+      "sha": "3d46b593068d95388946435c5a79aa4cbcbf76d5",
+      "parents": [
+        "7b11615c93e3624d1669c19aec74e0cd0c5b2f32"
+      ],
+      "authored_at": "2022-12-09T15:58:51-08:00",
+      "subject": "minor code cleanup",
+      "files": []
+    },
+    "commit:8cf9919e3c7082936109f745330761a1ab2e1384": {
+      "id": "commit:8cf9919e3c7082936109f745330761a1ab2e1384",
+      "type": "commit",
+      "sha": "8cf9919e3c7082936109f745330761a1ab2e1384",
+      "parents": [
+        "23963b437e673a84303779b58ab6e9f3f29b6ac9"
+      ],
+      "authored_at": "2022-12-09T14:44:13-08:00",
+      "subject": "update teaser",
+      "files": []
+    },
+    "commit:00afbd502cc52aec251731eb47ca5a8ba75334aa": {
+      "id": "commit:00afbd502cc52aec251731eb47ca5a8ba75334aa",
+      "type": "commit",
+      "sha": "00afbd502cc52aec251731eb47ca5a8ba75334aa",
+      "parents": [
+        "7bf467ab4e1bec380409a06c06bf60e615d6571e"
+      ],
+      "authored_at": "2022-12-09T10:33:56-08:00",
+      "subject": "changelog and contributing docs",
+      "files": []
+    },
+    "commit:948d103126b694e2c5563207d2910286e2fb5630": {
+      "id": "commit:948d103126b694e2c5563207d2910286e2fb5630",
+      "type": "commit",
+      "sha": "948d103126b694e2c5563207d2910286e2fb5630",
+      "parents": [
+        "bcc56e24cecd5411968c06bd0447fc2515e0bbc1"
+      ],
+      "authored_at": "2022-12-09T10:23:49-08:00",
+      "subject": "remove depth_glsl from documentation",
+      "files": []
+    },
+    "commit:503db1ac5bb5cdb43a0303657f322c4f86e37fd1": {
+      "id": "commit:503db1ac5bb5cdb43a0303657f322c4f86e37fd1",
+      "type": "commit",
+      "sha": "503db1ac5bb5cdb43a0303657f322c4f86e37fd1",
+      "parents": [
+        "fbc53e453d7bf7453e4632d0116da1c12bbda7f3"
+      ],
+      "authored_at": "2022-12-08T23:23:23-08:00",
+      "subject": "fix absolute path assert",
+      "files": []
+    },
+    "commit:3ede5f53828044787fe653c6994efec162e774b0": {
+      "id": "commit:3ede5f53828044787fe653c6994efec162e774b0",
+      "type": "commit",
+      "sha": "3ede5f53828044787fe653c6994efec162e774b0",
+      "parents": [
+        "1ee9a273b1777cced55aaffa5bc4fbb5b39dc5cd"
+      ],
+      "authored_at": "2022-12-08T21:45:46-08:00",
+      "subject": "minor code cleanup",
+      "files": []
+    },
+    "commit:2d5ef9dd12d5e44c45d872fc0572f60ed3926a14": {
+      "id": "commit:2d5ef9dd12d5e44c45d872fc0572f60ed3926a14",
+      "type": "commit",
+      "sha": "2d5ef9dd12d5e44c45d872fc0572f60ed3926a14",
+      "parents": [
+        "d4254afddd9a7747c3582420601a9f042748ee14"
+      ],
+      "authored_at": "2022-12-08T21:07:22-08:00",
+      "subject": "minor code cleanup",
+      "files": []
+    },
+    "commit:f2cbc4a1bcc6b992dfa742ec75de2dcdaeb1e020": {
+      "id": "commit:f2cbc4a1bcc6b992dfa742ec75de2dcdaeb1e020",
+      "type": "commit",
+      "sha": "f2cbc4a1bcc6b992dfa742ec75de2dcdaeb1e020",
+      "parents": [
+        "1f95b3fe367b4eec164e399fcdd1803a50634f0d"
+      ],
+      "authored_at": "2022-12-08T20:28:02-08:00",
+      "subject": "minor code cleanup",
+      "files": []
+    },
+    "commit:3e6dc38cb71d3696e1b8dd8735752eda33482591": {
+      "id": "commit:3e6dc38cb71d3696e1b8dd8735752eda33482591",
+      "type": "commit",
+      "sha": "3e6dc38cb71d3696e1b8dd8735752eda33482591",
+      "parents": [
+        "b54b5809dca1c8698210869bf60ec8c8c2384f13"
+      ],
+      "authored_at": "2022-12-07T12:13:23-08:00",
+      "subject": "checking in README for getting started example",
+      "files": []
+    },
+    "commit:fd8688b4b6b1bef57241561027d55c755e8bf13b": {
+      "id": "commit:fd8688b4b6b1bef57241561027d55c755e8bf13b",
+      "type": "commit",
+      "sha": "fd8688b4b6b1bef57241561027d55c755e8bf13b",
+      "parents": [
+        "04dbf57c1912340debc1395b60485da8c5aaf184"
+      ],
+      "authored_at": "2022-12-05T11:29:41-08:00",
+      "subject": "web teaser image",
+      "files": []
+    },
+    "commit:59b5b6006c61f8475273a6b456bef7cd69f5469a": {
+      "id": "commit:59b5b6006c61f8475273a6b456bef7cd69f5469a",
+      "type": "commit",
+      "sha": "59b5b6006c61f8475273a6b456bef7cd69f5469a",
+      "parents": [
+        "d597d60955a563f4f2fe59b790cb9544ab15966d"
+      ],
+      "authored_at": "2022-11-30T17:43:01-08:00",
+      "subject": "fixed Python style in generate_image_dataset example",
+      "files": []
+    },
+    "commit:82b6e6b28cbc08d75b47958003ace1464c471dc2": {
+      "id": "commit:82b6e6b28cbc08d75b47958003ace1464c471dc2",
+      "type": "commit",
+      "sha": "82b6e6b28cbc08d75b47958003ace1464c471dc2",
+      "parents": [
+        "0cdafbeae6e4d56640641f7078c5e15c519da128"
+      ],
+      "authored_at": "2022-11-23T17:38:55-08:00",
+      "subject": "Update coding_guidelines.md",
+      "files": []
+    },
+    "commit:44a33aba27891f422a3809dd16533ac9f5a03f8c": {
+      "id": "commit:44a33aba27891f422a3809dd16533ac9f5a03f8c",
+      "type": "commit",
+      "sha": "44a33aba27891f422a3809dd16533ac9f5a03f8c",
+      "parents": [
+        "515bdfa7956a27e7f950a53d78f104a1220a5a5d"
+      ],
+      "authored_at": "2022-11-23T23:23:46+01:00",
+      "subject": "Updated Spear documentation",
+      "files": []
+    },
+    "commit:71f363637cf0445de837bcafbd51e3602d2c9f24": {
+      "id": "commit:71f363637cf0445de837bcafbd51e3602d2c9f24",
+      "type": "commit",
+      "sha": "71f363637cf0445de837bcafbd51e3602d2c9f24",
+      "parents": [
+        "d53037a80889a32bc94f3460e2b751b263cc1ef2",
+        "120be1d800751d1e07c51d8178500abf4f3dbaef"
+      ],
+      "authored_at": "2022-11-21T17:50:14+01:00",
+      "subject": "Merge branch 'main' of github.com:isl-org/spear into quentin-leboutet/SonarSensor",
+      "files": []
+    },
+    "commit:d53037a80889a32bc94f3460e2b751b263cc1ef2": {
+      "id": "commit:d53037a80889a32bc94f3460e2b751b263cc1ef2",
+      "type": "commit",
+      "sha": "d53037a80889a32bc94f3460e2b751b263cc1ef2",
+      "parents": [
+        "09f8fbe17867214a200cc4f3617fcb65c0629672"
+      ],
+      "authored_at": "2022-11-21T17:50:09+01:00",
+      "subject": "Solved all bugs",
+      "files": []
+    },
+    "commit:6a9e2564cc739a1b61d06c59a94f4b58364c3cbd": {
+      "id": "commit:6a9e2564cc739a1b61d06c59a94f4b58364c3cbd",
+      "type": "commit",
+      "sha": "6a9e2564cc739a1b61d06c59a94f4b58364c3cbd",
+      "parents": [
+        "90a45d4fda74eeed54a9f415426b09eba0e55c1b"
+      ],
+      "authored_at": "2022-11-18T19:18:49+01:00",
+      "subject": "Marti/spearsim project (#119)",
+      "files": []
+    },
+    "commit:ac89241d517d93ad09b60f7f821f625b08465b63": {
+      "id": "commit:ac89241d517d93ad09b60f7f821f625b08465b63",
+      "type": "commit",
+      "sha": "ac89241d517d93ad09b60f7f821f625b08465b63",
+      "parents": [
+        "b0688e7d8dfacec9dab1c0576cc8c1f821f1c1ef"
+      ],
+      "authored_at": "2022-11-17T16:55:20-08:00",
+      "subject": "minor correction to scene_downloader",
+      "files": []
+    },
+    "commit:ed18ee32e1d98c51793911cc430f6f2fbd22c238": {
+      "id": "commit:ed18ee32e1d98c51793911cc430f6f2fbd22c238",
+      "type": "commit",
+      "sha": "ed18ee32e1d98c51793911cc430f6f2fbd22c238",
+      "parents": [
+        "8217c4a3e5a4f090a7c1e76ee92dc36e19f26308"
+      ],
+      "authored_at": "2022-11-16T09:41:26-08:00",
+      "subject": "cleaned up includes, improved build (#115)",
+      "files": []
+    },
+    "commit:6467600a63d592ce0b5506789dac5605c2ca2d12": {
+      "id": "commit:6467600a63d592ce0b5506789dac5605c2ca2d12",
+      "type": "commit",
+      "sha": "6467600a63d592ce0b5506789dac5605c2ca2d12",
+      "parents": [
+        "b3e979149869584294dea7845815050fc09468fa"
+      ],
+      "authored_at": "2022-11-15T10:53:30+01:00",
+      "subject": "update",
+      "files": []
+    },
+    "commit:70632c6894434485614fdab6ad65b450a130e23c": {
+      "id": "commit:70632c6894434485614fdab6ad65b450a130e23c",
+      "type": "commit",
+      "sha": "70632c6894434485614fdab6ad65b450a130e23c",
+      "parents": [
+        "a46b14290e79a544c82404d7ba44150832c50d81"
+      ],
+      "authored_at": "2022-11-15T07:59:24+01:00",
+      "subject": "removed python module",
+      "files": []
+    },
+    "commit:a5cb3c5f1729e3b818c655f28b2dc32bc0fdbe09": {
+      "id": "commit:a5cb3c5f1729e3b818c655f28b2dc32bc0fdbe09",
+      "type": "commit",
+      "sha": "a5cb3c5f1729e3b818c655f28b2dc32bc0fdbe09",
+      "parents": [
+        "2b3f2dca2230e22025a788d74ffda49644cfb355"
+      ],
+      "authored_at": "2022-11-14T23:56:55+01:00",
+      "subject": "Soved bug in the Camera Sensor",
+      "files": []
+    },
+    "commit:0384c17d2bc7b2b90ecc40e3278549e2ce2176a3": {
+      "id": "commit:0384c17d2bc7b2b90ecc40e3278549e2ce2176a3",
+      "type": "commit",
+      "sha": "0384c17d2bc7b2b90ecc40e3278549e2ce2176a3",
+      "parents": [
+        "6a3dcb8f7817b37550dca6829ed73abd132d2f2b"
+      ],
+      "authored_at": "2022-11-11T15:32:05+08:00",
+      "subject": "scene downloader (#114)",
+      "files": []
+    },
+    "commit:ac45f1f8a6ebe5f098d2eaeb06abd78588b116f9": {
+      "id": "commit:ac45f1f8a6ebe5f098d2eaeb06abd78588b116f9",
+      "type": "commit",
+      "sha": "ac45f1f8a6ebe5f098d2eaeb06abd78588b116f9",
+      "parents": [
+        "b5d23469f9f63124e104ca6b6b98abb4b5a4bd05"
+      ],
+      "authored_at": "2022-11-09T22:31:51+01:00",
+      "subject": "minor update",
+      "files": []
+    },
+    "commit:1d2b04e976aa01049d24b7e2921e5f04662ebbd5": {
+      "id": "commit:1d2b04e976aa01049d24b7e2921e5f04662ebbd5",
+      "type": "commit",
+      "sha": "1d2b04e976aa01049d24b7e2921e5f04662ebbd5",
+      "parents": [
+        "d040655d70e7cd069a31d9e00eaad03c0cbfcf8b"
+      ],
+      "authored_at": "2022-11-08T16:03:28-08:00",
+      "subject": "Update getting_started.md",
+      "files": []
+    },
+    "commit:bf41fd1e8c33bb8cb89d7b5c3240d225a8780ddb": {
+      "id": "commit:bf41fd1e8c33bb8cb89d7b5c3240d225a8780ddb",
+      "type": "commit",
+      "sha": "bf41fd1e8c33bb8cb89d7b5c3240d225a8780ddb",
+      "parents": [
+        "e68ce9202d2b90eac5068f897ccba5349e45a21a"
+      ],
+      "authored_at": "2022-11-08T11:27:04+01:00",
+      "subject": "update",
+      "files": []
+    },
+    "commit:619dcc8d4f0fd541dd89ea8a96052e4638d53331": {
+      "id": "commit:619dcc8d4f0fd541dd89ea8a96052e4638d53331",
+      "type": "commit",
+      "sha": "619dcc8d4f0fd541dd89ea8a96052e4638d53331",
+      "parents": [
+        "cbe42d93fef52fe14331e6658bec28ba601338ad"
+      ],
+      "authored_at": "2022-11-03T14:33:12-07:00",
+      "subject": "- removed RobotSim and VirtualWorldManager - cleaned up and improved IgnoreCompilerWarnings.h to account for PhysX deprecation warnings - clean up uproject/uplugin/Build.cs files and remove extraneous dependencies",
+      "files": []
+    },
+    "commit:65a9e08b6166bfde001d50ea68719a0fe2fd7b73": {
+      "id": "commit:65a9e08b6166bfde001d50ea68719a0fe2fd7b73",
+      "type": "commit",
+      "sha": "65a9e08b6166bfde001d50ea68719a0fe2fd7b73",
+      "parents": [
+        "b665506f2d3dc4330885b76bf03c542dc894b4aa"
+      ],
+      "authored_at": "2022-10-05T11:55:58+02:00",
+      "subject": "Modified folder name in /code/experimental/from iclr_experiment to segmentation_experiment",
+      "files": []
+    },
+    "commit:819d31cbcde68b88343c5e904b02c1ce958509f9": {
+      "id": "commit:819d31cbcde68b88343c5e904b02c1ce958509f9",
+      "type": "commit",
+      "sha": "819d31cbcde68b88343c5e904b02c1ce958509f9",
+      "parents": [
+        "3c265e02c04da79c1a7cc01728f31e6c67ad0d0f"
+      ],
+      "authored_at": "2022-08-25T19:21:41+02:00",
+      "subject": "Last minor fix",
+      "files": []
+    },
+    "commit:d85723ce0154b288a318584ba1e74e74cfced2ec": {
+      "id": "commit:d85723ce0154b288a318584ba1e74e74cfced2ec",
+      "type": "commit",
+      "sha": "d85723ce0154b288a318584ba1e74e74cfced2ec",
+      "parents": [
+        "98bbec9df1836dce09e87a22e57023a79949555d"
+      ],
+      "authored_at": "2022-08-25T07:05:46-07:00",
+      "subject": "improved step info (#91)",
+      "files": []
+    },
+    "commit:81eb2e61359e4c56088b1475bc8d6174718ca679": {
+      "id": "commit:81eb2e61359e4c56088b1475bc8d6174718ca679",
+      "type": "commit",
+      "sha": "81eb2e61359e4c56088b1475bc8d6174718ca679",
+      "parents": [
+        "3f59e495013fb4a5ab56fa590948ca9cb8ca7542"
+      ],
+      "authored_at": "2022-08-24T19:33:24+02:00",
+      "subject": "Quentin + Mike code review V2",
+      "files": []
+    },
+    "commit:602468e485792d762af3607306b26a70307b6425": {
+      "id": "commit:602468e485792d762af3607306b26a70307b6425",
+      "type": "commit",
+      "sha": "602468e485792d762af3607306b26a70307b6425",
+      "parents": [
+        "bd1d6441d852ead69096b9823996eceea7914e5e"
+      ],
+      "authored_at": "2022-08-03T18:12:00+02:00",
+      "subject": "updated the navigation. Not done yet with the PR",
+      "files": []
+    },
+    "commit:ecad0ce5d5c636caea05eb2b317d9afa152369da": {
+      "id": "commit:ecad0ce5d5c636caea05eb2b317d9afa152369da",
+      "type": "commit",
+      "sha": "ecad0ce5d5c636caea05eb2b317d9afa152369da",
+      "parents": [
+        "75497a7319abdb694fd15dd21f68e990d6b9ee9e",
+        "b0ee262eefa9ebe61e42e6b662f55e2903747645"
+      ],
+      "authored_at": "2022-07-20T15:27:09+02:00",
+      "subject": "Merge pull request #83 from isl-org/marti/setup",
+      "files": []
+    },
+    "commit:b0ee262eefa9ebe61e42e6b662f55e2903747645": {
+      "id": "commit:b0ee262eefa9ebe61e42e6b662f55e2903747645",
+      "type": "commit",
+      "sha": "b0ee262eefa9ebe61e42e6b662f55e2903747645",
+      "parents": [
+        "33dda5ba42bf2972fb4842d6aa5e6b1fa64c6758"
+      ],
+      "authored_at": "2022-07-20T15:25:41+02:00",
+      "subject": "restoring space in env.py",
+      "files": []
+    },
+    "commit:eb3cb07a138186d1d2e7671159c93017a824391f": {
+      "id": "commit:eb3cb07a138186d1d2e7671159c93017a824391f",
+      "type": "commit",
+      "sha": "eb3cb07a138186d1d2e7671159c93017a824391f",
+      "parents": [
+        "ec7bf60018493f0add1c4dbc62cd5d811e8cbcf0"
+      ],
+      "authored_at": "2022-05-09T12:38:58+02:00",
+      "subject": "updated training scripts",
+      "files": []
+    },
+    "commit:51aeb8f72889b236fb66654bae6f4115b10600b3": {
+      "id": "commit:51aeb8f72889b236fb66654bae6f4115b10600b3",
+      "type": "commit",
+      "sha": "51aeb8f72889b236fb66654bae6f4115b10600b3",
+      "parents": [
+        "16bb20ed5b4d66ab9b29260f41bb9c9ea2f23fe6"
+      ],
+      "authored_at": "2022-04-27T20:25:42+02:00",
+      "subject": "got a working autopilot",
+      "files": []
+    },
+    "commit:00df20505b1914b893c88a5a9042e976e1064ec5": {
+      "id": "commit:00df20505b1914b893c88a5a9042e976e1064ec5",
+      "type": "commit",
+      "sha": "00df20505b1914b893c88a5a9042e976e1064ec5",
+      "parents": [
+        "1edb7597acf4f4711fffe770204bee22e8932da7"
+      ],
+      "authored_at": "2022-04-27T13:18:02+02:00",
+      "subject": "Updated the tfrecord crop function",
+      "files": []
+    },
+    "commit:e4fbf892a51a7dcdf13c84f69cdf7930a222257d": {
+      "id": "commit:e4fbf892a51a7dcdf13c84f69cdf7930a222257d",
+      "type": "commit",
+      "sha": "e4fbf892a51a7dcdf13c84f69cdf7930a222257d",
+      "parents": [
+        "75f401e27ff7f3037a980a44b75fe8ab57adaa23"
+      ],
+      "authored_at": "2022-04-25T18:45:20+02:00",
+      "subject": "updated autopilot",
+      "files": []
+    },
+    "commit:ddcaeeab13e46bc2826ca1265b8e064ee941dfe1": {
+      "id": "commit:ddcaeeab13e46bc2826ca1265b8e064ee941dfe1",
+      "type": "commit",
+      "sha": "ddcaeeab13e46bc2826ca1265b8e064ee941dfe1",
+      "parents": [
+        "2eccc152a5db2cc07eee0b6a39f70da02d885174"
+      ],
+      "authored_at": "2022-04-21T11:29:44-07:00",
+      "subject": "address PR comments",
+      "files": []
+    },
+    "commit:f9a6b536044a915e33b5c4ee14b21e8a83dbaf94": {
+      "id": "commit:f9a6b536044a915e33b5c4ee14b21e8a83dbaf94",
+      "type": "commit",
+      "sha": "f9a6b536044a915e33b5c4ee14b21e8a83dbaf94",
+      "parents": [
+        "4c62310005a43d7c8c67d830100764b64cc3d15b"
+      ],
+      "authored_at": "2022-04-21T09:55:48-07:00",
+      "subject": "minor updates",
+      "files": []
+    },
+    "commit:038555c50369a9f817b8e7efaea49600472a12bb": {
+      "id": "commit:038555c50369a9f817b8e7efaea49600472a12bb",
+      "type": "commit",
+      "sha": "038555c50369a9f817b8e7efaea49600472a12bb",
+      "parents": [
+        "f09cb5e2d413f6b2fdc6b1d0b6b3256d0b4c9fe4"
+      ],
+      "authored_at": "2022-04-20T17:37:43-07:00",
+      "subject": "general-purpose implementation of step_info (#64)",
+      "files": []
+    },
+    "commit:3750bea879ab7d09f22d6bec692022891c7931cd": {
+      "id": "commit:3750bea879ab7d09f22d6bec692022891c7931cd",
+      "type": "commit",
+      "sha": "3750bea879ab7d09f22d6bec692022891c7931cd",
+      "parents": [
+        "cea3d92e24cc0c3708b93f37414698b1a659afdc"
+      ],
+      "authored_at": "2022-04-19T09:18:10-07:00",
+      "subject": "openbot working with run.py",
+      "files": []
+    },
+    "commit:cc34e90503876e7171a2e58369757f9bc59278d8": {
+      "id": "commit:cc34e90503876e7171a2e58369757f9bc59278d8",
+      "type": "commit",
+      "sha": "cc34e90503876e7171a2e58369757f9bc59278d8",
+      "parents": [
+        "5509181db9da974ce779027bc9d6b7ada28754b8"
+      ],
+      "authored_at": "2022-04-19T15:10:48+08:00",
+      "subject": "update README for SceneManager",
+      "files": []
+    },
+    "commit:6b02837a3c0949b8f5d5f6726898004698be58a8": {
+      "id": "commit:6b02837a3c0949b8f5d5f6726898004698be58a8",
+      "type": "commit",
+      "sha": "6b02837a3c0949b8f5d5f6726898004698be58a8",
+      "parents": [
+        "10eaeec2d3bdc25d618a159bf38c9289324d4a5b"
+      ],
+      "authored_at": "2022-04-14T23:11:08+02:00",
+      "subject": "Checked that everything compiles. Modified the run.py script in the experiment folder. Got an issue related to settings.json not being found...",
+      "files": []
+    },
+    "commit:6a09dda5c691185fdb966c15fbe442a4f74e99da": {
+      "id": "commit:6a09dda5c691185fdb966c15fbe442a4f74e99da",
+      "type": "commit",
+      "sha": "6a09dda5c691185fdb966c15fbe442a4f74e99da",
+      "parents": [
+        "fdeb00a61756f7952e546a53ddf660116fc824f3",
+        "3f71b2b0cc0e48def43dd5eeb26c3e76c0643aff"
+      ],
+      "authored_at": "2022-04-14T20:47:33+02:00",
+      "subject": "merging",
+      "files": []
+    },
+    "commit:c60f7301773af039951920fc7987d7f5405990f4": {
+      "id": "commit:c60f7301773af039951920fc7987d7f5405990f4",
+      "type": "commit",
+      "sha": "c60f7301773af039951920fc7987d7f5405990f4",
+      "parents": [
+        "3128e62de9d168ae47c1055af3d46e6f5b9bb750"
+      ],
+      "authored_at": "2022-04-14T11:46:58-07:00",
+      "subject": "Update README.md (#50)",
+      "files": []
+    },
+    "commit:e1ec86449079a0adf1dbf8915ec2f40c56a91c84": {
+      "id": "commit:e1ec86449079a0adf1dbf8915ec2f40c56a91c84",
+      "type": "commit",
+      "sha": "e1ec86449079a0adf1dbf8915ec2f40c56a91c84",
+      "parents": [
+        "d6c1510c514d96c892948f305778c6be13788b66"
+      ],
+      "authored_at": "2022-04-14T09:55:48+02:00",
+      "subject": "update coding style and getting ready for large scale data collection",
+      "files": []
+    },
+    "commit:e81564043ca359abea5b4b9dc780463214229af0": {
+      "id": "commit:e81564043ca359abea5b4b9dc780463214229af0",
+      "type": "commit",
+      "sha": "e81564043ca359abea5b4b9dc780463214229af0",
+      "parents": [
+        "5cddf1f2708e174cc6877a64a4bb6a7e2aececbb"
+      ],
+      "authored_at": "2022-04-13T10:30:22-07:00",
+      "subject": "update whitespaces",
+      "files": []
+    },
+    "commit:b5820166bff077f3cb8fa1ed60c43a5f1647482f": {
+      "id": "commit:b5820166bff077f3cb8fa1ed60c43a5f1647482f",
+      "type": "commit",
+      "sha": "b5820166bff077f3cb8fa1ed60c43a5f1647482f",
+      "parents": [
+        "badaffe8557e42aa259d804ae9cd0d25f48488c7"
+      ],
+      "authored_at": "2022-04-07T10:01:39+08:00",
+      "subject": "update virtualworld log",
+      "files": []
+    },
+    "commit:3f8ec95534e02e9882bffe1a185f83ed610a7e97": {
+      "id": "commit:3f8ec95534e02e9882bffe1a185f83ed610a7e97",
+      "type": "commit",
+      "sha": "3f8ec95534e02e9882bffe1a185f83ed610a7e97",
+      "parents": [
+        "ccd10e643a001e4cfad1e6c41028deb83c817fb0"
+      ],
+      "authored_at": "2022-04-05T23:32:40-07:00",
+      "subject": "update ActorHitEvent class to work with collision events",
+      "files": []
+    },
+    "commit:64a3051520c2ffaa382efe7c9c6f00f793bdd410": {
+      "id": "commit:64a3051520c2ffaa382efe7c9c6f00f793bdd410",
+      "type": "commit",
+      "sha": "64a3051520c2ffaa382efe7c9c6f00f793bdd410",
+      "parents": [
+        "8da9eaa950e92c70affa72ec075ee340f7ed5873"
+      ],
+      "authored_at": "2022-04-06T09:35:01+08:00",
+      "subject": "minor fix",
+      "files": []
+    },
+    "commit:ebbc60aa4a51bcde8d16d121504fef3632c265dd": {
+      "id": "commit:ebbc60aa4a51bcde8d16d121504fef3632c265dd",
+      "type": "commit",
+      "sha": "ebbc60aa4a51bcde8d16d121504fef3632c265dd",
+      "parents": [
+        "2db5a3ca2e6600a4a347a9420cd1a4cc6e9d8db1",
+        "31608392e006ebd7e611b1c8f4e0e108a47d14ed"
+      ],
+      "authored_at": "2022-03-21T15:11:27-07:00",
+      "subject": "Merge pull request #45 from isl-org/rachithp/update-rbdl-version",
+      "files": []
+    },
+    "commit:31608392e006ebd7e611b1c8f4e0e108a47d14ed": {
+      "id": "commit:31608392e006ebd7e611b1c8f4e0e108a47d14ed",
+      "type": "commit",
+      "sha": "31608392e006ebd7e611b1c8f4e0e108a47d14ed",
+      "parents": [
+        "2db5a3ca2e6600a4a347a9420cd1a4cc6e9d8db1"
+      ],
+      "authored_at": "2022-03-21T10:36:42-07:00",
+      "subject": "remove specific RBDL commit requirement",
+      "files": []
+    },
+    "commit:5af695d6d67293ea485e4b8e8f94dba5546a59c6": {
+      "id": "commit:5af695d6d67293ea485e4b8e8f94dba5546a59c6",
+      "type": "commit",
+      "sha": "5af695d6d67293ea485e4b8e8f94dba5546a59c6",
+      "parents": [
+        "f344195623496ac96d418fb9396b6d7a9df5e33a",
+        "63d9be24c09c1e24c8af30d8f5d2155e537047c8"
+      ],
+      "authored_at": "2022-03-15T13:45:47-07:00",
+      "subject": "Merge branch 'rachithp/migrate-plugins' of https://github.com/isl-org/interiorsim into rachithp/migrate-plugins",
+      "files": []
+    },
+    "commit:63d9be24c09c1e24c8af30d8f5d2155e537047c8": {
+      "id": "commit:63d9be24c09c1e24c8af30d8f5d2155e537047c8",
+      "type": "commit",
+      "sha": "63d9be24c09c1e24c8af30d8f5d2155e537047c8",
+      "parents": [
+        "2f8cf9b2b0a31f592f5077d754847ab593551a84"
+      ],
+      "authored_at": "2022-03-15T13:44:06-07:00",
+      "subject": "add simulationcontroller rough draft",
+      "files": []
+    },
+    "commit:48d231d0e331e7ba0137f1953888eea7eddf6c0e": {
+      "id": "commit:48d231d0e331e7ba0137f1953888eea7eddf6c0e",
+      "type": "commit",
+      "sha": "48d231d0e331e7ba0137f1953888eea7eddf6c0e",
+      "parents": [
+        "03522bc5d6adfd3c7d0b7ee30e7da53493e4bb0d"
+      ],
+      "authored_at": "2022-03-15T09:15:16-07:00",
+      "subject": "Update README.md",
+      "files": []
+    },
+    "commit:f63da1a974be02e1947c45655a44b4222fd883ff": {
+      "id": "commit:f63da1a974be02e1947c45655a44b4222fd883ff",
+      "type": "commit",
+      "sha": "f63da1a974be02e1947c45655a44b4222fd883ff",
+      "parents": [
+        "72aca14f3b4ed46f31fe6295c4e78fde077b43d6"
+      ],
+      "authored_at": "2022-03-15T08:56:33+01:00",
+      "subject": "Modified interiorsim/code/experiments/rl_openbot/README.md removing the section ***Build and run RobotProject through the Unreal Editor***",
+      "files": []
+    },
+    "commit:6a9767c51ed65ece8b2dfe916f5fae14cdbcb334": {
+      "id": "commit:6a9767c51ed65ece8b2dfe916f5fae14cdbcb334",
+      "type": "commit",
+      "sha": "6a9767c51ed65ece8b2dfe916f5fae14cdbcb334",
+      "parents": [
+        "2f8cf9b2b0a31f592f5077d754847ab593551a84",
+        "7d66f1350a9cc9ec7310801cfe170ed2048c753b"
+      ],
+      "authored_at": "2022-03-14T18:03:13+01:00",
+      "subject": "Merge pull request #40 from isl-org/rachithp/remove-unrealai-submodule",
+      "files": []
+    },
+    "commit:13bd7067f53bb06ad20c4df3dd0fc9937e52ff42": {
+      "id": "commit:13bd7067f53bb06ad20c4df3dd0fc9937e52ff42",
+      "type": "commit",
+      "sha": "13bd7067f53bb06ad20c4df3dd0fc9937e52ff42",
+      "parents": [
+        "844ba163bc72c94de25623abcb39d08300e6e4ea"
+      ],
+      "authored_at": "2022-03-14T18:00:19+01:00",
+      "subject": "Fixed code style. again !",
+      "files": []
+    },
+    "commit:e0e8bbfc84a7f4d1e23084d86612021cece27a5c": {
+      "id": "commit:e0e8bbfc84a7f4d1e23084d86612021cece27a5c",
+      "type": "commit",
+      "sha": "e0e8bbfc84a7f4d1e23084d86612021cece27a5c",
+      "parents": [
+        "60368a84bfc31a5c1b667b4e11c436d478bfac0d"
+      ],
+      "authored_at": "2022-02-18T19:05:53+08:00",
+      "subject": "minor change",
+      "files": []
+    },
+    "commit:65dbfed67f57f0f6fd82c3aceffec93074b62427": {
+      "id": "commit:65dbfed67f57f0f6fd82c3aceffec93074b62427",
+      "type": "commit",
+      "sha": "65dbfed67f57f0f6fd82c3aceffec93074b62427",
+      "parents": [
+        "23f5ee549e3887fd55e560d44e27ab47128e4d6b"
+      ],
+      "authored_at": "2022-02-15T23:21:06-08:00",
+      "subject": "minor changes",
+      "files": []
+    },
+    "commit:21190365ea31125256ee691a34d655aad488b9ca": {
+      "id": "commit:21190365ea31125256ee691a34d655aad488b9ca",
+      "type": "commit",
+      "sha": "21190365ea31125256ee691a34d655aad488b9ca",
+      "parents": [
+        "d92f7bc6a0349b2fd4e89dadccf633296160fc71"
+      ],
+      "authored_at": "2022-01-20T12:42:36-08:00",
+      "subject": "Add InteriorSimBridge plugin doc and python client example code",
+      "files": []
+    },
+    "commit:a654925a0372fdebe02ff58d0776c68588713393": {
+      "id": "commit:a654925a0372fdebe02ff58d0776c68588713393",
+      "type": "commit",
+      "sha": "a654925a0372fdebe02ff58d0776c68588713393",
+      "parents": [
+        "b87e859cd56144aeea5766aef8305d114f9f19af"
+      ],
+      "authored_at": "2022-01-19T02:51:27-08:00",
+      "subject": "Add InSim plugin",
+      "files": []
+    },
+    "commit:54ec9fdfe2121262eb8b1069f46c539223162f0b": {
+      "id": "commit:54ec9fdfe2121262eb8b1069f46c539223162f0b",
+      "type": "commit",
+      "sha": "54ec9fdfe2121262eb8b1069f46c539223162f0b",
+      "parents": [
+        "0bfe9ba4dff4003bfa1016f1f08dca87a162d640",
+        "163b8092c3f92a23a62a221fb73d85c3a8c61830"
+      ],
+      "authored_at": "2022-01-19T10:08:33+08:00",
+      "subject": "Merge pull request #35 from isl-org/kujiale/cmd-line-config",
+      "files": []
+    },
+    "commit:0bfe9ba4dff4003bfa1016f1f08dca87a162d640": {
+      "id": "commit:0bfe9ba4dff4003bfa1016f1f08dca87a162d640",
+      "type": "commit",
+      "sha": "0bfe9ba4dff4003bfa1016f1f08dca87a162d640",
+      "parents": [
+        "55fbd278b45b4dfdc403c447cec77130dcefbc57",
+        "163d586805f7ffc2ba4ac0aaac4d2c979ac969d1"
+      ],
+      "authored_at": "2022-01-19T10:07:12+08:00",
+      "subject": "Merge pull request #36 from isl-org/kujiale/game-mode-setting",
+      "files": []
+    },
+    "commit:163b8092c3f92a23a62a221fb73d85c3a8c61830": {
+      "id": "commit:163b8092c3f92a23a62a221fb73d85c3a8c61830",
+      "type": "commit",
+      "sha": "163b8092c3f92a23a62a221fb73d85c3a8c61830",
+      "parents": [
+        "c349bf530b26c8cca062f888d8ce6ccb8b405d8b"
+      ],
+      "authored_at": "2022-01-19T10:04:28+08:00",
+      "subject": "fix typo",
+      "files": []
+    },
+    "commit:fd7ec44e119537a6644866582bad62165919f967": {
+      "id": "commit:fd7ec44e119537a6644866582bad62165919f967",
+      "type": "commit",
+      "sha": "fd7ec44e119537a6644866582bad62165919f967",
+      "parents": [
+        "91462088403a418e861d64d6456f74bf2dc93ce7"
+      ],
+      "authored_at": "2022-01-14T11:10:32+08:00",
+      "subject": "latest RobotSim function from b5516b13",
+      "files": []
+    },
+    "commit:e5ce8f07d6ce1062d83543c4099255069a300b21": {
+      "id": "commit:e5ce8f07d6ce1062d83543c4099255069a300b21",
+      "type": "commit",
+      "sha": "e5ce8f07d6ce1062d83543c4099255069a300b21",
+      "parents": [
+        "4b189b49bb5c78ecbcc94067778b7960d0c54a03"
+      ],
+      "authored_at": "2021-12-15T16:51:39+08:00",
+      "subject": "format",
+      "files": []
+    },
+    "commit:33b88ddd71a3382903247d69e10eda6809c2ad3b": {
+      "id": "commit:33b88ddd71a3382903247d69e10eda6809c2ad3b",
+      "type": "commit",
+      "sha": "33b88ddd71a3382903247d69e10eda6809c2ad3b",
+      "parents": [
+        "f56c74d55ad5fdc530ca94692e9b406998316af5"
+      ],
+      "authored_at": "2021-11-15T17:44:34+08:00",
+      "subject": "Update code style.",
+      "files": []
+    },
+    "commit:4a15e14f9597d00c785bd76e013c3b6c0c2501e9": {
+      "id": "commit:4a15e14f9597d00c785bd76e013c3b6c0c2501e9",
+      "type": "commit",
+      "sha": "4a15e14f9597d00c785bd76e013c3b6c0c2501e9",
+      "parents": [
+        "2015edbcd144203c317bbd5eedfcbdca1fc98a08"
+      ],
+      "authored_at": "2021-11-02T16:12:19+08:00",
+      "subject": "Update final 100 virtualworlds.",
+      "files": []
+    },
+    "commit:1d7aee049476158a09ef7dc6b232d7975263144e": {
+      "id": "commit:1d7aee049476158a09ef7dc6b232d7975263144e",
+      "type": "commit",
+      "sha": "1d7aee049476158a09ef7dc6b232d7975263144e",
+      "parents": [
+        "5022e48bd9bcfa7b51937225db9022cf7a96f3f6",
+        "d47d78e415f545aa76cd79d73fd8e9b1d6a68ebc"
+      ],
+      "authored_at": "2021-10-25T19:42:01+08:00",
+      "subject": "Merge pull request #20 from isl-org/rachithp/scene-manager-update",
+      "files": []
+    },
+    "commit:d47d78e415f545aa76cd79d73fd8e9b1d6a68ebc": {
+      "id": "commit:d47d78e415f545aa76cd79d73fd8e9b1d6a68ebc",
+      "type": "commit",
+      "sha": "d47d78e415f545aa76cd79d73fd8e9b1d6a68ebc",
+      "parents": [
+        "f846d7a8b60ffde2ae37b27dc811ef316a7765a7"
+      ],
+      "authored_at": "2021-10-24T22:05:27-07:00",
+      "subject": "add plugins for python dependecy",
+      "files": []
+    },
+    "commit:10a417fd476fd57ca934bcd9cdcc5fefb10b583d": {
+      "id": "commit:10a417fd476fd57ca934bcd9cdcc5fefb10b583d",
+      "type": "commit",
+      "sha": "10a417fd476fd57ca934bcd9cdcc5fefb10b583d",
+      "parents": [
+        "2c2b6611e73641e2f4352ec843c24d80c73bf1f4"
+      ],
+      "authored_at": "2021-10-19T19:19:45-07:00",
+      "subject": "Revert \"Revert \"remove python code from content\"\"",
+      "files": []
+    },
+    "commit:2b491f0dc7dd93f7f2e3d23fe4ae95cf31e9e57d": {
+      "id": "commit:2b491f0dc7dd93f7f2e3d23fe4ae95cf31e9e57d",
+      "type": "commit",
+      "sha": "2b491f0dc7dd93f7f2e3d23fe4ae95cf31e9e57d",
+      "parents": [
+        "8e9bceb4196cdfad5ab4f27579bf8053f9c022d9"
+      ],
+      "authored_at": "2021-10-13T11:50:39+08:00",
+      "subject": "replace wheel mesh with cylinder for better stability",
+      "files": []
+    },
+    "commit:b9e66e814ee1709bd147fee7c9b141d5b5f4fd34": {
+      "id": "commit:b9e66e814ee1709bd147fee7c9b141d5b5f4fd34",
+      "type": "commit",
+      "sha": "b9e66e814ee1709bd147fee7c9b141d5b5f4fd34",
+      "parents": [
+        "521a863397c6465681fcc31a31fbedb942f5b378"
+      ],
+      "authored_at": "2021-10-11T16:36:09+08:00",
+      "subject": "Change enviroment map and segmentation material.",
+      "files": []
+    },
+    "commit:9c2d83b86c4850afd4cb49bf815dab37ba8013b6": {
+      "id": "commit:9c2d83b86c4850afd4cb49bf815dab37ba8013b6",
+      "type": "commit",
+      "sha": "9c2d83b86c4850afd4cb49bf815dab37ba8013b6",
+      "parents": [
+        "52e671d5e3f79c4957dac235ce91d50aa5d7372a"
+      ],
+      "authored_at": "2021-09-27T12:39:20-07:00",
+      "subject": "eof new line",
+      "files": []
+    },
+    "commit:57676b413aef0331809c34a339411dc56f6f85cd": {
+      "id": "commit:57676b413aef0331809c34a339411dc56f6f85cd",
+      "type": "commit",
+      "sha": "57676b413aef0331809c34a339411dc56f6f85cd",
+      "parents": [
+        "3b92917a12bdb8645eb57742508093be3184b49b"
+      ],
+      "authored_at": "2021-09-23T17:46:24+08:00",
+      "subject": "Update README.md",
+      "files": []
+    },
+    "commit:73a78d954bcc6c24995170913e1ac306e8e00e37": {
+      "id": "commit:73a78d954bcc6c24995170913e1ac306e8e00e37",
+      "type": "commit",
+      "sha": "73a78d954bcc6c24995170913e1ac306e8e00e37",
+      "parents": [
+        "0b9b0bae5637624eb237e562c2f55da5b417fd4b"
+      ],
+      "authored_at": "2021-09-18T15:25:32+08:00",
+      "subject": "fix format issue",
+      "files": []
+    },
+    "commit:f7f377dc8a82fdc7abacccfb789737f6490e797c": {
+      "id": "commit:f7f377dc8a82fdc7abacccfb789737f6490e797c",
+      "type": "commit",
+      "sha": "f7f377dc8a82fdc7abacccfb789737f6490e797c",
+      "parents": [
+        "1e40c357efc66a4b0aa75800edc8866b27c3faea"
+      ],
+      "authored_at": "2021-09-16T20:26:05-07:00",
+      "subject": "transferred latest RobotSim code to new folder structure",
+      "files": []
+    },
+    "commit:91534864ff345f86645cbc6629eab9262fa36936": {
+      "id": "commit:91534864ff345f86645cbc6629eab9262fa36936",
+      "type": "commit",
+      "sha": "91534864ff345f86645cbc6629eab9262fa36936",
+      "parents": [
+        "f08a85c0691c8b52aa0f2a55fa06c53d91a5c3b7",
+        "97d471e1e2e335c477f6b4750117cbeb044b5cad"
+      ],
+      "authored_at": "2021-09-16T10:10:01+02:00",
+      "subject": "Merge branch 'main' into mroberts/code-integration",
+      "files": []
+    },
+    "commit:97d471e1e2e335c477f6b4750117cbeb044b5cad": {
+      "id": "commit:97d471e1e2e335c477f6b4750117cbeb044b5cad",
+      "type": "commit",
+      "sha": "97d471e1e2e335c477f6b4750117cbeb044b5cad",
+      "parents": [
+        "0ef3ec59a7b75eb77d8a367eaa04050e69ea7c68",
+        "1e08bca9bcd2750711400dbb375fc09cf9f79e2d"
+      ],
+      "authored_at": "2021-09-16T10:08:56+02:00",
+      "subject": "Merge pull request #6 from isl-org/dvdhfnr/format-actions",
+      "files": []
+    },
+    "commit:f08a85c0691c8b52aa0f2a55fa06c53d91a5c3b7": {
+      "id": "commit:f08a85c0691c8b52aa0f2a55fa06c53d91a5c3b7",
+      "type": "commit",
+      "sha": "f08a85c0691c8b52aa0f2a55fa06c53d91a5c3b7",
+      "parents": [
+        "59b8d9cbf0522c332a0fc57159626fcbea4e8e28"
+      ],
+      "authored_at": "2021-09-15T17:32:23-07:00",
+      "subject": "use clang-format instead of clang-format-8",
+      "files": []
+    },
+    "commit:69a979da6ffc8202702eee42e1e4c5072b7aef68": {
+      "id": "commit:69a979da6ffc8202702eee42e1e4c5072b7aef68",
+      "type": "commit",
+      "sha": "69a979da6ffc8202702eee42e1e4c5072b7aef68",
+      "parents": [
+        "9ac8909f37bab49402eb4a694ba615f9a308623a"
+      ],
+      "authored_at": "2021-09-08T14:30:38+02:00",
+      "subject": "minor",
+      "files": []
+    },
+    "session:019e4fb2-65e0-71a0-98dd-ef9bd1fb455e": {
+      "id": "session:019e4fb2-65e0-71a0-98dd-ef9bd1fb455e",
+      "type": "session",
+      "session_id": "019e4fb2-65e0-71a0-98dd-ef9bd1fb455e",
+      "timestamp": "2026-05-22T12:39:12.100Z",
+      "source": "cli",
+      "originator": "codex-tui",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fb2-65e0-71a0-98dd-ef9bd1fb455e.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fb2-65e0-71a0-98dd-ef9bd1fb455e.jsonl"
+    },
+    "session:019e4fb4-d8ea-7f42-b90e-e8208b7ddb7d": {
+      "id": "session:019e4fb4-d8ea-7f42-b90e-e8208b7ddb7d",
+      "type": "session",
+      "session_id": "019e4fb4-d8ea-7f42-b90e-e8208b7ddb7d",
+      "timestamp": "2026-05-22T12:41:52.623Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fb4-d8ea-7f42-b90e-e8208b7ddb7d.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fb4-d8ea-7f42-b90e-e8208b7ddb7d.jsonl"
+    },
+    "packet:result-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81": {
+      "id": "packet:result-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81",
+      "type": "packet",
+      "packet_id": "result-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81",
+      "packet_type": "result",
+      "title": "Recorded spear's project purpose and lean Tower routing preferences in durable docs, Tower state, and Beacon memory.",
+      "status": "success",
+      "trace_id": "3280e0d3-7913-4d50-a8ad-b19d53a43dd8",
+      "from_agent": "scribe",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/scribe-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81-result.json",
+      "created_at": "2026-05-22T12:42:48Z"
+    },
+    "artifact:.control-tower/packets/inbox/scribe-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/scribe-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/scribe-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81-result.json",
+      "title": ".control-tower/packets/inbox/scribe-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81-result.json",
+      "created_at": "2026-05-22T12:42:48Z"
+    },
+    "dec_inferred_result-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81_0_spear-is-for-building-and-setting-up-a-simulator-for-active-illumination-research": {
+      "id": "dec_inferred_result-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81_0_spear-is-for-building-and-setting-up-a-simulator-for-active-illumination-research",
+      "type": "decision",
+      "topic": "spear-is-for-building-and-setting-up-a-simulator-for-active-illumination-research",
+      "title": "spear is for building and setting up a simulator for active illumination research.",
+      "status": "proposed",
+      "importance": "normal",
+      "summary": "Inferred from ResultPacket memory_worthy entry: spear is for building and setting up a simulator for active illumination research.",
+      "rationale": [
+        "Captured from a ResultPacket memory_worthy entry pending curation."
+      ],
+      "source_refs": [
+        ".control-tower/packets/inbox/scribe-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81-result.json"
+      ],
+      "inferred": true,
+      "created_at": "2026-05-22T12:43:00Z",
+      "created_by": "scribe"
+    },
+    "dec_inferred_result-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81_1_tower-should-stay-lean-quick-discussion-builder-implements-user-runs-the-simulator-to-check": {
+      "id": "dec_inferred_result-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81_1_tower-should-stay-lean-quick-discussion-builder-implements-user-runs-the-simulator-to-check",
+      "type": "decision",
+      "topic": "tower-should-stay-lean-quick-discussion-builder-implements-user-runs-the-simulator-to-check",
+      "title": "Tower should stay lean: quick discussion, Builder implements, user runs the simulator to check.",
+      "status": "proposed",
+      "importance": "normal",
+      "summary": "Inferred from ResultPacket memory_worthy entry: Tower should stay lean: quick discussion, Builder implements, user runs the simulator to check.",
+      "rationale": [
+        "Captured from a ResultPacket memory_worthy entry pending curation."
+      ],
+      "source_refs": [
+        ".control-tower/packets/inbox/scribe-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81-result.json"
+      ],
+      "inferred": true,
+      "created_at": "2026-05-22T12:43:00Z",
+      "created_by": "scribe"
+    },
+    "dec_inferred_result-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81_2_tower-s-main-value-is-memory-context-savings-and-concise-orchestration-not-heavyweight-multi-agent-workflow": {
+      "id": "dec_inferred_result-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81_2_tower-s-main-value-is-memory-context-savings-and-concise-orchestration-not-heavyweight-multi-agent-workflow",
+      "type": "decision",
+      "topic": "tower-s-main-value-is-memory-context-savings-and-concise-orchestration-not-heavyweight-multi-agent-workflow",
+      "title": "Tower's main value is memory/context savings and concise orchestration, not heavyweight multi-agent workflow.",
+      "status": "proposed",
+      "importance": "normal",
+      "summary": "Inferred from ResultPacket memory_worthy entry: Tower's main value is memory/context savings and concise orchestration, not heavyweight multi-agent workflow.",
+      "rationale": [
+        "Captured from a ResultPacket memory_worthy entry pending curation."
+      ],
+      "source_refs": [
+        ".control-tower/packets/inbox/scribe-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81-result.json"
+      ],
+      "inferred": true,
+      "created_at": "2026-05-22T12:43:00Z",
+      "created_by": "scribe"
+    },
+    "packet:a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81": {
+      "id": "packet:a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81",
+      "type": "packet",
+      "packet_id": "a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81",
+      "packet_type": "task",
+      "title": "Update Tower preferences for spear",
+      "status": null,
+      "trace_id": "3280e0d3-7913-4d50-a8ad-b19d53a43dd8",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-update-tower-preferences.json",
+      "created_at": "2026-05-22T12:41:49Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-update-tower-preferences.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-update-tower-preferences.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-update-tower-preferences.json",
+      "title": ".control-tower/packets/outbox/scribe-update-tower-preferences.json",
+      "created_at": "2026-05-22T12:41:49Z"
+    },
+    "event:black-box:1": {
+      "id": "event:black-box:1",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T12:39:12.100Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fb2-65e0-71a0-98dd-ef9bd1fb455e",
+        "timestamp": "2026-05-22T12:39:12.100Z",
+        "source": "cli",
+        "originator": "codex-tui",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fb2-65e0-71a0-98dd-ef9bd1fb455e.md"
+      }
+    },
+    "event:black-box:2": {
+      "id": "event:black-box:2",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T12:41:52.623Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fb4-d8ea-7f42-b90e-e8208b7ddb7d",
+        "timestamp": "2026-05-22T12:41:52.623Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fb4-d8ea-7f42-b90e-e8208b7ddb7d.md"
+      }
+    },
+    "question:project-purpose-and-tower-routing-preferences-are-recorded-in-docs-tower-operating-preferences-md-and-control-tower-docs-overview-md": {
+      "id": "question:project-purpose-and-tower-routing-preferences-are-recorded-in-docs-tower-operating-preferences-md-and-control-tower-docs-overview-md",
+      "type": "question",
+      "title": "Project purpose and Tower routing preferences are recorded in `docs/tower_operating_preferences.md` and `.control-tower/docs/overview.md`.",
+      "status": "open",
+      "source_ref": ".control-tower/docs/state/open-questions.md"
+    },
+    "session:019e4fb7-69e6-77d1-8c93-4bc4c877d62a": {
+      "id": "session:019e4fb7-69e6-77d1-8c93-4bc4c877d62a",
+      "type": "session",
+      "session_id": "019e4fb7-69e6-77d1-8c93-4bc4c877d62a",
+      "timestamp": "2026-05-22T12:44:40.809Z",
+      "source": "cli",
+      "originator": "codex-tui",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fb7-69e6-77d1-8c93-4bc4c877d62a.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fb7-69e6-77d1-8c93-4bc4c877d62a.jsonl"
+    },
+    "session:019e4fb8-d5ab-79d3-9a44-d8b56214d931": {
+      "id": "session:019e4fb8-d5ab-79d3-9a44-d8b56214d931",
+      "type": "session",
+      "session_id": "019e4fb8-d5ab-79d3-9a44-d8b56214d931",
+      "timestamp": "2026-05-22T12:46:13.936Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fb8-d5ab-79d3-9a44-d8b56214d931.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fb8-d5ab-79d3-9a44-d8b56214d931.jsonl"
+    },
+    "packet:2a0a51f4-8fb7-4fb2-87a2-5aabde9ad5c8": {
+      "id": "packet:2a0a51f4-8fb7-4fb2-87a2-5aabde9ad5c8",
+      "type": "packet",
+      "packet_id": "2a0a51f4-8fb7-4fb2-87a2-5aabde9ad5c8",
+      "packet_type": "result",
+      "title": "Blocked by TaskPacket path restrictions. The flashlight example is located at `examples/flashlight/run.py`, but the packet only allows edits under `src/`, `tests/`, and `.control-tower/`. No product code was changed.",
+      "status": "blocked",
+      "trace_id": "875f21a8-581c-4c96-9b09-4282b70218bd",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-f4e89ade-c3e7-46a1-8577-5ef01efbee62-result.json",
+      "created_at": "2026-05-22T12:46:10Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-f4e89ade-c3e7-46a1-8577-5ef01efbee62-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-f4e89ade-c3e7-46a1-8577-5ef01efbee62-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-f4e89ade-c3e7-46a1-8577-5ef01efbee62-result.json",
+      "title": ".control-tower/packets/inbox/builder-f4e89ade-c3e7-46a1-8577-5ef01efbee62-result.json",
+      "created_at": "2026-05-22T12:46:10Z"
+    },
+    "packet:f4e89ade-c3e7-46a1-8577-5ef01efbee62": {
+      "id": "packet:f4e89ade-c3e7-46a1-8577-5ef01efbee62",
+      "type": "packet",
+      "packet_id": "f4e89ade-c3e7-46a1-8577-5ef01efbee62",
+      "packet_type": "task",
+      "title": "Add gamepad flashlight toggle",
+      "status": null,
+      "trace_id": "875f21a8-581c-4c96-9b09-4282b70218bd",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T124610Z-builder-add-gamepad-flashlight-toggle.json",
+      "created_at": "2026-05-22T12:46:10Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T124610Z-builder-add-gamepad-flashlight-toggle.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T124610Z-builder-add-gamepad-flashlight-toggle.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T124610Z-builder-add-gamepad-flashlight-toggle.json",
+      "title": ".control-tower/packets/outbox/20260522T124610Z-builder-add-gamepad-flashlight-toggle.json",
+      "created_at": "2026-05-22T12:46:10Z"
+    },
+    "event:black-box:3": {
+      "id": "event:black-box:3",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T12:44:40.809Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fb7-69e6-77d1-8c93-4bc4c877d62a",
+        "timestamp": "2026-05-22T12:44:40.809Z",
+        "source": "cli",
+        "originator": "codex-tui",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fb7-69e6-77d1-8c93-4bc4c877d62a.md"
+      }
+    },
+    "event:black-box:4": {
+      "id": "event:black-box:4",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T12:46:13.936Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fb8-d5ab-79d3-9a44-d8b56214d931",
+        "timestamp": "2026-05-22T12:46:13.936Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fb8-d5ab-79d3-9a44-d8b56214d931.md"
+      }
+    },
+    "session:019e4fba-0ade-7311-be0d-6a72d15e7ab4": {
+      "id": "session:019e4fba-0ade-7311-be0d-6a72d15e7ab4",
+      "type": "session",
+      "session_id": "019e4fba-0ade-7311-be0d-6a72d15e7ab4",
+      "timestamp": "2026-05-22T12:47:33.090Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fba-0ade-7311-be0d-6a72d15e7ab4.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fba-0ade-7311-be0d-6a72d15e7ab4.jsonl"
+    },
+    "packet:8e2c3708-fe28-4051-b53e-4cbc6d6792eb": {
+      "id": "packet:8e2c3708-fe28-4051-b53e-4cbc6d6792eb",
+      "type": "packet",
+      "packet_id": "8e2c3708-fe28-4051-b53e-4cbc6d6792eb",
+      "packet_type": "result",
+      "title": "Implemented gamepad flashlight toggle support in `examples/flashlight/run.py`. The new `--toggle-key` CLI argument defaults to `Gamepad_FaceButton_Right`, leaving the existing pose capture default `Gamepad_FaceButton_Top` unchanged.",
+      "status": "success",
+      "trace_id": "875f21a8-581c-4c96-9b09-4282b70218bd",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-97186b25-d1dd-4c81-86ab-e35a8b9c34ad-result.json",
+      "created_at": "2026-05-22T12:48:16Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-97186b25-d1dd-4c81-86ab-e35a8b9c34ad-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-97186b25-d1dd-4c81-86ab-e35a8b9c34ad-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-97186b25-d1dd-4c81-86ab-e35a8b9c34ad-result.json",
+      "title": ".control-tower/packets/inbox/builder-97186b25-d1dd-4c81-86ab-e35a8b9c34ad-result.json",
+      "created_at": "2026-05-22T12:48:16Z"
+    },
+    "packet:97186b25-d1dd-4c81-86ab-e35a8b9c34ad": {
+      "id": "packet:97186b25-d1dd-4c81-86ab-e35a8b9c34ad",
+      "type": "packet",
+      "packet_id": "97186b25-d1dd-4c81-86ab-e35a8b9c34ad",
+      "packet_type": "task",
+      "title": "Add gamepad flashlight toggle in example",
+      "status": null,
+      "trace_id": "875f21a8-581c-4c96-9b09-4282b70218bd",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T124729Z-builder-add-gamepad-flashlight-toggle-in-example.json",
+      "created_at": "2026-05-22T12:47:29Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T124729Z-builder-add-gamepad-flashlight-toggle-in-example.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T124729Z-builder-add-gamepad-flashlight-toggle-in-example.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T124729Z-builder-add-gamepad-flashlight-toggle-in-example.json",
+      "title": ".control-tower/packets/outbox/20260522T124729Z-builder-add-gamepad-flashlight-toggle-in-example.json",
+      "created_at": "2026-05-22T12:47:29Z"
+    },
+    "event:black-box:5": {
+      "id": "event:black-box:5",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T12:47:33.090Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fba-0ade-7311-be0d-6a72d15e7ab4",
+        "timestamp": "2026-05-22T12:47:33.090Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fba-0ade-7311-be0d-6a72d15e7ab4.md"
+      }
+    },
+    "packet:8b4908d4-2fcf-4815-ac81-41a8ca4e173b": {
+      "id": "packet:8b4908d4-2fcf-4815-ac81-41a8ca4e173b",
+      "type": "packet",
+      "packet_id": "8b4908d4-2fcf-4815-ac81-41a8ca4e173b",
+      "packet_type": "task",
+      "title": "Update repo docs after Builder work",
+      "status": null,
+      "trace_id": "875f21a8-581c-4c96-9b09-4282b70218bd",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T124836Z.json",
+      "created_at": "2026-05-22T12:48:36Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T124836Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T124836Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T124836Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T124836Z.json",
+      "created_at": "2026-05-22T12:48:36Z"
+    },
+    "session:019e4fbe-5ac1-7203-a6d6-8cdcf1f942ae": {
+      "id": "session:019e4fbe-5ac1-7203-a6d6-8cdcf1f942ae",
+      "type": "session",
+      "session_id": "019e4fbe-5ac1-7203-a6d6-8cdcf1f942ae",
+      "timestamp": "2026-05-22T12:52:15.686Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fbe-5ac1-7203-a6d6-8cdcf1f942ae.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fbe-5ac1-7203-a6d6-8cdcf1f942ae.jsonl"
+    },
+    "session:019e4fbf-3977-72f0-bc2c-1230eda1f65d": {
+      "id": "session:019e4fbf-3977-72f0-bc2c-1230eda1f65d",
+      "type": "session",
+      "session_id": "019e4fbf-3977-72f0-bc2c-1230eda1f65d",
+      "timestamp": "2026-05-22T12:53:12.701Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fbf-3977-72f0-bc2c-1230eda1f65d.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fbf-3977-72f0-bc2c-1230eda1f65d.jsonl"
+    },
+    "packet:a23cd5a1-4e96-4762-b572-9ae855562f0a": {
+      "id": "packet:a23cd5a1-4e96-4762-b572-9ae855562f0a",
+      "type": "packet",
+      "packet_id": "a23cd5a1-4e96-4762-b572-9ae855562f0a",
+      "packet_type": "result",
+      "title": "Updated examples/flashlight/run.py so gamepad flashlight toggling uses IsInputKeyDown edge detection polled at 60 Hz instead of relying on WasInputKeyJustPressed at the idle interval. The default toggle key remains Gamepad_FaceButton_Right, which maps to Xbox B. The same edge pattern is applied to the gamepad pose capture key while preserving Enter terminal capture.",
+      "status": "success",
+      "trace_id": "d286c356-15bd-4482-8a0d-127bc629f445",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-31760a89-de1d-469b-a6d4-48e917c5c514-result.json",
+      "created_at": "2026-05-22T13:05:00Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-31760a89-de1d-469b-a6d4-48e917c5c514-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-31760a89-de1d-469b-a6d4-48e917c5c514-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-31760a89-de1d-469b-a6d4-48e917c5c514-result.json",
+      "title": ".control-tower/packets/inbox/builder-31760a89-de1d-469b-a6d4-48e917c5c514-result.json",
+      "created_at": "2026-05-22T13:05:00Z"
+    },
+    "packet:31760a89-de1d-469b-a6d4-48e917c5c514": {
+      "id": "packet:31760a89-de1d-469b-a6d4-48e917c5c514",
+      "type": "packet",
+      "packet_id": "31760a89-de1d-469b-a6d4-48e917c5c514",
+      "packet_type": "task",
+      "title": "Fix flashlight gamepad toggle reliability",
+      "status": null,
+      "trace_id": "d286c356-15bd-4482-8a0d-127bc629f445",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T125212Z-builder-fix-flashlight-gamepad-toggle-reliability.json",
+      "created_at": "2026-05-22T12:52:12Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T125212Z-builder-fix-flashlight-gamepad-toggle-reliability.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T125212Z-builder-fix-flashlight-gamepad-toggle-reliability.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T125212Z-builder-fix-flashlight-gamepad-toggle-reliability.json",
+      "title": ".control-tower/packets/outbox/20260522T125212Z-builder-fix-flashlight-gamepad-toggle-reliability.json",
+      "created_at": "2026-05-22T12:52:12Z"
+    },
+    "packet:ab47dbdf-889a-4b69-bfad-8f7704940295": {
+      "id": "packet:ab47dbdf-889a-4b69-bfad-8f7704940295",
+      "type": "packet",
+      "packet_id": "ab47dbdf-889a-4b69-bfad-8f7704940295",
+      "packet_type": "task",
+      "title": "Make flashlight toggle polling usable",
+      "status": null,
+      "trace_id": "613bbcb1-a3be-463c-a851-67f0180666fa",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T125307Z-builder-make-flashlight-toggle-polling-usable.json",
+      "created_at": "2026-05-22T12:53:07Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T125307Z-builder-make-flashlight-toggle-polling-usable.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T125307Z-builder-make-flashlight-toggle-polling-usable.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T125307Z-builder-make-flashlight-toggle-polling-usable.json",
+      "title": ".control-tower/packets/outbox/20260522T125307Z-builder-make-flashlight-toggle-polling-usable.json",
+      "created_at": "2026-05-22T12:53:07Z"
+    },
+    "event:black-box:6": {
+      "id": "event:black-box:6",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T12:52:15.686Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fbe-5ac1-7203-a6d6-8cdcf1f942ae",
+        "timestamp": "2026-05-22T12:52:15.686Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fbe-5ac1-7203-a6d6-8cdcf1f942ae.md"
+      }
+    },
+    "event:black-box:7": {
+      "id": "event:black-box:7",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T12:53:12.701Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fbf-3977-72f0-bc2c-1230eda1f65d",
+        "timestamp": "2026-05-22T12:53:12.701Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fbf-3977-72f0-bc2c-1230eda1f65d.md"
+      }
+    },
+    "packet:42e823a5-7a9d-4e7d-a6f0-3f21c9d66715": {
+      "id": "packet:42e823a5-7a9d-4e7d-a6f0-3f21c9d66715",
+      "type": "packet",
+      "packet_id": "42e823a5-7a9d-4e7d-a6f0-3f21c9d66715",
+      "packet_type": "result",
+      "title": "Flashlight polling is using IsInputKeyDown edge detection for the toggle key and controller capture key, with polling capped at 60 Hz so normal Xbox B presses are not missed. The default toggle remains Unreal Gamepad_FaceButton_Right, which maps to Xbox B. The previous failure mode was coarse polling at the idle period, where a normal short button press could occur entirely between polls and never be observed.",
+      "status": "success",
+      "trace_id": "613bbcb1-a3be-463c-a851-67f0180666fa",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-ab47dbdf-889a-4b69-bfad-8f7704940295-result.json",
+      "created_at": "2026-05-22T12:59:00Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-ab47dbdf-889a-4b69-bfad-8f7704940295-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-ab47dbdf-889a-4b69-bfad-8f7704940295-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-ab47dbdf-889a-4b69-bfad-8f7704940295-result.json",
+      "title": ".control-tower/packets/inbox/builder-ab47dbdf-889a-4b69-bfad-8f7704940295-result.json",
+      "created_at": "2026-05-22T12:59:00Z"
+    },
+    "packet:b92273f8-7a09-485b-8aa8-b44fcd9be169": {
+      "id": "packet:b92273f8-7a09-485b-8aa8-b44fcd9be169",
+      "type": "packet",
+      "packet_id": "b92273f8-7a09-485b-8aa8-b44fcd9be169",
+      "packet_type": "task",
+      "title": "Update repo docs after Builder work",
+      "status": null,
+      "trace_id": "d286c356-15bd-4482-8a0d-127bc629f445",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125338Z.json",
+      "created_at": "2026-05-22T12:53:38Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125338Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125338Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125338Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125338Z.json",
+      "created_at": "2026-05-22T12:53:38Z"
+    },
+    "packet:ff916992-069b-43e2-bad0-da12c262a9ab": {
+      "id": "packet:ff916992-069b-43e2-bad0-da12c262a9ab",
+      "type": "packet",
+      "packet_id": "ff916992-069b-43e2-bad0-da12c262a9ab",
+      "packet_type": "task",
+      "title": "Update repo docs after Builder work",
+      "status": null,
+      "trace_id": "613bbcb1-a3be-463c-a851-67f0180666fa",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125400Z.json",
+      "created_at": "2026-05-22T12:54:00Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125400Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125400Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125400Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125400Z.json",
+      "created_at": "2026-05-22T12:54:00Z"
+    },
+    "session:019e4fc1-8323-7770-8831-9cf0388f2977": {
+      "id": "session:019e4fc1-8323-7770-8831-9cf0388f2977",
+      "type": "session",
+      "session_id": "019e4fc1-8323-7770-8831-9cf0388f2977",
+      "timestamp": "2026-05-22T12:55:42.631Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fc1-8323-7770-8831-9cf0388f2977.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fc1-8323-7770-8831-9cf0388f2977.jsonl"
+    },
+    "packet:b7f8c3e7-6c0f-4f9f-9f8c-4e1f3df0690b": {
+      "id": "packet:b7f8c3e7-6c0f-4f9f-9f8c-4e1f3df0690b",
+      "type": "packet",
+      "packet_id": "b7f8c3e7-6c0f-4f9f-9f8c-4e1f3df0690b",
+      "packet_type": "result",
+      "title": "Fixed examples/flashlight/run.py so the flashlight and capture controller polling no longer constructs FKey via game.get_unreal_object(uclass='FKey'). The code now passes an FKey-shaped struct argument ({\"KeyName\": key_name}) directly to APlayerController.IsInputKeyDown, allowing SPEAR's function-call struct deserialization path to handle FKey.",
+      "status": "success",
+      "trace_id": "146a626e-7fc2-435f-8813-43433d4c7374",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-fcfdb5a3-5a93-40a1-baee-4e1c9e5a56c5-result.json",
+      "created_at": "2026-05-22T13:10:00Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-fcfdb5a3-5a93-40a1-baee-4e1c9e5a56c5-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-fcfdb5a3-5a93-40a1-baee-4e1c9e5a56c5-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-fcfdb5a3-5a93-40a1-baee-4e1c9e5a56c5-result.json",
+      "title": ".control-tower/packets/inbox/builder-fcfdb5a3-5a93-40a1-baee-4e1c9e5a56c5-result.json",
+      "created_at": "2026-05-22T13:10:00Z"
+    },
+    "packet:fcfdb5a3-5a93-40a1-baee-4e1c9e5a56c5": {
+      "id": "packet:fcfdb5a3-5a93-40a1-baee-4e1c9e5a56c5",
+      "type": "packet",
+      "packet_id": "fcfdb5a3-5a93-40a1-baee-4e1c9e5a56c5",
+      "packet_type": "task",
+      "title": "Fix flashlight FKey input exception",
+      "status": null,
+      "trace_id": "146a626e-7fc2-435f-8813-43433d4c7374",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T125539Z-builder-fix-flashlight-fkey-input-exception.json",
+      "created_at": "2026-05-22T12:55:39Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T125539Z-builder-fix-flashlight-fkey-input-exception.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T125539Z-builder-fix-flashlight-fkey-input-exception.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T125539Z-builder-fix-flashlight-fkey-input-exception.json",
+      "title": ".control-tower/packets/outbox/20260522T125539Z-builder-fix-flashlight-fkey-input-exception.json",
+      "created_at": "2026-05-22T12:55:39Z"
+    },
+    "event:black-box:8": {
+      "id": "event:black-box:8",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T12:55:42.631Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fc1-8323-7770-8831-9cf0388f2977",
+        "timestamp": "2026-05-22T12:55:42.631Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fc1-8323-7770-8831-9cf0388f2977.md"
+      }
+    },
+    "packet:08d3893f-4315-41d6-b342-038439e2e36d": {
+      "id": "packet:08d3893f-4315-41d6-b342-038439e2e36d",
+      "type": "packet",
+      "packet_id": "08d3893f-4315-41d6-b342-038439e2e36d",
+      "packet_type": "task",
+      "title": "Update repo docs after Builder work",
+      "status": null,
+      "trace_id": "146a626e-7fc2-435f-8813-43433d4c7374",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125807Z.json",
+      "created_at": "2026-05-22T12:58:07Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125807Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125807Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125807Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T125807Z.json",
+      "created_at": "2026-05-22T12:58:07Z"
+    },
+    "session:019e4fc6-414f-77a1-aa65-0e01a63bb125": {
+      "id": "session:019e4fc6-414f-77a1-aa65-0e01a63bb125",
+      "type": "session",
+      "session_id": "019e4fc6-414f-77a1-aa65-0e01a63bb125",
+      "timestamp": "2026-05-22T13:00:53.459Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fc6-414f-77a1-aa65-0e01a63bb125.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fc6-414f-77a1-aa65-0e01a63bb125.jsonl"
+    },
+    "packet:c3c1a44c-15f0-4b64-8b4f-8c2169448cf7": {
+      "id": "packet:c3c1a44c-15f0-4b64-8b4f-8c2169448cf7",
+      "type": "packet",
+      "packet_id": "c3c1a44c-15f0-4b64-8b4f-8c2169448cf7",
+      "packet_type": "result",
+      "title": "Created local commit 99488a0afce1fa6e3c53ee51c2781a64923e9c26 with subject: Fix flashlight gamepad toggle input.",
+      "status": "success",
+      "trace_id": "146a626e-7fc2-435f-8813-43433d4c7374",
+      "from_agent": "git-master",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/git-master-3d4956b9-35e2-46a3-94ea-fc04b7b127de-result.json",
+      "created_at": "2026-05-22T13:00:48Z"
+    },
+    "artifact:.control-tower/packets/inbox/git-master-3d4956b9-35e2-46a3-94ea-fc04b7b127de-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/git-master-3d4956b9-35e2-46a3-94ea-fc04b7b127de-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/git-master-3d4956b9-35e2-46a3-94ea-fc04b7b127de-result.json",
+      "title": ".control-tower/packets/inbox/git-master-3d4956b9-35e2-46a3-94ea-fc04b7b127de-result.json",
+      "created_at": "2026-05-22T13:00:48Z"
+    },
+    "packet:3d4956b9-35e2-46a3-94ea-fc04b7b127de": {
+      "id": "packet:3d4956b9-35e2-46a3-94ea-fc04b7b127de",
+      "type": "packet",
+      "packet_id": "3d4956b9-35e2-46a3-94ea-fc04b7b127de",
+      "packet_type": "task",
+      "title": "Commit flashlight gamepad toggle",
+      "status": null,
+      "trace_id": "146a626e-7fc2-435f-8813-43433d4c7374",
+      "from_agent": "tower",
+      "to_agent": "git-master",
+      "path": ".control-tower/packets/outbox/20260522T130048Z-git-master-commit-flashlight-gamepad-toggle.json",
+      "created_at": "2026-05-22T13:00:48Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T130048Z-git-master-commit-flashlight-gamepad-toggle.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T130048Z-git-master-commit-flashlight-gamepad-toggle.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T130048Z-git-master-commit-flashlight-gamepad-toggle.json",
+      "title": ".control-tower/packets/outbox/20260522T130048Z-git-master-commit-flashlight-gamepad-toggle.json",
+      "created_at": "2026-05-22T13:00:48Z"
+    },
+    "event:black-box:9": {
+      "id": "event:black-box:9",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T13:00:53.459Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fc6-414f-77a1-aa65-0e01a63bb125",
+        "timestamp": "2026-05-22T13:00:53.459Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fc6-414f-77a1-aa65-0e01a63bb125.md"
+      }
+    },
+    "commit:99488a0afce1fa6e3c53ee51c2781a64923e9c26": {
+      "id": "commit:99488a0afce1fa6e3c53ee51c2781a64923e9c26",
+      "type": "commit",
+      "sha": "99488a0afce1fa6e3c53ee51c2781a64923e9c26",
+      "parents": [
+        "eaa8a93b8238fe1ccbc6ed6c34ce36da86f8c6d6"
+      ],
+      "authored_at": "2026-05-22T09:01:09-04:00",
+      "subject": "Fix flashlight gamepad toggle input",
+      "files": []
+    },
+    "packet:76a4fca7-eefa-4a29-af1b-adce66889681": {
+      "id": "packet:76a4fca7-eefa-4a29-af1b-adce66889681",
+      "type": "packet",
+      "packet_id": "76a4fca7-eefa-4a29-af1b-adce66889681",
+      "packet_type": "task",
+      "title": "Update repo docs after Git-Master work",
+      "status": null,
+      "trace_id": "146a626e-7fc2-435f-8813-43433d4c7374",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T130133Z.json",
+      "created_at": "2026-05-22T13:01:33Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T130133Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T130133Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T130133Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T130133Z.json",
+      "created_at": "2026-05-22T13:01:33Z"
+    },
+    "session:019e4fc8-b4c7-7522-a564-e93845737109": {
+      "id": "session:019e4fc8-b4c7-7522-a564-e93845737109",
+      "type": "session",
+      "session_id": "019e4fc8-b4c7-7522-a564-e93845737109",
+      "timestamp": "2026-05-22T13:03:34.092Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fc8-b4c7-7522-a564-e93845737109.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fc8-b4c7-7522-a564-e93845737109.jsonl"
+    },
+    "packet:368cf25c-aaa0-4ea5-8ab6-c00c9504eaa5": {
+      "id": "packet:368cf25c-aaa0-4ea5-8ab6-c00c9504eaa5",
+      "type": "packet",
+      "packet_id": "368cf25c-aaa0-4ea5-8ab6-c00c9504eaa5",
+      "packet_type": "result",
+      "title": "Added D-pad flashlight aim offsets to examples/flashlight/run.py with bounded yaw and pitch controls defaulting to +/-30 degrees, using the existing safe FKey dict polling pattern.",
+      "status": "success",
+      "trace_id": "5ac8d8c6-183b-4cac-bbee-1c956a5a993c",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-c33dfa72-a7c0-4586-ae0d-834047f10ef4-result.json",
+      "created_at": "2026-05-22T13:05:10.723658Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-c33dfa72-a7c0-4586-ae0d-834047f10ef4-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-c33dfa72-a7c0-4586-ae0d-834047f10ef4-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-c33dfa72-a7c0-4586-ae0d-834047f10ef4-result.json",
+      "title": ".control-tower/packets/inbox/builder-c33dfa72-a7c0-4586-ae0d-834047f10ef4-result.json",
+      "created_at": "2026-05-22T13:05:10.723658Z"
+    },
+    "packet:c33dfa72-a7c0-4586-ae0d-834047f10ef4": {
+      "id": "packet:c33dfa72-a7c0-4586-ae0d-834047f10ef4",
+      "type": "packet",
+      "packet_id": "c33dfa72-a7c0-4586-ae0d-834047f10ef4",
+      "packet_type": "task",
+      "title": "Add D-pad flashlight aim offsets",
+      "status": null,
+      "trace_id": "5ac8d8c6-183b-4cac-bbee-1c956a5a993c",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T130329Z-builder-add-d-pad-flashlight-aim-offsets.json",
+      "created_at": "2026-05-22T13:03:29Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T130329Z-builder-add-d-pad-flashlight-aim-offsets.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T130329Z-builder-add-d-pad-flashlight-aim-offsets.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T130329Z-builder-add-d-pad-flashlight-aim-offsets.json",
+      "title": ".control-tower/packets/outbox/20260522T130329Z-builder-add-d-pad-flashlight-aim-offsets.json",
+      "created_at": "2026-05-22T13:03:29Z"
+    },
+    "event:black-box:10": {
+      "id": "event:black-box:10",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T13:03:34.092Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fc8-b4c7-7522-a564-e93845737109",
+        "timestamp": "2026-05-22T13:03:34.092Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fc8-b4c7-7522-a564-e93845737109.md"
+      }
+    },
+    "packet:dd47645e-ddfe-4f17-886d-9a906da519f9": {
+      "id": "packet:dd47645e-ddfe-4f17-886d-9a906da519f9",
+      "type": "packet",
+      "packet_id": "dd47645e-ddfe-4f17-886d-9a906da519f9",
+      "packet_type": "task",
+      "title": "Update repo docs after Builder work",
+      "status": null,
+      "trace_id": "5ac8d8c6-183b-4cac-bbee-1c956a5a993c",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T130530Z.json",
+      "created_at": "2026-05-22T13:05:30Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T130530Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T130530Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T130530Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T130530Z.json",
+      "created_at": "2026-05-22T13:05:30Z"
+    },
+    "session:019e4fcc-0230-7790-b98c-e8bc974a28c6": {
+      "id": "session:019e4fcc-0230-7790-b98c-e8bc974a28c6",
+      "type": "session",
+      "session_id": "019e4fcc-0230-7790-b98c-e8bc974a28c6",
+      "timestamp": "2026-05-22T13:07:10.518Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fcc-0230-7790-b98c-e8bc974a28c6.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fcc-0230-7790-b98c-e8bc974a28c6.jsonl"
+    },
+    "packet:3f242c3e-c014-44da-98d3-dda91d9af9bb": {
+      "id": "packet:3f242c3e-c014-44da-98d3-dda91d9af9bb",
+      "type": "packet",
+      "packet_id": "3f242c3e-c014-44da-98d3-dda91d9af9bb",
+      "packet_type": "result",
+      "title": "Fixed examples/flashlight/run.py so D-pad flashlight aim no longer directly indexes camera_rotation with 'Yaw' and 'Pitch'. The aim rotator now resolves yaw and pitch keys case-insensitively from the actual SPEAR rotator dict, preserving the returned key shape for K2_SetActorRotation.",
+      "status": "success",
+      "trace_id": "5bd77499-efa6-4cf4-a934-813f0cc73ad2",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-5d385472-c74f-49c2-80fd-1fcfb59e156a-result.json",
+      "created_at": "2026-05-22T13:22:00Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-5d385472-c74f-49c2-80fd-1fcfb59e156a-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-5d385472-c74f-49c2-80fd-1fcfb59e156a-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-5d385472-c74f-49c2-80fd-1fcfb59e156a-result.json",
+      "title": ".control-tower/packets/inbox/builder-5d385472-c74f-49c2-80fd-1fcfb59e156a-result.json",
+      "created_at": "2026-05-22T13:22:00Z"
+    },
+    "packet:5d385472-c74f-49c2-80fd-1fcfb59e156a": {
+      "id": "packet:5d385472-c74f-49c2-80fd-1fcfb59e156a",
+      "type": "packet",
+      "packet_id": "5d385472-c74f-49c2-80fd-1fcfb59e156a",
+      "packet_type": "task",
+      "title": "Fix flashlight aim rotator keys",
+      "status": null,
+      "trace_id": "5bd77499-efa6-4cf4-a934-813f0cc73ad2",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T130705Z-builder-fix-flashlight-aim-rotator-keys.json",
+      "created_at": "2026-05-22T13:07:05Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T130705Z-builder-fix-flashlight-aim-rotator-keys.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T130705Z-builder-fix-flashlight-aim-rotator-keys.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T130705Z-builder-fix-flashlight-aim-rotator-keys.json",
+      "title": ".control-tower/packets/outbox/20260522T130705Z-builder-fix-flashlight-aim-rotator-keys.json",
+      "created_at": "2026-05-22T13:07:05Z"
+    },
+    "event:black-box:11": {
+      "id": "event:black-box:11",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T13:07:10.518Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fcc-0230-7790-b98c-e8bc974a28c6",
+        "timestamp": "2026-05-22T13:07:10.518Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fcc-0230-7790-b98c-e8bc974a28c6.md"
+      }
+    },
+    "packet:ebe2cad3-6388-4b28-9945-28f881ab37f9": {
+      "id": "packet:ebe2cad3-6388-4b28-9945-28f881ab37f9",
+      "type": "packet",
+      "packet_id": "ebe2cad3-6388-4b28-9945-28f881ab37f9",
+      "packet_type": "task",
+      "title": "Update repo docs after Builder work",
+      "status": null,
+      "trace_id": "5bd77499-efa6-4cf4-a934-813f0cc73ad2",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T130810Z.json",
+      "created_at": "2026-05-22T13:08:10Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T130810Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T130810Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T130810Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T130810Z.json",
+      "created_at": "2026-05-22T13:08:10Z"
+    },
+    "session:019e4fd1-94f2-7882-b59b-02df10be2d91": {
+      "id": "session:019e4fd1-94f2-7882-b59b-02df10be2d91",
+      "type": "session",
+      "session_id": "019e4fd1-94f2-7882-b59b-02df10be2d91",
+      "timestamp": "2026-05-22T13:13:15.768Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fd1-94f2-7882-b59b-02df10be2d91.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fd1-94f2-7882-b59b-02df10be2d91.jsonl"
+    },
+    "packet:bfc9c445-9fd8-4f9d-b4fe-5ef6296c499d": {
+      "id": "packet:bfc9c445-9fd8-4f9d-b4fe-5ef6296c499d",
+      "type": "packet",
+      "packet_id": "bfc9c445-9fd8-4f9d-b4fe-5ef6296c499d",
+      "packet_type": "result",
+      "title": "Created local commit b5be6a9c228c67ea2b7570374026deaf8b7dc961 with subject \"Add D-pad flashlight aim controls\" containing only examples/flashlight/run.py.",
+      "status": "success",
+      "trace_id": "5bd77499-efa6-4cf4-a934-813f0cc73ad2",
+      "from_agent": "git-master",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/git-master-4e56321d-aba9-447b-b76d-4f82c377b912-result.json",
+      "created_at": "2026-05-22T13:13:11Z"
+    },
+    "artifact:.control-tower/packets/inbox/git-master-4e56321d-aba9-447b-b76d-4f82c377b912-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/git-master-4e56321d-aba9-447b-b76d-4f82c377b912-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/git-master-4e56321d-aba9-447b-b76d-4f82c377b912-result.json",
+      "title": ".control-tower/packets/inbox/git-master-4e56321d-aba9-447b-b76d-4f82c377b912-result.json",
+      "created_at": "2026-05-22T13:13:11Z"
+    },
+    "packet:4e56321d-aba9-447b-b76d-4f82c377b912": {
+      "id": "packet:4e56321d-aba9-447b-b76d-4f82c377b912",
+      "type": "packet",
+      "packet_id": "4e56321d-aba9-447b-b76d-4f82c377b912",
+      "packet_type": "task",
+      "title": "Commit flashlight D-pad aim controls",
+      "status": null,
+      "trace_id": "5bd77499-efa6-4cf4-a934-813f0cc73ad2",
+      "from_agent": "tower",
+      "to_agent": "git-master",
+      "path": ".control-tower/packets/outbox/20260522T131311Z-git-master-commit-flashlight-d-pad-aim-controls.json",
+      "created_at": "2026-05-22T13:13:11Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T131311Z-git-master-commit-flashlight-d-pad-aim-controls.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T131311Z-git-master-commit-flashlight-d-pad-aim-controls.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T131311Z-git-master-commit-flashlight-d-pad-aim-controls.json",
+      "title": ".control-tower/packets/outbox/20260522T131311Z-git-master-commit-flashlight-d-pad-aim-controls.json",
+      "created_at": "2026-05-22T13:13:11Z"
+    },
+    "event:black-box:12": {
+      "id": "event:black-box:12",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T13:13:15.768Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fd1-94f2-7882-b59b-02df10be2d91",
+        "timestamp": "2026-05-22T13:13:15.768Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fd1-94f2-7882-b59b-02df10be2d91.md"
+      }
+    },
+    "commit:b5be6a9c228c67ea2b7570374026deaf8b7dc961": {
+      "id": "commit:b5be6a9c228c67ea2b7570374026deaf8b7dc961",
+      "type": "commit",
+      "sha": "b5be6a9c228c67ea2b7570374026deaf8b7dc961",
+      "parents": [
+        "99488a0afce1fa6e3c53ee51c2781a64923e9c26"
+      ],
+      "authored_at": "2026-05-22T09:13:31-04:00",
+      "subject": "Add D-pad flashlight aim controls",
+      "files": []
+    },
+    "packet:3ff05214-9387-4d8a-afff-da08cfa1dad9": {
+      "id": "packet:3ff05214-9387-4d8a-afff-da08cfa1dad9",
+      "type": "packet",
+      "packet_id": "3ff05214-9387-4d8a-afff-da08cfa1dad9",
+      "packet_type": "task",
+      "title": "Update repo docs after Git-Master work",
+      "status": null,
+      "trace_id": "5bd77499-efa6-4cf4-a934-813f0cc73ad2",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T131354Z.json",
+      "created_at": "2026-05-22T13:13:54Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T131354Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T131354Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T131354Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T131354Z.json",
+      "created_at": "2026-05-22T13:13:54Z"
+    },
+    "session:019e4fd3-34b5-77e3-a73b-7f22a56e8557": {
+      "id": "session:019e4fd3-34b5-77e3-a73b-7f22a56e8557",
+      "type": "session",
+      "session_id": "019e4fd3-34b5-77e3-a73b-7f22a56e8557",
+      "timestamp": "2026-05-22T13:15:02.203Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fd3-34b5-77e3-a73b-7f22a56e8557.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fd3-34b5-77e3-a73b-7f22a56e8557.jsonl"
+    },
+    "packet:result-d689d14d-2f56-4e55-9f9f-a8419998209a": {
+      "id": "packet:result-d689d14d-2f56-4e55-9f9f-a8419998209a",
+      "type": "packet",
+      "packet_id": "result-d689d14d-2f56-4e55-9f9f-a8419998209a",
+      "packet_type": "result",
+      "title": "Found GitHub-compatible origin remote and constructed full browser URLs for both requested commits.",
+      "status": "success",
+      "trace_id": "62e0ce11-99ac-4881-9604-46b31cbc2497",
+      "from_agent": "git-master",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/git-master-d689d14d-2f56-4e55-9f9f-a8419998209a-result.json",
+      "created_at": "2026-05-22T13:15:30Z"
+    },
+    "artifact:.control-tower/packets/inbox/git-master-d689d14d-2f56-4e55-9f9f-a8419998209a-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/git-master-d689d14d-2f56-4e55-9f9f-a8419998209a-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/git-master-d689d14d-2f56-4e55-9f9f-a8419998209a-result.json",
+      "title": ".control-tower/packets/inbox/git-master-d689d14d-2f56-4e55-9f9f-a8419998209a-result.json",
+      "created_at": "2026-05-22T13:15:30Z"
+    },
+    "packet:d689d14d-2f56-4e55-9f9f-a8419998209a": {
+      "id": "packet:d689d14d-2f56-4e55-9f9f-a8419998209a",
+      "type": "packet",
+      "packet_id": "d689d14d-2f56-4e55-9f9f-a8419998209a",
+      "packet_type": "task",
+      "title": "Report commit URLs",
+      "status": null,
+      "trace_id": "62e0ce11-99ac-4881-9604-46b31cbc2497",
+      "from_agent": "tower",
+      "to_agent": "git-master",
+      "path": ".control-tower/packets/outbox/20260522T131458Z-git-master-report-commit-urls.json",
+      "created_at": "2026-05-22T13:14:58Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T131458Z-git-master-report-commit-urls.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T131458Z-git-master-report-commit-urls.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T131458Z-git-master-report-commit-urls.json",
+      "title": ".control-tower/packets/outbox/20260522T131458Z-git-master-report-commit-urls.json",
+      "created_at": "2026-05-22T13:14:58Z"
+    },
+    "event:black-box:13": {
+      "id": "event:black-box:13",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T13:15:02.203Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fd3-34b5-77e3-a73b-7f22a56e8557",
+        "timestamp": "2026-05-22T13:15:02.203Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fd3-34b5-77e3-a73b-7f22a56e8557.md"
+      }
+    }
+  }
+}

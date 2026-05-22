@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "3d4956b9-35e2-46a3-94ea-fc04b7b127de",
+  "trace_id": "146a626e-7fc2-435f-8813-43433d4c7374",
+  "parent_packet_id": "b7f8c3e7-6c0f-4f9f-9f8c-4e1f3df0690b",
+  "created_at": "2026-05-22T13:00:48Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Commit flashlight gamepad toggle",
+  "objective": "Create a local Git commit for the working flashlight gamepad toggle and FKey input fix.",
+  "instructions": [
+    "Inspect git status and diff before staging.",
+    "Stage only the files directly related to the flashlight gamepad toggle/FKey fix, expected file: examples/flashlight/run.py.",
+    "Do not stage unrelated .control-tower packets, docs, pycache, or user changes.",
+    "Create a local commit with a concise message describing the flashlight gamepad toggle/input fix.",
+    "Report commit SHA, commit message, files committed, and any remaining unstaged changes."
+  ],
+  "constraints": [
+    "No push.",
+    "No history rewrite.",
+    "Do not modify product code."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-fcfdb5a3-5a93-40a1-baee-4e1c9e5a56c5-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Commit SHA and subject.",
+    "Files included in commit.",
+    "Post-commit git status summary."
+  ],
+  "definition_of_done": [
+    "A local commit exists containing only the flashlight example gamepad toggle/input fix."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-fcfdb5a3-5a93-40a1-baee-4e1c9e5a56c5-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 600,
+    "hard_seconds": 1200
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-fcfdb5a3-5a93-40a1-baee-4e1c9e5a56c5-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

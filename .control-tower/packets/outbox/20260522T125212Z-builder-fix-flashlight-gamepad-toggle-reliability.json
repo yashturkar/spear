@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "31760a89-de1d-469b-a6d4-48e917c5c514",
+  "trace_id": "d286c356-15bd-4482-8a0d-127bc629f445",
+  "parent_packet_id": null,
+  "created_at": "2026-05-22T12:52:12Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Fix flashlight gamepad toggle reliability",
+  "objective": "Make the flashlight gamepad toggle in examples/flashlight/run.py reliable for normal Xbox controller button presses.",
+  "instructions": [
+    "Edit examples/flashlight/run.py only.",
+    "The current default toggle key Gamepad_FaceButton_Right maps to Xbox B; keep or clearly justify any change.",
+    "Investigate and fix why normal button presses can be missed; likely cause is polling WasInputKeyJustPressed only every idle_period_seconds.",
+    "Prefer edge detection using a key-down query plus previous state if SPEAR/Unreal exposes it through the same player controller path.",
+    "Keep pose capture behavior intact, but consider applying the same reliable edge pattern to capture-key if it uses the same gamepad polling issue.",
+    "Do not perform Git operations."
+  ],
+  "constraints": [
+    "No broader input-system redesign.",
+    "No docs churn."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Changed files list.",
+    "Explain Xbox button mapping and reliability fix.",
+    "Manual verification command and button to press."
+  ],
+  "definition_of_done": [
+    "A normal Xbox B button press toggles the flashlight without needing an unusually long hold.",
+    "Existing Enter pose capture remains intact."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 1800
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {}
+}

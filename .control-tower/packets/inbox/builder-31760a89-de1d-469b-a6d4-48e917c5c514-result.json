@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "result",
+  "packet_id": "a23cd5a1-4e96-4762-b572-9ae855562f0a",
+  "trace_id": "d286c356-15bd-4482-8a0d-127bc629f445",
+  "parent_packet_id": "31760a89-de1d-469b-a6d4-48e917c5c514",
+  "created_at": "2026-05-22T13:05:00Z",
+  "from_agent": "builder",
+  "to_agent": "tower",
+  "status": "success",
+  "summary": "Updated examples/flashlight/run.py so gamepad flashlight toggling uses IsInputKeyDown edge detection polled at 60 Hz instead of relying on WasInputKeyJustPressed at the idle interval. The default toggle key remains Gamepad_FaceButton_Right, which maps to Xbox B. The same edge pattern is applied to the gamepad pose capture key while preserving Enter terminal capture.",
+  "work_completed": [
+    "Added shared FKey construction and key-down edge detection helpers.",
+    "Changed the main loop to poll input every min(--idle-period-seconds, 1/60) seconds so normal Xbox button taps are observed reliably.",
+    "Applied the reliable edge detection path to both --toggle-key and --capture-key gamepad inputs.",
+    "Kept Enter pose capture behavior intact.",
+    "Verified Python syntax with: python -m py_compile examples/flashlight/run.py."
+  ],
+  "artifacts_changed": [
+    "examples/flashlight/run.py"
+  ],
+  "artifacts_created": [],
+  "artifacts_deleted": [],
+  "findings": [
+    {
+      "severity": "info",
+      "message": "Manual verification command: python examples/flashlight/run.py --toggle-key Gamepad_FaceButton_Right. Press Xbox B to verify the flashlight toggles without holding the button unusually long."
+    },
+    {
+      "severity": "info",
+      "message": "For pose capture verification, run with --capture-poses and confirm Enter still captures a pose; the default gamepad capture key Gamepad_FaceButton_Top corresponds to Xbox Y."
+    },
+    {
+      "severity": "warning",
+      "message": "Runtime verification with Unreal/SPEAR and a physical Xbox controller was not run in this environment."
+    }
+  ],
+  "follow_up_recommendations": [],
+  "review_requested": false,
+  "doc_update_needed": false,
+  "memory_worthy": [],
+  "metrics": {
+    "tokens_used": 0,
+    "files_touched": 1,
+    "tests_added": 0,
+    "tests_passed": 1
+  },
+  "raw_output_ref": null,
+  "metadata": {}
+}
