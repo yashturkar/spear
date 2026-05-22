@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "09278271-fdf4-49ef-8032-1520b6f2aaae",
+  "trace_id": "bc0c4c90-c660-4e90-9f66-5d10b94eb8ef",
+  "parent_packet_id": null,
+  "created_at": "2026-05-22T15:45:51Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Fix Rerun stream regression: remove depth point cloud and restore image views",
+  "objective": "Repair examples/flashlight/run_programmatic_rerun.py after the previous Rerun camera/frustum change: keep the world-frame camera frustum and RGB image projection, but restore normal 2D image streams for RGB/depth/normals/diffuse and prevent depth from appearing as a 3D point cloud.",
+  "instructions": [
+    "Do not log depth under the camera pinhole entity, because Rerun back-projects camera-child DepthImage as a point cloud in the 3D view.",
+    "Keep spear/camera as the world-frame camera pose plus visible frustum/pinhole.",
+    "Keep one RGB image child under the camera only if needed for the 3D projected image plane/frustum projection.",
+    "Restore ordinary 2D image streams for inspection under a non-camera path: spear/images/rgb, spear/images/depth_meters, spear/images/world_normal_visualization, and spear/images/diffuse_color_visualization. These should show up as images, not 3D point clouds.",
+    "Depth should be visible as a 2D depth image or depth visualization and must not create a 3D point cloud by default.",
+    "Preserve the improved color handling for RGB/diffuse/normals where it is correct, but make the paths and names clear.",
+    "Update README/docs only to match the corrected behavior."
+  ],
+  "constraints": [
+    "Do not remove the programmatic control feature.",
+    "Do not run live simulator-dependent commands."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_programmatic_rerun.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Patched script and docs restoring image visibility and removing the unwanted point cloud."
+  ],
+  "definition_of_done": [
+    "python -m py_compile examples/flashlight/run_programmatic_rerun.py passes.",
+    "Static check confirms no rr.DepthImage is logged under spear/camera/.",
+    "ResultPacket explains exactly which Rerun paths now show camera/frustum, projected RGB, 2D images, trajectory, and status."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

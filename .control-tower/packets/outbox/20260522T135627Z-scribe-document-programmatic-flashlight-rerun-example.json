@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "90bf4039-516d-452a-a54a-7c22fca20cea",
+  "trace_id": "d3d40739-e870-4c61-93ee-a3174ca9b724",
+  "parent_packet_id": "9a6f167d-9bb6-490b-89f2-f5e4d9166a67",
+  "created_at": "2026-05-22T13:56:27Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "documentation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Document programmatic flashlight Rerun example",
+  "objective": "Update the flashlight example documentation to cover the new programmatic Rerun script, examples extra dependency install, editable compute_light_command hook, live viewport behavior, Rerun streams, and live simulator validation note.",
+  "instructions": [
+    "Update examples/flashlight/README.md rather than creating a new doc unless you find that file unsuitable.",
+    "Document the command to install examples extras, including zsh-safe quoting: python -m pip install -e 'python[examples]'.",
+    "Document a concise run command for examples/flashlight/run_programmatic_rerun.py and mention --no-rerun-spawn for connecting manually.",
+    "Explain that the script follows the live viewport camera, prints camera/light status to the terminal, streams RGB/depth/world_normal/diffuse_color to Rerun, and uses diffuse_color as albedo.",
+    "Explain that programmatic light control is intended through editing compute_light_command / LightCommand in the new script.",
+    "Mention live SPEAR/Rerun end-to-end validation remains a user-run check."
+  ],
+  "constraints": [
+    "Do not edit product source code.",
+    "Do not perform Git actions."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/README.md",
+      "examples/flashlight/run_programmatic_rerun.py",
+      "python/pyproject.toml"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-a483b73a-065a-4be8-b339-d51cb9196f01-result.json",
+      ".control-tower/packets/inbox/inspector-556a54fa-166a-4fae-9275-86e537ef7775-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Updated README section for the new example.",
+    "ResultPacket lists docs changed and any remaining drift."
+  ],
+  "definition_of_done": [
+    "README includes install, run, control-hook, Rerun streams, and validation note."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-556a54fa-166a-4fae-9275-86e537ef7775-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-556a54fa-166a-4fae-9275-86e537ef7775-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

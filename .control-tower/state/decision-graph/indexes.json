@@ -1,6 +1,12 @@
 {
   "active_decisions": [],
   "inferred_decisions": [
+    "dec_inferred_scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result_0_the-flashlight-programmatic-rerun-docs-now-describe-rgb-depth-only-2d-streams-under-images-plus-non-spatial-status-camera-and-status-light-telemetry-older-spear-camera-path-documentation-is-superseded",
+    "dec_inferred_4b8df9fd-8f7f-45b7-a412-7824c86a517c_0_confirmed-the-flashlight-programmatic-rerun-cleanup-now-emits-only-rgb-depth-2d-image-streams-and-non-spatial-status-telemetry-with-spatial-spear-paths-and-3d-rerun-archetypes-removed-from-the-script",
+    "dec_inferred_7e7e8f6a-cc04-4b88-a10c-a7657ff540c6_0_confirmed-the-flashlight-programmatic-rerun-stream-keeps-rr-depthimage-outside-spear-camera-to-avoid-rerun-back-projecting-depth-into-a-default-3d-point-cloud",
+    "dec_inferred_1b023912-1224-47fc-807f-c7922c56ac5f_0_for-the-flashlight-programmatic-rerun-stream-keep-rr-depthimage-outside-spear-camera-because-rerun-back-projects-camera-child-depth-images-into-3d-point-clouds",
+    "dec_inferred_5bcd4958-0b6d-4c54-8f7d-dfddc804ad55_0_docs-running-our-example-applications-md-now-documents-the-examples-flashlight-programmatic-rerun-stream-and-its-current-spear-camera-paths",
+    "dec_inferred_7f6a9dc2-2c22-40fb-965e-14b0b032399b_0_examples-flashlight-readme-md-now-documents-the-programmatic-rerun-flashlight-stream-including-examples-extra-install-live-viewport-capture-behavior-rerun-streams-and-compute-light-command-lightcommand-control-workflow",
     "dec_inferred_result-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81_0_spear-is-for-building-and-setting-up-a-simulator-for-active-illumination-research",
     "dec_inferred_result-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81_1_tower-should-stay-lean-quick-discussion-builder-implements-user-runs-the-simulator-to-check",
     "dec_inferred_result-a468d4fa-68a0-4ae0-9ac7-0b2586eb7f81_2_tower-s-main-value-is-memory-context-savings-and-concise-orchestration-not-heavyweight-multi-agent-workflow"
@@ -19,18 +25,18 @@
   ],
   "current_tasks": [],
   "recent_commits": [
+    "commit:0c2b4838c52778b941f551ecc3db06a87ddb245c",
+    "commit:bfe63191b879bc02acd21c13567c3b993f6c9f86",
     "commit:b5be6a9c228c67ea2b7570374026deaf8b7dc961",
     "commit:99488a0afce1fa6e3c53ee51c2781a64923e9c26",
-    "commit:eaa8a93b8238fe1ccbc6ed6c34ce36da86f8c6d6",
-    "commit:f542d0b7c59077a313987cb58ec00f3ec8cb3bbd",
-    "commit:67633f29bbf3fecc7206c3522bcbbb222e4cec8f"
+    "commit:eaa8a93b8238fe1ccbc6ed6c34ce36da86f8c6d6"
   ],
   "unexplained_commits": [
+    "commit:0c2b4838c52778b941f551ecc3db06a87ddb245c",
+    "commit:bfe63191b879bc02acd21c13567c3b993f6c9f86",
     "commit:b5be6a9c228c67ea2b7570374026deaf8b7dc961",
     "commit:99488a0afce1fa6e3c53ee51c2781a64923e9c26",
-    "commit:eaa8a93b8238fe1ccbc6ed6c34ce36da86f8c6d6",
-    "commit:f542d0b7c59077a313987cb58ec00f3ec8cb3bbd",
-    "commit:67633f29bbf3fecc7206c3522bcbbb222e4cec8f"
+    "commit:eaa8a93b8238fe1ccbc6ed6c34ce36da86f8c6d6"
   ],
   "session_links": {
     "session:tower-session": [
@@ -52,9 +58,36 @@
       "packet:ebe2cad3-6388-4b28-9945-28f881ab37f9",
       "packet:4e56321d-aba9-447b-b76d-4f82c377b912",
       "packet:3ff05214-9387-4d8a-afff-da08cfa1dad9",
-      "packet:d689d14d-2f56-4e55-9f9f-a8419998209a"
+      "packet:d689d14d-2f56-4e55-9f9f-a8419998209a",
+      "packet:28f9d565-fe69-4f69-9f24-d3b0c134d119",
+      "packet:5cde57dd-5552-45ff-a33c-0edce765a044",
+      "packet:a483b73a-065a-4be8-b339-d51cb9196f01",
+      "packet:556a54fa-166a-4fae-9275-86e537ef7775",
+      "packet:acd420fc-be2e-49c2-890e-de6ba088d2f7",
+      "packet:90bf4039-516d-452a-a54a-7c22fca20cea",
+      "packet:84b84f5e-c8e9-4dd7-adbf-69efbab23267",
+      "packet:cdd87fe9-73aa-4588-9767-0bedf581f981",
+      "packet:566444f9-0fc7-49cf-aebe-0d652982ee5d",
+      "packet:388069ed-89f5-430d-ab86-58d2764a5e0f",
+      "packet:af690f2e-d087-4028-bc1d-7f8277a9f35d",
+      "packet:33b06c9a-5bd3-40de-bfa3-caf4cb927cad",
+      "packet:5602747c-9c97-425a-8f70-7ee740a173c6",
+      "packet:ef9b54e8-72ae-483c-86b9-5fe6434f9a14",
+      "packet:e63a3288-719f-4307-b0f7-33ca8c10ccdb",
+      "packet:09278271-fdf4-49ef-8032-1520b6f2aaae",
+      "packet:4ed55ab6-610e-40ef-a496-e7a5f4576a77",
+      "packet:180df7fb-92b2-4e76-bc22-85ba8113249d",
+      "packet:d58dbb89-cb35-487b-b6f4-1360508b8686",
+      "packet:01241a06-7b1d-4e32-b6ce-5485f9117799",
+      "packet:25eeaf63-cafc-4cf5-913c-a70a2cfa5ac8",
+      "packet:e66e06a2-54c4-4164-b797-1b77db8eabf1",
+      "packet:1a5b0a8d-9d64-48a7-b3be-e6735b4e1a4f",
+      "packet:31b4ed5a-e275-4b59-8b00-a71f56ed6c97",
+      "packet:ed527cea-cf9e-4873-a5e5-a467f276c4e7",
+      "packet:c5da1b1f-a293-44f9-af8b-33e17b0ac522",
+      "packet:519b576e-86f2-4e29-b318-6df59515278a"
     ]
   },
-  "last_graph_sync": "2026-05-22T13:15:29Z",
+  "last_graph_sync": "2026-05-22T16:45:56Z",
   "current_branch": "main"
 }

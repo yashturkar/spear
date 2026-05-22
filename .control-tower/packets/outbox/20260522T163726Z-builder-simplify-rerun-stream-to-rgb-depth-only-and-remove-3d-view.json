@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "31b4ed5a-e275-4b59-8b00-a71f56ed6c97",
+  "trace_id": "886c43e9-b5a0-4294-b464-62e122c03b95",
+  "parent_packet_id": null,
+  "created_at": "2026-05-22T16:37:26Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Simplify Rerun stream to RGB/depth only and remove 3D view",
+  "objective": "Update the programmatic flashlight Rerun example so it only publishes accepted 2D image streams and non-spatial status, removing world-normal/diffuse streams and all 3D/spatial Rerun logging.",
+  "instructions": [
+    "Keep these image streams: images/rgb, images/depth_meters, images/depth_meters_visualization.",
+    "Remove these image streams and associated capture/components/helpers if no longer needed: images/world_normal_visualization and images/diffuse_color_visualization.",
+    "Remove the 3D Rerun view/spatial logging entirely: no spear ViewCoordinates root, no Transform3D, no Pinhole/frustum, no spear/camera/rgb_projection, no Points3D, no LineStrips3D, no Arrows3D.",
+    "Keep useful non-spatial Rerun status/scalars for light enabled/intensity/yaw/pitch and camera world position if already available, but place them outside the spatial spear tree, for example status/light/* and status/camera/*.",
+    "Keep terminal status printing.",
+    "Update README and running guide to describe the reduced Rerun output."
+  ],
+  "constraints": [
+    "Do not remove programmatic light control.",
+    "Do not run live simulator-dependent commands."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_programmatic_rerun.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Patched script and docs with RGB/depth-only 2D Rerun stream and no spatial 3D logging."
+  ],
+  "definition_of_done": [
+    "python -m py_compile examples/flashlight/run_programmatic_rerun.py passes.",
+    "Static check confirms no world_normal/diffuse Rerun streams and no 3D archetypes Transform3D, Pinhole, Points3D, LineStrips3D, or Arrows3D remain in the script.",
+    "ResultPacket lists final Rerun paths."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

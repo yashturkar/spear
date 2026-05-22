@@ -46,6 +46,7 @@ We recommend browsing through our example applications to get a sense of what is
   - [`examples/control_simple_agent`](../examples/control_simple_agent) demonstrates how to control a simple agent and obtain egocentric visual observations.
   - [`examples/control_stackobot_sample`](../examples/control_stackobot_sample) demonstrates how to control Epic Games' `StackOBot` project.
   - [`examples/enhanced_input`](../examples/enhanced_input) demonstrates how to interact with Unreal's Enhanced Input system.
+  - [`examples/flashlight`](../examples/flashlight) demonstrates interactive and programmatic flashlight control, including a Rerun stream for active-illumination inspection.
   - [`examples/get_class_info`](../examples/get_class_info) demonstrates how to interact with Unreal's runtime reflection system.
   - [`examples/getting_started`](../examples/getting_started) demonstrates how to spawn an object and access object properties.
   - [`examples/getting_started_editor`](../examples/getting_started_editor) demonstrates how to spawn an object using the Unreal Editor's built-in Python API.
@@ -64,3 +65,35 @@ We recommend browsing through our example applications to get a sense of what is
   - [`examples/render_image_editor`](../examples/render_image_editor) demonstrates how to render an image using the Unreal Editor's built-in Python API.
   - [`examples/render_image_multi_view`](../examples/render_image_multi_view) demonstrates how to render from a multi-view camera rig.
   - [`examples/sample_nav_mesh`](../examples/sample_nav_mesh) demonstrates how to sample points and shortest paths from Unreal's nav mesh system.
+
+## Running the flashlight Rerun stream
+
+The flashlight example includes a live programmatic stream that follows the
+current viewport camera, controls an attached spotlight from Python, and logs
+camera-aligned active-illumination observations to Rerun.
+
+```console
+python examples/flashlight/run_programmatic_rerun.py --map japanese_office_dark --movement-speed 600 --disable-scene-lights
+```
+
+The stream logs final-tone-curve RGB, metric depth, and a normalized depth RGB
+preview as 2D image inspection streams at `images/rgb`,
+`images/depth_meters`, and `images/depth_meters_visualization`. It does not
+create a 3D Rerun view, camera frustum, projected RGB plane, point cloud,
+trajectory, or spatial `spear` hierarchy. Camera world position is logged as
+non-spatial status scalars under `status/camera/`, and flashlight intensity,
+enabled state, yaw offset, pitch offset, and text status are logged under
+`status/light/`.
+
+Programmatic control lives in
+`examples/flashlight/run_programmatic_rerun.py`: edit
+`compute_light_command` to return a `LightCommand` for each frame. The hook
+receives elapsed time, the frame index, the current viewport description, and
+the previous light command, so it can toggle the flashlight, change intensity,
+or adjust yaw and pitch offsets while the stream is running.
+
+The script spawns Rerun by default. Pass `--no-rerun-spawn` to connect from an
+already running Rerun viewer. Live SPEAR/Rerun validation requires a running
+simulator and viewer; see [`examples/flashlight`](../examples/flashlight) for
+the full workflow, including the imported Japanese office map and rendered
+flythrough helpers.

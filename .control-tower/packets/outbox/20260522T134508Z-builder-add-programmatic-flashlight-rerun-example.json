@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "a483b73a-065a-4be8-b339-d51cb9196f01",
+  "trace_id": "d3d40739-e870-4c61-93ee-a3174ca9b724",
+  "parent_packet_id": null,
+  "created_at": "2026-05-22T13:45:08Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Add programmatic flashlight Rerun example",
+  "objective": "Implement a new examples/flashlight script that programmatically controls flashlight intensity/direction from a Python hook while streaming viewport-aligned RGB, depth, normals, albedo, camera trajectory, and light status to a live Rerun viewer.",
+  "instructions": [
+    "Add examples/flashlight/run_programmatic_rerun.py as a copy/new live example derived from the existing flashlight run.py and render_flythrough.py patterns.",
+    "Use the live spectator viewport camera as the source of truth each capture tick via rendering_service.get_current_viewport_desc(...), not a scripted flythrough route.",
+    "Expose programmatic control through a top-level LightCommand dataclass and compute_light_command(elapsed_seconds, frame_index, viewport_desc, previous_command) hook; default behavior should use CLI defaults and be easy for the user to edit.",
+    "Spawn a movable ASpotLight, apply enabled/intensity/yaw/pitch offsets each tick, and keep light position colocated with the live viewport camera.",
+    "Spawn BP_CameraSensor and capture final_tone_curve_hdr_, sp_depth_meters_, world_normal_, and diffuse_color_ at configurable width/height/capture-fps aligned to the viewport pose.",
+    "Integrate rerun as rr with live viewer spawn by default; publish images, depth, normals, albedo, camera pose/trajectory, and scalar/text status for intensity/direction/enabled.",
+    "Print a compact terminal status line per capture tick with frame index, camera world location/rotation, light enabled/intensity, and yaw/pitch offsets.",
+    "Add CLI options for map/map-path, movement speed, disable-scene-lights, light defaults, width, height, capture-fps, rerun-app-id, and no-rerun-spawn.",
+    "Add rerun-sdk==0.32.2 to the examples optional dependency group in python/pyproject.toml; keep core dependencies unchanged.",
+    "Handle missing rerun import with a clear install hint.",
+    "Clean up spawned light, camera sensor, camera components, and SPEAR instance on Ctrl+C/finally."
+  ],
+  "constraints": [
+    "Do not perform Git actions.",
+    "Do not update README or other docs; Tower will delegate docs to Scribe after implementation.",
+    "Stay within examples/flashlight/run_programmatic_rerun.py and python/pyproject.toml unless a clearly necessary implementation support edit is discovered; report any deviation."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/render_flythrough.py",
+      "python/pyproject.toml"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "New script path and dependency edit listed explicitly.",
+    "Verification commands run and results summarized."
+  ],
+  "definition_of_done": [
+    "Script compiles with python syntax check.",
+    "Rerun dependency is in examples optional dependencies, not core dependencies.",
+    "ResultPacket names changed files and notes README follow-up needed."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [
+    "docs/agents.mcp_usage.md"
+  ],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}
