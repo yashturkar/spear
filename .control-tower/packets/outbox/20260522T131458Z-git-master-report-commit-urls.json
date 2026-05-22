@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "d689d14d-2f56-4e55-9f9f-a8419998209a",
+  "trace_id": "62e0ce11-99ac-4881-9604-46b31cbc2497",
+  "parent_packet_id": null,
+  "created_at": "2026-05-22T13:14:58Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git-info",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Report commit URLs",
+  "objective": "Report full URLs for the latest D-pad flashlight aim commit and the previous flashlight gamepad toggle commit.",
+  "instructions": [
+    "Inspect git remotes and recent commits only; do not modify repo state.",
+    "Return full browser URLs for commits b5be6a9c228c67ea2b7570374026deaf8b7dc961 and 99488a0afce1fa6e3c53ee51c2781a64923e9c26 if a GitHub-compatible remote is configured.",
+    "If no compatible remote exists, report the remote(s) found and explain that full URLs cannot be constructed confidently."
+  ],
+  "constraints": [
+    "No staging, no commit, no push, no history rewrite."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Full commit URLs or a clear blocker."
+  ],
+  "definition_of_done": [
+    "Tower can answer the user with commit URLs or explain why not."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 300,
+    "hard_seconds": 600
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {}
+}

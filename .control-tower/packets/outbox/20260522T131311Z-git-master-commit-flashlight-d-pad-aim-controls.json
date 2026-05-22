@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "4e56321d-aba9-447b-b76d-4f82c377b912",
+  "trace_id": "5bd77499-efa6-4cf4-a934-813f0cc73ad2",
+  "parent_packet_id": "3f242c3e-c014-44da-98d3-dda91d9af9bb",
+  "created_at": "2026-05-22T13:13:11Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Commit flashlight D-pad aim controls",
+  "objective": "Create a local Git commit for the working D-pad flashlight aim controls and rotator key fix.",
+  "instructions": [
+    "Inspect git status and diff before staging.",
+    "Stage only examples/flashlight/run.py for the D-pad flashlight aim controls and rotator key fix.",
+    "Do not stage unrelated .control-tower packets, docs, output folders, pycache, third-party status, or user changes.",
+    "Create a local commit with a concise message describing D-pad flashlight aim controls.",
+    "Report commit SHA, subject, files committed, and remaining unstaged changes."
+  ],
+  "constraints": [
+    "No push.",
+    "No history rewrite.",
+    "Do not modify product code."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-5d385472-c74f-49c2-80fd-1fcfb59e156a-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Commit SHA and subject.",
+    "Files included in commit.",
+    "Post-commit git status summary."
+  ],
+  "definition_of_done": [
+    "A local commit exists containing only examples/flashlight/run.py D-pad aim changes."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-5d385472-c74f-49c2-80fd-1fcfb59e156a-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 600,
+    "hard_seconds": 1200
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-5d385472-c74f-49c2-80fd-1fcfb59e156a-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

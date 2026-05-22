@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "97186b25-d1dd-4c81-86ab-e35a8b9c34ad",
+  "trace_id": "875f21a8-581c-4c96-9b09-4282b70218bd",
+  "parent_packet_id": "2a0a51f4-8fb7-4fb2-87a2-5aabde9ad5c8",
+  "created_at": "2026-05-22T12:47:29Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Add gamepad flashlight toggle in example",
+  "objective": "Implement gamepad button support in examples/flashlight/run.py so the spawned flashlight can be toggled on and off.",
+  "instructions": [
+    "Edit examples/flashlight/run.py only unless a directly necessary test or adjacent example file proves unavoidable.",
+    "For this packet, examples/flashlight/run.py is explicitly authorized as the product-code edit scope despite any stale default src/tests path assumptions.",
+    "Add a CLI argument for the flashlight toggle gamepad key, with a sensible default that does not conflict with pose capture.",
+    "Use the existing WasInputKeyJustPressed pattern and toggle the spawned spotlight component visibility.",
+    "Keep existing pose capture behavior intact; Gamepad_FaceButton_Top is already the default capture key.",
+    "Do not perform Git operations."
+  ],
+  "constraints": [
+    "No broad input-system redesign.",
+    "No unrelated refactors or docs churn."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/enhanced_input/run.py"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-f4e89ade-c3e7-46a1-8577-5ef01efbee62-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Changed files list.",
+    "Summary of behavior and selected gamepad button.",
+    "Manual verification steps."
+  ],
+  "definition_of_done": [
+    "Pressing the selected gamepad button once turns the flashlight off and pressing it again turns it on.",
+    "Existing pose capture and camera movement behavior remain intact."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-f4e89ade-c3e7-46a1-8577-5ef01efbee62-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 1800
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-f4e89ade-c3e7-46a1-8577-5ef01efbee62-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "blocked"
+  }
+}

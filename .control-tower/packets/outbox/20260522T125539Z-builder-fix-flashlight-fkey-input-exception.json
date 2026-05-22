@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "fcfdb5a3-5a93-40a1-baee-4e1c9e5a56c5",
+  "trace_id": "146a626e-7fc2-435f-8813-43433d4c7374",
+  "parent_packet_id": null,
+  "created_at": "2026-05-22T12:55:39Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Fix flashlight FKey input exception",
+  "objective": "Fix examples/flashlight/run.py so gamepad flashlight toggle does not crash with SPEAR engine_service Exception: 'FKey'.",
+  "instructions": [
+    "Edit examples/flashlight/run.py only unless a directly necessary adjacent example reference proves unavoidable.",
+    "Use the user-provided runtime log as evidence: after logging Flashlight toggle key: Gamepad_FaceButton_Right, SPEAR raises engine_service Exception: 'FKey' and frame state becomes error.",
+    "Investigate why constructing or using game.get_unreal_object(uclass='FKey') fails in this runtime.",
+    "Prefer a robust existing SPEAR/Unreal input pattern from examples/enhanced_input/run.py or instance.input_service/enhanced_input_service if it avoids manual FKey construction.",
+    "If player_controller methods require an FKey but Python bridge cannot construct FKey directly, implement a safe alternative or revert to a method known to work in this repo.",
+    "Keep Xbox B as the default target if possible: Unreal Gamepad_FaceButton_Right.",
+    "Keep Enter pose capture intact.",
+    "Run python -m py_compile examples/flashlight/run.py.",
+    "Do not perform Git operations."
+  ],
+  "constraints": [
+    "No broad input-system redesign.",
+    "No docs churn."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/enhanced_input/run.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Changed files list.",
+    "Root cause and fix summary for the FKey exception.",
+    "Manual verification command and exact Xbox button/key to test."
+  ],
+  "definition_of_done": [
+    "examples/flashlight/run.py no longer constructs input keys in a way that raises Exception: 'FKey' at runtime.",
+    "Syntax verification passes."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 1200,
+    "hard_seconds": 2400
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {}
+}
