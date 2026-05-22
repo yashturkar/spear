@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "c33dfa72-a7c0-4586-ae0d-834047f10ef4",
+  "trace_id": "5ac8d8c6-183b-4cac-bbee-1c956a5a993c",
+  "parent_packet_id": null,
+  "created_at": "2026-05-22T13:03:29Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Add D-pad flashlight aim offsets",
+  "objective": "Add D-pad controls to examples/flashlight/run.py so the flashlight can be aimed around the camera in two angular axes with configurable min/max limits defaulting to +/-30 degrees.",
+  "instructions": [
+    "Edit examples/flashlight/run.py only unless a directly necessary adjacent reference proves unavoidable.",
+    "Add D-pad input controls for two axes: left/right adjusts yaw offset, up/down adjusts pitch offset for the flashlight relative to the camera/pawn orientation.",
+    "Add CLI arguments to configure min and max angular limits; default to -30 and +30 degrees in both axes. Prefer clear argument names.",
+    "Add a sensible step size or rate control if needed, with a reasonable default, so holding or pressing D-pad moves predictably.",
+    "Reuse the existing safe FKey struct argument input polling pattern; do not reintroduce game.get_unreal_object(uclass='FKey').",
+    "Keep existing toggle key behavior, pose capture, Enter capture, and camera movement intact.",
+    "Run python -m py_compile examples/flashlight/run.py.",
+    "Do not perform Git operations."
+  ],
+  "constraints": [
+    "No broad input-system redesign.",
+    "No docs churn."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Changed files list.",
+    "Summary of new D-pad controls and CLI arguments.",
+    "Manual verification command and controls."
+  ],
+  "definition_of_done": [
+    "D-pad left/right and up/down move the flashlight aim around the camera in two axes.",
+    "Default angular bounds are +/-30 degrees in all directions.",
+    "Syntax verification passes."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 1200,
+    "hard_seconds": 2400
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {}
+}

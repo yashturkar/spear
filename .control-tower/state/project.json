@@ -1,0 +1,42 @@
+{
+  "system_name": "Control Tower",
+  "primary_agent": "Tower",
+  "project_name": "spear",
+  "project_root": "/home/yashturkar/Workspace/spear",
+  "enabled_agents": [
+    "builder",
+    "inspector",
+    "scout",
+    "git-master",
+    "scribe"
+  ],
+  "default_agents": [
+    "Builder",
+    "Inspector",
+    "Scout",
+    "Git-master",
+    "Scribe"
+  ],
+  "docs_harness": {
+    "enabled": true,
+    "mode": "adopted",
+    "doc_roots": [
+      "docs"
+    ],
+    "root_map_files": [],
+    "index_files": [],
+    "auto_scribe_mode": "after-most-work",
+    "auto_scribe_agents": [
+      "builder",
+      "inspector",
+      "git-master"
+    ],
+    "scaffolded_by_init": false
+  },
+  "codex_defaults": {
+    "sandbox": "workspace-write",
+    "approval": "on-request",
+    "search": false,
+    "dangerously_bypass": true
+  }
+}

@@ -19,6 +19,7 @@ cpp/unreal_projects/SpearSim/Content/__ExternalActors__
 cpp/unreal_projects/SpearSim/Content/__ExternalObjects__
 cpp/unreal_projects/SpearSim/Content/Characters
 cpp/unreal_projects/SpearSim/Content/Humoto
+cpp/unreal_projects/SpearSim/Content/JapaneseOffice
 cpp/unreal_projects/SpearSim/Content/Kujiale
 cpp/unreal_projects/SpearSim/Content/LevelPrototyping
 cpp/unreal_projects/SpearSim/Content/Megascans
@@ -81,3 +82,6 @@ tools/run_editor_tasks/user_config.yaml
 
 tools/tmp
 examples/debug_draw/images
+
+examples/flashlight/flythrough_output*
+examples/flashlight/japanese_office_actors.json
