@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "388069ed-89f5-430d-ab86-58d2764a5e0f",
+  "trace_id": "d3223c12-172f-4bf7-af41-ab2d279aa489",
+  "parent_packet_id": null,
+  "created_at": "2026-05-22T15:12:39Z",
+  "from_agent": "tower",
+  "to_agent": "scout",
+  "task_type": "research",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Research Rerun camera frustum coordinate setup",
+  "objective": "Determine the correct Rerun Python logging pattern for a world-frame camera pose, visible camera frustum, and projected image plane, including the correct ViewCoordinates and Transform3D matrix convention for an Unreal/SPEAR camera.",
+  "instructions": [
+    "Use primary Rerun documentation/API references where possible and inspect examples/flashlight/run_programmatic_rerun.py.",
+    "Answer whether the camera entity should log ViewCoordinates.RDF or similar at the camera path, how Transform3D mat3x3 is interpreted, and how to attach RGB/depth images so the 3D origin/frustum is correct.",
+    "Also assess why spear/images albedo/normals may look like weird colors and whether non-RGB modalities should be visualized differently or named more explicitly."
+  ],
+  "constraints": [
+    "Do not edit files.",
+    "Do not perform Git actions."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_programmatic_rerun.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Concrete implementation recommendation with exact Rerun paths/archetypes and coordinate convention.",
+    "Any likely color-channel corrections for RGB/albedo/normals called out separately."
+  ],
+  "definition_of_done": [
+    "Builder can implement without further decisions."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {}
+}

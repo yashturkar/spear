@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "25eeaf63-cafc-4cf5-913c-a70a2cfa5ac8",
+  "trace_id": "5d7897c1-04af-4d80-90cb-d32fe3717d12",
+  "parent_packet_id": "1fe9d6ed-dbc2-4e77-829b-cdbb8108b63c",
+  "created_at": "2026-05-22T16:28:00Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Review Rerun top-level images and RGB projection fix",
+  "objective": "Verify the latest Builder fix addresses rotating 2D images, segmentation-like RGB colors, and black camera projection without introducing camera-depth point clouds.",
+  "instructions": [
+    "Confirm regular inspection image paths are top-level images/*, not spear/images/*.",
+    "Confirm no DepthImage is logged under spear/camera.",
+    "Confirm RGB conversion produces 3-channel RGB without alpha for both images/rgb and spear/camera/rgb_projection.",
+    "Confirm docs match the corrected paths and do not claim regular 2D images are under spear."
+  ],
+  "constraints": [
+    "Do not modify files.",
+    "Do not run simulator-dependent commands."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_programmatic_rerun.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-01241a06-7b1d-4e32-b6ce-5485f9117799-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket approving or blocking with concrete file/line findings."
+  ],
+  "definition_of_done": [
+    "Result explicitly says whether the rotating 2D image hierarchy issue should be resolved by the path change."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-01241a06-7b1d-4e32-b6ce-5485f9117799-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-01241a06-7b1d-4e32-b6ce-5485f9117799-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

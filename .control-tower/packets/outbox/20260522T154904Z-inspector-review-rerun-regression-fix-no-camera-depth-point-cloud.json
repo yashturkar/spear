@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "4ed55ab6-610e-40ef-a496-e7a5f4576a77",
+  "trace_id": "bc0c4c90-c660-4e90-9f66-5d10b94eb8ef",
+  "parent_packet_id": "1b023912-1224-47fc-807f-c7922c56ac5f",
+  "created_at": "2026-05-22T15:49:04Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Review Rerun regression fix: no camera depth point cloud",
+  "objective": "Verify the latest Builder fix removes the unwanted Rerun depth point cloud while keeping camera/frustum, projected RGB, and 2D image streams available.",
+  "instructions": [
+    "Confirm no rr.DepthImage is logged under spear/camera or any camera child path.",
+    "Confirm camera/frustum remains at spear/camera and projected RGB remains under camera only as spear/camera/rgb_projection.",
+    "Confirm regular 2D streams are under spear/images/rgb, spear/images/depth_meters, spear/images/world_normal_visualization, and spear/images/diffuse_color_visualization.",
+    "Confirm docs reflect those paths without claiming depth is projected in 3D."
+  ],
+  "constraints": [
+    "Do not modify files.",
+    "Do not run simulator-dependent commands."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_programmatic_rerun.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [
+      "For the flashlight programmatic Rerun stream, keep rr.DepthImage outside spear/camera because Rerun back-projects camera-child depth images into 3D point clouds."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-09278271-fdf4-49ef-8032-1520b6f2aaae-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket with approve/block status and concise findings."
+  ],
+  "definition_of_done": [
+    "Review result explicitly says whether the unwanted point cloud regression is removed."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-09278271-fdf4-49ef-8032-1520b6f2aaae-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-09278271-fdf4-49ef-8032-1520b6f2aaae-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

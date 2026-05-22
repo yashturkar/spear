@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "33b06c9a-5bd3-40de-bfa3-caf4cb927cad",
+  "trace_id": "d3223c12-172f-4bf7-af41-ab2d279aa489",
+  "parent_packet_id": "d4f3a661-4028-49f6-8cf1-7edbd4d501c6",
+  "created_at": "2026-05-22T15:23:00Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Review Rerun camera frustum fix",
+  "objective": "Review the Builder changes for the programmatic flashlight Rerun stream, focusing on coordinate conversion, camera/frustum entity paths, image color handling, and validation gaps.",
+  "instructions": [
+    "Review the current changes against the user request: world-frame camera view, visible frustum/image projection, and sane image colors.",
+    "Check whether the Unreal-to-Rerun coordinate conversion and meter scaling are internally consistent for camera pose, trajectory, and light direction.",
+    "Check whether streams under spear/camera are likely to attach to the Rerun pinhole as intended.",
+    "Check color-model handling for rgb, world_normal_visualization, and diffuse_color_visualization."
+  ],
+  "constraints": [
+    "Do not modify files; report findings only.",
+    "Do not run live simulator-dependent commands."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_programmatic_rerun.py",
+      "examples/flashlight/README.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-af690f2e-d087-4028-bc1d-7f8277a9f35d-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket with review findings ordered by severity and specific file/line references where possible."
+  ],
+  "definition_of_done": [
+    "Review result clearly says whether changes are acceptable or need Builder follow-up."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-af690f2e-d087-4028-bc1d-7f8277a9f35d-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-af690f2e-d087-4028-bc1d-7f8277a9f35d-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

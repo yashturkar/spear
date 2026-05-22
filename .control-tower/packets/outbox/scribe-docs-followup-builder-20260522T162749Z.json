@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "e66e06a2-54c4-4164-b797-1b77db8eabf1",
+  "trace_id": "5d7897c1-04af-4d80-90cb-d32fe3717d12",
+  "parent_packet_id": null,
+  "created_at": "2026-05-22T16:27:49Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "documentation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Update repo docs after Builder work",
+  "objective": "Inspect the latest agent result and update the impacted durable repo docs under the configured docs harness.",
+  "instructions": [
+    "Review the referenced ResultPacket and the changed files before editing docs.",
+    "Update existing relevant docs under the configured repo docs roots when possible.",
+    "Create a new repo doc only if no suitable existing page covers the change.",
+    "Refresh docs indices if you add a new page.",
+    "Report doc drift or unresolved ambiguity explicitly instead of inventing facts."
+  ],
+  "constraints": [
+    "Treat repo docs under `docs/` as the durable docs harness.",
+    "Treat `.control-tower/docs/state` and `.control-tower/memory` as operational memory, not durable product docs.",
+    "Do not modify product source code unless the task packet explicitly requires a small doc-adjacent fix."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_programmatic_rerun.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-01241a06-7b1d-4e32-b6ce-5485f9117799-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Updated repo docs if needed",
+    "A ResultPacket summarizing doc updates, drift, and follow-up gaps"
+  ],
+  "definition_of_done": [
+    "Durable repo docs reflect the changed behavior or workflow",
+    "Relevant indices are refreshed if new docs were added",
+    "Open doc drift or ambiguity is called out explicitly"
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-01241a06-7b1d-4e32-b6ce-5485f9117799-result.json"
+  ],
+  "doc_context_refs": [
+    ".control-tower/docs/state/current-status.md"
+  ],
+  "time_budget": {
+    "soft_seconds": 300,
+    "hard_seconds": 900
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {
+    "generated_by": "tower delegate follow-up",
+    "seed_result_packet": ".control-tower/packets/inbox/builder-01241a06-7b1d-4e32-b6ce-5485f9117799-result.json",
+    "seed_result_agent": "builder"
+  }
+}

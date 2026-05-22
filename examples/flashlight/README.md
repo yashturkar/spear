@@ -50,6 +50,44 @@ python examples/flashlight/run.py --map japanese_office --movement-speed 600 --d
 Press `Ctrl+C` in the terminal to stop the script and destroy the spawned
 flashlight.
 
+## Programmatic Rerun stream
+
+Install the examples extra dependencies before using the Rerun version. The
+quoted extra is safe in shells such as zsh:
+
+```console
+python -m pip install -e 'python[examples]'
+```
+
+Run the live programmatic stream from the repository root:
+
+```console
+python examples/flashlight/run_programmatic_rerun.py --map japanese_office_dark --movement-speed 600 --disable-scene-lights
+```
+
+The script follows the current live viewport camera instead of a fixed route,
+prints compact camera and light status to the terminal, and streams the 2D
+image inspection views at `images/rgb`, `images/depth_meters`,
+and `images/depth_meters_visualization`. The RGB stream uses the final tone
+curve as opaque RGB, depth is logged as metric depth plus a normalized RGB
+preview, and the stream does not create a 3D Rerun view or spatial `spear`
+hierarchy. Camera world position is logged as non-spatial status scalars under
+`status/camera/`, and flashlight enabled state, intensity, yaw offset, pitch
+offset, and text status are logged under `status/light/`.
+
+By default the script spawns Rerun automatically. Pass `--no-rerun-spawn` to
+connect manually from an already running Rerun viewer.
+
+Programmatic flashlight control is intended through editing
+`compute_light_command` and returning a `LightCommand` in
+`examples/flashlight/run_programmatic_rerun.py`. The hook receives elapsed time,
+frame index, the current viewport description, and the previous command, so it
+can toggle the light, change intensity, or adjust yaw and pitch offsets while
+the stream is running.
+
+Live SPEAR/Rerun end-to-end validation remains a user-run check because it
+requires a running simulator and Rerun viewer.
+
 Render a programmatic 10 second flashlight flythrough from fixed camera
 waypoints:
 

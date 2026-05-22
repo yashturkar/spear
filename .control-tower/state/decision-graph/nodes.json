@@ -2112,6 +2112,1361 @@
         "originator": "codex_exec",
         "transcript_path": ".control-tower/memory/l2/transcripts/019e4fd3-34b5-77e3-a73b-7f22a56e8557.md"
       }
+    },
+    "packet:28f9d565-fe69-4f69-9f24-d3b0c134d119": {
+      "id": "packet:28f9d565-fe69-4f69-9f24-d3b0c134d119",
+      "type": "packet",
+      "packet_id": "28f9d565-fe69-4f69-9f24-d3b0c134d119",
+      "packet_type": "task",
+      "title": "Pull from remote",
+      "status": null,
+      "trace_id": "b97cfbce-39a1-4ea3-b30a-b8fad6f00ee9",
+      "from_agent": "tower",
+      "to_agent": "git-master",
+      "path": ".control-tower/packets/outbox/20260522T131712Z-git-master-pull-from-remote.json",
+      "created_at": "2026-05-22T13:17:12Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T131712Z-git-master-pull-from-remote.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T131712Z-git-master-pull-from-remote.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T131712Z-git-master-pull-from-remote.json",
+      "title": ".control-tower/packets/outbox/20260522T131712Z-git-master-pull-from-remote.json",
+      "created_at": "2026-05-22T13:17:12Z"
+    },
+    "packet:5cde57dd-5552-45ff-a33c-0edce765a044": {
+      "id": "packet:5cde57dd-5552-45ff-a33c-0edce765a044",
+      "type": "packet",
+      "packet_id": "5cde57dd-5552-45ff-a33c-0edce765a044",
+      "packet_type": "task",
+      "title": "Update repo docs after Git-Master work",
+      "status": null,
+      "trace_id": "62e0ce11-99ac-4881-9604-46b31cbc2497",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T131529Z.json",
+      "created_at": "2026-05-22T13:15:29Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T131529Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T131529Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T131529Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T131529Z.json",
+      "created_at": "2026-05-22T13:15:29Z"
+    },
+    "commit:0c2b4838c52778b941f551ecc3db06a87ddb245c": {
+      "id": "commit:0c2b4838c52778b941f551ecc3db06a87ddb245c",
+      "type": "commit",
+      "sha": "0c2b4838c52778b941f551ecc3db06a87ddb245c",
+      "parents": [
+        "13cd249a0ec96b3193f9c9ee435624e349b1c147"
+      ],
+      "authored_at": "2026-05-22T09:30:34-04:00",
+      "subject": "Add Tower state and ignore generated data",
+      "files": []
+    },
+    "commit:bfe63191b879bc02acd21c13567c3b993f6c9f86": {
+      "id": "commit:bfe63191b879bc02acd21c13567c3b993f6c9f86",
+      "type": "commit",
+      "sha": "bfe63191b879bc02acd21c13567c3b993f6c9f86",
+      "parents": [
+        "eaa8a93b8238fe1ccbc6ed6c34ce36da86f8c6d6",
+        "c6b13e4b52e48deb4ac9232f6984cdd2f5c92798"
+      ],
+      "authored_at": "2026-05-22T09:16:46-04:00",
+      "subject": "Merge branch 'spear-sim:main' into main",
+      "files": []
+    },
+    "session:019e4fe6-36bb-7e40-a23e-8ea673b3644f": {
+      "id": "session:019e4fe6-36bb-7e40-a23e-8ea673b3644f",
+      "type": "session",
+      "session_id": "019e4fe6-36bb-7e40-a23e-8ea673b3644f",
+      "timestamp": "2026-05-22T13:35:47.903Z",
+      "source": "cli",
+      "originator": "codex-tui",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fe6-36bb-7e40-a23e-8ea673b3644f.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fe6-36bb-7e40-a23e-8ea673b3644f.jsonl"
+    },
+    "session:019e4fee-d71b-7ce3-b0a6-44ee2e940eb1": {
+      "id": "session:019e4fee-d71b-7ce3-b0a6-44ee2e940eb1",
+      "type": "session",
+      "session_id": "019e4fee-d71b-7ce3-b0a6-44ee2e940eb1",
+      "timestamp": "2026-05-22T13:45:13.248Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4fee-d71b-7ce3-b0a6-44ee2e940eb1.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4fee-d71b-7ce3-b0a6-44ee2e940eb1.jsonl"
+    },
+    "packet:0d8459e4-3d6e-4b64-a804-2d4f8f1d2fa6": {
+      "id": "packet:0d8459e4-3d6e-4b64-a804-2d4f8f1d2fa6",
+      "type": "packet",
+      "packet_id": "0d8459e4-3d6e-4b64-a804-2d4f8f1d2fa6",
+      "packet_type": "result",
+      "title": "Implemented the programmatic live Rerun flashlight example and added rerun-sdk==0.32.2 to the examples optional dependency group only.",
+      "status": "success",
+      "trace_id": "d3d40739-e870-4c61-93ee-a3174ca9b724",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-a483b73a-065a-4be8-b339-d51cb9196f01-result.json",
+      "created_at": "2026-05-22T13:51:41Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-a483b73a-065a-4be8-b339-d51cb9196f01-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-a483b73a-065a-4be8-b339-d51cb9196f01-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-a483b73a-065a-4be8-b339-d51cb9196f01-result.json",
+      "title": ".control-tower/packets/inbox/builder-a483b73a-065a-4be8-b339-d51cb9196f01-result.json",
+      "created_at": "2026-05-22T13:51:41Z"
+    },
+    "packet:a483b73a-065a-4be8-b339-d51cb9196f01": {
+      "id": "packet:a483b73a-065a-4be8-b339-d51cb9196f01",
+      "type": "packet",
+      "packet_id": "a483b73a-065a-4be8-b339-d51cb9196f01",
+      "packet_type": "task",
+      "title": "Add programmatic flashlight Rerun example",
+      "status": null,
+      "trace_id": "d3d40739-e870-4c61-93ee-a3174ca9b724",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T134508Z-builder-add-programmatic-flashlight-rerun-example.json",
+      "created_at": "2026-05-22T13:45:08Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T134508Z-builder-add-programmatic-flashlight-rerun-example.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T134508Z-builder-add-programmatic-flashlight-rerun-example.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T134508Z-builder-add-programmatic-flashlight-rerun-example.json",
+      "title": ".control-tower/packets/outbox/20260522T134508Z-builder-add-programmatic-flashlight-rerun-example.json",
+      "created_at": "2026-05-22T13:45:08Z"
+    },
+    "event:black-box:14": {
+      "id": "event:black-box:14",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T13:35:47.903Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fe6-36bb-7e40-a23e-8ea673b3644f",
+        "timestamp": "2026-05-22T13:35:47.903Z",
+        "source": "cli",
+        "originator": "codex-tui",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fe6-36bb-7e40-a23e-8ea673b3644f.md"
+      }
+    },
+    "event:black-box:15": {
+      "id": "event:black-box:15",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T13:45:13.248Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4fee-d71b-7ce3-b0a6-44ee2e940eb1",
+        "timestamp": "2026-05-22T13:45:13.248Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4fee-d71b-7ce3-b0a6-44ee2e940eb1.md"
+      }
+    },
+    "session:019e4ff5-9214-7931-8069-2affada9983a": {
+      "id": "session:019e4ff5-9214-7931-8069-2affada9983a",
+      "type": "session",
+      "session_id": "019e4ff5-9214-7931-8069-2affada9983a",
+      "timestamp": "2026-05-22T13:52:34.328Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4ff5-9214-7931-8069-2affada9983a.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4ff5-9214-7931-8069-2affada9983a.jsonl"
+    },
+    "packet:9a6f167d-9bb6-490b-89f2-f5e4d9166a67": {
+      "id": "packet:9a6f167d-9bb6-490b-89f2-f5e4d9166a67",
+      "type": "packet",
+      "packet_id": "9a6f167d-9bb6-490b-89f2-f5e4d9166a67",
+      "packet_type": "result",
+      "title": "Approved. Review found no blocking correctness, cleanup, Rerun API, or dependency-placement issues in the programmatic flashlight Rerun example. Residual risk remains because it was not run against a live SPEAR simulator, per task scope.",
+      "status": "success",
+      "trace_id": "d3d40739-e870-4c61-93ee-a3174ca9b724",
+      "from_agent": "inspector",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/inspector-556a54fa-166a-4fae-9275-86e537ef7775-result.json",
+      "created_at": "2026-05-22T13:55:01Z"
+    },
+    "artifact:.control-tower/packets/inbox/inspector-556a54fa-166a-4fae-9275-86e537ef7775-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/inspector-556a54fa-166a-4fae-9275-86e537ef7775-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/inspector-556a54fa-166a-4fae-9275-86e537ef7775-result.json",
+      "title": ".control-tower/packets/inbox/inspector-556a54fa-166a-4fae-9275-86e537ef7775-result.json",
+      "created_at": "2026-05-22T13:55:01Z"
+    },
+    "packet:556a54fa-166a-4fae-9275-86e537ef7775": {
+      "id": "packet:556a54fa-166a-4fae-9275-86e537ef7775",
+      "type": "packet",
+      "packet_id": "556a54fa-166a-4fae-9275-86e537ef7775",
+      "packet_type": "task",
+      "title": "Review programmatic flashlight Rerun example",
+      "status": null,
+      "trace_id": "d3d40739-e870-4c61-93ee-a3174ca9b724",
+      "from_agent": "tower",
+      "to_agent": "inspector",
+      "path": ".control-tower/packets/outbox/20260522T135229Z-inspector-review-programmatic-flashlight-rerun-example.json",
+      "created_at": "2026-05-22T13:52:29Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T135229Z-inspector-review-programmatic-flashlight-rerun-example.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T135229Z-inspector-review-programmatic-flashlight-rerun-example.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T135229Z-inspector-review-programmatic-flashlight-rerun-example.json",
+      "title": ".control-tower/packets/outbox/20260522T135229Z-inspector-review-programmatic-flashlight-rerun-example.json",
+      "created_at": "2026-05-22T13:52:29Z"
+    },
+    "packet:acd420fc-be2e-49c2-890e-de6ba088d2f7": {
+      "id": "packet:acd420fc-be2e-49c2-890e-de6ba088d2f7",
+      "type": "packet",
+      "packet_id": "acd420fc-be2e-49c2-890e-de6ba088d2f7",
+      "packet_type": "task",
+      "title": "Update repo docs after Builder work",
+      "status": null,
+      "trace_id": "d3d40739-e870-4c61-93ee-a3174ca9b724",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T135205Z.json",
+      "created_at": "2026-05-22T13:52:05Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T135205Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T135205Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T135205Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T135205Z.json",
+      "created_at": "2026-05-22T13:52:05Z"
+    },
+    "event:black-box:16": {
+      "id": "event:black-box:16",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T13:52:34.328Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4ff5-9214-7931-8069-2affada9983a",
+        "timestamp": "2026-05-22T13:52:34.328Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4ff5-9214-7931-8069-2affada9983a.md"
+      }
+    },
+    "session:019e4ff9-32e8-7d02-9b12-78c857c7f5c3": {
+      "id": "session:019e4ff9-32e8-7d02-9b12-78c857c7f5c3",
+      "type": "session",
+      "session_id": "019e4ff9-32e8-7d02-9b12-78c857c7f5c3",
+      "timestamp": "2026-05-22T13:56:32.110Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e4ff9-32e8-7d02-9b12-78c857c7f5c3.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e4ff9-32e8-7d02-9b12-78c857c7f5c3.jsonl"
+    },
+    "packet:7f6a9dc2-2c22-40fb-965e-14b0b032399b": {
+      "id": "packet:7f6a9dc2-2c22-40fb-965e-14b0b032399b",
+      "type": "packet",
+      "packet_id": "7f6a9dc2-2c22-40fb-965e-14b0b032399b",
+      "packet_type": "result",
+      "title": "Updated the flashlight README with a new programmatic Rerun stream section covering install, run, manual Rerun connection, live viewport behavior, streamed modalities, the LightCommand control hook, and the remaining live simulator validation check.",
+      "status": "success",
+      "trace_id": "d3d40739-e870-4c61-93ee-a3174ca9b724",
+      "from_agent": "scribe",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/scribe-90bf4039-516d-452a-a54a-7c22fca20cea-result.json",
+      "created_at": "2026-05-22T13:57:25Z"
+    },
+    "artifact:.control-tower/packets/inbox/scribe-90bf4039-516d-452a-a54a-7c22fca20cea-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/scribe-90bf4039-516d-452a-a54a-7c22fca20cea-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/scribe-90bf4039-516d-452a-a54a-7c22fca20cea-result.json",
+      "title": ".control-tower/packets/inbox/scribe-90bf4039-516d-452a-a54a-7c22fca20cea-result.json",
+      "created_at": "2026-05-22T13:57:25Z"
+    },
+    "dec_inferred_7f6a9dc2-2c22-40fb-965e-14b0b032399b_0_examples-flashlight-readme-md-now-documents-the-programmatic-rerun-flashlight-stream-including-examples-extra-install-live-viewport-capture-behavior-rerun-streams-and-compute-light-command-lightcommand-control-workflow": {
+      "id": "dec_inferred_7f6a9dc2-2c22-40fb-965e-14b0b032399b_0_examples-flashlight-readme-md-now-documents-the-programmatic-rerun-flashlight-stream-including-examples-extra-install-live-viewport-capture-behavior-rerun-streams-and-compute-light-command-lightcommand-control-workflow",
+      "type": "decision",
+      "topic": "examples-flashlight-readme-md-now-documents-the-programmatic-rerun-flashlight-stream-including-examples-extra-install-live-viewport-capture-behavior-rerun-streams-and-compute-light-command-lightcommand-control-workflow",
+      "title": "examples/flashlight/README.md now documents the programmatic Rerun flashlight stream, including examples extra install, live viewport capture behavior, Rerun streams, and compute_light_command/LightCommand control workflow.",
+      "status": "proposed",
+      "importance": "normal",
+      "summary": "Inferred from ResultPacket memory_worthy entry: examples/flashlight/README.md now documents the programmatic Rerun flashlight stream, including examples extra install, live viewport capture behavior, Rerun streams, and compute_light_command/LightCommand control workflow.",
+      "rationale": [
+        "Captured from a ResultPacket memory_worthy entry pending curation."
+      ],
+      "source_refs": [
+        ".control-tower/packets/inbox/scribe-90bf4039-516d-452a-a54a-7c22fca20cea-result.json"
+      ],
+      "inferred": true,
+      "created_at": "2026-05-22T13:57:45Z",
+      "created_by": "scribe"
+    },
+    "packet:90bf4039-516d-452a-a54a-7c22fca20cea": {
+      "id": "packet:90bf4039-516d-452a-a54a-7c22fca20cea",
+      "type": "packet",
+      "packet_id": "90bf4039-516d-452a-a54a-7c22fca20cea",
+      "packet_type": "task",
+      "title": "Document programmatic flashlight Rerun example",
+      "status": null,
+      "trace_id": "d3d40739-e870-4c61-93ee-a3174ca9b724",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/20260522T135627Z-scribe-document-programmatic-flashlight-rerun-example.json",
+      "created_at": "2026-05-22T13:56:27Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T135627Z-scribe-document-programmatic-flashlight-rerun-example.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T135627Z-scribe-document-programmatic-flashlight-rerun-example.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T135627Z-scribe-document-programmatic-flashlight-rerun-example.json",
+      "title": ".control-tower/packets/outbox/20260522T135627Z-scribe-document-programmatic-flashlight-rerun-example.json",
+      "created_at": "2026-05-22T13:56:27Z"
+    },
+    "packet:84b84f5e-c8e9-4dd7-adbf-69efbab23267": {
+      "id": "packet:84b84f5e-c8e9-4dd7-adbf-69efbab23267",
+      "type": "packet",
+      "packet_id": "84b84f5e-c8e9-4dd7-adbf-69efbab23267",
+      "packet_type": "task",
+      "title": "Update repo docs after Inspector work",
+      "status": null,
+      "trace_id": "d3d40739-e870-4c61-93ee-a3174ca9b724",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T135607Z.json",
+      "created_at": "2026-05-22T13:56:07Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T135607Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T135607Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T135607Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T135607Z.json",
+      "created_at": "2026-05-22T13:56:07Z"
+    },
+    "event:black-box:17": {
+      "id": "event:black-box:17",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T13:56:32.110Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e4ff9-32e8-7d02-9b12-78c857c7f5c3",
+        "timestamp": "2026-05-22T13:56:32.110Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e4ff9-32e8-7d02-9b12-78c857c7f5c3.md"
+      }
+    },
+    "session:019e5039-fba6-7980-9e56-4fcf4acdc4b6": {
+      "id": "session:019e5039-fba6-7980-9e56-4fcf4acdc4b6",
+      "type": "session",
+      "session_id": "019e5039-fba6-7980-9e56-4fcf4acdc4b6",
+      "timestamp": "2026-05-22T15:07:17.803Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e5039-fba6-7980-9e56-4fcf4acdc4b6.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e5039-fba6-7980-9e56-4fcf4acdc4b6.jsonl"
+    },
+    "packet:b56fd0ec-94a3-4f9f-98c6-a0a8b590b663": {
+      "id": "packet:b56fd0ec-94a3-4f9f-98c6-a0a8b590b663",
+      "type": "packet",
+      "packet_id": "b56fd0ec-94a3-4f9f-98c6-a0a8b590b663",
+      "packet_type": "result",
+      "title": "Simplified the Rerun camera entity logging so spear/camera carries only the transform, pinhole, and RGB image. Depth, normals, and albedo now log under separate spear/images paths, preventing non-RGB planes from appearing as camera children in the 3D view.",
+      "status": "success",
+      "trace_id": "eb62754a-25e4-4be8-b6fd-c8a42c47cd23",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-cdd87fe9-73aa-4588-9767-0bedf581f981-result.json",
+      "created_at": "2026-05-22T15:18:00Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-cdd87fe9-73aa-4588-9767-0bedf581f981-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-cdd87fe9-73aa-4588-9767-0bedf581f981-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-cdd87fe9-73aa-4588-9767-0bedf581f981-result.json",
+      "title": ".control-tower/packets/inbox/builder-cdd87fe9-73aa-4588-9767-0bedf581f981-result.json",
+      "created_at": "2026-05-22T15:18:00Z"
+    },
+    "packet:cdd87fe9-73aa-4588-9767-0bedf581f981": {
+      "id": "packet:cdd87fe9-73aa-4588-9767-0bedf581f981",
+      "type": "packet",
+      "packet_id": "cdd87fe9-73aa-4588-9767-0bedf581f981",
+      "packet_type": "task",
+      "title": "Simplify Rerun 3D camera view",
+      "status": null,
+      "trace_id": "eb62754a-25e4-4be8-b6fd-c8a42c47cd23",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T150713Z-builder-simplify-rerun-3d-camera-view.json",
+      "created_at": "2026-05-22T15:07:13Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T150713Z-builder-simplify-rerun-3d-camera-view.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T150713Z-builder-simplify-rerun-3d-camera-view.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T150713Z-builder-simplify-rerun-3d-camera-view.json",
+      "title": ".control-tower/packets/outbox/20260522T150713Z-builder-simplify-rerun-3d-camera-view.json",
+      "created_at": "2026-05-22T15:07:13Z"
+    },
+    "event:black-box:18": {
+      "id": "event:black-box:18",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T15:07:17.803Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e5039-fba6-7980-9e56-4fcf4acdc4b6",
+        "timestamp": "2026-05-22T15:07:17.803Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e5039-fba6-7980-9e56-4fcf4acdc4b6.md"
+      }
+    },
+    "packet:566444f9-0fc7-49cf-aebe-0d652982ee5d": {
+      "id": "packet:566444f9-0fc7-49cf-aebe-0d652982ee5d",
+      "type": "packet",
+      "packet_id": "566444f9-0fc7-49cf-aebe-0d652982ee5d",
+      "packet_type": "task",
+      "title": "Update repo docs after Builder work",
+      "status": null,
+      "trace_id": "eb62754a-25e4-4be8-b6fd-c8a42c47cd23",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T150941Z.json",
+      "created_at": "2026-05-22T15:09:41Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T150941Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T150941Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T150941Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T150941Z.json",
+      "created_at": "2026-05-22T15:09:41Z"
+    },
+    "session:019e503e-f9f3-7a13-86bd-dd53d83ac1af": {
+      "id": "session:019e503e-f9f3-7a13-86bd-dd53d83ac1af",
+      "type": "session",
+      "session_id": "019e503e-f9f3-7a13-86bd-dd53d83ac1af",
+      "timestamp": "2026-05-22T15:12:45.047Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e503e-f9f3-7a13-86bd-dd53d83ac1af.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e503e-f9f3-7a13-86bd-dd53d83ac1af.jsonl"
+    },
+    "packet:80fdab87-7d1c-4bc6-b2b9-5a106e2da0d1": {
+      "id": "packet:80fdab87-7d1c-4bc6-b2b9-5a106e2da0d1",
+      "type": "packet",
+      "packet_id": "80fdab87-7d1c-4bc6-b2b9-5a106e2da0d1",
+      "packet_type": "result",
+      "title": "Recommended Rerun pattern: log a right-handed Z-up world at `spear`, log camera extrinsics and intrinsics at `spear/camera`, use camera local axes `RDF` with a child-to-parent `Transform3D` whose `mat3x3` columns are the camera-local RDF basis vectors expressed in the Rerun world frame, and log all camera-captured RGB/depth/modal images under `spear/camera/...` so Rerun can attach them to the pinhole/frustum. Current `spear/images/depth_meters` placement is the main issue for 3D origin/backprojection. Primary references used: Rerun stable Python archetype docs for `Pinhole`, `Transform3D`, `Image`, `DepthImage`, and `ViewCoordinates` at https://ref.rerun.io/docs/python/stable/archetypes/ and https://ref.rerun.io/docs/python/stable/common/datatypes/, plus local rerun-sdk 0.32.2 installed under `/tmp/rerun-check.Ae1kiB`.",
+      "status": "success",
+      "trace_id": "d3223c12-172f-4bf7-af41-ab2d279aa489",
+      "from_agent": "scout",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/scout-388069ed-89f5-430d-ab86-58d2764a5e0f-result.json",
+      "created_at": "2026-05-22T15:25:00Z"
+    },
+    "artifact:.control-tower/packets/inbox/scout-388069ed-89f5-430d-ab86-58d2764a5e0f-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/scout-388069ed-89f5-430d-ab86-58d2764a5e0f-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/scout-388069ed-89f5-430d-ab86-58d2764a5e0f-result.json",
+      "title": ".control-tower/packets/inbox/scout-388069ed-89f5-430d-ab86-58d2764a5e0f-result.json",
+      "created_at": "2026-05-22T15:25:00Z"
+    },
+    "packet:388069ed-89f5-430d-ab86-58d2764a5e0f": {
+      "id": "packet:388069ed-89f5-430d-ab86-58d2764a5e0f",
+      "type": "packet",
+      "packet_id": "388069ed-89f5-430d-ab86-58d2764a5e0f",
+      "packet_type": "task",
+      "title": "Research Rerun camera frustum coordinate setup",
+      "status": null,
+      "trace_id": "d3223c12-172f-4bf7-af41-ab2d279aa489",
+      "from_agent": "tower",
+      "to_agent": "scout",
+      "path": ".control-tower/packets/outbox/20260522T151239Z-scout-research-rerun-camera-frustum-coordinate-setup.json",
+      "created_at": "2026-05-22T15:12:39Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T151239Z-scout-research-rerun-camera-frustum-coordinate-setup.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T151239Z-scout-research-rerun-camera-frustum-coordinate-setup.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T151239Z-scout-research-rerun-camera-frustum-coordinate-setup.json",
+      "title": ".control-tower/packets/outbox/20260522T151239Z-scout-research-rerun-camera-frustum-coordinate-setup.json",
+      "created_at": "2026-05-22T15:12:39Z"
+    },
+    "event:black-box:19": {
+      "id": "event:black-box:19",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T15:12:45.047Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e503e-f9f3-7a13-86bd-dd53d83ac1af",
+        "timestamp": "2026-05-22T15:12:45.047Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e503e-f9f3-7a13-86bd-dd53d83ac1af.md"
+      }
+    },
+    "session:019e5044-1ece-7470-9166-38d66ff183c1": {
+      "id": "session:019e5044-1ece-7470-9166-38d66ff183c1",
+      "type": "session",
+      "session_id": "019e5044-1ece-7470-9166-38d66ff183c1",
+      "timestamp": "2026-05-22T15:18:22.163Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e5044-1ece-7470-9166-38d66ff183c1.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e5044-1ece-7470-9166-38d66ff183c1.jsonl"
+    },
+    "packet:d4f3a661-4028-49f6-8cf1-7edbd4d501c6": {
+      "id": "packet:d4f3a661-4028-49f6-8cf1-7edbd4d501c6",
+      "type": "packet",
+      "packet_id": "d4f3a661-4028-49f6-8cf1-7edbd4d501c6",
+      "packet_type": "result",
+      "title": "Updated the programmatic flashlight Rerun stream so camera pose, frustum, RGB projection, depth, normal visualization, diffuse visualization, camera trajectory, and light direction are logged in a coherent right-handed Z-up Rerun world under the intended entity paths. README text was updated for the user-visible Rerun paths and visualization behavior.",
+      "status": "success",
+      "trace_id": "d3223c12-172f-4bf7-af41-ab2d279aa489",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-af690f2e-d087-4028-bc1d-7f8277a9f35d-result.json",
+      "created_at": "2026-05-22T15:46:00Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-af690f2e-d087-4028-bc1d-7f8277a9f35d-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-af690f2e-d087-4028-bc1d-7f8277a9f35d-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-af690f2e-d087-4028-bc1d-7f8277a9f35d-result.json",
+      "title": ".control-tower/packets/inbox/builder-af690f2e-d087-4028-bc1d-7f8277a9f35d-result.json",
+      "created_at": "2026-05-22T15:46:00Z"
+    },
+    "packet:af690f2e-d087-4028-bc1d-7f8277a9f35d": {
+      "id": "packet:af690f2e-d087-4028-bc1d-7f8277a9f35d",
+      "type": "packet",
+      "packet_id": "af690f2e-d087-4028-bc1d-7f8277a9f35d",
+      "packet_type": "task",
+      "title": "Fix Rerun camera frustum and image colors",
+      "status": null,
+      "trace_id": "d3223c12-172f-4bf7-af41-ab2d279aa489",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T151818Z-builder-fix-rerun-camera-frustum-and-image-colors.json",
+      "created_at": "2026-05-22T15:18:18Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T151818Z-builder-fix-rerun-camera-frustum-and-image-colors.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T151818Z-builder-fix-rerun-camera-frustum-and-image-colors.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T151818Z-builder-fix-rerun-camera-frustum-and-image-colors.json",
+      "title": ".control-tower/packets/outbox/20260522T151818Z-builder-fix-rerun-camera-frustum-and-image-colors.json",
+      "created_at": "2026-05-22T15:18:18Z"
+    },
+    "event:black-box:20": {
+      "id": "event:black-box:20",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T15:18:22.163Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e5044-1ece-7470-9166-38d66ff183c1",
+        "timestamp": "2026-05-22T15:18:22.163Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e5044-1ece-7470-9166-38d66ff183c1.md"
+      }
+    },
+    "session:019e5048-6ab5-76f2-beee-b8107115aacf": {
+      "id": "session:019e5048-6ab5-76f2-beee-b8107115aacf",
+      "type": "session",
+      "session_id": "019e5048-6ab5-76f2-beee-b8107115aacf",
+      "timestamp": "2026-05-22T15:23:03.737Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e5048-6ab5-76f2-beee-b8107115aacf.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e5048-6ab5-76f2-beee-b8107115aacf.jsonl"
+    },
+    "packet:a53e7494-3e6d-46ee-b9e8-f22c7d40b2a1": {
+      "id": "packet:a53e7494-3e6d-46ee-b9e8-f22c7d40b2a1",
+      "type": "packet",
+      "packet_id": "a53e7494-3e6d-46ee-b9e8-f22c7d40b2a1",
+      "packet_type": "result",
+      "title": "Approved. The Builder changes are acceptable for the requested Rerun camera/frustum fix based on static review: camera pose, trajectory, and light direction use the same Unreal-to-Rerun axis conversion and meter scale; camera images are under the pinhole entity; and RGB/normal/diffuse visualization handling is explicit. No Builder follow-up is required before live user validation.",
+      "status": "success",
+      "trace_id": "d3223c12-172f-4bf7-af41-ab2d279aa489",
+      "from_agent": "inspector",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/inspector-33b06c9a-5bd3-40de-bfa3-caf4cb927cad-result.json",
+      "created_at": "2026-05-22T15:25:22Z"
+    },
+    "artifact:.control-tower/packets/inbox/inspector-33b06c9a-5bd3-40de-bfa3-caf4cb927cad-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/inspector-33b06c9a-5bd3-40de-bfa3-caf4cb927cad-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/inspector-33b06c9a-5bd3-40de-bfa3-caf4cb927cad-result.json",
+      "title": ".control-tower/packets/inbox/inspector-33b06c9a-5bd3-40de-bfa3-caf4cb927cad-result.json",
+      "created_at": "2026-05-22T15:25:22Z"
+    },
+    "packet:33b06c9a-5bd3-40de-bfa3-caf4cb927cad": {
+      "id": "packet:33b06c9a-5bd3-40de-bfa3-caf4cb927cad",
+      "type": "packet",
+      "packet_id": "33b06c9a-5bd3-40de-bfa3-caf4cb927cad",
+      "packet_type": "task",
+      "title": "Review Rerun camera frustum fix",
+      "status": null,
+      "trace_id": "d3223c12-172f-4bf7-af41-ab2d279aa489",
+      "from_agent": "tower",
+      "to_agent": "inspector",
+      "path": ".control-tower/packets/outbox/20260522T152300Z-inspector-review-rerun-camera-frustum-fix.json",
+      "created_at": "2026-05-22T15:23:00Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T152300Z-inspector-review-rerun-camera-frustum-fix.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T152300Z-inspector-review-rerun-camera-frustum-fix.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T152300Z-inspector-review-rerun-camera-frustum-fix.json",
+      "title": ".control-tower/packets/outbox/20260522T152300Z-inspector-review-rerun-camera-frustum-fix.json",
+      "created_at": "2026-05-22T15:23:00Z"
+    },
+    "packet:5602747c-9c97-425a-8f70-7ee740a173c6": {
+      "id": "packet:5602747c-9c97-425a-8f70-7ee740a173c6",
+      "type": "packet",
+      "packet_id": "5602747c-9c97-425a-8f70-7ee740a173c6",
+      "packet_type": "task",
+      "title": "Update repo docs after Builder work",
+      "status": null,
+      "trace_id": "d3223c12-172f-4bf7-af41-ab2d279aa489",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T152250Z.json",
+      "created_at": "2026-05-22T15:22:50Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T152250Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T152250Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T152250Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T152250Z.json",
+      "created_at": "2026-05-22T15:22:50Z"
+    },
+    "event:black-box:21": {
+      "id": "event:black-box:21",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T15:23:03.737Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e5048-6ab5-76f2-beee-b8107115aacf",
+        "timestamp": "2026-05-22T15:23:03.737Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e5048-6ab5-76f2-beee-b8107115aacf.md"
+      }
+    },
+    "session:019e504b-42a7-73a3-9fef-b07b5a85d2af": {
+      "id": "session:019e504b-42a7-73a3-9fef-b07b5a85d2af",
+      "type": "session",
+      "session_id": "019e504b-42a7-73a3-9fef-b07b5a85d2af",
+      "timestamp": "2026-05-22T15:26:10.092Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e504b-42a7-73a3-9fef-b07b5a85d2af.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e504b-42a7-73a3-9fef-b07b5a85d2af.jsonl"
+    },
+    "packet:5bcd4958-0b6d-4c54-8f7d-dfddc804ad55": {
+      "id": "packet:5bcd4958-0b6d-4c54-8f7d-dfddc804ad55",
+      "type": "packet",
+      "packet_id": "5bcd4958-0b6d-4c54-8f7d-dfddc804ad55",
+      "packet_type": "result",
+      "title": "Reviewed the Builder ResultPacket and changed flashlight files, then updated the durable docs harness so the central example-running guide reflects the programmatic flashlight Rerun workflow and current entity paths.",
+      "status": "success",
+      "trace_id": "d3223c12-172f-4bf7-af41-ab2d279aa489",
+      "from_agent": "scribe",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/scribe-5602747c-9c97-425a-8f70-7ee740a173c6-result.json",
+      "created_at": "2026-05-22T15:27:12Z"
+    },
+    "artifact:.control-tower/packets/inbox/scribe-5602747c-9c97-425a-8f70-7ee740a173c6-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/scribe-5602747c-9c97-425a-8f70-7ee740a173c6-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/scribe-5602747c-9c97-425a-8f70-7ee740a173c6-result.json",
+      "title": ".control-tower/packets/inbox/scribe-5602747c-9c97-425a-8f70-7ee740a173c6-result.json",
+      "created_at": "2026-05-22T15:27:12Z"
+    },
+    "dec_inferred_5bcd4958-0b6d-4c54-8f7d-dfddc804ad55_0_docs-running-our-example-applications-md-now-documents-the-examples-flashlight-programmatic-rerun-stream-and-its-current-spear-camera-paths": {
+      "id": "dec_inferred_5bcd4958-0b6d-4c54-8f7d-dfddc804ad55_0_docs-running-our-example-applications-md-now-documents-the-examples-flashlight-programmatic-rerun-stream-and-its-current-spear-camera-paths",
+      "type": "decision",
+      "topic": "docs-running-our-example-applications-md-now-documents-the-examples-flashlight-programmatic-rerun-stream-and-its-current-spear-camera-paths",
+      "title": "`docs/running_our_example_applications.md` now documents the `examples/flashlight` programmatic Rerun stream and its current `spear/camera/...` paths.",
+      "status": "proposed",
+      "importance": "normal",
+      "summary": "Inferred from ResultPacket memory_worthy entry: `docs/running_our_example_applications.md` now documents the `examples/flashlight` programmatic Rerun stream and its current `spear/camera/...` paths.",
+      "rationale": [
+        "Captured from a ResultPacket memory_worthy entry pending curation."
+      ],
+      "source_refs": [
+        ".control-tower/packets/inbox/scribe-5602747c-9c97-425a-8f70-7ee740a173c6-result.json"
+      ],
+      "inferred": true,
+      "created_at": "2026-05-22T15:27:34Z",
+      "created_by": "scribe"
+    },
+    "packet:ef9b54e8-72ae-483c-86b9-5fe6434f9a14": {
+      "id": "packet:ef9b54e8-72ae-483c-86b9-5fe6434f9a14",
+      "type": "packet",
+      "packet_id": "ef9b54e8-72ae-483c-86b9-5fe6434f9a14",
+      "packet_type": "task",
+      "title": "Update repo docs after Inspector work",
+      "status": null,
+      "trace_id": "d3223c12-172f-4bf7-af41-ab2d279aa489",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T152554Z.json",
+      "created_at": "2026-05-22T15:25:54Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T152554Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T152554Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T152554Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T152554Z.json",
+      "created_at": "2026-05-22T15:25:54Z"
+    },
+    "event:black-box:22": {
+      "id": "event:black-box:22",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T15:26:10.092Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e504b-42a7-73a3-9fef-b07b5a85d2af",
+        "timestamp": "2026-05-22T15:26:10.092Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e504b-42a7-73a3-9fef-b07b5a85d2af.md"
+      }
+    },
+    "session:019e505d-5f49-72a1-b887-f51f6d016f14": {
+      "id": "session:019e505d-5f49-72a1-b887-f51f6d016f14",
+      "type": "session",
+      "session_id": "019e505d-5f49-72a1-b887-f51f6d016f14",
+      "timestamp": "2026-05-22T15:45:57.070Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e505d-5f49-72a1-b887-f51f6d016f14.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e505d-5f49-72a1-b887-f51f6d016f14.jsonl"
+    },
+    "packet:1b023912-1224-47fc-807f-c7922c56ac5f": {
+      "id": "packet:1b023912-1224-47fc-807f-c7922c56ac5f",
+      "type": "packet",
+      "packet_id": "1b023912-1224-47fc-807f-c7922c56ac5f",
+      "packet_type": "result",
+      "title": "Patched the Rerun logging regression so depth is no longer logged under the camera hierarchy, while preserving the world-frame camera frustum and projected RGB image plane. Restored ordinary 2D inspection streams under spear/images and updated the flashlight README plus running guide to describe the corrected paths.",
+      "status": "success",
+      "trace_id": "bc0c4c90-c660-4e90-9f66-5d10b94eb8ef",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-09278271-fdf4-49ef-8032-1520b6f2aaae-result.json",
+      "created_at": "2026-05-22T15:48:18Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-09278271-fdf4-49ef-8032-1520b6f2aaae-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-09278271-fdf4-49ef-8032-1520b6f2aaae-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-09278271-fdf4-49ef-8032-1520b6f2aaae-result.json",
+      "title": ".control-tower/packets/inbox/builder-09278271-fdf4-49ef-8032-1520b6f2aaae-result.json",
+      "created_at": "2026-05-22T15:48:18Z"
+    },
+    "dec_inferred_1b023912-1224-47fc-807f-c7922c56ac5f_0_for-the-flashlight-programmatic-rerun-stream-keep-rr-depthimage-outside-spear-camera-because-rerun-back-projects-camera-child-depth-images-into-3d-point-clouds": {
+      "id": "dec_inferred_1b023912-1224-47fc-807f-c7922c56ac5f_0_for-the-flashlight-programmatic-rerun-stream-keep-rr-depthimage-outside-spear-camera-because-rerun-back-projects-camera-child-depth-images-into-3d-point-clouds",
+      "type": "decision",
+      "topic": "for-the-flashlight-programmatic-rerun-stream-keep-rr-depthimage-outside-spear-camera-because-rerun-back-projects-camera-child-depth-images-into-3d-point-clouds",
+      "title": "For the flashlight programmatic Rerun stream, keep rr.DepthImage outside spear/camera because Rerun back-projects camera-child depth images into 3D point clouds.",
+      "status": "proposed",
+      "importance": "normal",
+      "summary": "Inferred from ResultPacket memory_worthy entry: For the flashlight programmatic Rerun stream, keep rr.DepthImage outside spear/camera because Rerun back-projects camera-child depth images into 3D point clouds.",
+      "rationale": [
+        "Captured from a ResultPacket memory_worthy entry pending curation."
+      ],
+      "source_refs": [
+        ".control-tower/packets/inbox/builder-09278271-fdf4-49ef-8032-1520b6f2aaae-result.json"
+      ],
+      "inferred": true,
+      "created_at": "2026-05-22T15:48:45Z",
+      "created_by": "builder"
+    },
+    "packet:e63a3288-719f-4307-b0f7-33ca8c10ccdb": {
+      "id": "packet:e63a3288-719f-4307-b0f7-33ca8c10ccdb",
+      "type": "packet",
+      "packet_id": "e63a3288-719f-4307-b0f7-33ca8c10ccdb",
+      "packet_type": "task",
+      "title": "Fix Rerun stream regression: remove depth point cloud and restore image views",
+      "status": null,
+      "trace_id": "f0b5f757-f39e-4391-8993-067d929b2097",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T154534Z-builder-fix-rerun-stream-regression-remove-depth-point-cloud-and-restore-image-views.json",
+      "created_at": "2026-05-22T15:45:34Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T154534Z-builder-fix-rerun-stream-regression-remove-depth-point-cloud-and-restore-image-views.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T154534Z-builder-fix-rerun-stream-regression-remove-depth-point-cloud-and-restore-image-views.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T154534Z-builder-fix-rerun-stream-regression-remove-depth-point-cloud-and-restore-image-views.json",
+      "title": ".control-tower/packets/outbox/20260522T154534Z-builder-fix-rerun-stream-regression-remove-depth-point-cloud-and-restore-image-views.json",
+      "created_at": "2026-05-22T15:45:34Z"
+    },
+    "packet:09278271-fdf4-49ef-8032-1520b6f2aaae": {
+      "id": "packet:09278271-fdf4-49ef-8032-1520b6f2aaae",
+      "type": "packet",
+      "packet_id": "09278271-fdf4-49ef-8032-1520b6f2aaae",
+      "packet_type": "task",
+      "title": "Fix Rerun stream regression: remove depth point cloud and restore image views",
+      "status": null,
+      "trace_id": "bc0c4c90-c660-4e90-9f66-5d10b94eb8ef",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T154551Z-builder-fix-rerun-stream-regression-remove-depth-point-cloud-and-restore-image-views.json",
+      "created_at": "2026-05-22T15:45:51Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T154551Z-builder-fix-rerun-stream-regression-remove-depth-point-cloud-and-restore-image-views.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T154551Z-builder-fix-rerun-stream-regression-remove-depth-point-cloud-and-restore-image-views.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T154551Z-builder-fix-rerun-stream-regression-remove-depth-point-cloud-and-restore-image-views.json",
+      "title": ".control-tower/packets/outbox/20260522T154551Z-builder-fix-rerun-stream-regression-remove-depth-point-cloud-and-restore-image-views.json",
+      "created_at": "2026-05-22T15:45:51Z"
+    },
+    "event:black-box:23": {
+      "id": "event:black-box:23",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T15:45:57.070Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e505d-5f49-72a1-b887-f51f6d016f14",
+        "timestamp": "2026-05-22T15:45:57.070Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e505d-5f49-72a1-b887-f51f6d016f14.md"
+      }
+    },
+    "session:019e5060-4c34-76d3-9a64-432c5917cae4": {
+      "id": "session:019e5060-4c34-76d3-9a64-432c5917cae4",
+      "type": "session",
+      "session_id": "019e5060-4c34-76d3-9a64-432c5917cae4",
+      "timestamp": "2026-05-22T15:49:08.792Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e5060-4c34-76d3-9a64-432c5917cae4.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e5060-4c34-76d3-9a64-432c5917cae4.jsonl"
+    },
+    "packet:7e7e8f6a-cc04-4b88-a10c-a7657ff540c6": {
+      "id": "packet:7e7e8f6a-cc04-4b88-a10c-a7657ff540c6",
+      "type": "packet",
+      "packet_id": "7e7e8f6a-cc04-4b88-a10c-a7657ff540c6",
+      "packet_type": "result",
+      "title": "Approved. The unwanted Rerun depth point cloud regression is removed: rr.DepthImage is logged only at spear/images/depth_meters, outside the spear/camera hierarchy, while the camera/frustum and projected RGB remain under the expected camera paths.",
+      "status": "success",
+      "trace_id": "bc0c4c90-c660-4e90-9f66-5d10b94eb8ef",
+      "from_agent": "inspector",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/inspector-4ed55ab6-610e-40ef-a496-e7a5f4576a77-result.json",
+      "created_at": "2026-05-22T15:49:58Z"
+    },
+    "artifact:.control-tower/packets/inbox/inspector-4ed55ab6-610e-40ef-a496-e7a5f4576a77-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/inspector-4ed55ab6-610e-40ef-a496-e7a5f4576a77-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/inspector-4ed55ab6-610e-40ef-a496-e7a5f4576a77-result.json",
+      "title": ".control-tower/packets/inbox/inspector-4ed55ab6-610e-40ef-a496-e7a5f4576a77-result.json",
+      "created_at": "2026-05-22T15:49:58Z"
+    },
+    "dec_inferred_7e7e8f6a-cc04-4b88-a10c-a7657ff540c6_0_confirmed-the-flashlight-programmatic-rerun-stream-keeps-rr-depthimage-outside-spear-camera-to-avoid-rerun-back-projecting-depth-into-a-default-3d-point-cloud": {
+      "id": "dec_inferred_7e7e8f6a-cc04-4b88-a10c-a7657ff540c6_0_confirmed-the-flashlight-programmatic-rerun-stream-keeps-rr-depthimage-outside-spear-camera-to-avoid-rerun-back-projecting-depth-into-a-default-3d-point-cloud",
+      "type": "decision",
+      "topic": "confirmed-the-flashlight-programmatic-rerun-stream-keeps-rr-depthimage-outside-spear-camera-to-avoid-rerun-back-projecting-depth-into-a-default-3d-point-cloud",
+      "title": "Confirmed the flashlight programmatic Rerun stream keeps rr.DepthImage outside spear/camera to avoid Rerun back-projecting depth into a default 3D point cloud.",
+      "status": "proposed",
+      "importance": "normal",
+      "summary": "Inferred from ResultPacket memory_worthy entry: Confirmed the flashlight programmatic Rerun stream keeps rr.DepthImage outside spear/camera to avoid Rerun back-projecting depth into a default 3D point cloud.",
+      "rationale": [
+        "Captured from a ResultPacket memory_worthy entry pending curation."
+      ],
+      "source_refs": [
+        ".control-tower/packets/inbox/inspector-4ed55ab6-610e-40ef-a496-e7a5f4576a77-result.json"
+      ],
+      "inferred": true,
+      "created_at": "2026-05-22T15:50:18Z",
+      "created_by": "inspector"
+    },
+    "packet:4ed55ab6-610e-40ef-a496-e7a5f4576a77": {
+      "id": "packet:4ed55ab6-610e-40ef-a496-e7a5f4576a77",
+      "type": "packet",
+      "packet_id": "4ed55ab6-610e-40ef-a496-e7a5f4576a77",
+      "packet_type": "task",
+      "title": "Review Rerun regression fix: no camera depth point cloud",
+      "status": null,
+      "trace_id": "bc0c4c90-c660-4e90-9f66-5d10b94eb8ef",
+      "from_agent": "tower",
+      "to_agent": "inspector",
+      "path": ".control-tower/packets/outbox/20260522T154904Z-inspector-review-rerun-regression-fix-no-camera-depth-point-cloud.json",
+      "created_at": "2026-05-22T15:49:04Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T154904Z-inspector-review-rerun-regression-fix-no-camera-depth-point-cloud.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T154904Z-inspector-review-rerun-regression-fix-no-camera-depth-point-cloud.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T154904Z-inspector-review-rerun-regression-fix-no-camera-depth-point-cloud.json",
+      "title": ".control-tower/packets/outbox/20260522T154904Z-inspector-review-rerun-regression-fix-no-camera-depth-point-cloud.json",
+      "created_at": "2026-05-22T15:49:04Z"
+    },
+    "packet:180df7fb-92b2-4e76-bc22-85ba8113249d": {
+      "id": "packet:180df7fb-92b2-4e76-bc22-85ba8113249d",
+      "type": "packet",
+      "packet_id": "180df7fb-92b2-4e76-bc22-85ba8113249d",
+      "packet_type": "task",
+      "title": "Update repo docs after Builder work",
+      "status": null,
+      "trace_id": "bc0c4c90-c660-4e90-9f66-5d10b94eb8ef",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T154852Z.json",
+      "created_at": "2026-05-22T15:48:52Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T154852Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T154852Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T154852Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T154852Z.json",
+      "created_at": "2026-05-22T15:48:52Z"
+    },
+    "event:black-box:24": {
+      "id": "event:black-box:24",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T15:49:08.792Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e5060-4c34-76d3-9a64-432c5917cae4",
+        "timestamp": "2026-05-22T15:49:08.792Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e5060-4c34-76d3-9a64-432c5917cae4.md"
+      }
+    },
+    "packet:d58dbb89-cb35-487b-b6f4-1360508b8686": {
+      "id": "packet:d58dbb89-cb35-487b-b6f4-1360508b8686",
+      "type": "packet",
+      "packet_id": "d58dbb89-cb35-487b-b6f4-1360508b8686",
+      "packet_type": "task",
+      "title": "Update repo docs after Inspector work",
+      "status": null,
+      "trace_id": "bc0c4c90-c660-4e90-9f66-5d10b94eb8ef",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T155025Z.json",
+      "created_at": "2026-05-22T15:50:25Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T155025Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T155025Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T155025Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T155025Z.json",
+      "created_at": "2026-05-22T15:50:25Z"
+    },
+    "session:019e5081-afb6-7e22-9191-afd32886d925": {
+      "id": "session:019e5081-afb6-7e22-9191-afd32886d925",
+      "type": "session",
+      "session_id": "019e5081-afb6-7e22-9191-afd32886d925",
+      "timestamp": "2026-05-22T16:25:36.955Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e5081-afb6-7e22-9191-afd32886d925.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e5081-afb6-7e22-9191-afd32886d925.jsonl"
+    },
+    "packet:1fe9d6ed-dbc2-4e77-829b-cdbb8108b63c": {
+      "id": "packet:1fe9d6ed-dbc2-4e77-829b-cdbb8108b63c",
+      "type": "packet",
+      "packet_id": "1fe9d6ed-dbc2-4e77-829b-cdbb8108b63c",
+      "packet_type": "result",
+      "title": "Patched the programmatic flashlight Rerun stream so regular inspection images are logged under top-level images/* paths, final-tone-curve RGB is logged as opaque 3-channel RGB for both 2D and projected camera views, and depth remains outside spear/camera.",
+      "status": "success",
+      "trace_id": "5d7897c1-04af-4d80-90cb-d32fe3717d12",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-01241a06-7b1d-4e32-b6ce-5485f9117799-result.json",
+      "created_at": "2026-05-22T16:27:25Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-01241a06-7b1d-4e32-b6ce-5485f9117799-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-01241a06-7b1d-4e32-b6ce-5485f9117799-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-01241a06-7b1d-4e32-b6ce-5485f9117799-result.json",
+      "title": ".control-tower/packets/inbox/builder-01241a06-7b1d-4e32-b6ce-5485f9117799-result.json",
+      "created_at": "2026-05-22T16:27:25Z"
+    },
+    "packet:01241a06-7b1d-4e32-b6ce-5485f9117799": {
+      "id": "packet:01241a06-7b1d-4e32-b6ce-5485f9117799",
+      "type": "packet",
+      "packet_id": "01241a06-7b1d-4e32-b6ce-5485f9117799",
+      "packet_type": "task",
+      "title": "Fix Rerun 2D image hierarchy and RGB projection colors",
+      "status": null,
+      "trace_id": "5d7897c1-04af-4d80-90cb-d32fe3717d12",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T162531Z-builder-fix-rerun-2d-image-hierarchy-and-rgb-projection-colors.json",
+      "created_at": "2026-05-22T16:25:31Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T162531Z-builder-fix-rerun-2d-image-hierarchy-and-rgb-projection-colors.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T162531Z-builder-fix-rerun-2d-image-hierarchy-and-rgb-projection-colors.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T162531Z-builder-fix-rerun-2d-image-hierarchy-and-rgb-projection-colors.json",
+      "title": ".control-tower/packets/outbox/20260522T162531Z-builder-fix-rerun-2d-image-hierarchy-and-rgb-projection-colors.json",
+      "created_at": "2026-05-22T16:25:31Z"
+    },
+    "event:black-box:25": {
+      "id": "event:black-box:25",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T16:25:36.955Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e5081-afb6-7e22-9191-afd32886d925",
+        "timestamp": "2026-05-22T16:25:36.955Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e5081-afb6-7e22-9191-afd32886d925.md"
+      }
+    },
+    "session:019e5083-f22a-7dc0-bfee-89c4819d9a5f": {
+      "id": "session:019e5083-f22a-7dc0-bfee-89c4819d9a5f",
+      "type": "session",
+      "session_id": "019e5083-f22a-7dc0-bfee-89c4819d9a5f",
+      "timestamp": "2026-05-22T16:28:05.039Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e5083-f22a-7dc0-bfee-89c4819d9a5f.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e5083-f22a-7dc0-bfee-89c4819d9a5f.jsonl"
+    },
+    "packet:8d9aa0f6-8d52-4e1d-9a70-e602d4dbd8c7": {
+      "id": "packet:8d9aa0f6-8d52-4e1d-9a70-e602d4dbd8c7",
+      "type": "packet",
+      "packet_id": "8d9aa0f6-8d52-4e1d-9a70-e602d4dbd8c7",
+      "packet_type": "result",
+      "title": "Approved. Static review confirms regular inspection images now use top-level images/* paths, DepthImage is not logged under spear/camera, RGB projection and images/rgb share a 3-channel RGB conversion that drops alpha, and the docs describe the corrected hierarchy. The rotating 2D image hierarchy issue should be resolved by moving regular inspection images out from under spear/* into top-level images/* paths.",
+      "status": "success",
+      "trace_id": "5d7897c1-04af-4d80-90cb-d32fe3717d12",
+      "from_agent": "inspector",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/inspector-25eeaf63-cafc-4cf5-913c-a70a2cfa5ac8-result.json",
+      "created_at": "2026-05-22T16:35:00Z"
+    },
+    "artifact:.control-tower/packets/inbox/inspector-25eeaf63-cafc-4cf5-913c-a70a2cfa5ac8-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/inspector-25eeaf63-cafc-4cf5-913c-a70a2cfa5ac8-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/inspector-25eeaf63-cafc-4cf5-913c-a70a2cfa5ac8-result.json",
+      "title": ".control-tower/packets/inbox/inspector-25eeaf63-cafc-4cf5-913c-a70a2cfa5ac8-result.json",
+      "created_at": "2026-05-22T16:35:00Z"
+    },
+    "packet:25eeaf63-cafc-4cf5-913c-a70a2cfa5ac8": {
+      "id": "packet:25eeaf63-cafc-4cf5-913c-a70a2cfa5ac8",
+      "type": "packet",
+      "packet_id": "25eeaf63-cafc-4cf5-913c-a70a2cfa5ac8",
+      "packet_type": "task",
+      "title": "Review Rerun top-level images and RGB projection fix",
+      "status": null,
+      "trace_id": "5d7897c1-04af-4d80-90cb-d32fe3717d12",
+      "from_agent": "tower",
+      "to_agent": "inspector",
+      "path": ".control-tower/packets/outbox/20260522T162800Z-inspector-review-rerun-top-level-images-and-rgb-projection-fix.json",
+      "created_at": "2026-05-22T16:28:00Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T162800Z-inspector-review-rerun-top-level-images-and-rgb-projection-fix.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T162800Z-inspector-review-rerun-top-level-images-and-rgb-projection-fix.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T162800Z-inspector-review-rerun-top-level-images-and-rgb-projection-fix.json",
+      "title": ".control-tower/packets/outbox/20260522T162800Z-inspector-review-rerun-top-level-images-and-rgb-projection-fix.json",
+      "created_at": "2026-05-22T16:28:00Z"
+    },
+    "packet:e66e06a2-54c4-4164-b797-1b77db8eabf1": {
+      "id": "packet:e66e06a2-54c4-4164-b797-1b77db8eabf1",
+      "type": "packet",
+      "packet_id": "e66e06a2-54c4-4164-b797-1b77db8eabf1",
+      "packet_type": "task",
+      "title": "Update repo docs after Builder work",
+      "status": null,
+      "trace_id": "5d7897c1-04af-4d80-90cb-d32fe3717d12",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T162749Z.json",
+      "created_at": "2026-05-22T16:27:49Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T162749Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T162749Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T162749Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T162749Z.json",
+      "created_at": "2026-05-22T16:27:49Z"
+    },
+    "event:black-box:26": {
+      "id": "event:black-box:26",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T16:28:05.039Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e5083-f22a-7dc0-bfee-89c4819d9a5f",
+        "timestamp": "2026-05-22T16:28:05.039Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e5083-f22a-7dc0-bfee-89c4819d9a5f.md"
+      }
+    },
+    "packet:1a5b0a8d-9d64-48a7-b3be-e6735b4e1a4f": {
+      "id": "packet:1a5b0a8d-9d64-48a7-b3be-e6735b4e1a4f",
+      "type": "packet",
+      "packet_id": "1a5b0a8d-9d64-48a7-b3be-e6735b4e1a4f",
+      "packet_type": "task",
+      "title": "Update repo docs after Inspector work",
+      "status": null,
+      "trace_id": "5d7897c1-04af-4d80-90cb-d32fe3717d12",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T162908Z.json",
+      "created_at": "2026-05-22T16:29:08Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T162908Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T162908Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T162908Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T162908Z.json",
+      "created_at": "2026-05-22T16:29:08Z"
+    },
+    "session:019e508c-9d1b-7cf1-bed8-fdfe4dd5fa89": {
+      "id": "session:019e508c-9d1b-7cf1-bed8-fdfe4dd5fa89",
+      "type": "session",
+      "session_id": "019e508c-9d1b-7cf1-bed8-fdfe4dd5fa89",
+      "timestamp": "2026-05-22T16:37:33.088Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e508c-9d1b-7cf1-bed8-fdfe4dd5fa89.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e508c-9d1b-7cf1-bed8-fdfe4dd5fa89.jsonl"
+    },
+    "packet:builder-31b4ed5a-e275-4b59-8b00-a71f56ed6c97-result": {
+      "id": "packet:builder-31b4ed5a-e275-4b59-8b00-a71f56ed6c97-result",
+      "type": "packet",
+      "packet_id": "builder-31b4ed5a-e275-4b59-8b00-a71f56ed6c97-result",
+      "packet_type": "result",
+      "title": "Simplified the programmatic flashlight Rerun example to RGB/depth-only 2D streams plus non-spatial status. Final Rerun paths are images/rgb, images/depth_meters, images/depth_meters_visualization, status/camera/world_x_meters, status/camera/world_y_meters, status/camera/world_z_meters, status/camera/status, status/light/intensity, status/light/enabled, status/light/yaw_offset_degrees, status/light/pitch_offset_degrees, and status/light/status.",
+      "status": "success",
+      "trace_id": "886c43e9-b5a0-4294-b464-62e122c03b95",
+      "from_agent": "builder",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/builder-31b4ed5a-e275-4b59-8b00-a71f56ed6c97-result.json",
+      "created_at": "2026-05-22T16:39:58Z"
+    },
+    "artifact:.control-tower/packets/inbox/builder-31b4ed5a-e275-4b59-8b00-a71f56ed6c97-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/builder-31b4ed5a-e275-4b59-8b00-a71f56ed6c97-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/builder-31b4ed5a-e275-4b59-8b00-a71f56ed6c97-result.json",
+      "title": ".control-tower/packets/inbox/builder-31b4ed5a-e275-4b59-8b00-a71f56ed6c97-result.json",
+      "created_at": "2026-05-22T16:39:58Z"
+    },
+    "packet:31b4ed5a-e275-4b59-8b00-a71f56ed6c97": {
+      "id": "packet:31b4ed5a-e275-4b59-8b00-a71f56ed6c97",
+      "type": "packet",
+      "packet_id": "31b4ed5a-e275-4b59-8b00-a71f56ed6c97",
+      "packet_type": "task",
+      "title": "Simplify Rerun stream to RGB/depth only and remove 3D view",
+      "status": null,
+      "trace_id": "886c43e9-b5a0-4294-b464-62e122c03b95",
+      "from_agent": "tower",
+      "to_agent": "builder",
+      "path": ".control-tower/packets/outbox/20260522T163726Z-builder-simplify-rerun-stream-to-rgb-depth-only-and-remove-3d-view.json",
+      "created_at": "2026-05-22T16:37:26Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T163726Z-builder-simplify-rerun-stream-to-rgb-depth-only-and-remove-3d-view.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T163726Z-builder-simplify-rerun-stream-to-rgb-depth-only-and-remove-3d-view.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T163726Z-builder-simplify-rerun-stream-to-rgb-depth-only-and-remove-3d-view.json",
+      "title": ".control-tower/packets/outbox/20260522T163726Z-builder-simplify-rerun-stream-to-rgb-depth-only-and-remove-3d-view.json",
+      "created_at": "2026-05-22T16:37:26Z"
+    },
+    "event:black-box:27": {
+      "id": "event:black-box:27",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T16:37:33.088Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e508c-9d1b-7cf1-bed8-fdfe4dd5fa89",
+        "timestamp": "2026-05-22T16:37:33.088Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e508c-9d1b-7cf1-bed8-fdfe4dd5fa89.md"
+      }
+    },
+    "session:019e508f-7d8f-7733-8a20-f78a5e847d6d": {
+      "id": "session:019e508f-7d8f-7733-8a20-f78a5e847d6d",
+      "type": "session",
+      "session_id": "019e508f-7d8f-7733-8a20-f78a5e847d6d",
+      "timestamp": "2026-05-22T16:40:41.619Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e508f-7d8f-7733-8a20-f78a5e847d6d.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e508f-7d8f-7733-8a20-f78a5e847d6d.jsonl"
+    },
+    "packet:4b8df9fd-8f7f-45b7-a412-7824c86a517c": {
+      "id": "packet:4b8df9fd-8f7f-45b7-a412-7824c86a517c",
+      "type": "packet",
+      "packet_id": "4b8df9fd-8f7f-45b7-a412-7824c86a517c",
+      "packet_type": "result",
+      "title": "Approved. Static review and a stubbed Rerun API smoke check confirm examples/flashlight/run_programmatic_rerun.py now logs only images/rgb, images/depth_meters, images/depth_meters_visualization, and non-spatial status/* telemetry. No world_normal or diffuse streams, 3D Rerun archetype logs, or spatial spear/* Rerun paths remain in the script. No blocking runtime issues were found in status logging.",
+      "status": "success",
+      "trace_id": "18e861ae-0d6f-4128-82ac-ead6b0c32b25",
+      "from_agent": "inspector",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/inspector-ed527cea-cf9e-4873-a5e5-a467f276c4e7-result.json",
+      "created_at": "2026-05-22T16:43:09Z"
+    },
+    "artifact:.control-tower/packets/inbox/inspector-ed527cea-cf9e-4873-a5e5-a467f276c4e7-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/inspector-ed527cea-cf9e-4873-a5e5-a467f276c4e7-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/inspector-ed527cea-cf9e-4873-a5e5-a467f276c4e7-result.json",
+      "title": ".control-tower/packets/inbox/inspector-ed527cea-cf9e-4873-a5e5-a467f276c4e7-result.json",
+      "created_at": "2026-05-22T16:43:09Z"
+    },
+    "dec_inferred_4b8df9fd-8f7f-45b7-a412-7824c86a517c_0_confirmed-the-flashlight-programmatic-rerun-cleanup-now-emits-only-rgb-depth-2d-image-streams-and-non-spatial-status-telemetry-with-spatial-spear-paths-and-3d-rerun-archetypes-removed-from-the-script": {
+      "id": "dec_inferred_4b8df9fd-8f7f-45b7-a412-7824c86a517c_0_confirmed-the-flashlight-programmatic-rerun-cleanup-now-emits-only-rgb-depth-2d-image-streams-and-non-spatial-status-telemetry-with-spatial-spear-paths-and-3d-rerun-archetypes-removed-from-the-script",
+      "type": "decision",
+      "topic": "confirmed-the-flashlight-programmatic-rerun-cleanup-now-emits-only-rgb-depth-2d-image-streams-and-non-spatial-status-telemetry-with-spatial-spear-paths-and-3d-rerun-archetypes-removed-from-the-script",
+      "title": "Confirmed the flashlight programmatic Rerun cleanup now emits only RGB/depth 2D image streams and non-spatial status/* telemetry, with spatial spear/* paths and 3D Rerun archetypes removed from the script.",
+      "status": "proposed",
+      "importance": "normal",
+      "summary": "Inferred from ResultPacket memory_worthy entry: Confirmed the flashlight programmatic Rerun cleanup now emits only RGB/depth 2D image streams and non-spatial status/* telemetry, with spatial spear/* paths and 3D Rerun archetypes removed from the script.",
+      "rationale": [
+        "Captured from a ResultPacket memory_worthy entry pending curation."
+      ],
+      "source_refs": [
+        ".control-tower/packets/inbox/inspector-ed527cea-cf9e-4873-a5e5-a467f276c4e7-result.json"
+      ],
+      "inferred": true,
+      "created_at": "2026-05-22T16:43:35Z",
+      "created_by": "inspector"
+    },
+    "packet:ed527cea-cf9e-4873-a5e5-a467f276c4e7": {
+      "id": "packet:ed527cea-cf9e-4873-a5e5-a467f276c4e7",
+      "type": "packet",
+      "packet_id": "ed527cea-cf9e-4873-a5e5-a467f276c4e7",
+      "packet_type": "task",
+      "title": "Review RGB/depth-only Rerun cleanup",
+      "status": null,
+      "trace_id": "18e861ae-0d6f-4128-82ac-ead6b0c32b25",
+      "from_agent": "tower",
+      "to_agent": "inspector",
+      "path": ".control-tower/packets/outbox/20260522T164038Z-inspector-review-rgb-depth-only-rerun-cleanup.json",
+      "created_at": "2026-05-22T16:40:38Z"
+    },
+    "artifact:.control-tower/packets/outbox/20260522T164038Z-inspector-review-rgb-depth-only-rerun-cleanup.json": {
+      "id": "artifact:.control-tower/packets/outbox/20260522T164038Z-inspector-review-rgb-depth-only-rerun-cleanup.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/20260522T164038Z-inspector-review-rgb-depth-only-rerun-cleanup.json",
+      "title": ".control-tower/packets/outbox/20260522T164038Z-inspector-review-rgb-depth-only-rerun-cleanup.json",
+      "created_at": "2026-05-22T16:40:38Z"
+    },
+    "packet:c5da1b1f-a293-44f9-af8b-33e17b0ac522": {
+      "id": "packet:c5da1b1f-a293-44f9-af8b-33e17b0ac522",
+      "type": "packet",
+      "packet_id": "c5da1b1f-a293-44f9-af8b-33e17b0ac522",
+      "packet_type": "task",
+      "title": "Update repo docs after Builder work",
+      "status": null,
+      "trace_id": "886c43e9-b5a0-4294-b464-62e122c03b95",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T164028Z.json",
+      "created_at": "2026-05-22T16:40:28Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T164028Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-builder-20260522T164028Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T164028Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-builder-20260522T164028Z.json",
+      "created_at": "2026-05-22T16:40:28Z"
+    },
+    "event:black-box:28": {
+      "id": "event:black-box:28",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T16:40:41.619Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e508f-7d8f-7733-8a20-f78a5e847d6d",
+        "timestamp": "2026-05-22T16:40:41.619Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e508f-7d8f-7733-8a20-f78a5e847d6d.md"
+      }
+    },
+    "session:019e5092-7427-7601-b9d7-e4b0e2e216a8": {
+      "id": "session:019e5092-7427-7601-b9d7-e4b0e2e216a8",
+      "type": "session",
+      "session_id": "019e5092-7427-7601-b9d7-e4b0e2e216a8",
+      "timestamp": "2026-05-22T16:43:55.819Z",
+      "source": "exec",
+      "originator": "codex_exec",
+      "transcript_path": ".control-tower/memory/l2/transcripts/019e5092-7427-7601-b9d7-e4b0e2e216a8.md",
+      "session_path": ".control-tower/memory/l2/sessions/019e5092-7427-7601-b9d7-e4b0e2e216a8.jsonl"
+    },
+    "packet:scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result": {
+      "id": "packet:scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result",
+      "type": "packet",
+      "packet_id": "scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result",
+      "packet_type": "result",
+      "title": "Reviewed the Builder ResultPacket and referenced files. Durable docs already reflected the reduced RGB/depth-only Rerun workflow, so no new repo doc page or index change was needed. Resolved operational doc drift by marking an older `.control-tower` inferred decision about `spear/camera/...` paths as superseded.",
+      "status": "success",
+      "trace_id": "886c43e9-b5a0-4294-b464-62e122c03b95",
+      "from_agent": "scribe",
+      "to_agent": "tower",
+      "path": ".control-tower/packets/inbox/scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result.json",
+      "created_at": "2026-05-22T16:45:18Z"
+    },
+    "artifact:.control-tower/packets/inbox/scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result.json": {
+      "id": "artifact:.control-tower/packets/inbox/scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/inbox/scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result.json",
+      "title": ".control-tower/packets/inbox/scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result.json",
+      "created_at": "2026-05-22T16:45:18Z"
+    },
+    "dec_inferred_scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result_0_the-flashlight-programmatic-rerun-docs-now-describe-rgb-depth-only-2d-streams-under-images-plus-non-spatial-status-camera-and-status-light-telemetry-older-spear-camera-path-documentation-is-superseded": {
+      "id": "dec_inferred_scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result_0_the-flashlight-programmatic-rerun-docs-now-describe-rgb-depth-only-2d-streams-under-images-plus-non-spatial-status-camera-and-status-light-telemetry-older-spear-camera-path-documentation-is-superseded",
+      "type": "decision",
+      "topic": "the-flashlight-programmatic-rerun-docs-now-describe-rgb-depth-only-2d-streams-under-images-plus-non-spatial-status-camera-and-status-light-telemetry-older-spear-camera-path-documentation-is-superseded",
+      "title": "The flashlight programmatic Rerun docs now describe RGB/depth-only 2D streams under `images/*` plus non-spatial `status/camera/*` and `status/light/*` telemetry; older `spear/camera/...` path documentation is superseded.",
+      "status": "proposed",
+      "importance": "normal",
+      "summary": "Inferred from ResultPacket memory_worthy entry: The flashlight programmatic Rerun docs now describe RGB/depth-only 2D streams under `images/*` plus non-spatial `status/camera/*` and `status/light/*` telemetry; older `spear/camera/...` path documentation is superseded.",
+      "rationale": [
+        "Captured from a ResultPacket memory_worthy entry pending curation."
+      ],
+      "source_refs": [
+        ".control-tower/packets/inbox/scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result.json"
+      ],
+      "inferred": true,
+      "created_at": "2026-05-22T16:45:36Z",
+      "created_by": "scribe"
+    },
+    "packet:519b576e-86f2-4e29-b318-6df59515278a": {
+      "id": "packet:519b576e-86f2-4e29-b318-6df59515278a",
+      "type": "packet",
+      "packet_id": "519b576e-86f2-4e29-b318-6df59515278a",
+      "packet_type": "task",
+      "title": "Update repo docs after Inspector work",
+      "status": null,
+      "trace_id": "18e861ae-0d6f-4128-82ac-ead6b0c32b25",
+      "from_agent": "tower",
+      "to_agent": "scribe",
+      "path": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T164342Z.json",
+      "created_at": "2026-05-22T16:43:42Z"
+    },
+    "artifact:.control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T164342Z.json": {
+      "id": "artifact:.control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T164342Z.json",
+      "type": "artifact",
+      "ref": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T164342Z.json",
+      "title": ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T164342Z.json",
+      "created_at": "2026-05-22T16:43:42Z"
+    },
+    "event:black-box:29": {
+      "id": "event:black-box:29",
+      "type": "event",
+      "event_type": "codex_session_imported",
+      "timestamp": "2026-05-22T16:43:55.819Z",
+      "payload": {
+        "event_type": "codex_session_imported",
+        "session_id": "019e5092-7427-7601-b9d7-e4b0e2e216a8",
+        "timestamp": "2026-05-22T16:43:55.819Z",
+        "source": "exec",
+        "originator": "codex_exec",
+        "transcript_path": ".control-tower/memory/l2/transcripts/019e5092-7427-7601-b9d7-e4b0e2e216a8.md"
+      }
     }
   }
 }

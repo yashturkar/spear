@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "01241a06-7b1d-4e32-b6ce-5485f9117799",
+  "trace_id": "5d7897c1-04af-4d80-90cb-d32fe3717d12",
+  "parent_packet_id": null,
+  "created_at": "2026-05-22T16:25:31Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Fix Rerun 2D image hierarchy and RGB projection colors",
+  "objective": "Repair the programmatic flashlight Rerun stream so 2D image views do not rotate with the world/camera, the image streams do not look like segmentation maps, and the camera RGB projection is not black.",
+  "instructions": [
+    "Move all regular 2D image inspection streams completely outside the spatial spear tree. Use a top-level non-spatial namespace such as images/rgb, images/depth_meters, images/world_normal_visualization, and images/diffuse_color_visualization, not spear/images/...",
+    "Keep only spatial/world entities under spear: spear camera pose/frustum, camera trajectory, camera position, and light direction/status if appropriate.",
+    "Keep projected RGB under spear/camera only if it renders as a camera image plane; it must use the same corrected natural RGB image as the 2D RGB stream.",
+    "Fix RGB color handling so final_tone_curve_hdr does not look like segmentation colors and the projected camera image is not black. Treat alpha carefully: if the source has 4 channels, output opaque RGB/RGBA as appropriate and do not let a zero/invalid alpha make the projection black/transparent.",
+    "If using rr.Image for the projected image, prefer a 3-channel RGB uint8/float image to avoid alpha issues unless the source alpha is known valid.",
+    "Keep depth out of spear/camera so it does not create a point cloud. For top-level depth, if rr.DepthImage still appears spatial or confusing, log a 2D depth visualization image instead or in addition, but do not put it under spear/camera.",
+    "Update README and running guide to document the corrected top-level image paths and spatial spear paths."
+  ],
+  "constraints": [
+    "Do not remove the programmatic light control feature.",
+    "Do not run live simulator-dependent commands."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_programmatic_rerun.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Patched script and docs with non-spatial top-level image paths and corrected RGB/projection handling."
+  ],
+  "definition_of_done": [
+    "python -m py_compile examples/flashlight/run_programmatic_rerun.py passes.",
+    "Static check confirms no regular image path starts with spear/images and no depth image is logged under spear/camera.",
+    "ResultPacket states exact paths for 2D images, camera/frustum/projection, trajectory, and status."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}
