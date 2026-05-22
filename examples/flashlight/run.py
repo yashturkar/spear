@@ -13,6 +13,8 @@ import time
 import spear
 
 
+INPUT_POLL_PERIOD_SECONDS = 1.0 / 60.0
+
 MAPS = {
     "apartment_0000": "/Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000",
     "debug_0000": "/Game/SPEAR/Scenes/debug_0000/Maps/debug_0000",
@@ -38,6 +40,7 @@ parser.add_argument("--movement-speed", type=float, default=1200.0)
 parser.add_argument("--disable-scene-lights", action="store_true")
 parser.add_argument("--capture-poses", action="store_true")
 parser.add_argument("--capture-key", default="Gamepad_FaceButton_Top")
+parser.add_argument("--toggle-key", default="Gamepad_FaceButton_Right")
 parser.add_argument("--pose-output-file", default=os.path.realpath(os.path.join(os.path.dirname(__file__), "camera_poses.jsonl")))
 parser.add_argument("--idle-period-seconds", type=float, default=0.5)
 args = parser.parse_args()
@@ -74,10 +77,19 @@ def save_viewport_pose(name, viewport_desc, output_file):
     return pose_desc
 
 
-def was_input_key_just_pressed(game, player_controller, key_name):
-    key = game.get_unreal_object(uclass="FKey")
-    key.KeyName = key_name
-    return player_controller.WasInputKeyJustPressed(Key=key)
+def get_input_key_arg(key_name):
+    return {"KeyName": key_name}
+
+
+def is_input_key_down(player_controller, key_name):
+    return player_controller.IsInputKeyDown(Key=get_input_key_arg(key_name=key_name))
+
+
+def was_input_key_pressed_since_last_poll(player_controller, key_name, previous_key_down_by_name):
+    is_key_down = is_input_key_down(player_controller=player_controller, key_name=key_name)
+    was_key_down = previous_key_down_by_name.get(key_name, False)
+    previous_key_down_by_name[key_name] = is_key_down
+    return is_key_down and not was_key_down
 
 
 def get_player_controller(game):
@@ -175,27 +187,45 @@ if __name__ == "__main__":
 
         spear.log("Spawned camera flashlight. Press Ctrl+C to stop.")
         spear.log("Camera movement speed: ", args.movement_speed)
+        spear.log("Flashlight toggle key: ", args.toggle_key)
         if args.capture_poses:
             spear.log("Pose capture enabled. Press Enter in this terminal or press the capture key on the controller to save the current camera pose.")
             spear.log("Capture key: ", args.capture_key)
             spear.log("Pose output file: ", args.pose_output_file)
 
         pose_index = 0
+        flashlight_visible = True
+        previous_key_down_by_name = {}
         while instance.is_running():
-            time.sleep(args.idle_period_seconds)
+            time.sleep(min(args.idle_period_seconds, INPUT_POLL_PERIOD_SECONDS))
             should_capture_pose = False
+            should_toggle_flashlight = False
             if args.capture_poses:
                 if sys.stdin in select.select([sys.stdin], [], [], 0.0)[0]:
                     sys.stdin.readline()
                     should_capture_pose = True
-                else:
-                    with instance.begin_frame():
-                        should_capture_pose = was_input_key_just_pressed(
-                            game=game,
-                            player_controller=get_player_controller(game=game),
-                            key_name=args.capture_key)
-                    with instance.end_frame():
-                        pass
+
+            with instance.begin_frame():
+                player_controller = get_player_controller(game=game)
+                should_toggle_flashlight = was_input_key_pressed_since_last_poll(
+                    player_controller=player_controller,
+                    key_name=args.toggle_key,
+                    previous_key_down_by_name=previous_key_down_by_name)
+                if args.capture_poses and not should_capture_pose:
+                    should_capture_pose = was_input_key_pressed_since_last_poll(
+                        player_controller=player_controller,
+                        key_name=args.capture_key,
+                        previous_key_down_by_name=previous_key_down_by_name)
+            with instance.end_frame():
+                pass
+
+            if should_toggle_flashlight:
+                flashlight_visible = not flashlight_visible
+                with instance.begin_frame():
+                    spot_light_component.SetVisibility(bNewVisibility=flashlight_visible, bPropagateToChildren=True)
+                with instance.end_frame():
+                    pass
+                spear.log("Flashlight visible: ", flashlight_visible)
 
             if should_capture_pose:
                 pose_name = "waypoint_" + str(pose_index).zfill(3)
