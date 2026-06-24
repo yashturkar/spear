@@ -46,7 +46,7 @@ We recommend browsing through our example applications to get a sense of what is
   - [`examples/control_simple_agent`](../examples/control_simple_agent) demonstrates how to control a simple agent and obtain egocentric visual observations.
   - [`examples/control_stackobot_sample`](../examples/control_stackobot_sample) demonstrates how to control Epic Games' `StackOBot` project.
   - [`examples/enhanced_input`](../examples/enhanced_input) demonstrates how to interact with Unreal's Enhanced Input system.
-  - [`examples/flashlight`](../examples/flashlight) demonstrates interactive and programmatic flashlight control, including a Rerun stream for active-illumination inspection.
+  - [`examples/flashlight`](../examples/flashlight) demonstrates interactive and programmatic flashlight control, including a Rerun stream and orbit collection workflow for active-illumination inspection.
   - [`examples/get_class_info`](../examples/get_class_info) demonstrates how to interact with Unreal's runtime reflection system.
   - [`examples/getting_started`](../examples/getting_started) demonstrates how to spawn an object and access object properties.
   - [`examples/getting_started_editor`](../examples/getting_started_editor) demonstrates how to spawn an object using the Unreal Editor's built-in Python API.
@@ -101,3 +101,45 @@ already running Rerun viewer. Live SPEAR/Rerun validation requires a running
 simulator and viewer; see [`examples/flashlight`](../examples/flashlight) for
 the full workflow, including the imported Japanese office map and rendered
 flythrough helpers.
+
+## Running the flashlight orbit collection workflow
+
+The flashlight example can save a user-selected orbit around a target point and
+then render RGB and depth-visualization videos for multiple light settings. Use
+teleop mode to navigate to the view you want, select the target point with
+`Gamepad_FaceButton_Top`, and preview the visible orbit with
+`Gamepad_FaceButton_Bottom`:
+
+```console
+python examples/flashlight/run_orbit_collection.py \
+  --mode teleop \
+  --map japanese_office_dark \
+  --movement-speed 600 \
+  --disable-scene-lights \
+  --orbit-spec-file examples/flashlight/orbit_spec.json
+```
+
+Teleop mode writes an orbit spec JSON containing the map, start camera pose,
+selected target point, orbit radius, duration, FPS, image size, field of view,
+and baseline light settings. The preview restores the spectator pawn pose and
+control rotation after the orbit. If target selection does not hit geometry, the
+script records a fallback target along the camera forward direction.
+
+Render mode reuses the saved orbit spec and applies each entry in a light
+settings JSON file. The repository includes
+`examples/flashlight/light_settings.example.json` as a starting point:
+
+```console
+python examples/flashlight/run_orbit_collection.py \
+  --mode render \
+  --orbit-spec-file examples/flashlight/orbit_spec.json \
+  --light-settings-file examples/flashlight/light_settings.example.json \
+  --output-dir examples/flashlight/orbit_collection_output
+```
+
+Each light setting writes PNG frames under
+`orbit_collection_output/<name>/frames/rgb/` and
+`orbit_collection_output/<name>/frames/depth_meters_visualization/`, plus
+`rgb.mp4` and `depth_meters_visualization.mp4`. The default orbit spec and
+output paths are generated artifacts and are ignored by Git. Live render
+validation still requires a running SPEAR simulator.
