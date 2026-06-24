@@ -1399,6 +1399,136 @@
       "evidence_refs": [
         ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260522T164342Z.json"
       ]
+    },
+    {
+      "id": "edge:packet-artifact:git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result:control-tower-packets-inbox-git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result-json",
+      "type": "references",
+      "from": "packet:git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result",
+      "to": "artifact:.control-tower/packets/inbox/git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result.json",
+      "created_at": "2026-05-22T16:56:41Z",
+      "evidence_refs": [
+        ".control-tower/packets/inbox/git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result.json"
+      ]
+    },
+    {
+      "id": "edge:decision-ref:dec_inferred_git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result_0_created-local-commit-e52ecea05bcddd08b603d563f5658ce822290040-for-the-flashlight-programmatic-rerun-cleanup-rgb-depth-only-2d-streams-non-spatial-status-telemetry-no-extra-rerun-streams-no-3d-spatial-view-logging:control-tower-packets-inbox-git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result-json",
+      "type": "references",
+      "from": "dec_inferred_git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result_0_created-local-commit-e52ecea05bcddd08b603d563f5658ce822290040-for-the-flashlight-programmatic-rerun-cleanup-rgb-depth-only-2d-streams-non-spatial-status-telemetry-no-extra-rerun-streams-no-3d-spatial-view-logging",
+      "to": "artifact:.control-tower/packets/inbox/git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result.json",
+      "created_at": "2026-05-22T16:57:12Z",
+      "evidence_refs": [
+        ".control-tower/packets/inbox/git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result.json"
+      ]
+    },
+    {
+      "id": "edge:decision-node:dec_inferred_git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result_0_created-local-commit-e52ecea05bcddd08b603d563f5658ce822290040-for-the-flashlight-programmatic-rerun-cleanup-rgb-depth-only-2d-streams-non-spatial-status-telemetry-no-extra-rerun-streams-no-3d-spatial-view-logging:packet-git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result",
+      "type": "references",
+      "from": "dec_inferred_git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result_0_created-local-commit-e52ecea05bcddd08b603d563f5658ce822290040-for-the-flashlight-programmatic-rerun-cleanup-rgb-depth-only-2d-streams-non-spatial-status-telemetry-no-extra-rerun-streams-no-3d-spatial-view-logging",
+      "to": "packet:git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result",
+      "created_at": "2026-05-22T16:57:12Z",
+      "evidence_refs": [
+        ".control-tower/packets/inbox/git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result.json"
+      ]
+    },
+    {
+      "id": "edge:packet-artifact:4b7ceb89-469b-4dc2-afec-1cdb5f815b1b:control-tower-packets-outbox-20260522t165417z-git-master-commit-rgb-depth-only-flashlight-rerun-cleanup-json",
+      "type": "references",
+      "from": "packet:4b7ceb89-469b-4dc2-afec-1cdb5f815b1b",
+      "to": "artifact:.control-tower/packets/outbox/20260522T165417Z-git-master-commit-rgb-depth-only-flashlight-rerun-cleanup.json",
+      "created_at": "2026-05-22T16:54:17Z",
+      "evidence_refs": [
+        ".control-tower/packets/outbox/20260522T165417Z-git-master-commit-rgb-depth-only-flashlight-rerun-cleanup.json"
+      ]
+    },
+    {
+      "id": "edge:packet-session:4b7ceb89-469b-4dc2-afec-1cdb5f815b1b:tower-session",
+      "type": "discussed_in",
+      "from": "packet:4b7ceb89-469b-4dc2-afec-1cdb5f815b1b",
+      "to": "session:tower-session",
+      "created_at": "2026-05-22T16:54:17Z",
+      "evidence_refs": [
+        ".control-tower/packets/outbox/20260522T165417Z-git-master-commit-rgb-depth-only-flashlight-rerun-cleanup.json"
+      ]
+    },
+    {
+      "id": "edge:commit-session:e52ecea05bcddd08b603d563f5658ce822290040:019e509b-fc99-73e1-8bdc-7acc27c99c4a",
+      "type": "caused_by",
+      "from": "commit:e52ecea05bcddd08b603d563f5658ce822290040",
+      "to": "session:019e509b-fc99-73e1-8bdc-7acc27c99c4a",
+      "created_at": "2026-05-22T12:56:30-04:00",
+      "evidence_refs": [
+        "/home/yashturkar/Workspace/spear/.control-tower/memory/l2/transcripts/019e509b-fc99-73e1-8bdc-7acc27c99c4a.md"
+      ]
+    },
+    {
+      "id": "edge:packet-artifact:526d5f2c-14e8-4444-966d-c2384caedac0:control-tower-packets-outbox-scribe-docs-followup-git-master-20260522t165718z-json",
+      "type": "references",
+      "from": "packet:526d5f2c-14e8-4444-966d-c2384caedac0",
+      "to": "artifact:.control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T165718Z.json",
+      "created_at": "2026-05-22T16:57:18Z",
+      "evidence_refs": [
+        ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T165718Z.json"
+      ]
+    },
+    {
+      "id": "edge:packet-session:526d5f2c-14e8-4444-966d-c2384caedac0:tower-session",
+      "type": "discussed_in",
+      "from": "packet:526d5f2c-14e8-4444-966d-c2384caedac0",
+      "to": "session:tower-session",
+      "created_at": "2026-05-22T16:57:18Z",
+      "evidence_refs": [
+        ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260522T165718Z.json"
+      ]
+    },
+    {
+      "id": "edge:packet-artifact:inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result:control-tower-packets-inbox-inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result-json",
+      "type": "references",
+      "from": "packet:inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result",
+      "to": "artifact:.control-tower/packets/inbox/inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result.json",
+      "created_at": "2026-06-24T18:28:04Z",
+      "evidence_refs": [
+        ".control-tower/packets/inbox/inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result.json"
+      ]
+    },
+    {
+      "id": "edge:decision-ref:dec_inferred_inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result_0_pre-feature-audit-on-2026-06-24-found-main-ahead-of-origin-main-by-1-commit-at-e52ecea05bcddd08b603d563f5658ce822290040-with-a-dirty-working-tree-current-flashlight-rerun-code-docs-add-top-level-rgb-depth-camera-position-plot-plus-a-fixed-rerun-blueprint-drifting-from-the-last-committed-rgb-depth-only-images-resultpackets:control-tower-packets-inbox-inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result-json",
+      "type": "references",
+      "from": "dec_inferred_inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result_0_pre-feature-audit-on-2026-06-24-found-main-ahead-of-origin-main-by-1-commit-at-e52ecea05bcddd08b603d563f5658ce822290040-with-a-dirty-working-tree-current-flashlight-rerun-code-docs-add-top-level-rgb-depth-camera-position-plot-plus-a-fixed-rerun-blueprint-drifting-from-the-last-committed-rgb-depth-only-images-resultpackets",
+      "to": "artifact:.control-tower/packets/inbox/inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result.json",
+      "created_at": "2026-06-24T18:28:46Z",
+      "evidence_refs": [
+        ".control-tower/packets/inbox/inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result.json"
+      ]
+    },
+    {
+      "id": "edge:decision-node:dec_inferred_inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result_0_pre-feature-audit-on-2026-06-24-found-main-ahead-of-origin-main-by-1-commit-at-e52ecea05bcddd08b603d563f5658ce822290040-with-a-dirty-working-tree-current-flashlight-rerun-code-docs-add-top-level-rgb-depth-camera-position-plot-plus-a-fixed-rerun-blueprint-drifting-from-the-last-committed-rgb-depth-only-images-resultpackets:packet-inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result",
+      "type": "references",
+      "from": "dec_inferred_inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result_0_pre-feature-audit-on-2026-06-24-found-main-ahead-of-origin-main-by-1-commit-at-e52ecea05bcddd08b603d563f5658ce822290040-with-a-dirty-working-tree-current-flashlight-rerun-code-docs-add-top-level-rgb-depth-camera-position-plot-plus-a-fixed-rerun-blueprint-drifting-from-the-last-committed-rgb-depth-only-images-resultpackets",
+      "to": "packet:inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result",
+      "created_at": "2026-06-24T18:28:46Z",
+      "evidence_refs": [
+        ".control-tower/packets/inbox/inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result.json"
+      ]
+    },
+    {
+      "id": "edge:packet-artifact:caaefb81-a1af-4a01-86ad-778333c1a36a:control-tower-packets-outbox-20260624t-inspector-pre-feature-git-cleanup-audit-json",
+      "type": "references",
+      "from": "packet:caaefb81-a1af-4a01-86ad-778333c1a36a",
+      "to": "artifact:.control-tower/packets/outbox/20260624T-inspector-pre-feature-git-cleanup-audit.json",
+      "created_at": "2026-06-24T18:26:01Z",
+      "evidence_refs": [
+        ".control-tower/packets/outbox/20260624T-inspector-pre-feature-git-cleanup-audit.json"
+      ]
+    },
+    {
+      "id": "edge:packet-session:caaefb81-a1af-4a01-86ad-778333c1a36a:tower-session",
+      "type": "discussed_in",
+      "from": "packet:caaefb81-a1af-4a01-86ad-778333c1a36a",
+      "to": "session:tower-session",
+      "created_at": "2026-06-24T18:26:01Z",
+      "evidence_refs": [
+        ".control-tower/packets/outbox/20260624T-inspector-pre-feature-git-cleanup-audit.json"
+      ]
     }
   ]
 }

@@ -347,6 +347,42 @@
       "source": "exec",
       "user_message_count": 1,
       "agent_message_count": 3
+    },
+    "019e509b-fc99-73e1-8bdc-7acc27c99c4a": {
+      "session_id": "019e509b-fc99-73e1-8bdc-7acc27c99c4a",
+      "timestamp": "2026-05-22T16:54:20.574Z",
+      "source_path": "/home/yashturkar/.codex/sessions/2026/05/22/rollout-2026-05-22T12-54-20-019e509b-fc99-73e1-8bdc-7acc27c99c4a.jsonl",
+      "cached_copy": "/home/yashturkar/Workspace/spear/.control-tower/memory/l2/sessions/019e509b-fc99-73e1-8bdc-7acc27c99c4a.jsonl",
+      "transcript_path": "/home/yashturkar/Workspace/spear/.control-tower/memory/l2/transcripts/019e509b-fc99-73e1-8bdc-7acc27c99c4a.md",
+      "cwd": "/home/yashturkar/Workspace/spear",
+      "originator": "codex_exec",
+      "source": "exec",
+      "user_message_count": 1,
+      "agent_message_count": 1
+    },
+    "019efade-9a9f-7c12-9ede-5b7a384d83cc": {
+      "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+      "timestamp": "2026-06-24T18:22:33.125Z",
+      "source_path": "/home/yashturkar/.codex/sessions/2026/06/24/rollout-2026-06-24T14-22-33-019efade-9a9f-7c12-9ede-5b7a384d83cc.jsonl",
+      "cached_copy": "/home/yashturkar/Workspace/spear/.control-tower/memory/l2/sessions/019efade-9a9f-7c12-9ede-5b7a384d83cc.jsonl",
+      "transcript_path": "/home/yashturkar/Workspace/spear/.control-tower/memory/l2/transcripts/019efade-9a9f-7c12-9ede-5b7a384d83cc.md",
+      "cwd": "/home/yashturkar/Workspace/spear",
+      "originator": "codex-tui",
+      "source": "cli",
+      "user_message_count": 2,
+      "agent_message_count": 13
+    },
+    "019efae1-d5d7-7611-99d6-894d59d55253": {
+      "session_id": "019efae1-d5d7-7611-99d6-894d59d55253",
+      "timestamp": "2026-06-24T18:26:04.892Z",
+      "source_path": "/home/yashturkar/.codex/sessions/2026/06/24/rollout-2026-06-24T14-26-04-019efae1-d5d7-7611-99d6-894d59d55253.jsonl",
+      "cached_copy": "/home/yashturkar/Workspace/spear/.control-tower/memory/l2/sessions/019efae1-d5d7-7611-99d6-894d59d55253.jsonl",
+      "transcript_path": "/home/yashturkar/Workspace/spear/.control-tower/memory/l2/transcripts/019efae1-d5d7-7611-99d6-894d59d55253.md",
+      "cwd": "/home/yashturkar/Workspace/spear",
+      "originator": "codex_exec",
+      "source": "exec",
+      "user_message_count": 1,
+      "agent_message_count": 1
     }
   }
 }

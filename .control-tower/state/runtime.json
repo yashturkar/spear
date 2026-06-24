@@ -1,14 +1,14 @@
 {
   "git_branch": "main",
-  "last_sync_time": "2026-05-22T16:45:49Z",
+  "last_sync_time": "2026-06-24T18:28:53Z",
   "last_tower_session_id": null,
   "last_imported_session_id": null,
   "session_import_cutoff": "2026-05-22T12:38:47Z",
   "last_agent_sessions": {
     "scribe": "019e5092-7427-7601-b9d7-e4b0e2e216a8",
     "builder": "019e508c-9d1b-7cf1-bed8-fdfe4dd5fa89",
-    "git-master": "019e4fd3-34b5-77e3-a73b-7f22a56e8557",
-    "inspector": "019e508f-7d8f-7733-8a20-f78a5e847d6d",
+    "git-master": "019e509b-fc99-73e1-8bdc-7acc27c99c4a",
+    "inspector": "019efae1-d5d7-7611-99d6-894d59d55253",
     "scout": "019e503e-f9f3-7a13-86bd-dd53d83ac1af"
   }
 }

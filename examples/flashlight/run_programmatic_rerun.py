@@ -48,9 +48,10 @@ UNREAL_TO_RERUN_WORLD_MATRIX = np.array([
     [0.0, 0.0, 1.0],
 ], dtype=np.float64)
 RERUN_IMAGE_PATHS = {
-    "rgb": "images/rgb",
-    "depth_meters": "images/depth_meters",
-    "depth_meters_visualization": "images/depth_meters_visualization",
+    "rgb": "rgb",
+    "depth_meters": "depth_meters",
+    "depth_meters_visualization": "depth_meters_visualization",
+    "camera_position_plot": "camera_position_plot",
 }
 
 
@@ -88,7 +89,7 @@ def parse_args():
     parser.add_argument("--width", type=int, default=1280)
     parser.add_argument("--height", type=int, default=720)
     parser.add_argument("--capture-fps", type=float, default=12.0)
-    parser.add_argument("--rerun-app-id", default="spear_flashlight_programmatic")
+    parser.add_argument("--rerun-app-id", default="spear_flashlight_rgb_depth")
     parser.add_argument("--no-rerun-spawn", action="store_true")
     args = parser.parse_args()
 
@@ -147,6 +148,10 @@ def unreal_location_to_rerun_world(location):
     return unreal_vector_to_rerun_world(vector=get_location_xyz(location=location)) * UNREAL_CENTIMETERS_TO_RERUN_METERS
 
 
+def unreal_location_to_game_world_meters(location):
+    return get_location_xyz(location=location) * UNREAL_CENTIMETERS_TO_RERUN_METERS
+
+
 def build_light_rotation(camera_rotation, command):
     light_rotation = get_plain_dict(camera_rotation)
     key_by_lower = {key.lower(): key for key in light_rotation.keys()}
@@ -181,6 +186,47 @@ def to_rerun_depth_visualization(data):
         depth_visualization = np.clip((depth - min_depth) / max(span, 1.0e-6), 0.0, 1.0)
     depth_u8 = (depth_visualization*255.0).astype(np.uint8)
     return np.repeat(depth_u8[:, :, np.newaxis], 3, axis=2)
+
+
+def render_camera_position_plot(camera_positions_meters):
+    try:
+        from matplotlib.backends.backend_agg import FigureCanvasAgg
+        from matplotlib.figure import Figure
+    except ImportError:
+        raise SystemExit(
+            "matplotlib is required for the camera position plot.\n"
+            "Install SPEAR's Python dependencies with: python -m pip install -e 'python[examples]'"
+        ) from None
+
+    positions = np.asarray(camera_positions_meters, dtype=np.float64)
+    xy = positions[:, :2]
+    current = xy[-1]
+
+    figure = Figure(figsize=(5.0, 5.0), dpi=120)
+    canvas = FigureCanvasAgg(figure)
+    axis = figure.add_subplot(1, 1, 1)
+
+    axis.plot(xy[:, 0], xy[:, 1], color="#1f77b4", linewidth=2.0)
+    axis.scatter([current[0]], [current[1]], color="#d62728", s=45, zorder=3)
+    axis.set_title("Camera position in game world")
+    axis.set_xlabel("Unreal X (m)")
+    axis.set_ylabel("Unreal Y (m)")
+    axis.grid(True, color="#d0d0d0", linewidth=0.8)
+    axis.set_aspect("equal", adjustable="box")
+
+    min_xy = np.min(xy, axis=0)
+    max_xy = np.max(xy, axis=0)
+    center = (min_xy + max_xy) / 2.0
+    span = np.maximum(max_xy - min_xy, 1.0)
+    padding = max(float(np.max(span)) * 0.15, 1.0)
+    half_extent = max(float(np.max(span)) / 2.0 + padding, 1.0)
+    axis.set_xlim(center[0] - half_extent, center[0] + half_extent)
+    axis.set_ylim(center[1] - half_extent, center[1] + half_extent)
+
+    figure.tight_layout()
+    canvas.draw()
+    rgba = np.asarray(canvas.buffer_rgba())
+    return np.ascontiguousarray(rgba[:, :, :3])
 
 
 def get_player_controller(game):
@@ -225,20 +271,85 @@ def capture_scene(camera_components):
         component.CaptureScene()
 
 
+def build_rerun_blueprint():
+    import rerun.blueprint as rrb
+
+    return rrb.Blueprint(
+        rrb.Horizontal(
+            rrb.Vertical(
+                rrb.Spatial2DView(
+                    name="RGB",
+                    origin=RERUN_IMAGE_PATHS["rgb"],
+                    contents=RERUN_IMAGE_PATHS["rgb"]),
+                rrb.Spatial2DView(
+                    name="Depth visualization",
+                    origin=RERUN_IMAGE_PATHS["depth_meters_visualization"],
+                    contents=RERUN_IMAGE_PATHS["depth_meters_visualization"]),
+                rrb.Spatial2DView(
+                    name="Camera position plot",
+                    origin=RERUN_IMAGE_PATHS["camera_position_plot"],
+                    contents=RERUN_IMAGE_PATHS["camera_position_plot"]),
+            ),
+            rrb.Vertical(
+                rrb.Spatial2DView(
+                    name="Depth meters",
+                    origin=RERUN_IMAGE_PATHS["depth_meters"],
+                    contents=RERUN_IMAGE_PATHS["depth_meters"]),
+                rrb.TimeSeriesView(
+                    name="Camera position",
+                    origin="status/camera",
+                    contents=[
+                        "status/camera/world_x_meters",
+                        "status/camera/world_y_meters",
+                        "status/camera/world_z_meters",
+                    ]),
+                rrb.TimeSeriesView(
+                    name="Light command",
+                    origin="status/light",
+                    contents=[
+                        "status/light/intensity",
+                        "status/light/enabled",
+                        "status/light/yaw_offset_degrees",
+                        "status/light/pitch_offset_degrees",
+                    ]),
+                rrb.TextDocumentView(
+                    name="Camera status",
+                    origin="status/camera/status",
+                    contents="status/camera/status"),
+                rrb.TextDocumentView(
+                    name="Light status",
+                    origin="status/light/status",
+                    contents="status/light/status"),
+            ),
+            column_shares=[2.0, 1.0],
+        ),
+        rrb.SelectionPanel(state="collapsed"),
+        rrb.BlueprintPanel(state="collapsed"),
+        rrb.TimePanel(state="expanded", timeline="frame"),
+        auto_layout=False,
+        auto_views=False,
+        collapse_panels=True,
+    )
+
+
 def configure_rerun(rr, args):
-    rr.init(args.rerun_app_id, spawn=not args.no_rerun_spawn)
+    blueprint = build_rerun_blueprint()
+    rr.init(args.rerun_app_id, spawn=not args.no_rerun_spawn, default_blueprint=blueprint)
+    rr.send_blueprint(blueprint, make_active=True, make_default=True)
 
 
-def log_rerun_frame(rr, frame_index, elapsed_seconds, viewport_desc, command, component_data):
+def log_rerun_frame(rr, frame_index, elapsed_seconds, viewport_desc, command, component_data, camera_positions_meters):
     rr.set_time("frame", sequence=frame_index)
     rr.set_time("elapsed", duration=elapsed_seconds)
 
     location = unreal_location_to_rerun_world(location=viewport_desc["camera_location"])
+    camera_positions_meters.append(unreal_location_to_game_world_meters(location=viewport_desc["camera_location"]))
 
     rgb_image = to_rerun_final_tone_curve_rgb_image(data=component_data["rgb"])
     rr.log(RERUN_IMAGE_PATHS["rgb"], rr.Image(rgb_image, color_model="RGB"))
     rr.log(RERUN_IMAGE_PATHS["depth_meters"], rr.DepthImage(to_rerun_depth_image(data=component_data["depth_meters"]), meter=1.0))
     rr.log(RERUN_IMAGE_PATHS["depth_meters_visualization"], rr.Image(to_rerun_depth_visualization(data=component_data["depth_meters"]), color_model="RGB"))
+    rr.log(RERUN_IMAGE_PATHS["camera_position_plot"], rr.Image(render_camera_position_plot(camera_positions_meters), color_model="RGB"))
 
     rr.log("status/camera/world_x_meters", rr.Scalars(float(location[0])))
     rr.log("status/camera/world_y_meters", rr.Scalars(float(location[1])))
@@ -316,6 +427,7 @@ def run():
         intensity=args.intensity,
         yaw_offset_degrees=args.light_yaw_offset_degrees,
         pitch_offset_degrees=args.light_pitch_offset_degrees)
+    camera_positions_meters = []
 
     try:
         with instance.begin_frame():
@@ -427,7 +539,8 @@ def run():
                 elapsed_seconds=elapsed_seconds,
                 viewport_desc=viewport_desc,
                 command=command,
-                component_data=component_data)
+                component_data=component_data,
+                camera_positions_meters=camera_positions_meters)
             print_status(frame_index=frame_index, viewport_desc=viewport_desc, command=command)
 
             previous_command = command
