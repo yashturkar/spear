@@ -1,6 +1,8 @@
 {
   "active_decisions": [],
   "inferred_decisions": [
+    "dec_inferred_scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result_0_on-2026-06-24-scribe-confirmed-durable-docs-already-matched-accepted-flashlight-rerun-commit-02c5ec68e0f00aabe3b293c69b88fc5d42093e9f-and-curated-operational-memory-to-supersede-stale-images-rgb-depth-only-notes-with-the-top-level-streams-camera-position-plot-fixed-blueprint-state",
+    "dec_inferred_git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result_0_on-2026-06-24-git-master-cleaned-the-pre-feature-dirty-state-and-created-local-commit-02c5ec68e0f00aabe3b293c69b88fc5d42093e9f-preserving-accepted-flashlight-rerun-code-docs-and-tower-audit-artifacts-final-status-was-clean-main-ahead-of-origin-main-by-2-commits-no-push-performed",
     "dec_inferred_inspector-caaefb81-a1af-4a01-86ad-778333c1a36a-result_0_pre-feature-audit-on-2026-06-24-found-main-ahead-of-origin-main-by-1-commit-at-e52ecea05bcddd08b603d563f5658ce822290040-with-a-dirty-working-tree-current-flashlight-rerun-code-docs-add-top-level-rgb-depth-camera-position-plot-plus-a-fixed-rerun-blueprint-drifting-from-the-last-committed-rgb-depth-only-images-resultpackets",
     "dec_inferred_git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result_0_created-local-commit-e52ecea05bcddd08b603d563f5658ce822290040-for-the-flashlight-programmatic-rerun-cleanup-rgb-depth-only-2d-streams-non-spatial-status-telemetry-no-extra-rerun-streams-no-3d-spatial-view-logging",
     "dec_inferred_scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result_0_the-flashlight-programmatic-rerun-docs-now-describe-rgb-depth-only-2d-streams-under-images-plus-non-spatial-status-camera-and-status-light-telemetry-older-spear-camera-path-documentation-is-superseded",
@@ -27,18 +29,18 @@
   ],
   "current_tasks": [],
   "recent_commits": [
+    "commit:02c5ec68e0f00aabe3b293c69b88fc5d42093e9f",
     "commit:e52ecea05bcddd08b603d563f5658ce822290040",
     "commit:0c2b4838c52778b941f551ecc3db06a87ddb245c",
     "commit:bfe63191b879bc02acd21c13567c3b993f6c9f86",
-    "commit:b5be6a9c228c67ea2b7570374026deaf8b7dc961",
-    "commit:99488a0afce1fa6e3c53ee51c2781a64923e9c26"
+    "commit:b5be6a9c228c67ea2b7570374026deaf8b7dc961"
   ],
   "unexplained_commits": [
+    "commit:02c5ec68e0f00aabe3b293c69b88fc5d42093e9f",
     "commit:e52ecea05bcddd08b603d563f5658ce822290040",
     "commit:0c2b4838c52778b941f551ecc3db06a87ddb245c",
     "commit:bfe63191b879bc02acd21c13567c3b993f6c9f86",
-    "commit:b5be6a9c228c67ea2b7570374026deaf8b7dc961",
-    "commit:99488a0afce1fa6e3c53ee51c2781a64923e9c26"
+    "commit:b5be6a9c228c67ea2b7570374026deaf8b7dc961"
   ],
   "session_links": {
     "session:tower-session": [
@@ -90,9 +92,12 @@
       "packet:519b576e-86f2-4e29-b318-6df59515278a",
       "packet:4b7ceb89-469b-4dc2-afec-1cdb5f815b1b",
       "packet:526d5f2c-14e8-4444-966d-c2384caedac0",
-      "packet:caaefb81-a1af-4a01-86ad-778333c1a36a"
+      "packet:caaefb81-a1af-4a01-86ad-778333c1a36a",
+      "packet:2e497ca4-5a09-4097-8c57-200b340cfb01",
+      "packet:667d05c6-9470-4277-8a79-0fa0ea649707",
+      "packet:ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33"
     ]
   },
-  "last_graph_sync": "2026-06-24T18:28:53Z",
+  "last_graph_sync": "2026-06-24T18:35:06Z",
   "current_branch": "main"
 }
