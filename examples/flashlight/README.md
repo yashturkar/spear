@@ -67,13 +67,18 @@ python examples/flashlight/run_programmatic_rerun.py --map japanese_office_dark 
 
 The script follows the current live viewport camera instead of a fixed route,
 prints compact camera and light status to the terminal, and streams the 2D
-image inspection views at `images/rgb`, `images/depth_meters`,
-and `images/depth_meters_visualization`. The RGB stream uses the final tone
-curve as opaque RGB, depth is logged as metric depth plus a normalized RGB
-preview, and the stream does not create a 3D Rerun view or spatial `spear`
-hierarchy. Camera world position is logged as non-spatial status scalars under
+image inspection views at `rgb`, `depth_meters`,
+`depth_meters_visualization`, and `camera_position_plot`. The RGB stream uses
+the final tone curve as opaque RGB, depth is logged as metric depth plus a
+normalized RGB preview, and `camera_position_plot` is a matplotlib-rendered
+Unreal X/Y game-world plot in meters. The stream does not create a shared
+`images` parent, 3D Rerun view, 3D trajectory, or spatial `spear` hierarchy.
+Camera world position is logged as non-spatial status scalars under
 `status/camera/`, and flashlight enabled state, intensity, yaw offset, pitch
 offset, and text status are logged under `status/light/`.
+The script sends a fixed Rerun blueprint with separate views for each image
+stream and status group, so the viewer should not use the default `/` combined
+view.
 
 By default the script spawns Rerun automatically. Pass `--no-rerun-spawn` to
 connect manually from an already running Rerun viewer.

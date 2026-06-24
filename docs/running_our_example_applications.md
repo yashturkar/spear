@@ -77,13 +77,17 @@ python examples/flashlight/run_programmatic_rerun.py --map japanese_office_dark 
 ```
 
 The stream logs final-tone-curve RGB, metric depth, and a normalized depth RGB
-preview as 2D image inspection streams at `images/rgb`,
-`images/depth_meters`, and `images/depth_meters_visualization`. It does not
-create a 3D Rerun view, camera frustum, projected RGB plane, point cloud,
-trajectory, or spatial `spear` hierarchy. Camera world position is logged as
-non-spatial status scalars under `status/camera/`, and flashlight intensity,
-enabled state, yaw offset, pitch offset, and text status are logged under
-`status/light/`.
+preview as 2D image inspection streams at `rgb`, `depth_meters`, and
+`depth_meters_visualization`, and it logs a matplotlib-rendered Unreal X/Y
+game-world plot in meters at `camera_position_plot`. It does not create a shared
+`images` parent, 3D Rerun view, camera frustum, projected RGB plane, point
+cloud, 3D trajectory, or spatial `spear` hierarchy. Camera world position is
+logged as non-spatial status scalars under `status/camera/`, and flashlight
+intensity, enabled state, yaw offset, pitch offset, and text status are logged
+under `status/light/`.
+The script sends a fixed Rerun blueprint with separate views for each image
+stream and status group, so the viewer should not use the default `/` combined
+view.
 
 Programmatic control lives in
 `examples/flashlight/run_programmatic_rerun.py`: edit

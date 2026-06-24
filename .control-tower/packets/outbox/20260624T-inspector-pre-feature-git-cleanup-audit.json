@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "caaefb81-a1af-4a01-86ad-778333c1a36a",
+  "trace_id": "7e87b58c-9712-4fdb-82b0-d3b91a429216",
+  "parent_packet_id": null,
+  "created_at": "2026-06-24T18:26:01Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "inspection",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Audit repo state before next feature work",
+  "objective": "Perform a read-only pre-feature cleanup audit of the repository state. Check current working tree status, recent Tower workflow state, relevant flashlight/Rerun code and docs consistency, and identify any cleanup needed before building more features.",
+  "instructions": [
+    "Do not modify files and do not perform git cleanup operations.",
+    "Inspect the working tree status and summarize tracked/untracked changes, branch/ahead-behind state if available, and whether the repo is ready for further feature work.",
+    "Review recent Tower ResultPackets and current docs/code around examples/flashlight/run_programmatic_rerun.py, examples/flashlight/README.md, and docs/running_our_example_applications.md for drift or inconsistencies.",
+    "Call out whether cleanup should be delegated to Git-master, Builder, or Scribe, and provide exact recommended next packet objective if follow-up is needed."
+  ],
+  "constraints": [
+    "Read-only inspection only.",
+    "Do not run simulator-dependent commands."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_programmatic_rerun.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [
+      ".control-tower/packets/inbox/git-master-4b7ceb89-469b-4dc2-afec-1cdb5f815b1b-result.json",
+      ".control-tower/packets/inbox/builder-31b4ed5a-e275-4b59-8b00-a71f56ed6c97-result.json",
+      ".control-tower/packets/inbox/inspector-ed527cea-cf9e-4873-a5e5-a467f276c4e7-result.json",
+      ".control-tower/packets/inbox/scribe-c5da1b1f-a293-44f9-af8b-33e17b0ac522-result.json"
+    ],
+    "references": []
+  },
+  "expected_outputs": [
+    "Inspector ResultPacket with findings ordered by severity and concrete cleanup recommendations."
+  ],
+  "definition_of_done": [
+    "Repo state and flashlight/Rerun code-doc consistency have been checked read-only.",
+    "Next cleanup handoff, if needed, is clearly identified."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}
