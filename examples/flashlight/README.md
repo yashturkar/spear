@@ -93,6 +93,68 @@ the stream is running.
 Live SPEAR/Rerun end-to-end validation remains a user-run check because it
 requires a running simulator and Rerun viewer.
 
+## Orbit collection
+
+Use teleop mode to choose a target point and save an orbit specification:
+
+```console
+python examples/flashlight/run_orbit_collection.py \
+  --mode teleop \
+  --map japanese_office_dark \
+  --movement-speed 600 \
+  --disable-scene-lights \
+  --orbit-spec-file examples/flashlight/orbit_spec.json
+```
+
+Move the spectator pawn normally. Press `Gamepad_FaceButton_Top` to select the
+point under the camera forward visibility ray; if the ray misses, the script
+logs that it used `--fallback-target-distance` centimeters along the camera
+forward vector. Press `Gamepad_FaceButton_Bottom` to preview one visible 360
+degree orbit around the selected target. After the preview, the script restores
+the spectator pawn location and PlayerController control rotation from before
+the orbit. The flashlight uses the same toggle key, D-pad aiming, intensity,
+cone, and attenuation options as `run.py`.
+
+The orbit spec JSON records the map/map path, start camera pose, selected target
+point, orbit radius, duration, FPS, image size, field of view, and baseline
+light settings. Render mode reuses that orbit spec and applies each entry in a
+light settings JSON list. A reusable three-setting example lives at
+`examples/flashlight/light_settings.example.json`:
+
+```json
+[
+  {
+    "name": "baseline_on",
+    "enabled": true,
+    "intensity": 30000.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  }
+]
+```
+
+Render RGB and depth visualization videos for every light setting:
+
+```console
+python examples/flashlight/run_orbit_collection.py \
+  --mode render \
+  --orbit-spec-file examples/flashlight/orbit_spec.json \
+  --light-settings-file examples/flashlight/light_settings.example.json \
+  --output-dir examples/flashlight/orbit_collection_output
+```
+
+Each setting writes PNG frame folders plus two MP4 files:
+
+```text
+examples/flashlight/orbit_collection_output/<name>/frames/rgb/
+examples/flashlight/orbit_collection_output/<name>/frames/depth_meters_visualization/
+examples/flashlight/orbit_collection_output/<name>/rgb.mp4
+examples/flashlight/orbit_collection_output/<name>/depth_meters_visualization.mp4
+```
+
+The default orbit spec and orbit collection output paths are generated artifacts
+and are ignored by Git.
+
 Render a programmatic 10 second flashlight flythrough from fixed camera
 waypoints:
 

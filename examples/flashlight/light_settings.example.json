@@ -1,0 +1,23 @@
+[
+  {
+    "name": "baseline_on",
+    "enabled": true,
+    "intensity": 30000.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  },
+  {
+    "name": "dim_center",
+    "enabled": true,
+    "intensity": 12000.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  },
+  {
+    "name": "aimed_left_up",
+    "enabled": true,
+    "intensity": 30000.0,
+    "yaw_offset_degrees": -15.0,
+    "pitch_offset_degrees": 10.0
+  }
+]
