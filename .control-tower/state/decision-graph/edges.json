@@ -1529,6 +1529,136 @@
       "evidence_refs": [
         ".control-tower/packets/outbox/20260624T-inspector-pre-feature-git-cleanup-audit.json"
       ]
+    },
+    {
+      "id": "edge:packet-artifact:git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result:control-tower-packets-inbox-git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result-json",
+      "type": "references",
+      "from": "packet:git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result",
+      "to": "artifact:.control-tower/packets/inbox/git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result.json",
+      "created_at": "2026-06-24T18:31:28Z",
+      "evidence_refs": [
+        ".control-tower/packets/inbox/git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result.json"
+      ]
+    },
+    {
+      "id": "edge:decision-ref:dec_inferred_git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result_0_on-2026-06-24-git-master-cleaned-the-pre-feature-dirty-state-and-created-local-commit-02c5ec68e0f00aabe3b293c69b88fc5d42093e9f-preserving-accepted-flashlight-rerun-code-docs-and-tower-audit-artifacts-final-status-was-clean-main-ahead-of-origin-main-by-2-commits-no-push-performed:control-tower-packets-inbox-git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result-json",
+      "type": "references",
+      "from": "dec_inferred_git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result_0_on-2026-06-24-git-master-cleaned-the-pre-feature-dirty-state-and-created-local-commit-02c5ec68e0f00aabe3b293c69b88fc5d42093e9f-preserving-accepted-flashlight-rerun-code-docs-and-tower-audit-artifacts-final-status-was-clean-main-ahead-of-origin-main-by-2-commits-no-push-performed",
+      "to": "artifact:.control-tower/packets/inbox/git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result.json",
+      "created_at": "2026-06-24T18:32:04Z",
+      "evidence_refs": [
+        ".control-tower/packets/inbox/git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result.json"
+      ]
+    },
+    {
+      "id": "edge:decision-node:dec_inferred_git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result_0_on-2026-06-24-git-master-cleaned-the-pre-feature-dirty-state-and-created-local-commit-02c5ec68e0f00aabe3b293c69b88fc5d42093e9f-preserving-accepted-flashlight-rerun-code-docs-and-tower-audit-artifacts-final-status-was-clean-main-ahead-of-origin-main-by-2-commits-no-push-performed:packet-git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result",
+      "type": "references",
+      "from": "dec_inferred_git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result_0_on-2026-06-24-git-master-cleaned-the-pre-feature-dirty-state-and-created-local-commit-02c5ec68e0f00aabe3b293c69b88fc5d42093e9f-preserving-accepted-flashlight-rerun-code-docs-and-tower-audit-artifacts-final-status-was-clean-main-ahead-of-origin-main-by-2-commits-no-push-performed",
+      "to": "packet:git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result",
+      "created_at": "2026-06-24T18:32:04Z",
+      "evidence_refs": [
+        ".control-tower/packets/inbox/git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result.json"
+      ]
+    },
+    {
+      "id": "edge:packet-artifact:2e497ca4-5a09-4097-8c57-200b340cfb01:control-tower-packets-outbox-20260624t-git-master-pre-feature-cleanup-json",
+      "type": "references",
+      "from": "packet:2e497ca4-5a09-4097-8c57-200b340cfb01",
+      "to": "artifact:.control-tower/packets/outbox/20260624T-git-master-pre-feature-cleanup.json",
+      "created_at": "2026-06-24T18:29:17Z",
+      "evidence_refs": [
+        ".control-tower/packets/outbox/20260624T-git-master-pre-feature-cleanup.json"
+      ]
+    },
+    {
+      "id": "edge:packet-session:2e497ca4-5a09-4097-8c57-200b340cfb01:tower-session",
+      "type": "discussed_in",
+      "from": "packet:2e497ca4-5a09-4097-8c57-200b340cfb01",
+      "to": "session:tower-session",
+      "created_at": "2026-06-24T18:29:17Z",
+      "evidence_refs": [
+        ".control-tower/packets/outbox/20260624T-git-master-pre-feature-cleanup.json"
+      ]
+    },
+    {
+      "id": "edge:packet-artifact:667d05c6-9470-4277-8a79-0fa0ea649707:control-tower-packets-outbox-scribe-docs-followup-inspector-20260624t182853z-json",
+      "type": "references",
+      "from": "packet:667d05c6-9470-4277-8a79-0fa0ea649707",
+      "to": "artifact:.control-tower/packets/outbox/scribe-docs-followup-inspector-20260624T182853Z.json",
+      "created_at": "2026-06-24T18:28:53Z",
+      "evidence_refs": [
+        ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260624T182853Z.json"
+      ]
+    },
+    {
+      "id": "edge:packet-session:667d05c6-9470-4277-8a79-0fa0ea649707:tower-session",
+      "type": "discussed_in",
+      "from": "packet:667d05c6-9470-4277-8a79-0fa0ea649707",
+      "to": "session:tower-session",
+      "created_at": "2026-06-24T18:28:53Z",
+      "evidence_refs": [
+        ".control-tower/packets/outbox/scribe-docs-followup-inspector-20260624T182853Z.json"
+      ]
+    },
+    {
+      "id": "edge:commit-session:02c5ec68e0f00aabe3b293c69b88fc5d42093e9f:019efae4-d45d-70b1-bf84-5c791f8f8c26",
+      "type": "caused_by",
+      "from": "commit:02c5ec68e0f00aabe3b293c69b88fc5d42093e9f",
+      "to": "session:019efae4-d45d-70b1-bf84-5c791f8f8c26",
+      "created_at": "2026-06-24T14:31:18-04:00",
+      "evidence_refs": [
+        "/home/yashturkar/Workspace/spear/.control-tower/memory/l2/transcripts/019efae4-d45d-70b1-bf84-5c791f8f8c26.md"
+      ]
+    },
+    {
+      "id": "edge:packet-artifact:scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result:control-tower-packets-inbox-scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result-json",
+      "type": "references",
+      "from": "packet:scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result",
+      "to": "artifact:.control-tower/packets/inbox/scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result.json",
+      "created_at": "2026-06-24T18:34:36Z",
+      "evidence_refs": [
+        ".control-tower/packets/inbox/scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result.json"
+      ]
+    },
+    {
+      "id": "edge:decision-ref:dec_inferred_scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result_0_on-2026-06-24-scribe-confirmed-durable-docs-already-matched-accepted-flashlight-rerun-commit-02c5ec68e0f00aabe3b293c69b88fc5d42093e9f-and-curated-operational-memory-to-supersede-stale-images-rgb-depth-only-notes-with-the-top-level-streams-camera-position-plot-fixed-blueprint-state:control-tower-packets-inbox-scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result-json",
+      "type": "references",
+      "from": "dec_inferred_scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result_0_on-2026-06-24-scribe-confirmed-durable-docs-already-matched-accepted-flashlight-rerun-commit-02c5ec68e0f00aabe3b293c69b88fc5d42093e9f-and-curated-operational-memory-to-supersede-stale-images-rgb-depth-only-notes-with-the-top-level-streams-camera-position-plot-fixed-blueprint-state",
+      "to": "artifact:.control-tower/packets/inbox/scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result.json",
+      "created_at": "2026-06-24T18:35:00Z",
+      "evidence_refs": [
+        ".control-tower/packets/inbox/scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result.json"
+      ]
+    },
+    {
+      "id": "edge:decision-node:dec_inferred_scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result_0_on-2026-06-24-scribe-confirmed-durable-docs-already-matched-accepted-flashlight-rerun-commit-02c5ec68e0f00aabe3b293c69b88fc5d42093e9f-and-curated-operational-memory-to-supersede-stale-images-rgb-depth-only-notes-with-the-top-level-streams-camera-position-plot-fixed-blueprint-state:packet-scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result",
+      "type": "references",
+      "from": "dec_inferred_scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result_0_on-2026-06-24-scribe-confirmed-durable-docs-already-matched-accepted-flashlight-rerun-commit-02c5ec68e0f00aabe3b293c69b88fc5d42093e9f-and-curated-operational-memory-to-supersede-stale-images-rgb-depth-only-notes-with-the-top-level-streams-camera-position-plot-fixed-blueprint-state",
+      "to": "packet:scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result",
+      "created_at": "2026-06-24T18:35:00Z",
+      "evidence_refs": [
+        ".control-tower/packets/inbox/scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result.json"
+      ]
+    },
+    {
+      "id": "edge:packet-artifact:ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33:control-tower-packets-outbox-scribe-docs-followup-git-master-20260624t183211z-json",
+      "type": "references",
+      "from": "packet:ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33",
+      "to": "artifact:.control-tower/packets/outbox/scribe-docs-followup-git-master-20260624T183211Z.json",
+      "created_at": "2026-06-24T18:32:11Z",
+      "evidence_refs": [
+        ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260624T183211Z.json"
+      ]
+    },
+    {
+      "id": "edge:packet-session:ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33:tower-session",
+      "type": "discussed_in",
+      "from": "packet:ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33",
+      "to": "session:tower-session",
+      "created_at": "2026-06-24T18:32:11Z",
+      "evidence_refs": [
+        ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260624T183211Z.json"
+      ]
     }
   ]
 }
