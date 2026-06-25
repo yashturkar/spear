@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "eb5a77ae-bbf3-420c-9144-03e77be9bc80",
+  "trace_id": "8c2734b7-b88a-48c8-a4bc-8555697d2951",
+  "parent_packet_id": null,
+  "created_at": "2026-06-24T23:55:52Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "docs-policy",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Correct Builder example path policy",
+  "objective": "Update the Builder agent policy so Builder can work on this repository's example product code under examples/ and small implementation-adjacent docs updates under docs/ when assigned by Tower. This is needed because the flashlight examples are product code in this project and the current Builder policy blocks them.",
+  "instructions": [
+    "Edit .control-tower/agents/builder/policy.yaml only unless you discover a directly related policy file that must also be consistent.",
+    "Add examples/ to Builder allowed_paths.",
+    "Add docs/ to Builder allowed_paths for implementation-adjacent usage docs only if the policy format supports only path-level rules; do not broaden prohibited actions.",
+    "Keep the change minimal and do not edit product code."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      ".control-tower/agents/builder/policy.yaml"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Changed policy paths and rationale."
+  ],
+  "definition_of_done": [
+    "Builder policy allows examples/ edits for assigned implementation work.",
+    "No product code changed."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

@@ -107,8 +107,8 @@ flythrough helpers.
 The flashlight example can save a user-selected orbit around a target point and
 then render RGB and depth-visualization videos for multiple light settings. Use
 teleop mode to navigate to the view you want, select the target point with
-`Gamepad_FaceButton_Top`, and preview the visible orbit with
-`Gamepad_FaceButton_Bottom`:
+`Gamepad_RightShoulder`, and preview the visible orbit with
+`Gamepad_LeftShoulder`:
 
 ```console
 python examples/flashlight/run_orbit_collection.py \

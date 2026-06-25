@@ -52,6 +52,17 @@ def make_light_settings(name="baseline_on", intensity=30000.0):
 
 
 class OrbitCollectionValidationTests(unittest.TestCase):
+    def test_parse_args_defaults_orbit_controls_to_shoulders(self):
+        args = orbit_collection.parse_args([])
+
+        self.assertEqual(args.select_key, "Gamepad_RightShoulder")
+        self.assertEqual(args.orbit_key, "Gamepad_LeftShoulder")
+        self.assertEqual(args.toggle_key, "Gamepad_FaceButton_Right")
+        self.assertEqual(args.aim_left_key, "Gamepad_DPad_Left")
+        self.assertEqual(args.aim_right_key, "Gamepad_DPad_Right")
+        self.assertEqual(args.aim_up_key, "Gamepad_DPad_Up")
+        self.assertEqual(args.aim_down_key, "Gamepad_DPad_Down")
+
     def test_light_setting_names_reject_path_escape_segments(self):
         for name in (".", "..", ".hidden", "nested/path"):
             with self.subTest(name=name):

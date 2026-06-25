@@ -106,10 +106,10 @@ python examples/flashlight/run_orbit_collection.py \
   --orbit-spec-file examples/flashlight/orbit_spec.json
 ```
 
-Move the spectator pawn normally. Press `Gamepad_FaceButton_Top` to select the
+Move the spectator pawn normally. Press `Gamepad_RightShoulder` to select the
 point under the camera forward visibility ray; if the ray misses, the script
 logs that it used `--fallback-target-distance` centimeters along the camera
-forward vector. Press `Gamepad_FaceButton_Bottom` to preview one visible 360
+forward vector. Press `Gamepad_LeftShoulder` to preview one visible 360
 degree orbit around the selected target. After the preview, the script restores
 the spectator pawn location and PlayerController control rotation from before
 the orbit. The flashlight uses the same toggle key, D-pad aiming, intensity,
