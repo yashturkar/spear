@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "c5ff958b-ff94-4cfb-8296-197f57bde07f",
+  "trace_id": "b269c104-0078-4166-be3b-da12de79643e",
+  "parent_packet_id": null,
+  "created_at": "2026-06-25T00:26:56Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Add light on off orbit render script",
+  "objective": "Add a checked-in shell helper script for rendering the flashlight orbit collection with two light settings: light_on and light_off. The script should be runnable as a single command from the repo and should not rely on the user pasting heredoc syntax.",
+  "instructions": [
+    "Create a small shell script under examples/flashlight, likely examples/flashlight/render_orbit_light_on_off.sh.",
+    "The script should cd to the repo root or otherwise be robust when run from the repo, write a temporary light settings JSON file, and run examples/flashlight/run_orbit_collection.py in render mode using examples/flashlight/orbit_spec.json and examples/flashlight/orbit_collection_output.",
+    "Use light_on enabled true intensity 30000.0 and light_off enabled false intensity 0.0; yaw/pitch offsets 0.0.",
+    "Avoid heredoc syntax in the user-facing command. The script itself can use simple printf or another robust shell-native way to write JSON.",
+    "Add a concise README mention if appropriate so users can find the helper.",
+    "Run shell syntax validation and any focused non-sim checks that do not require the simulator."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Script path and exact command to run it.",
+    "Validation commands and results."
+  ],
+  "definition_of_done": [
+    "A repo-local single-command script exists for light on/off render.",
+    "Focused validation passes without running the simulator."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}
