@@ -4,6 +4,8 @@ import sys
 import tempfile
 import unittest
 
+import numpy as np
+
 
 ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.join(ROOT_DIR, "python"))
@@ -104,6 +106,67 @@ class OrbitCollectionValidationTests(unittest.TestCase):
                     setting_name="escape",
                     keep_existing_output=False)
             self.assertTrue(os.path.exists(sentinel))
+
+    def test_prepare_setting_output_dir_creates_depth_npy_and_viridis_dirs(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            setting_dir, frame_dirs = orbit_collection.prepare_setting_output_dir(
+                output_dir=temp_dir,
+                setting_name="baseline_on",
+                keep_existing_output=False)
+
+            self.assertEqual(
+                frame_dirs["depth_meters_npy"],
+                os.path.join(setting_dir, "frames", "depth_meters_npy"))
+            self.assertEqual(
+                frame_dirs["depth_meters_viridis"],
+                os.path.join(setting_dir, "frames", "depth_meters_viridis"))
+            self.assertTrue(os.path.isdir(frame_dirs["depth_meters_npy"]))
+            self.assertTrue(os.path.isdir(frame_dirs["depth_meters_viridis"]))
+
+    def test_get_setting_video_files_includes_legacy_and_viridis_depth_videos(self):
+        setting_dir = os.path.realpath("/tmp/orbit-output/baseline_on")
+
+        video_files = orbit_collection.get_setting_video_files(setting_dir=setting_dir)
+
+        self.assertEqual(
+            video_files["depth_meters_visualization"],
+            os.path.join(setting_dir, "depth_meters_visualization.mp4"))
+        self.assertEqual(
+            video_files["depth_meters_viridis"],
+            os.path.join(setting_dir, "depth_meters_viridis.mp4"))
+
+    def test_depth_range_and_normalization_are_stable_across_sequence(self):
+        first_depth = np.array([[1.0, 2.0, np.inf]], dtype=np.float32)
+        second_depth = np.array([[[3.0], [5.0], [np.nan]]], dtype=np.float32)
+
+        min_depth, max_depth = orbit_collection.update_depth_range(first_depth)
+        min_depth, max_depth = orbit_collection.update_depth_range(
+            second_depth,
+            min_depth=min_depth,
+            max_depth=max_depth)
+        first_visualization = orbit_collection.normalize_depth_for_visualization(
+            depth=first_depth,
+            min_depth=min_depth,
+            max_depth=max_depth)
+        second_visualization = orbit_collection.normalize_depth_for_visualization(
+            depth=second_depth,
+            min_depth=min_depth,
+            max_depth=max_depth)
+
+        self.assertEqual(min_depth, 1.0)
+        self.assertEqual(max_depth, 5.0)
+        self.assertEqual(first_visualization.tolist(), [[0, 63, 0]])
+        self.assertEqual(second_visualization.tolist(), [[127, 255, 0]])
+
+    def test_degenerate_depth_range_maps_finite_pixels_to_midpoint(self):
+        depth = np.array([[4.0, np.inf]], dtype=np.float32)
+
+        visualization = orbit_collection.normalize_depth_for_visualization(
+            depth=depth,
+            min_depth=4.0,
+            max_depth=4.0)
+
+        self.assertEqual(visualization.tolist(), [[128, 0]])
 
     def test_light_settings_reject_non_finite_numbers(self):
         for key in ("intensity", "yaw_offset_degrees", "pitch_offset_degrees"):
