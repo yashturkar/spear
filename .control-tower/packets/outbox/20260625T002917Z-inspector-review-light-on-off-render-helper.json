@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "284b13db-a58a-4a3d-8604-40d880fe7fde",
+  "trace_id": "b269c104-0078-4166-be3b-da12de79643e",
+  "parent_packet_id": "8ef45461-4af4-46d7-a013-404b81f77e95",
+  "created_at": "2026-06-25T00:29:17Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Review light on off render helper",
+  "objective": "Review the new examples/flashlight/render_orbit_light_on_off.sh helper and README mention before local commit. Confirm it writes the expected light_on/light_off settings and invokes orbit render mode safely.",
+  "instructions": [
+    "Review examples/flashlight/render_orbit_light_on_off.sh and examples/flashlight/README.md.",
+    "Confirm the helper writes exactly two settings: light_on enabled true intensity 30000.0 and light_off enabled false intensity 0.0, both yaw/pitch offsets 0.0.",
+    "Confirm it calls examples/flashlight/run_orbit_collection.py --mode render with examples/flashlight/orbit_spec.json and examples/flashlight/orbit_collection_output.",
+    "Run focused non-simulator validation, including shell syntax and a dry invocation/wrapper check if practical."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/render_orbit_light_on_off.sh",
+      "examples/flashlight/README.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-c5ff958b-ff94-4cfb-8296-197f57bde07f-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Approval or blocker findings.",
+    "Validation commands and results."
+  ],
+  "definition_of_done": [
+    "Inspector result clearly says whether Git-master can commit."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-c5ff958b-ff94-4cfb-8296-197f57bde07f-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-c5ff958b-ff94-4cfb-8296-197f57bde07f-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

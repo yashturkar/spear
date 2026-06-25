@@ -143,6 +143,12 @@ python examples/flashlight/run_orbit_collection.py \
   --output-dir examples/flashlight/orbit_collection_output
 ```
 
+To render the saved orbit with just `light_on` and `light_off` settings, run:
+
+```console
+examples/flashlight/render_orbit_light_on_off.sh
+```
+
 Each setting writes PNG frame folders plus two MP4 files:
 
 ```text
