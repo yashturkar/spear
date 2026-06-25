@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "4684c352-2217-43a5-898d-a4bd3138ea7a",
+  "trace_id": "b2412a4e-23fa-413e-a617-03a5d050c754",
+  "parent_packet_id": null,
+  "created_at": "2026-06-24T23:54:47Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Switch orbit controls to bumpers",
+  "objective": "Change the flashlight orbit collection teleop controls so target selection and orbit preview use right/left bumpers instead of top/bottom face buttons. Keep existing flashlight toggle/aim behavior intact. Update local example usage docs/comments that mention these controls.",
+  "instructions": [
+    "Inspect examples/flashlight/run_orbit_collection.py and docs that mention Gamepad_FaceButton_Top or Gamepad_FaceButton_Bottom for orbit collection.",
+    "Change target selection to the right bumper and orbit preview to the left bumper, per user request: Top and Bottom face buttons is a no-no; use right and left bumpers.",
+    "Do not disturb existing co-located flashlight intensity/direction support or existing flashlight toggle/D-pad aim behavior.",
+    "Update README/help text or docs near the script that users will rely on for controls.",
+    "Run focused non-sim validation after the change."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Files changed and exact control mapping after the change.",
+    "Validation commands run and results."
+  ],
+  "definition_of_done": [
+    "No remaining user-facing mention suggests top/bottom face buttons are used for orbit select/preview.",
+    "Focused validation passes without a simulator."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

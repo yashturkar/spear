@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "da385496-35e0-41af-9fda-b81acc4618b7",
+  "trace_id": "f3047e18-9f30-4c38-9357-122fd4d938e7",
+  "parent_packet_id": "0f89165e-e310-4f6f-8061-7ee127b258e1",
+  "created_at": "2026-06-24T23:58:38Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Review orbit bumper control change",
+  "objective": "Review the Builder change that switches flashlight orbit collection target selection and orbit preview from face top/bottom to right/left bumpers. Verify code, docs, and tests are consistent and that existing flashlight toggle/D-pad aim controls remain unchanged.",
+  "instructions": [
+    "Review examples/flashlight/run_orbit_collection.py, examples/flashlight/README.md, docs/running_our_example_applications.md, and tests/test_orbit_collection_validation.py.",
+    "Confirm select defaults to Gamepad_RightShoulder and orbit preview defaults to Gamepad_LeftShoulder.",
+    "Confirm toggle remains Gamepad_FaceButton_Right and D-pad aim defaults are unchanged.",
+    "Confirm no user-facing orbit collection docs still tell users to use Gamepad_FaceButton_Top or Gamepad_FaceButton_Bottom for orbit select/preview.",
+    "Run focused non-simulator validation."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-8985f939-2278-4cb9-b820-6093cb20bb3c-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Approval or blocker findings.",
+    "Validation commands and results."
+  ],
+  "definition_of_done": [
+    "Inspector result clearly says whether Git-master can commit."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-8985f939-2278-4cb9-b820-6093cb20bb3c-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-8985f939-2278-4cb9-b820-6093cb20bb3c-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

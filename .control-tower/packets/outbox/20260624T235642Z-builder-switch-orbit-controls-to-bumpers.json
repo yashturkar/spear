@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "8985f939-2278-4cb9-b820-6093cb20bb3c",
+  "trace_id": "f3047e18-9f30-4c38-9357-122fd4d938e7",
+  "parent_packet_id": null,
+  "created_at": "2026-06-24T23:56:42Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Switch orbit controls to bumpers",
+  "objective": "Change the flashlight orbit collection teleop controls so target selection and orbit preview use right/left bumpers instead of top/bottom face buttons. Keep existing flashlight toggle/aim behavior intact. Update local example usage docs/comments that mention these controls.",
+  "instructions": [
+    "The Builder policy was just corrected to allow examples/ and docs/. Proceed with the implementation now.",
+    "Inspect examples/flashlight/run_orbit_collection.py and docs that mention Gamepad_FaceButton_Top or Gamepad_FaceButton_Bottom for orbit collection.",
+    "Change target selection to the right bumper and orbit preview to the left bumper, per user request: Top and Bottom face buttons is a no-no; use right and left bumpers.",
+    "Prefer Unreal key names that are already valid for gamepad shoulder buttons in this codebase or examples; report exact names used.",
+    "Do not disturb existing co-located flashlight intensity/direction support or existing flashlight toggle/D-pad aim behavior.",
+    "Update README/help text or docs near the script that users will rely on for controls.",
+    "Run focused non-sim validation after the change."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md",
+      ".control-tower/agents/builder/policy.yaml"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/scribe-eb5a77ae-bbf3-420c-9144-03e77be9bc80-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Files changed and exact control mapping after the change.",
+    "Validation commands run and results."
+  ],
+  "definition_of_done": [
+    "No remaining user-facing mention suggests top/bottom face buttons are used for orbit select/preview.",
+    "Focused validation passes without a simulator."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

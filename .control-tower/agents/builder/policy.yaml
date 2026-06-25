@@ -3,6 +3,8 @@ role: implementation
 allowed_paths:
   - src/
   - tests/
+  - examples/
+  - docs/
   - .control-tower/
 prohibited_actions:
   - force push
