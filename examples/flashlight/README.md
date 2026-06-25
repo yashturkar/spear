@@ -133,7 +133,7 @@ light settings JSON list. A reusable three-setting example lives at
 ]
 ```
 
-Render RGB and depth visualization videos for every light setting:
+Render RGB and depth videos for every light setting:
 
 ```console
 python examples/flashlight/run_orbit_collection.py \
@@ -149,14 +149,20 @@ To render the saved orbit with just `light_on` and `light_off` settings, run:
 examples/flashlight/render_orbit_light_on_off.sh
 ```
 
-Each setting writes PNG frame folders plus two MP4 files:
+Each setting writes PNG frame folders, raw metric depth arrays, and MP4 files:
 
 ```text
 examples/flashlight/orbit_collection_output/<name>/frames/rgb/
-examples/flashlight/orbit_collection_output/<name>/frames/depth_meters_visualization/
+examples/flashlight/orbit_collection_output/<name>/frames/depth_meters_npy/
+examples/flashlight/orbit_collection_output/<name>/frames/depth_meters_viridis/
 examples/flashlight/orbit_collection_output/<name>/rgb.mp4
 examples/flashlight/orbit_collection_output/<name>/depth_meters_visualization.mp4
+examples/flashlight/orbit_collection_output/<name>/depth_meters_viridis.mp4
 ```
+
+Depth `.npy` frames store raw metric depth. Viridis PNGs are normalized once
+across all finite depth values in that light setting, so the per-frame PNGs and
+depth videos use a stable color range through the full orbit.
 
 The default orbit spec and orbit collection output paths are generated artifacts
 and are ignored by Git.

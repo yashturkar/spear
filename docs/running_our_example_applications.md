@@ -137,9 +137,14 @@ python examples/flashlight/run_orbit_collection.py \
   --output-dir examples/flashlight/orbit_collection_output
 ```
 
-Each light setting writes PNG frames under
-`orbit_collection_output/<name>/frames/rgb/` and
-`orbit_collection_output/<name>/frames/depth_meters_visualization/`, plus
-`rgb.mp4` and `depth_meters_visualization.mp4`. The default orbit spec and
-output paths are generated artifacts and are ignored by Git. Live render
-validation still requires a running SPEAR simulator.
+Each light setting writes RGB PNG frames under
+`orbit_collection_output/<name>/frames/rgb/`, raw metric depth `.npy` frames
+under `orbit_collection_output/<name>/frames/depth_meters_npy/`, and viridis
+depth PNG frames under
+`orbit_collection_output/<name>/frames/depth_meters_viridis/`. It also writes
+`rgb.mp4`, legacy `depth_meters_visualization.mp4`, and
+`depth_meters_viridis.mp4`. The `.npy` frames preserve raw metric depth, while
+the viridis PNG and video outputs use one finite depth range per light setting
+so colors remain stable through the orbit. The default orbit spec and output
+paths are generated artifacts and are ignored by Git. Live render validation
+still requires a running SPEAR simulator.

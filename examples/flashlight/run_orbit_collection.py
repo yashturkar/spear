@@ -20,6 +20,7 @@ import spear
 
 
 INPUT_POLL_PERIOD_SECONDS = 1.0 / 60.0
+DEPTH_VISUALIZATION_EPSILON = 1.0e-6
 
 MAPS = {
     "apartment_0000": "/Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000",
@@ -685,7 +686,8 @@ def prepare_setting_output_dir(output_dir, setting_name, keep_existing_output=Fa
         shutil.rmtree(setting_dir)
     frame_dirs = {
         "rgb": os.path.join(setting_dir, "frames", "rgb"),
-        "depth_meters_visualization": os.path.join(setting_dir, "frames", "depth_meters_visualization"),
+        "depth_meters_npy": os.path.join(setting_dir, "frames", "depth_meters_npy"),
+        "depth_meters_viridis": os.path.join(setting_dir, "frames", "depth_meters_viridis"),
     }
     for frame_dir in frame_dirs.values():
         os.makedirs(frame_dir, exist_ok=True)
@@ -696,6 +698,7 @@ def get_setting_video_files(setting_dir):
     return {
         "rgb": os.path.join(setting_dir, "rgb.mp4"),
         "depth_meters_visualization": os.path.join(setting_dir, "depth_meters_visualization.mp4"),
+        "depth_meters_viridis": os.path.join(setting_dir, "depth_meters_viridis.mp4"),
     }
 
 
@@ -706,18 +709,67 @@ def visualize_rgb(data):
     return image
 
 
-def visualize_depth(data):
-    depth = data[:, :, 0] if data.ndim == 3 else data
-    depth = np.asarray(depth, dtype=np.float32)
+def depth_to_meters(data):
+    depth = np.asarray(data)
+    if depth.ndim == 3:
+        if depth.shape[2] < 1:
+            raise ValueError("Depth image must have at least one channel")
+        depth = depth[:, :, 0]
+    elif depth.ndim != 2:
+        raise ValueError(f"Depth image must be 2D or 3D with channels, got shape {depth.shape}")
+    return np.asarray(depth, dtype=np.float32)
+
+
+def update_depth_range(depth, min_depth=None, max_depth=None):
+    depth = depth_to_meters(depth)
     valid = np.isfinite(depth)
-    if np.any(valid):
-        min_depth = float(np.min(depth[valid]))
-        span = float(np.max(depth[valid]) - min_depth)
-        depth_visualization = np.clip((depth - min_depth) / max(span, 1.0e-6), 0.0, 1.0)
+    if not np.any(valid):
+        return min_depth, max_depth
+    frame_min = float(np.min(depth[valid]))
+    frame_max = float(np.max(depth[valid]))
+    min_depth = frame_min if min_depth is None else min(min_depth, frame_min)
+    max_depth = frame_max if max_depth is None else max(max_depth, frame_max)
+    return min_depth, max_depth
+
+
+def normalize_depth_for_visualization(depth, min_depth, max_depth):
+    depth = depth_to_meters(depth)
+    depth_u8 = np.zeros(depth.shape, dtype=np.uint8)
+    valid = np.isfinite(depth)
+    if min_depth is None or max_depth is None or not np.any(valid):
+        return depth_u8
+
+    span = float(max_depth - min_depth)
+    if abs(span) <= DEPTH_VISUALIZATION_EPSILON:
+        depth_u8[valid] = 128
     else:
-        depth_visualization = np.zeros(depth.shape, dtype=np.float32)
-    depth_u8 = (depth_visualization * 255.0).astype(np.uint8)
-    return np.repeat(depth_u8[:, :, np.newaxis], 3, axis=2)
+        normalized = np.clip((depth[valid] - min_depth) / span, 0.0, 1.0)
+        depth_u8[valid] = (normalized * 255.0).astype(np.uint8)
+    return depth_u8
+
+
+def visualize_depth_viridis(depth, min_depth, max_depth):
+    cv2 = import_cv2()
+    depth_u8 = normalize_depth_for_visualization(
+        depth=depth,
+        min_depth=min_depth,
+        max_depth=max_depth)
+    colorized = cv2.applyColorMap(depth_u8, cv2.COLORMAP_VIRIDIS)
+    invalid = ~np.isfinite(depth_to_meters(depth))
+    if np.any(invalid):
+        colorized[invalid] = 0
+    return colorized
+
+
+def write_depth_viridis_frames(depth_frame_files, frame_dir, min_depth, max_depth):
+    cv2 = import_cv2()
+    for frame_index, depth_frame_file in enumerate(depth_frame_files):
+        depth = np.load(depth_frame_file)
+        depth_frame = visualize_depth_viridis(
+            depth=depth,
+            min_depth=min_depth,
+            max_depth=max_depth)
+        cv2.imwrite(os.path.join(frame_dir, f"frame_{frame_index:04d}.png"), depth_frame)
 
 
 def capture_scene(camera_components):
@@ -1129,6 +1181,9 @@ def run_render(args):
                 pass
             settle_render_state(instance=instance, num_frames=args.settle_frames)
 
+            depth_frame_files = []
+            min_depth = None
+            max_depth = None
             for frame_index, (location, rotation) in enumerate(poses):
                 viewport_desc = make_viewport_desc(
                     location=location,
@@ -1157,12 +1212,25 @@ def run_render(args):
                         component_data[component_desc["name"]] = data_bundle["arrays"]["data"].copy()
 
                 rgb_frame = visualize_rgb(data=component_data["rgb"])
-                depth_frame = visualize_depth(data=component_data["depth_meters"])
+                depth = depth_to_meters(data=component_data["depth_meters"])
+                min_depth, max_depth = update_depth_range(
+                    depth=depth,
+                    min_depth=min_depth,
+                    max_depth=max_depth)
+                depth_frame_file = os.path.join(frame_dirs["depth_meters_npy"], f"frame_{frame_index:04d}.npy")
+                depth_frame_files.append(depth_frame_file)
                 cv2.imwrite(os.path.join(frame_dirs["rgb"], f"frame_{frame_index:04d}.png"), rgb_frame)
-                cv2.imwrite(os.path.join(frame_dirs["depth_meters_visualization"], f"frame_{frame_index:04d}.png"), depth_frame)
+                np.save(depth_frame_file, depth)
 
                 if frame_index % max(int(round(fps)), 1) == 0:
                     spear.log("Rendered frame ", frame_index + 1, "/", frame_count, " for ", setting["name"])
+
+            write_depth_viridis_frames(
+                depth_frame_files=depth_frame_files,
+                frame_dir=frame_dirs["depth_meters_viridis"],
+                min_depth=min_depth,
+                max_depth=max_depth)
+            spear.log("Wrote stable viridis depth frames: ", frame_dirs["depth_meters_viridis"])
 
             if write_video(
                     frames_dir=frame_dirs["rgb"],
@@ -1171,11 +1239,17 @@ def run_render(args):
                     fps=fps):
                 spear.log("Wrote RGB video: ", video_files["rgb"])
             if write_video(
-                    frames_dir=frame_dirs["depth_meters_visualization"],
+                    frames_dir=frame_dirs["depth_meters_viridis"],
                     video_file=video_files["depth_meters_visualization"],
                     frame_count=frame_count,
                     fps=fps):
                 spear.log("Wrote depth visualization video: ", video_files["depth_meters_visualization"])
+            if write_video(
+                    frames_dir=frame_dirs["depth_meters_viridis"],
+                    video_file=video_files["depth_meters_viridis"],
+                    frame_count=frame_count,
+                    fps=fps):
+                spear.log("Wrote viridis depth video: ", video_files["depth_meters_viridis"])
             spear.log("Wrote frames: ", os.path.join(setting_dir, "frames"))
 
     finally:
