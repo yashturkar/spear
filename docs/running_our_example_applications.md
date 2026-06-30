@@ -46,7 +46,7 @@ We recommend browsing through our example applications to get a sense of what is
   - [`examples/control_simple_agent`](../examples/control_simple_agent) demonstrates how to control a simple agent and obtain egocentric visual observations.
   - [`examples/control_stackobot_sample`](../examples/control_stackobot_sample) demonstrates how to control Epic Games' `StackOBot` project.
   - [`examples/enhanced_input`](../examples/enhanced_input) demonstrates how to interact with Unreal's Enhanced Input system.
-  - [`examples/flashlight`](../examples/flashlight) demonstrates interactive and programmatic flashlight control, including a Rerun stream and orbit collection workflow for active-illumination inspection.
+  - [`examples/flashlight`](../examples/flashlight) demonstrates interactive and programmatic flashlight control, including a Rerun stream, orbit collection workflow for active-illumination inspection, and an Infinigen indoor FBX import setup script.
   - [`examples/get_class_info`](../examples/get_class_info) demonstrates how to interact with Unreal's runtime reflection system.
   - [`examples/getting_started`](../examples/getting_started) demonstrates how to spawn an object and access object properties.
   - [`examples/getting_started_editor`](../examples/getting_started_editor) demonstrates how to spawn an object using the Unreal Editor's built-in Python API.
@@ -102,6 +102,28 @@ simulator and viewer; see [`examples/flashlight`](../examples/flashlight) for
 the full workflow, including the imported Japanese office map and rendered
 flythrough helpers.
 
+The flashlight example can also launch a cooked map by Unreal content path. For
+example, after following the Infinigen import and cook workflow in
+[`Importing and Exporting Assets`](importing_and_exporting_assets.md), run:
+
+```console
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000 \
+  --movement-speed 600
+```
+
+A larger validated imported scene is also available at
+`/Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment`; it was cooked
+successfully after importing with collision, material, and texture import
+disabled, but still needs interactive visual/runtime inspection before data
+collection.
+
+A compact validated imported college classroom scene is available at
+`/Game/SPEAR/Scenes/college_classroom/Maps/college_classroom`; it was cooked
+successfully after importing `285` static mesh assets with collision, material,
+and texture import disabled. It still needs interactive visual/runtime
+inspection before data collection.
+
 ## Running the flashlight orbit collection workflow
 
 The flashlight example can save a user-selected orbit around a target point and
@@ -137,14 +159,27 @@ python examples/flashlight/run_orbit_collection.py \
   --output-dir examples/flashlight/orbit_collection_output
 ```
 
+The orbit collection script keeps its config compatible with both current
+`SP_CORE` INI override keys and older standalone `SpearSim` binaries that still
+query legacy `*_INI_CONFIG_VALUES` maps. Users should keep `user_config.yaml`
+focused on local overrides such as `SPEAR.INSTANCE.GAME_EXECUTABLE`; the script
+fills the missing legacy maps at runtime when needed.
+
 Each light setting writes RGB PNG frames under
 `orbit_collection_output/<name>/frames/rgb/`, raw metric depth `.npy` frames
 under `orbit_collection_output/<name>/frames/depth_meters_npy/`, and viridis
 depth PNG frames under
 `orbit_collection_output/<name>/frames/depth_meters_viridis/`. It also writes
-`rgb.mp4`, legacy `depth_meters_visualization.mp4`, and
-`depth_meters_viridis.mp4`. The `.npy` frames preserve raw metric depth, while
-the viridis PNG and video outputs use one finite depth range per light setting
-so colors remain stable through the orbit. The default orbit spec and output
-paths are generated artifacts and are ignored by Git. Live render validation
-still requires a running SPEAR simulator.
+`rgb.mp4` and `depth_meters_viridis.mp4`. The `.npy` frames preserve raw metric
+depth, while the viridis PNG and video outputs use one stable depth range per
+light setting.
+By default, that visualization range clips to the 1st and 99th percentiles of
+finite metric depth samples so far-plane outliers do not wash out the orbit
+contrast. Use `--depth-visualization-lower-percentile` and
+`--depth-visualization-upper-percentile` to tune clipping, or
+`--depth-visualization-min-meters` and `--depth-visualization-max-meters` for
+fixed visualization bounds. For large renders,
+`--depth-visualization-max-samples` caps the number of finite depth samples used
+to estimate percentile bounds; it defaults to `1000000`. The default orbit spec
+and output paths are generated artifacts and are ignored by Git. Live render
+validation still requires a running SPEAR simulator.

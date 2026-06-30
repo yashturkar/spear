@@ -156,13 +156,17 @@ examples/flashlight/orbit_collection_output/<name>/frames/rgb/
 examples/flashlight/orbit_collection_output/<name>/frames/depth_meters_npy/
 examples/flashlight/orbit_collection_output/<name>/frames/depth_meters_viridis/
 examples/flashlight/orbit_collection_output/<name>/rgb.mp4
-examples/flashlight/orbit_collection_output/<name>/depth_meters_visualization.mp4
 examples/flashlight/orbit_collection_output/<name>/depth_meters_viridis.mp4
 ```
 
-Depth `.npy` frames store raw metric depth. Viridis PNGs are normalized once
-across all finite depth values in that light setting, so the per-frame PNGs and
-depth videos use a stable color range through the full orbit.
+Depth `.npy` frames store raw metric depth. Viridis PNGs and depth videos use
+one stable color range per light setting, but the default range is clipped to
+the 1st and 99th percentiles of finite metric depth samples so huge far-plane
+values or other outliers do not flatten the useful orbit contrast. This affects
+only the PNG/MP4 visualization outputs. Adjust the clipping with
+`--depth-visualization-lower-percentile` and
+`--depth-visualization-upper-percentile`, or force explicit bounds with
+`--depth-visualization-min-meters` and `--depth-visualization-max-meters`.
 
 The default orbit spec and orbit collection output paths are generated artifacts
 and are ignored by Git.

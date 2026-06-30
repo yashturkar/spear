@@ -11,3 +11,10 @@ spear is for building and setting up a simulator for active illumination researc
 - Builder should be the normal implementation route for code changes.
 - Inspector should almost never be sent by default. Use Inspector only when the user asks for review/QA or a high-risk change warrants it.
 - Scout is for research during deep technical discussions, not routine implementation.
+
+## Git And Commit Policy
+
+- Do not create commits, check-ins, or route Git-master to commit unless the user explicitly asks for a commit/check-in.
+- Git-master can still inspect repository status, review diffs, and report Git risks when requested; creating a commit requires explicit user authorization.
+- Git-master should treat `origin` as the user's fork (`https://github.com/yashturkar/spear`) and `upstream` as the parent repository (`https://github.com/spear-sim/spear.git`).
+- Local `main` tracks `origin/main`; after the 2026-06-25 rebase onto `upstream/main`, publishing rewritten `main` to `origin` still requires explicit user approval.
