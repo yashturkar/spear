@@ -1,4 +1,6 @@
+import contextlib
 import importlib.util
+import io
 import os
 import sys
 import tempfile
@@ -64,6 +66,65 @@ class OrbitCollectionValidationTests(unittest.TestCase):
         self.assertEqual(args.aim_right_key, "Gamepad_DPad_Right")
         self.assertEqual(args.aim_up_key, "Gamepad_DPad_Up")
         self.assertEqual(args.aim_down_key, "Gamepad_DPad_Down")
+        self.assertEqual(args.depth_visualization_lower_percentile, 1.0)
+        self.assertEqual(args.depth_visualization_upper_percentile, 99.0)
+        self.assertIsNone(args.depth_visualization_min_meters)
+        self.assertIsNone(args.depth_visualization_max_meters)
+
+    def test_build_config_keeps_sp_core_ini_keys_compatible(self):
+        args = orbit_collection.parse_args([
+            "--mode", "render",
+            "--map", "japanese_office_dark",
+            "--width", "64",
+            "--height", "48",
+        ])
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            user_config_file = os.path.join(temp_dir, "user_config.yaml")
+            with open(user_config_file, "w", encoding="utf-8") as f:
+                f.write(
+                    "SP_CORE:\n"
+                    "  OVERRIDE_CONFIG_ENGINE_INI: True\n"
+                    "  CONFIG_ENGINE_INI_STRING: |\n"
+                    "    [/Script/Engine.RendererSettings]\n"
+                    "    r.CustomDepth=3\n")
+
+            config = orbit_collection.build_config(
+                args=args,
+                benchmarking=True,
+                max_num_frames=3,
+                user_config_files=[user_config_file])
+
+        for key in (
+            "OVERRIDE_CONFIG_EDITOR_INI",
+            "CONFIG_EDITOR_INI_STRING",
+            "OVERRIDE_CONFIG_ENGINE_INI",
+            "CONFIG_ENGINE_INI_STRING",
+            "OVERRIDE_CONFIG_GAME_INI",
+            "CONFIG_GAME_INI_STRING",
+            "OVERRIDE_CONFIG_GAME_USER_SETTINGS_INI",
+            "CONFIG_GAME_USER_SETTINGS_INI_STRING",
+            "OVERRIDE_CONFIG_INPUT_INI",
+            "CONFIG_INPUT_INI_STRING",
+        ):
+            self.assertIn(key, config.SP_CORE)
+
+        self.assertTrue(config.SP_CORE.OVERRIDE_CONFIG_ENGINE_INI)
+        self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+
+        for key in (
+            "EDITOR_INI_CONFIG_VALUES",
+            "ENGINE_INI_CONFIG_VALUES",
+            "GAME_INI_CONFIG_VALUES",
+            "GAME_USER_SETTINGS_INI_CONFIG_VALUES",
+            "INPUT_INI_CONFIG_VALUES",
+        ):
+            self.assertIn(key, config.SP_CORE)
+            self.assertEqual(list(config.SP_CORE[key].keys()), [])
+
+        config_dump = config.dump()
+        self.assertIn("CONFIG_ENGINE_INI_STRING", config_dump)
+        self.assertIn("ENGINE_INI_CONFIG_VALUES: {}", config_dump)
 
     def test_light_setting_names_reject_path_escape_segments(self):
         for name in (".", "..", ".hidden", "nested/path"):
@@ -123,14 +184,15 @@ class OrbitCollectionValidationTests(unittest.TestCase):
             self.assertTrue(os.path.isdir(frame_dirs["depth_meters_npy"]))
             self.assertTrue(os.path.isdir(frame_dirs["depth_meters_viridis"]))
 
-    def test_get_setting_video_files_includes_legacy_and_viridis_depth_videos(self):
+    def test_get_setting_video_files_includes_rgb_and_one_depth_video(self):
         setting_dir = os.path.realpath("/tmp/orbit-output/baseline_on")
 
         video_files = orbit_collection.get_setting_video_files(setting_dir=setting_dir)
 
+        self.assertEqual(set(video_files.keys()), {"rgb", "depth_meters_viridis"})
         self.assertEqual(
-            video_files["depth_meters_visualization"],
-            os.path.join(setting_dir, "depth_meters_visualization.mp4"))
+            video_files["rgb"],
+            os.path.join(setting_dir, "rgb.mp4"))
         self.assertEqual(
             video_files["depth_meters_viridis"],
             os.path.join(setting_dir, "depth_meters_viridis.mp4"))
@@ -167,6 +229,58 @@ class OrbitCollectionValidationTests(unittest.TestCase):
             max_depth=4.0)
 
         self.assertEqual(visualization.tolist(), [[128, 0]])
+
+    def test_depth_visualization_percentile_bounds_clip_far_outlier(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            depth_frame_file = os.path.join(temp_dir, "frame_0000.npy")
+            np.save(depth_frame_file, np.array([[1.0, 2.0, 3.0, 4.0, 100000.0]], dtype=np.float32))
+
+            min_depth, max_depth = orbit_collection.get_depth_visualization_bounds(
+                depth_frame_files=[depth_frame_file],
+                lower_percentile=0.0,
+                upper_percentile=75.0,
+                finite_min_depth=1.0,
+                finite_max_depth=100000.0)
+            visualization = orbit_collection.normalize_depth_for_visualization(
+                depth=np.load(depth_frame_file),
+                min_depth=min_depth,
+                max_depth=max_depth)
+
+        self.assertEqual(min_depth, 1.0)
+        self.assertEqual(max_depth, 4.0)
+        self.assertEqual(visualization.tolist(), [[0, 85, 170, 255, 255]])
+
+    def test_depth_visualization_explicit_bounds_override_percentiles(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            depth_frame_file = os.path.join(temp_dir, "frame_0000.npy")
+            np.save(depth_frame_file, np.array([[1.0, 2.0, 3.0, 4.0, 100000.0]], dtype=np.float32))
+
+            min_depth, max_depth = orbit_collection.get_depth_visualization_bounds(
+                depth_frame_files=[depth_frame_file],
+                lower_percentile=25.0,
+                upper_percentile=75.0,
+                explicit_min_depth=0.0,
+                explicit_max_depth=10.0,
+                finite_min_depth=1.0,
+                finite_max_depth=100000.0)
+
+        self.assertEqual(min_depth, 0.0)
+        self.assertEqual(max_depth, 10.0)
+
+    def test_depth_visualization_args_reject_invalid_bounds(self):
+        invalid_argvs = [
+            ["--depth-visualization-lower-percentile", "-1"],
+            ["--depth-visualization-upper-percentile", "101"],
+            ["--depth-visualization-lower-percentile", "90", "--depth-visualization-upper-percentile", "90"],
+            ["--depth-visualization-min-meters", "10", "--depth-visualization-max-meters", "10"],
+            ["--depth-visualization-max-samples", "0"],
+        ]
+
+        for argv in invalid_argvs:
+            with self.subTest(argv=argv):
+                with contextlib.redirect_stderr(io.StringIO()):
+                    with self.assertRaises(SystemExit):
+                        orbit_collection.parse_args(argv)
 
     def test_light_settings_reject_non_finite_numbers(self):
         for key in ("intensity", "yaw_offset_degrees", "pitch_offset_degrees"):

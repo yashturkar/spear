@@ -17,10 +17,21 @@ import time
 
 import numpy as np
 import spear
+import yacs.config
 
 
 INPUT_POLL_PERIOD_SECONDS = 1.0 / 60.0
 DEPTH_VISUALIZATION_EPSILON = 1.0e-6
+DEFAULT_DEPTH_VISUALIZATION_LOWER_PERCENTILE = 1.0
+DEFAULT_DEPTH_VISUALIZATION_UPPER_PERCENTILE = 99.0
+DEFAULT_DEPTH_VISUALIZATION_MAX_SAMPLES = 1000000
+LEGACY_SP_CORE_INI_CONFIG_VALUE_KEYS = (
+    "EDITOR_INI_CONFIG_VALUES",
+    "ENGINE_INI_CONFIG_VALUES",
+    "GAME_INI_CONFIG_VALUES",
+    "GAME_USER_SETTINGS_INI_CONFIG_VALUES",
+    "INPUT_INI_CONFIG_VALUES",
+)
 
 MAPS = {
     "apartment_0000": "/Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000",
@@ -100,6 +111,11 @@ def parse_args(argv=None):
     parser.add_argument("--aim-down-key", default="Gamepad_DPad_Down")
     parser.add_argument("--idle-period-seconds", type=float, default=0.5)
     parser.add_argument("--settle-frames", type=int, default=2)
+    parser.add_argument("--depth-visualization-lower-percentile", type=float, default=DEFAULT_DEPTH_VISUALIZATION_LOWER_PERCENTILE)
+    parser.add_argument("--depth-visualization-upper-percentile", type=float, default=DEFAULT_DEPTH_VISUALIZATION_UPPER_PERCENTILE)
+    parser.add_argument("--depth-visualization-min-meters", type=float, default=None)
+    parser.add_argument("--depth-visualization-max-meters", type=float, default=None)
+    parser.add_argument("--depth-visualization-max-samples", type=int, default=DEFAULT_DEPTH_VISUALIZATION_MAX_SAMPLES)
     args = parser.parse_args(argv)
 
     if args.map is not None and args.map_path is not None:
@@ -136,6 +152,26 @@ def parse_args(argv=None):
         parser.error("--aim-rate-degrees-per-second must be non-negative")
     if args.settle_frames < 0:
         parser.error("--settle-frames must be non-negative")
+    if not math.isfinite(args.depth_visualization_lower_percentile):
+        parser.error("--depth-visualization-lower-percentile must be finite")
+    if not math.isfinite(args.depth_visualization_upper_percentile):
+        parser.error("--depth-visualization-upper-percentile must be finite")
+    if args.depth_visualization_lower_percentile < 0.0 or args.depth_visualization_lower_percentile > 100.0:
+        parser.error("--depth-visualization-lower-percentile must be between 0 and 100")
+    if args.depth_visualization_upper_percentile < 0.0 or args.depth_visualization_upper_percentile > 100.0:
+        parser.error("--depth-visualization-upper-percentile must be between 0 and 100")
+    if args.depth_visualization_lower_percentile >= args.depth_visualization_upper_percentile:
+        parser.error("--depth-visualization-lower-percentile must be less than --depth-visualization-upper-percentile")
+    if args.depth_visualization_min_meters is not None and not math.isfinite(args.depth_visualization_min_meters):
+        parser.error("--depth-visualization-min-meters must be finite")
+    if args.depth_visualization_max_meters is not None and not math.isfinite(args.depth_visualization_max_meters):
+        parser.error("--depth-visualization-max-meters must be finite")
+    if (args.depth_visualization_min_meters is not None and
+            args.depth_visualization_max_meters is not None and
+            args.depth_visualization_min_meters >= args.depth_visualization_max_meters):
+        parser.error("--depth-visualization-min-meters must be less than --depth-visualization-max-meters")
+    if args.depth_visualization_max_samples <= 0:
+        parser.error("--depth-visualization-max-samples must be positive")
 
     return args
 
@@ -305,9 +341,28 @@ def get_map_path(args, orbit_spec=None):
     return None
 
 
-def build_config(args, orbit_spec=None, benchmarking=False, max_num_frames=None, width=None, height=None):
-    config = spear.get_config(user_config_files=[os.path.realpath(os.path.join(os.path.dirname(__file__), "user_config.yaml"))])
+def ensure_legacy_sp_core_ini_config_values(config):
+    was_new_allowed = config.SP_CORE.is_new_allowed()
+    config.SP_CORE.set_new_allowed(True)
+    for key in LEGACY_SP_CORE_INI_CONFIG_VALUE_KEYS:
+        if key not in config.SP_CORE:
+            config.SP_CORE[key] = yacs.config.CfgNode(new_allowed=True)
+    config.SP_CORE.set_new_allowed(was_new_allowed)
+
+
+def build_config(
+        args,
+        orbit_spec=None,
+        benchmarking=False,
+        max_num_frames=None,
+        width=None,
+        height=None,
+        user_config_files=None):
+    if user_config_files is None:
+        user_config_files = [os.path.realpath(os.path.join(os.path.dirname(__file__), "user_config.yaml"))]
+    config = spear.get_config(user_config_files=user_config_files)
     config.defrost()
+    ensure_legacy_sp_core_ini_config_values(config=config)
     config.SPEAR.INSTANCE.COMMAND_LINE_ARGS.resx = width if width is not None else args.width
     config.SPEAR.INSTANCE.COMMAND_LINE_ARGS.resy = height if height is not None else args.height
     config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.OVERRIDE_BENCHMARKING = True
@@ -697,7 +752,6 @@ def prepare_setting_output_dir(output_dir, setting_name, keep_existing_output=Fa
 def get_setting_video_files(setting_dir):
     return {
         "rgb": os.path.join(setting_dir, "rgb.mp4"),
-        "depth_meters_visualization": os.path.join(setting_dir, "depth_meters_visualization.mp4"),
         "depth_meters_viridis": os.path.join(setting_dir, "depth_meters_viridis.mp4"),
     }
 
@@ -746,6 +800,65 @@ def normalize_depth_for_visualization(depth, min_depth, max_depth):
         normalized = np.clip((depth[valid] - min_depth) / span, 0.0, 1.0)
         depth_u8[valid] = (normalized * 255.0).astype(np.uint8)
     return depth_u8
+
+
+def get_depth_visualization_samples(depth, max_samples):
+    depth = depth_to_meters(depth)
+    finite_values = depth[np.isfinite(depth)].reshape(-1)
+    if finite_values.size <= max_samples:
+        return finite_values
+
+    sample_indices = np.linspace(0, finite_values.size - 1, num=max_samples, dtype=np.int64)
+    return finite_values[sample_indices]
+
+
+def get_depth_visualization_bounds(
+        depth_frame_files,
+        lower_percentile,
+        upper_percentile,
+        explicit_min_depth=None,
+        explicit_max_depth=None,
+        finite_min_depth=None,
+        finite_max_depth=None,
+        max_samples=DEFAULT_DEPTH_VISUALIZATION_MAX_SAMPLES):
+    def check_bounds():
+        if min_depth is not None and max_depth is not None and min_depth > max_depth:
+            raise ValueError(
+                "Depth visualization minimum is greater than maximum; adjust explicit bounds or percentile clipping options.")
+
+    min_depth = explicit_min_depth
+    max_depth = explicit_max_depth
+    need_percentile_min = min_depth is None and lower_percentile > 0.0
+    need_percentile_max = max_depth is None and upper_percentile < 100.0
+
+    if min_depth is None and not need_percentile_min:
+        min_depth = finite_min_depth
+    if max_depth is None and not need_percentile_max:
+        max_depth = finite_max_depth
+    if not need_percentile_min and not need_percentile_max:
+        check_bounds()
+        return min_depth, max_depth
+
+    max_samples_per_frame = max(int(math.ceil(max_samples / max(len(depth_frame_files), 1))), 1)
+    samples = []
+    for depth_frame_file in depth_frame_files:
+        frame_samples = get_depth_visualization_samples(
+            depth=np.load(depth_frame_file),
+            max_samples=max_samples_per_frame)
+        if frame_samples.size > 0:
+            samples.append(frame_samples)
+
+    if not samples:
+        check_bounds()
+        return min_depth, max_depth
+
+    all_samples = np.concatenate(samples)
+    if need_percentile_min:
+        min_depth = float(np.percentile(all_samples, lower_percentile))
+    if need_percentile_max:
+        max_depth = float(np.percentile(all_samples, upper_percentile))
+    check_bounds()
+    return min_depth, max_depth
 
 
 def visualize_depth_viridis(depth, min_depth, max_depth):
@@ -1182,8 +1295,8 @@ def run_render(args):
             settle_render_state(instance=instance, num_frames=args.settle_frames)
 
             depth_frame_files = []
-            min_depth = None
-            max_depth = None
+            finite_min_depth = None
+            finite_max_depth = None
             for frame_index, (location, rotation) in enumerate(poses):
                 viewport_desc = make_viewport_desc(
                     location=location,
@@ -1213,10 +1326,10 @@ def run_render(args):
 
                 rgb_frame = visualize_rgb(data=component_data["rgb"])
                 depth = depth_to_meters(data=component_data["depth_meters"])
-                min_depth, max_depth = update_depth_range(
+                finite_min_depth, finite_max_depth = update_depth_range(
                     depth=depth,
-                    min_depth=min_depth,
-                    max_depth=max_depth)
+                    min_depth=finite_min_depth,
+                    max_depth=finite_max_depth)
                 depth_frame_file = os.path.join(frame_dirs["depth_meters_npy"], f"frame_{frame_index:04d}.npy")
                 depth_frame_files.append(depth_frame_file)
                 cv2.imwrite(os.path.join(frame_dirs["rgb"], f"frame_{frame_index:04d}.png"), rgb_frame)
@@ -1225,6 +1338,23 @@ def run_render(args):
                 if frame_index % max(int(round(fps)), 1) == 0:
                     spear.log("Rendered frame ", frame_index + 1, "/", frame_count, " for ", setting["name"])
 
+            min_depth, max_depth = get_depth_visualization_bounds(
+                depth_frame_files=depth_frame_files,
+                lower_percentile=args.depth_visualization_lower_percentile,
+                upper_percentile=args.depth_visualization_upper_percentile,
+                explicit_min_depth=args.depth_visualization_min_meters,
+                explicit_max_depth=args.depth_visualization_max_meters,
+                finite_min_depth=finite_min_depth,
+                finite_max_depth=finite_max_depth,
+                max_samples=args.depth_visualization_max_samples)
+            spear.log(
+                "Depth visualization bounds for ",
+                setting["name"],
+                ": ",
+                min_depth,
+                " to ",
+                max_depth,
+                " meters")
             write_depth_viridis_frames(
                 depth_frame_files=depth_frame_files,
                 frame_dir=frame_dirs["depth_meters_viridis"],
@@ -1238,12 +1368,6 @@ def run_render(args):
                     frame_count=frame_count,
                     fps=fps):
                 spear.log("Wrote RGB video: ", video_files["rgb"])
-            if write_video(
-                    frames_dir=frame_dirs["depth_meters_viridis"],
-                    video_file=video_files["depth_meters_visualization"],
-                    frame_count=frame_count,
-                    fps=fps):
-                spear.log("Wrote depth visualization video: ", video_files["depth_meters_visualization"])
             if write_video(
                     frames_dir=frame_dirs["depth_meters_viridis"],
                     video_file=video_files["depth_meters_viridis"],

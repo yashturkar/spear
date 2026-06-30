@@ -137,6 +137,20 @@ with instance.end_frame():
     pass
 ```
 
+## Saving and Sharing Worlds
+
+Imported SPEAR worlds are self-contained at the Unreal source-content directory level, but not as standalone `.umap` files. To share a world with another SPEAR developer, archive the whole per-world directory under `cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/` and restore it to the same relative path in a compatible SPEAR checkout:
+
+```text
+cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/college_classroom
+cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/one_bed_apartment
+cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/infinigen_indoors_0000
+```
+
+Each world directory contains the map under `Maps/` plus referenced assets such as `Meshes/`; the `.umap` alone is not enough. To share a runnable simulator instead, archive `cpp/unreal_projects/SpearSim/Standalone-Development/Linux`, which contains `SpearSim.sh`, binaries, runtime dependencies, and the monolithic `SpearSim/Content/Paks/SpearSim-Linux.pak`. Single cooked worlds are not cleanly separable from that PAK with the current packaging flow.
+
+For regenerated Infinigen scenes, keep the corresponding `/home/yashturkar/Workspace/infinigen/outputs/<scene>` folder as provenance and reimport source. These Infinigen `.blend`, FBX, script, floorplan, and log files are not SPEAR runtime assets. See [Importing and Exporting Assets](docs/importing_and_exporting_assets.md) for the import, cook, and run commands.
+
 ## More Documentation
 
 - Our [Getting Started](docs/getting_started.md) tutorial explains how to set up your development environment.
