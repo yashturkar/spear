@@ -2,7 +2,7 @@
 
 This project uses Control Tower as a persistent orchestration layer over Codex CLI.
 
-Tower is the user-facing coordinator. Builder, Inspector, Scout, Git-master, and Scribe are specialist subagents invoked through typed packets.
+Tower is the user-facing coordinator. Builder, Experimenter, Inspector, Scout, Git-master, and Scribe are specialist subagents invoked through typed packets.
 
 ## Project Purpose
 
@@ -12,6 +12,7 @@ spear is for building and setting up a simulator for active illumination researc
 
 - Tower's main value is memory/context savings and concise orchestration, not heavyweight multi-agent workflow.
 - Default flow: quick discussion with the user, Builder implements, then the user runs the simulator to check behavior.
+- Experimenter handles long-running local process execution and monitoring, including Infinigen, Unreal import/cook/package, flythrough/video, and runtime validation jobs.
 - Inspector should almost never be sent by default. Use only when the user asks for review/QA or a high-risk change warrants it.
 - Scout is for research during deep technical discussions, not routine implementation.
 - Durable preference source: `docs/tower_operating_preferences.md`.
