@@ -155,6 +155,80 @@ Use `--player-start-x`, `--player-start-y`, `--player-start-z`,
 Visual quality, scale, collision, lighting, and player start placement should
 still be inspected per generated scene.
 
+### Generated world quality checklist
+
+For generated Infinigen worlds intended for active illumination research, use
+this checklist before accepting the world as a reusable data-collection map:
+
+- Model real wall openings for windows, not decorative panes on solid walls.
+  Include exterior context beyond the opening so windows read correctly from
+  inside and can contribute plausible daylight/background cues.
+- Add actual Unreal light actors after import for fixtures that should
+  illuminate the scene. Do not rely on Blender lights embedded in the FBX
+  export; the current import path creates static mesh actors and generic setup
+  lights, not fixture-specific Unreal lights.
+- Keep materials neutral and desaturated, especially on large surfaces and
+  objects likely to be hit by the camera-mounted flashlight. Import materials
+  and textures for research-quality worlds unless a deliberate collision or
+  geometry-only test justifies `--no-import-materials` and
+  `--no-import-textures`.
+- Verify furniture orientation in the generated source and in Unreal. Chairs,
+  desks, doors, and fixtures should face/use the space as intended before
+  spending time on cook or collection runs.
+- Enable auto-generated collision for first-pass teleop validation, or record
+  an explicit collision plan with simple collision meshes or blocking volumes
+  before treating the map as navigable.
+- Keep scene complexity and FBX export resolution manageable. Start with
+  compact rooms, bounded solve settings, and export resolution `-r 256` or
+  `-r 512`; raise resolution only after import, cook, and runtime validation
+  are healthy.
+- Produce a validation report after import that records the map path, mesh
+  asset count, static mesh actor count, light actor/component counts, and
+  approximate spawned bounds. Treat missing bounds, unexpectedly low mesh
+  counts, or missing fixture lights as blockers.
+- Cook/package the target map and launch the packaged runtime before calling
+  the world usable. A successful editor import alone is not enough for data
+  collection.
+- Run live flashlight validation in the simulator. Check spawn placement,
+  scale, collision, fixture visibility, material response, and flashlight-only
+  behavior from the actual camera/controller path.
+
+Lighting balance should be tuned at launch per world. Prefer
+`--scene-light-intensity-scale` to dim existing scene lights while keeping
+fixture context enabled; it defaults to `1.0`, accepts finite non-negative
+values, and `0.0` dims scene lights to off without using
+`--disable-scene-lights`. For small rooms, keep the spawned co-located
+flashlight from flooding Lumen indirect bounce with
+`--indirect-lighting-intensity 0`, then tune `--intensity`,
+`--attenuation-radius`, `--inner-cone-angle`, and `--outer-cone-angle` for the
+world.
+
+The flashlight validation entry points run with fixed exposure by default by
+launching the renderer with `r.DefaultFeature.AutoExposure=False` and
+`r.EyeAdaptationQuality=0`. This matters when validating scene-light scaling:
+with eye adaptation enabled, Unreal can normalize the final tone-mapped view so
+different `--scene-light-intensity-scale` values look similar even when the
+light components were scaled correctly. Pass `--enable-auto-exposure` only when
+you want the map's normal adaptive exposure behavior.
+
+The cafeteria v2 starting point is:
+
+```console
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
+  --movement-speed 600 \
+  --scene-light-intensity-scale 0.2 \
+  --intensity 1500 \
+  --attenuation-radius 450 \
+  --inner-cone-angle 8 \
+  --outer-cone-angle 20 \
+  --indirect-lighting-intensity 0
+```
+
+For the next live validation pass, compare the same camera pose at fixed
+exposure with `--scene-light-intensity-scale 0.2`, `0.1`, and `0.0` before
+falling back to `--disable-scene-lights`.
+
 ### Cook and run the imported map
 
 After the map is imported and saved, cook it into the SpearSim standalone
@@ -263,7 +337,9 @@ python examples/flashlight/run.py \
 
 As of the validated import, visual quality, scale, lighting, collision
 behavior, and `PlayerStart` usability had not yet been interactively checked in
-the simulator.
+the simulator. Automated flythrough generation was later validated for this
+map, but that does not replace interactive inspection of collision and spawn
+quality.
 
 ### Validated college classroom import profile
 
@@ -364,6 +440,28 @@ python -m mujoco.viewer --mjcf=path/to/spear-pipeline/scenes/apartment_0000/mujo
 
 ## Generating flythrough videos
 
+For imported maps, cook the target map into the standalone package before
+running the runtime camera-keyframe, image, or video stages. If a standalone
+launch fails with a missing map package, rerun the cook step with the exact
+map path:
+
+```console
+python tools/run_uat.py \
+  --unreal-engine-dir path/to/UE_5.5 \
+  --cook-maps /Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment \
+  -cook -stage -package -archive -pak -skipbuild
+```
+
+The runtime `user_config.yaml` used by the camera keyframe and image stages
+should point `SPEAR.INSTANCE.GAME_EXECUTABLE` at the packaged standalone
+executable, set `SP_SERVICES.INITIALIZE_ENGINE_SERVICE.GAME_DEFAULT_MAP` to
+the map being rendered, and use a fixed delta time when deterministic video
+timing is needed. On the validated Linux workstation, the successful
+`one_bed_apartment` run used the `Standalone-Development/Linux/SpearSim.sh`
+executable without the `renderoffscreen` command-line argument and included
+empty legacy `SP_CORE.*_INI_CONFIG_VALUES` maps for compatibility with the
+available standalone binary.
+
 ```console
 # generate Unreal metadata
 python tools/run_editor_script.py --unreal-engine-dir path/to/UE_5.5 --launch-mode full --render-offscreen --script export_unreal_metadata/run.py --export-dir path/to/spear-pipeline/scenes/apartment_0000
@@ -413,3 +511,20 @@ python pipeline/generate_free_space_camera_path_images.py --pipeline-dir path/to
 # generate rendered videos
 python pipeline/generate_free_space_camera_path_videos.py --pipeline-dir path/to/spear-pipeline/scenes/apartment_0000
 ```
+
+### Validated one-bedroom apartment flythrough
+
+On 2026-06-30, the flythrough pipeline generated two complete videos for
+`/Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment` under:
+
+```text
+/home/yashturkar/Workspace/spear-pipeline/scenes/one_bed_apartment_flythrough_20260630T184150Z
+```
+
+Both final MP4s were validated at `1920x1080`, `30` FPS, `1000` frames, and
+`33.33` seconds. The selected review pick was
+`free_space_camera_path_videos/final/0000.mp4` because it was complete and had
+the larger encoded size plus a more varied contact-sheet inspection than
+`0001.mp4`. The same directory contains the contact sheets, intermediate H5
+files, generated configs, runner scripts, and per-stage logs needed to
+reproduce or debug the run.

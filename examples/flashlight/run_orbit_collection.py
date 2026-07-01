@@ -32,6 +32,10 @@ LEGACY_SP_CORE_INI_CONFIG_VALUE_KEYS = (
     "GAME_USER_SETTINGS_INI_CONFIG_VALUES",
     "INPUT_INI_CONFIG_VALUES",
 )
+AUTO_EXPOSURE_DISABLED_ENGINE_INI = """[/Script/Engine.RendererSettings]
+r.DefaultFeature.AutoExposure=False
+r.EyeAdaptationQuality=0
+"""
 
 MAPS = {
     "apartment_0000": "/Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000",
@@ -83,6 +87,7 @@ def parse_args(argv=None):
     parser.add_argument("--fov-degrees", type=float, default=80.0)
     parser.add_argument("--intensity", type=float, default=30000.0)
     parser.add_argument("--attenuation-radius", type=float, default=1200.0)
+    parser.add_argument("--indirect-lighting-intensity", type=float, default=0.0)
     parser.add_argument("--inner-cone-angle", type=float, default=12.0)
     parser.add_argument("--outer-cone-angle", type=float, default=30.0)
     parser.add_argument("--initial-light-disabled", action="store_true")
@@ -90,6 +95,10 @@ def parse_args(argv=None):
     parser.add_argument("--light-pitch-offset-degrees", type=float, default=0.0)
     parser.add_argument("--movement-speed", type=float, default=1200.0)
     parser.add_argument("--disable-scene-lights", action="store_true")
+    parser.add_argument("--scene-light-intensity-scale", type=float, default=1.0)
+    auto_exposure_group = parser.add_mutually_exclusive_group()
+    auto_exposure_group.add_argument("--disable-auto-exposure", dest="disable_auto_exposure", action="store_true", default=True)
+    auto_exposure_group.add_argument("--enable-auto-exposure", dest="disable_auto_exposure", action="store_false")
     parser.add_argument("--orbit-duration-seconds", type=float, default=10.0)
     parser.add_argument("--fallback-target-distance", type=float, default=500.0)
     parser.add_argument("--target-ray-distance", type=float, default=100000.0)
@@ -132,12 +141,16 @@ def parse_args(argv=None):
         parser.error("--intensity must be non-negative")
     if args.attenuation_radius <= 0.0:
         parser.error("--attenuation-radius must be positive")
+    if not math.isfinite(args.indirect_lighting_intensity) or args.indirect_lighting_intensity < 0.0:
+        parser.error("--indirect-lighting-intensity must be a finite non-negative value")
     if args.inner_cone_angle < 0.0:
         parser.error("--inner-cone-angle must be non-negative")
     if args.outer_cone_angle < args.inner_cone_angle:
         parser.error("--outer-cone-angle must be greater than or equal to --inner-cone-angle")
     if args.movement_speed <= 0.0:
         parser.error("--movement-speed must be positive")
+    if not math.isfinite(args.scene_light_intensity_scale) or args.scene_light_intensity_scale < 0.0:
+        parser.error("--scene-light-intensity-scale must be a finite non-negative value")
     if args.orbit_duration_seconds <= 0.0:
         parser.error("--orbit-duration-seconds must be positive")
     if args.fallback_target_distance <= 0.0:
@@ -305,6 +318,48 @@ def disable_scene_lights(game):
     return disabled_components
 
 
+def try_scale_light_component_intensity(light_component, intensity_scale):
+    try:
+        intensity = light_component.Intensity
+        if hasattr(intensity, "get"):
+            intensity = intensity.get()
+        intensity = float(intensity)
+    except Exception:
+        return False
+
+    if not math.isfinite(intensity):
+        return False
+
+    try:
+        light_component.SetIntensity(NewIntensity=intensity * intensity_scale)
+    except Exception:
+        return False
+
+    return True
+
+
+def scale_scene_light_intensities(game, intensity_scale):
+    scaled_components = 0
+    skipped_components = 0
+    actors = game.unreal_service.find_actors()
+
+    for actor in actors:
+        light_components = game.unreal_service.get_components_by_class(
+            actor=actor,
+            uclass="ULightComponentBase",
+            include_from_child_actors=True)
+
+        for light_component in light_components:
+            if try_scale_light_component_intensity(
+                    light_component=light_component,
+                    intensity_scale=intensity_scale):
+                scaled_components += 1
+            else:
+                skipped_components += 1
+
+    return scaled_components, skipped_components
+
+
 def set_light_enabled(spot_light_component, command):
     spot_light_component.SetIntensity(NewIntensity=command.intensity if command.enabled else 0.0)
     spot_light_component.SetVisibility(bNewVisibility=command.enabled, bPropagateToChildren=True)
@@ -350,6 +405,21 @@ def ensure_legacy_sp_core_ini_config_values(config):
     config.SP_CORE.set_new_allowed(was_new_allowed)
 
 
+def append_engine_ini_config(config, engine_ini_config):
+    config.SP_CORE.OVERRIDE_CONFIG_ENGINE_INI = True
+    existing_engine_ini_config = config.SP_CORE.CONFIG_ENGINE_INI_STRING or ""
+    if existing_engine_ini_config and not existing_engine_ini_config.endswith("\n"):
+        existing_engine_ini_config += "\n"
+    config.SP_CORE.CONFIG_ENGINE_INI_STRING = existing_engine_ini_config + engine_ini_config
+
+
+def apply_auto_exposure_config(config, args):
+    if args.disable_auto_exposure:
+        append_engine_ini_config(
+            config=config,
+            engine_ini_config=AUTO_EXPOSURE_DISABLED_ENGINE_INI)
+
+
 def build_config(
         args,
         orbit_spec=None,
@@ -363,6 +433,7 @@ def build_config(
     config = spear.get_config(user_config_files=user_config_files)
     config.defrost()
     ensure_legacy_sp_core_ini_config_values(config=config)
+    apply_auto_exposure_config(config=config, args=args)
     config.SPEAR.INSTANCE.COMMAND_LINE_ARGS.resx = width if width is not None else args.width
     config.SPEAR.INSTANCE.COMMAND_LINE_ARGS.resy = height if height is not None else args.height
     config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.OVERRIDE_BENCHMARKING = True
@@ -977,6 +1048,7 @@ def spawn_flashlight(game, location, rotation, args, command, stable_name):
         bTeleport=True)
     spot_light_component = game.unreal_service.get_component_by_class(actor=flashlight, uclass="USpotLightComponent")
     spot_light_component.SetAttenuationRadius(NewRadius=args.attenuation_radius)
+    spot_light_component.SetIndirectLightingIntensity(NewIntensity=args.indirect_lighting_intensity)
     spot_light_component.SetInnerConeAngle(NewInnerConeAngle=args.inner_cone_angle)
     spot_light_component.SetOuterConeAngle(NewOuterConeAngle=args.outer_cone_angle)
     set_light_enabled(spot_light_component=spot_light_component, command=command)
@@ -1034,6 +1106,17 @@ def run_teleop(args):
             if args.disable_scene_lights:
                 disabled_components = disable_scene_lights(game=game)
                 spear.log("Disabled scene light components: ", disabled_components)
+            elif args.scene_light_intensity_scale != 1.0:
+                scaled_components, skipped_components = scale_scene_light_intensities(
+                    game=game,
+                    intensity_scale=args.scene_light_intensity_scale)
+                spear.log(
+                    "Scaled scene light components: ",
+                    scaled_components,
+                    " by ",
+                    args.scene_light_intensity_scale)
+                if skipped_components > 0:
+                    spear.log("Skipped scene light components without scalable intensity: ", skipped_components)
 
             viewport_desc = get_current_viewport_desc(game=game, only_get_pose=True)
             command = get_baseline_light_command(args=args)
@@ -1058,6 +1141,7 @@ def run_teleop(args):
         spear.log("Orbit collection teleop mode is running.")
         spear.log("Select target key: ", args.select_key)
         spear.log("Preview orbit key: ", args.orbit_key)
+        spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
         spear.log("Flashlight toggle key: ", args.toggle_key)
         spear.log("Orbit spec file: ", args.orbit_spec_file)
 
@@ -1256,6 +1340,17 @@ def run_render(args):
             if args.disable_scene_lights:
                 disabled_components = disable_scene_lights(game=game)
                 spear.log("Disabled scene light components: ", disabled_components)
+            elif args.scene_light_intensity_scale != 1.0:
+                scaled_components, skipped_components = scale_scene_light_intensities(
+                    game=game,
+                    intensity_scale=args.scene_light_intensity_scale)
+                spear.log(
+                    "Scaled scene light components: ",
+                    scaled_components,
+                    " by ",
+                    args.scene_light_intensity_scale)
+                if skipped_components > 0:
+                    spear.log("Skipped scene light components without scalable intensity: ", skipped_components)
             camera_sensor, component_descs, camera_components = setup_camera_sensor(
                 game=game,
                 width=width,
@@ -1271,6 +1366,7 @@ def run_render(args):
         with instance.end_frame(single_step=True):
             pass
 
+        spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
         settle_render_state(instance=instance, num_frames=args.settle_frames)
 
         poses = build_orbit_poses(

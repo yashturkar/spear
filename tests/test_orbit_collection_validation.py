@@ -18,6 +18,12 @@ orbit_collection = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = orbit_collection
 SPEC.loader.exec_module(orbit_collection)
 
+RUN_MODULE_FILE = os.path.join(ROOT_DIR, "examples", "flashlight", "run.py")
+RUN_SPEC = importlib.util.spec_from_file_location("flashlight_run", RUN_MODULE_FILE)
+flashlight_run = importlib.util.module_from_spec(RUN_SPEC)
+sys.modules[RUN_SPEC.name] = flashlight_run
+RUN_SPEC.loader.exec_module(flashlight_run)
+
 
 def make_orbit_spec():
     return {
@@ -66,10 +72,37 @@ class OrbitCollectionValidationTests(unittest.TestCase):
         self.assertEqual(args.aim_right_key, "Gamepad_DPad_Right")
         self.assertEqual(args.aim_up_key, "Gamepad_DPad_Up")
         self.assertEqual(args.aim_down_key, "Gamepad_DPad_Down")
+        self.assertEqual(args.indirect_lighting_intensity, 0.0)
+        self.assertEqual(args.scene_light_intensity_scale, 1.0)
+        self.assertTrue(args.disable_auto_exposure)
         self.assertEqual(args.depth_visualization_lower_percentile, 1.0)
         self.assertEqual(args.depth_visualization_upper_percentile, 99.0)
         self.assertIsNone(args.depth_visualization_min_meters)
         self.assertIsNone(args.depth_visualization_max_meters)
+
+    def test_run_parse_args_defaults_scene_light_intensity_scale(self):
+        args = flashlight_run.parse_args([])
+
+        self.assertEqual(args.scene_light_intensity_scale, 1.0)
+        self.assertTrue(args.disable_auto_exposure)
+
+    def test_scene_light_intensity_scale_allows_zero(self):
+        orbit_args = orbit_collection.parse_args(["--scene-light-intensity-scale", "0"])
+        run_args = flashlight_run.parse_args(["--scene-light-intensity-scale", "0"])
+
+        self.assertEqual(orbit_args.scene_light_intensity_scale, 0.0)
+        self.assertEqual(run_args.scene_light_intensity_scale, 0.0)
+
+    def test_auto_exposure_can_be_explicitly_enabled_or_disabled(self):
+        orbit_enabled_args = orbit_collection.parse_args(["--enable-auto-exposure"])
+        run_enabled_args = flashlight_run.parse_args(["--enable-auto-exposure"])
+        orbit_disabled_args = orbit_collection.parse_args(["--disable-auto-exposure"])
+        run_disabled_args = flashlight_run.parse_args(["--disable-auto-exposure"])
+
+        self.assertFalse(orbit_enabled_args.disable_auto_exposure)
+        self.assertFalse(run_enabled_args.disable_auto_exposure)
+        self.assertTrue(orbit_disabled_args.disable_auto_exposure)
+        self.assertTrue(run_disabled_args.disable_auto_exposure)
 
     def test_build_config_keeps_sp_core_ini_keys_compatible(self):
         args = orbit_collection.parse_args([
@@ -111,6 +144,8 @@ class OrbitCollectionValidationTests(unittest.TestCase):
 
         self.assertTrue(config.SP_CORE.OVERRIDE_CONFIG_ENGINE_INI)
         self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.DefaultFeature.AutoExposure=False", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.EyeAdaptationQuality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
 
         for key in (
             "EDITOR_INI_CONFIG_VALUES",
@@ -125,6 +160,50 @@ class OrbitCollectionValidationTests(unittest.TestCase):
         config_dump = config.dump()
         self.assertIn("CONFIG_ENGINE_INI_STRING", config_dump)
         self.assertIn("ENGINE_INI_CONFIG_VALUES: {}", config_dump)
+
+    def test_run_build_config_can_preserve_auto_exposure_when_enabled(self):
+        args = flashlight_run.parse_args(["--enable-auto-exposure"])
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            user_config_file = os.path.join(temp_dir, "user_config.yaml")
+            with open(user_config_file, "w", encoding="utf-8") as f:
+                f.write(
+                    "SP_CORE:\n"
+                    "  OVERRIDE_CONFIG_ENGINE_INI: True\n"
+                    "  CONFIG_ENGINE_INI_STRING: |\n"
+                    "    [/Script/Engine.RendererSettings]\n"
+                    "    r.CustomDepth=3\n")
+
+            config = flashlight_run.build_config(
+                args=args,
+                user_config_files=[user_config_file])
+
+        self.assertTrue(config.SP_CORE.OVERRIDE_CONFIG_ENGINE_INI)
+        self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.DefaultFeature.AutoExposure=False", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.EyeAdaptationQuality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+
+    def test_run_build_config_disables_auto_exposure_by_default(self):
+        args = flashlight_run.parse_args([])
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            user_config_file = os.path.join(temp_dir, "user_config.yaml")
+            with open(user_config_file, "w", encoding="utf-8") as f:
+                f.write(
+                    "SP_CORE:\n"
+                    "  OVERRIDE_CONFIG_ENGINE_INI: True\n"
+                    "  CONFIG_ENGINE_INI_STRING: |\n"
+                    "    [/Script/Engine.RendererSettings]\n"
+                    "    r.CustomDepth=3\n")
+
+            config = flashlight_run.build_config(
+                args=args,
+                user_config_files=[user_config_file])
+
+        self.assertTrue(config.SP_CORE.OVERRIDE_CONFIG_ENGINE_INI)
+        self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.DefaultFeature.AutoExposure=False", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.EyeAdaptationQuality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
 
     def test_light_setting_names_reject_path_escape_segments(self):
         for name in (".", "..", ".hidden", "nested/path"):
@@ -269,6 +348,12 @@ class OrbitCollectionValidationTests(unittest.TestCase):
 
     def test_depth_visualization_args_reject_invalid_bounds(self):
         invalid_argvs = [
+            ["--indirect-lighting-intensity", "-1"],
+            ["--indirect-lighting-intensity", "nan"],
+            ["--scene-light-intensity-scale", "-1"],
+            ["--scene-light-intensity-scale", "nan"],
+            ["--scene-light-intensity-scale", "inf"],
+            ["--disable-auto-exposure", "--enable-auto-exposure"],
             ["--depth-visualization-lower-percentile", "-1"],
             ["--depth-visualization-upper-percentile", "101"],
             ["--depth-visualization-lower-percentile", "90", "--depth-visualization-upper-percentile", "90"],
@@ -281,6 +366,20 @@ class OrbitCollectionValidationTests(unittest.TestCase):
                 with contextlib.redirect_stderr(io.StringIO()):
                     with self.assertRaises(SystemExit):
                         orbit_collection.parse_args(argv)
+
+    def test_run_scene_light_intensity_scale_rejects_invalid_values(self):
+        invalid_argvs = [
+            ["--scene-light-intensity-scale", "-1"],
+            ["--scene-light-intensity-scale", "nan"],
+            ["--scene-light-intensity-scale", "inf"],
+            ["--disable-auto-exposure", "--enable-auto-exposure"],
+        ]
+
+        for argv in invalid_argvs:
+            with self.subTest(argv=argv):
+                with contextlib.redirect_stderr(io.StringIO()):
+                    with self.assertRaises(SystemExit):
+                        flashlight_run.parse_args(argv)
 
     def test_light_settings_reject_non_finite_numbers(self):
         for key in ("intensity", "yaw_offset_degrees", "pitch_offset_degrees"):

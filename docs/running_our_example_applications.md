@@ -115,8 +115,9 @@ python examples/flashlight/run.py \
 A larger validated imported scene is also available at
 `/Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment`; it was cooked
 successfully after importing with collision, material, and texture import
-disabled, but still needs interactive visual/runtime inspection before data
-collection.
+disabled. A separate free-space flythrough run has produced complete 1080p
+MP4s for quick visual review, but the map still needs interactive inspection of
+scale, lighting, collision, and player-start usability before data collection.
 
 A compact validated imported college classroom scene is available at
 `/Game/SPEAR/Scenes/college_classroom/Maps/college_classroom`; it was cooked

@@ -41,10 +41,80 @@ Launch the dark duplicate of the Japanese office map:
 python examples/flashlight/run.py --map japanese_office_dark --movement-speed 600
 ```
 
-Use a slower camera and turn off scene lights so the flashlight dominates:
+The flashlight entry points disable Unreal auto exposure / eye adaptation by
+default so launch-time scene-light scale changes are visible instead of being
+normalized by exposure adaptation. Pass `--enable-auto-exposure` only when you
+want the map's normal adaptive exposure behavior.
+
+Use a slower camera and dim the cafeteria v2 fixture lights so the co-located
+flashlight is visible while the real indoor lights stay enabled:
 
 ```console
-python examples/flashlight/run.py --map japanese_office --movement-speed 600 --disable-scene-lights
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --scene-light-intensity-scale 0.2 \
+  --intensity 1500 \
+  --attenuation-radius 450 \
+  --inner-cone-angle 8 \
+  --outer-cone-angle 20 \
+  --indirect-lighting-intensity 0
+```
+
+For small interiors with saturated nearby surfaces, keep direct flashlight
+bounce out of Lumen indirect lighting and dim scene fixtures instead of
+disabling them:
+
+```console
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --scene-light-intensity-scale 0.1 \
+  --intensity 1500 \
+  --attenuation-radius 450 \
+  --inner-cone-angle 8 \
+  --outer-cone-angle 20 \
+  --indirect-lighting-intensity 0
+```
+
+For fixed-exposure brightness validation, compare the same camera position
+across scene-light scales:
+
+```console
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --scene-light-intensity-scale 0.2 \
+  --intensity 1500 \
+  --attenuation-radius 450 \
+  --inner-cone-angle 8 \
+  --outer-cone-angle 20 \
+  --indirect-lighting-intensity 0
+
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --scene-light-intensity-scale 0.1 \
+  --intensity 1500 \
+  --attenuation-radius 450 \
+  --inner-cone-angle 8 \
+  --outer-cone-angle 20 \
+  --indirect-lighting-intensity 0
+
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --scene-light-intensity-scale 0.0 \
+  --intensity 1500 \
+  --attenuation-radius 450 \
+  --inner-cone-angle 8 \
+  --outer-cone-angle 20 \
+  --indirect-lighting-intensity 0
 ```
 
 Press `Ctrl+C` in the terminal to stop the script and destroy the spawned
@@ -100,9 +170,15 @@ Use teleop mode to choose a target point and save an orbit specification:
 ```console
 python examples/flashlight/run_orbit_collection.py \
   --mode teleop \
-  --map japanese_office_dark \
+  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
   --movement-speed 600 \
-  --disable-scene-lights \
+  --disable-auto-exposure \
+  --scene-light-intensity-scale 0.2 \
+  --intensity 1500 \
+  --attenuation-radius 450 \
+  --inner-cone-angle 8 \
+  --outer-cone-angle 20 \
+  --indirect-lighting-intensity 0 \
   --orbit-spec-file examples/flashlight/orbit_spec.json
 ```
 
@@ -113,7 +189,7 @@ forward vector. Press `Gamepad_LeftShoulder` to preview one visible 360
 degree orbit around the selected target. After the preview, the script restores
 the spectator pawn location and PlayerController control rotation from before
 the orbit. The flashlight uses the same toggle key, D-pad aiming, intensity,
-cone, and attenuation options as `run.py`.
+cone, attenuation, and indirect lighting options as `run.py`.
 
 The orbit spec JSON records the map/map path, start camera pose, selected target
 point, orbit radius, duration, FPS, image size, field of view, and baseline
