@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 from dataclasses import dataclass
 import json
 import math
@@ -35,6 +36,57 @@ LEGACY_SP_CORE_INI_CONFIG_VALUE_KEYS = (
 AUTO_EXPOSURE_DISABLED_ENGINE_INI = """[/Script/Engine.RendererSettings]
 r.DefaultFeature.AutoExposure=False
 r.EyeAdaptationQuality=0
+r.DefaultFeature.LocalExposure.HighlightContrastScale=0
+r.DefaultFeature.LocalExposure.ShadowContrastScale=0
+"""
+
+DETERMINISTIC_ORBIT_RENDER_ENGINE_INI = """[/Script/Engine.RendererSettings]
+r.DefaultFeature.AntiAliasing=0
+r.AntiAliasingMethod=0
+r.DefaultFeature.MotionBlur=False
+r.MotionBlurQuality=0
+r.DynamicGlobalIlluminationMethod=0
+r.ReflectionMethod=0
+r.Lumen.DiffuseIndirect.Allow=0
+r.Lumen.Reflections.Allow=0
+r.SSR.Quality=0
+r.TemporalAA.Quality=0
+"""
+
+SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS = (
+    "AmbientCubemap",
+    "Atmosphere",
+    "Cloud",
+    "DistanceFieldAO",
+    "Fog",
+    "GlobalIllumination",
+    "IndirectLightingCache",
+    "LumenGlobalIllumination",
+    "LumenReflections",
+    "ReflectionEnvironment",
+    "ScreenSpaceAO",
+    "ScreenSpaceReflections",
+    "SkyLighting",
+    "VolumetricFog",
+    "VolumetricLightmap",
+)
+
+SCENE_OFF_LIGHTING_ISOLATION_ENGINE_INI = """[SystemSettings]
+ShowFlag.AmbientCubemap=0
+ShowFlag.Atmosphere=0
+ShowFlag.Cloud=0
+ShowFlag.DistanceFieldAO=0
+ShowFlag.Fog=0
+ShowFlag.GlobalIllumination=0
+ShowFlag.IndirectLightingCache=0
+ShowFlag.LumenGlobalIllumination=0
+ShowFlag.LumenReflections=0
+ShowFlag.ReflectionEnvironment=0
+ShowFlag.ScreenSpaceAO=0
+ShowFlag.ScreenSpaceReflections=0
+ShowFlag.SkyLighting=0
+ShowFlag.VolumetricFog=0
+ShowFlag.VolumetricLightmap=0
 """
 
 MAPS = {
@@ -61,6 +113,81 @@ CAPTURE_COMPONENT_DESCS = [
         "long_name": "DefaultSceneRoot.sp_depth_meters_",
     },
 ]
+
+PERSIST_RENDERING_STATE_PROPERTY_NAMES = (
+    "always_persist_rendering_state",
+    "bAlwaysPersistRenderingState",
+    "b_always_persist_rendering_state",
+)
+
+POST_PROCESS_SETTINGS_PROPERTY_NAMES = (
+    "PostProcessSettings",
+    "post_process_settings",
+)
+
+ENVIRONMENT_COMPONENT_CLASS_NAMES = (
+    "USkyLightComponent",
+    "UExponentialHeightFogComponent",
+    "UAtmosphericFogComponent",
+    "USkyAtmosphereComponent",
+    "UVolumetricCloudComponent",
+    "UReflectionCaptureComponent",
+    "UPostProcessComponent",
+)
+
+ENVIRONMENT_ZERO_PROPERTIES_BY_CLASS = {
+    "USkyLightComponent": (
+        "Intensity",
+        "intensity",
+        "IndirectLightingIntensity",
+        "indirect_lighting_intensity",
+    ),
+    "UExponentialHeightFogComponent": (
+        "FogDensity",
+        "fog_density",
+        "StartDistance",
+        "start_distance",
+        "VolumetricFogScatteringDistribution",
+        "volumetric_fog_scattering_distribution",
+    ),
+    "UAtmosphericFogComponent": (
+        "SunMultiplier",
+        "sun_multiplier",
+        "FogMultiplier",
+        "fog_multiplier",
+        "DensityMultiplier",
+        "density_multiplier",
+    ),
+    "USkyAtmosphereComponent": (
+        "AerialPespectiveViewDistanceScale",
+        "aerial_pespective_view_distance_scale",
+        "HeightFogContribution",
+        "height_fog_contribution",
+    ),
+    "UVolumetricCloudComponent": (
+        "LayerBottomAltitude",
+        "layer_bottom_altitude",
+        "LayerHeight",
+        "layer_height",
+    ),
+    "UPostProcessComponent": (
+        "BlendWeight",
+        "blend_weight",
+    ),
+}
+
+ENVIRONMENT_ZERO_METHODS_BY_CLASS = {
+    "USkyLightComponent": (
+        ("SetIntensity", {"NewIntensity": 0.0}),
+        ("SetIndirectLightingIntensity", {"NewIntensity": 0.0}),
+        ("SetAffectsWorld", {"bNewValue": False}),
+        ("RecaptureSky", {}),
+    ),
+    "UExponentialHeightFogComponent": (
+        ("SetFogDensity", {"Value": 0.0}),
+        ("SetStartDistance", {"Value": 100000000.0}),
+    ),
+}
 
 DEFAULT_ORBIT_SPEC_FILE = os.path.realpath(os.path.join(os.path.dirname(__file__), "orbit_spec.json"))
 DEFAULT_LIGHT_SETTINGS_FILE = os.path.realpath(os.path.join(os.path.dirname(__file__), "light_settings.example.json"))
@@ -99,6 +226,9 @@ def parse_args(argv=None):
     auto_exposure_group = parser.add_mutually_exclusive_group()
     auto_exposure_group.add_argument("--disable-auto-exposure", dest="disable_auto_exposure", action="store_true", default=True)
     auto_exposure_group.add_argument("--enable-auto-exposure", dest="disable_auto_exposure", action="store_false")
+    render_history_group = parser.add_mutually_exclusive_group()
+    render_history_group.add_argument("--disable-render-history", dest="disable_render_history", action="store_true", default=True)
+    render_history_group.add_argument("--enable-render-history", dest="disable_render_history", action="store_false")
     parser.add_argument("--orbit-duration-seconds", type=float, default=10.0)
     parser.add_argument("--fallback-target-distance", type=float, default=500.0)
     parser.add_argument("--target-ray-distance", type=float, default=100000.0)
@@ -301,8 +431,58 @@ def attach_light_to_pawn(light, pawn):
     assert attached
 
 
+def try_call_method(obj, method_name, **kwargs):
+    method = getattr(obj, method_name, None)
+    if method is None:
+        call = getattr(obj, "call", None)
+        if call is None:
+            return False
+        try:
+            call(method_name, args=kwargs)
+        except Exception:
+            return False
+        return True
+    try:
+        method(**kwargs)
+    except TypeError:
+        try:
+            method(*kwargs.values())
+        except Exception:
+            return False
+    except Exception:
+        return False
+    return True
+
+
+def disable_scene_light_component(light_component):
+    state = {
+        "visibility_disabled": False,
+        "direct_intensity_zeroed": False,
+        "indirect_lighting_intensity_zeroed": False,
+    }
+    state["visibility_disabled"] = try_call_method(
+        light_component,
+        "SetVisibility",
+        bNewVisibility=False,
+        bPropagateToChildren=True)
+    state["direct_intensity_zeroed"] = try_call_method(
+        light_component,
+        "SetIntensity",
+        NewIntensity=0.0)
+    state["indirect_lighting_intensity_zeroed"] = try_call_method(
+        light_component,
+        "SetIndirectLightingIntensity",
+        NewIntensity=0.0)
+    return state
+
+
 def disable_scene_lights(game):
-    disabled_components = 0
+    state = {
+        "components": 0,
+        "visibility_disabled": 0,
+        "direct_intensity_zeroed": 0,
+        "indirect_lighting_intensity_zeroed": 0,
+    }
     actors = game.unreal_service.find_actors()
 
     for actor in actors:
@@ -312,10 +492,92 @@ def disable_scene_lights(game):
             include_from_child_actors=True)
 
         for light_component in light_components:
-            light_component.SetVisibility(bNewVisibility=False, bPropagateToChildren=True)
-            disabled_components += 1
+            component_state = disable_scene_light_component(light_component=light_component)
+            state["components"] += 1
+            for key, value in component_state.items():
+                if value:
+                    state[key] += 1
 
-    return disabled_components
+    return state
+
+
+def get_components_by_class_safely(game, actor, uclass):
+    try:
+        return game.unreal_service.get_components_by_class(
+            actor=actor,
+            uclass=uclass,
+            include_from_child_actors=True)
+    except Exception:
+        return []
+
+
+def disable_scene_environment_component(component, uclass):
+    state = {
+        "visibility_disabled": False,
+        "properties_zeroed": 0,
+        "methods_zeroed": 0,
+    }
+    state["visibility_disabled"] = try_call_method(
+        component,
+        "SetVisibility",
+        bNewVisibility=False,
+        bPropagateToChildren=True)
+
+    for method_name, kwargs in ENVIRONMENT_ZERO_METHODS_BY_CLASS.get(uclass, ()):
+        if try_call_method(component, method_name, **kwargs):
+            state["methods_zeroed"] += 1
+
+    for property_name in ENVIRONMENT_ZERO_PROPERTIES_BY_CLASS.get(uclass, ()):
+        if try_set_property_and_verify(obj=component, property_names=(property_name,), value=0.0):
+            state["properties_zeroed"] += 1
+
+    post_process_settings = get_first_property_value(
+        obj=component,
+        property_names=POST_PROCESS_SETTINGS_PROPERTY_NAMES)
+    if post_process_settings is not None:
+        post_process_settings_value = unwrap_property_value(value=post_process_settings)
+        for property_name in (
+                "ambient_cubemap_intensity",
+                "AmbientCubemapIntensity",
+                "indirect_lighting_color",
+                "IndirectLightingColor"):
+            if try_set_property_and_verify(obj=post_process_settings_value, property_names=(property_name,), value=0.0):
+                state["properties_zeroed"] += 1
+
+    return state
+
+
+def disable_scene_environment_contributors(game):
+    state = {
+        "components": 0,
+        "visibility_disabled": 0,
+        "properties_zeroed": 0,
+        "methods_zeroed": 0,
+        "component_classes": {},
+    }
+    actors = game.unreal_service.find_actors()
+
+    for actor in actors:
+        for uclass in ENVIRONMENT_COMPONENT_CLASS_NAMES:
+            components = get_components_by_class_safely(game=game, actor=actor, uclass=uclass)
+            if not components:
+                continue
+            state["component_classes"][uclass] = state["component_classes"].get(uclass, 0) + len(components)
+            for component in components:
+                component_state = disable_scene_environment_component(component=component, uclass=uclass)
+                state["components"] += 1
+                if component_state["visibility_disabled"]:
+                    state["visibility_disabled"] += 1
+                state["properties_zeroed"] += component_state["properties_zeroed"]
+                state["methods_zeroed"] += component_state["methods_zeroed"]
+
+    return state
+
+
+def disable_scene_lighting(game):
+    state = disable_scene_lights(game=game)
+    state["environment_contributors"] = disable_scene_environment_contributors(game=game)
+    return state
 
 
 def try_scale_light_component_intensity(light_component, intensity_scale):
@@ -420,6 +682,52 @@ def apply_auto_exposure_config(config, args):
             engine_ini_config=AUTO_EXPOSURE_DISABLED_ENGINE_INI)
 
 
+def apply_deterministic_orbit_render_config(config, args):
+    if args.mode == "render" and args.disable_render_history:
+        append_engine_ini_config(
+            config=config,
+            engine_ini_config=DETERMINISTIC_ORBIT_RENDER_ENGINE_INI)
+
+
+def should_apply_scene_off_lighting_isolation(args):
+    return bool(args.mode == "render" and args.disable_scene_lights)
+
+
+def apply_scene_off_lighting_isolation_config(config, args):
+    if should_apply_scene_off_lighting_isolation(args=args):
+        append_engine_ini_config(
+            config=config,
+            engine_ini_config=SCENE_OFF_LIGHTING_ISOLATION_ENGINE_INI)
+
+
+def apply_scene_off_lighting_isolation_console_commands(game):
+    state = {
+        "commands": [],
+        "applied": 0,
+    }
+    try:
+        player_controller = get_player_controller(game=game)
+    except Exception as exc:
+        state["error"] = str(exc)
+        return state
+
+    for show_flag_name in SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS:
+        command = f"ShowFlag.{show_flag_name} 0"
+        applied = try_call_method(
+            player_controller,
+            "ConsoleCommand",
+            Command=command,
+            bWriteToLog=True)
+        state["commands"].append({
+            "command": command,
+            "applied": applied,
+        })
+        if applied:
+            state["applied"] += 1
+
+    return state
+
+
 def build_config(
         args,
         orbit_spec=None,
@@ -434,6 +742,8 @@ def build_config(
     config.defrost()
     ensure_legacy_sp_core_ini_config_values(config=config)
     apply_auto_exposure_config(config=config, args=args)
+    apply_deterministic_orbit_render_config(config=config, args=args)
+    apply_scene_off_lighting_isolation_config(config=config, args=args)
     config.SPEAR.INSTANCE.COMMAND_LINE_ARGS.resx = width if width is not None else args.width
     config.SPEAR.INSTANCE.COMMAND_LINE_ARGS.resy = height if height is not None else args.height
     config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.OVERRIDE_BENCHMARKING = True
@@ -706,6 +1016,12 @@ def validate_light_setting_desc(setting, context):
     validate_light_setting_name(name=setting["name"], context=context)
     if not isinstance(setting["enabled"], bool):
         raise ValueError(f"Light setting {setting['name']} enabled must be a JSON boolean.")
+    if "scene_lights_enabled" in setting and not isinstance(setting["scene_lights_enabled"], bool):
+        raise ValueError(f"Light setting {setting['name']} scene_lights_enabled must be a JSON boolean.")
+    if "spawn_flashlight" in setting and not isinstance(setting["spawn_flashlight"], bool):
+        raise ValueError(f"Light setting {setting['name']} spawn_flashlight must be a JSON boolean.")
+    if setting.get("spawn_flashlight") is False and setting["enabled"]:
+        raise ValueError(f"Light setting {setting['name']} cannot enable a flashlight when spawn_flashlight is false.")
     intensity = parse_finite_float(value=setting["intensity"], context=f"Light setting {setting['name']} intensity")
     if intensity < 0.0:
         raise ValueError(f"Light setting {setting['name']} intensity must be non-negative.")
@@ -802,6 +1118,61 @@ def command_from_setting(setting):
         pitch_offset_degrees=parse_finite_float(setting["pitch_offset_degrees"], f"Light setting {setting['name']} pitch_offset_degrees"))
 
 
+def light_command_to_metadata(command):
+    if command is None:
+        return None
+    return {
+        "enabled": bool(command.enabled),
+        "intensity": float(command.intensity),
+        "yaw_offset_degrees": float(command.yaw_offset_degrees),
+        "pitch_offset_degrees": float(command.pitch_offset_degrees),
+    }
+
+
+def get_light_setting_scene_lights_enabled(setting):
+    return bool(setting.get("scene_lights_enabled", True))
+
+
+def should_spawn_flashlight_for_setting(setting):
+    return bool(setting.get("spawn_flashlight", True))
+
+
+def get_initial_render_light_setup(light_settings):
+    first_setting = light_settings[0]
+    spawn_flashlight = should_spawn_flashlight_for_setting(setting=first_setting)
+    return {
+        "source": "first_light_setting",
+        "setting_name": first_setting["name"],
+        "spawn_flashlight": spawn_flashlight,
+        "command": command_from_setting(setting=first_setting) if spawn_flashlight else None,
+    }
+
+
+def get_scene_light_render_groups(light_settings):
+    scene_on_settings = []
+    scene_off_settings = []
+    for setting in light_settings:
+        if get_light_setting_scene_lights_enabled(setting=setting):
+            scene_on_settings.append(setting)
+        else:
+            scene_off_settings.append(setting)
+
+    groups = []
+    if scene_on_settings:
+        groups.append((True, scene_on_settings))
+    if scene_off_settings:
+        groups.append((False, scene_off_settings))
+    return groups
+
+
+def get_scene_light_group_args(args, scene_lights_enabled):
+    group_args = copy.copy(args)
+    if not scene_lights_enabled:
+        group_args.disable_scene_lights = True
+        group_args.scene_light_intensity_scale = 1.0
+    return group_args
+
+
 def prepare_setting_output_dir(output_dir, setting_name, keep_existing_output=False):
     validate_light_setting_name(name=setting_name, context="Light setting")
     real_output_dir = os.path.realpath(output_dir)
@@ -827,11 +1198,158 @@ def get_setting_video_files(setting_dir):
     }
 
 
+def get_deterministic_capture_metadata(component_descs, disable_render_history):
+    components = [
+        {
+            "name": component_desc["name"],
+            "state": to_plain_dict(component_desc.get("deterministic_capture_state", {})),
+        }
+        for component_desc in component_descs
+    ]
+    unverified_components = [
+        component["name"]
+        for component in components
+        if disable_render_history and not component["state"].get("always_persist_rendering_state_disabled", False)
+    ]
+    return {
+        "requested": bool(disable_render_history),
+        "render_history_disable_verified": bool(disable_render_history) and not unverified_components,
+        "unverified_render_history_components": unverified_components,
+        "components": components,
+        "note": (
+            "Render-history disable was verified by capture-component readback."
+            if bool(disable_render_history) and not unverified_components
+            else "Render-history disable was requested, but live proxy readback did not verify every capture component."
+            if disable_render_history
+            else "Render-history disable was not requested."
+        ),
+    }
+
+
+def get_scene_off_lighting_isolation_metadata(component_descs, requested):
+    components = [
+        {
+            "name": component_desc["name"],
+            "state": to_plain_dict(component_desc.get("scene_off_lighting_isolation_state", {})),
+        }
+        for component_desc in component_descs
+    ]
+    return {
+        "requested": bool(requested),
+        "disabled_show_flags": list(SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS) if requested else [],
+        "engine_ini_applied": bool(requested),
+        "capture_show_flags_attempted": bool(requested),
+        "capture_show_flags_configured": bool(requested) and all(
+            component["state"].get("configured", False)
+            for component in components),
+        "components": components,
+        "note": (
+            "Scene-off renders request direct-light-only capture by disabling skylight, GI, ambient, reflection, fog, and volumetric show flags."
+            if requested
+            else "Scene-off lighting isolation was not requested."
+        ),
+    }
+
+
+def write_setting_metadata(
+        setting_dir,
+        setting,
+        scene_lights_enabled,
+        scene_light_state,
+        disable_auto_exposure,
+        disable_render_history,
+        component_descs,
+        scene_off_lighting_isolation_requested=False,
+        render_diagnostics=None):
+    deterministic_capture = get_deterministic_capture_metadata(
+        component_descs=component_descs,
+        disable_render_history=disable_render_history)
+    scene_off_lighting_isolation = get_scene_off_lighting_isolation_metadata(
+        component_descs=component_descs,
+        requested=scene_off_lighting_isolation_requested)
+    metadata = {
+        "schema_version": "1.0.0",
+        "setting": to_plain_dict(setting),
+        "scene_lights_enabled": bool(scene_lights_enabled),
+        "scene_light_state": to_plain_dict(scene_light_state),
+        "disable_auto_exposure": bool(disable_auto_exposure),
+        "disable_render_history": bool(disable_render_history),
+        "render_history_disable_verified": deterministic_capture["render_history_disable_verified"],
+        "deterministic_capture": deterministic_capture,
+        "deterministic_capture_components": deterministic_capture["components"],
+        "scene_off_lighting_isolation": scene_off_lighting_isolation,
+    }
+    if render_diagnostics is not None:
+        metadata["render_diagnostics"] = to_plain_dict(render_diagnostics)
+    metadata_file = os.path.join(setting_dir, "metadata.json")
+    with open(metadata_file, "w", encoding="utf-8") as f:
+        json.dump(metadata, f, indent=2, sort_keys=True)
+    return metadata_file
+
+
+def update_setting_metadata(metadata_file, updates):
+    metadata = read_json_file(json_file=metadata_file)
+    metadata.update(to_plain_dict(updates))
+    with open(metadata_file, "w", encoding="utf-8") as f:
+        json.dump(metadata, f, indent=2, sort_keys=True)
+    return metadata
+
+
 def visualize_rgb(data):
     image = np.asarray(data)
     if image.ndim == 3 and image.shape[2] >= 3:
         return image[:, :, :3]
     return image
+
+
+def compute_rgb_luma_diagnostics(frame_dir, frame_count):
+    cv2 = import_cv2()
+    mean_luma_values = []
+    p99_luma_values = []
+    bright_pixel_fractions = {
+        "gte_200": [],
+        "gte_230": [],
+    }
+    for frame_index in range(frame_count):
+        frame_file = os.path.join(frame_dir, f"frame_{frame_index:04d}.png")
+        frame = cv2.imread(frame_file, cv2.IMREAD_COLOR)
+        if frame is None:
+            raise RuntimeError(f"Missing rendered RGB frame for luma diagnostics: {frame_file}")
+        frame = np.asarray(frame, dtype=np.float32)
+        luma = (
+            0.2126 * frame[:, :, 2]
+            + 0.7152 * frame[:, :, 1]
+            + 0.0722 * frame[:, :, 0])
+        mean_luma_values.append(float(np.mean(luma)))
+        p99_luma_values.append(float(np.percentile(luma, 99.0)))
+        bright_pixel_fractions["gte_200"].append(float(np.mean(luma >= 200.0)))
+        bright_pixel_fractions["gte_230"].append(float(np.mean(luma >= 230.0)))
+
+    mean_luma_values = np.asarray(mean_luma_values, dtype=np.float64)
+    p99_luma_values = np.asarray(p99_luma_values, dtype=np.float64)
+    return {
+        "frame_count": int(frame_count),
+        "mean_luma_min": float(np.min(mean_luma_values)),
+        "mean_luma_median": float(np.median(mean_luma_values)),
+        "mean_luma_max": float(np.max(mean_luma_values)),
+        "p99_luma_median": float(np.median(p99_luma_values)),
+        "bright_pixel_fraction_median": {
+            key: float(np.median(np.asarray(values, dtype=np.float64)))
+            for key, values in bright_pixel_fractions.items()
+        },
+    }
+
+
+def get_residual_scene_off_illumination_diagnostics(render_diagnostics, rgb_luma_diagnostics):
+    no_flashlight_control = bool(render_diagnostics.get("no_flashlight_ever_control", False))
+    median_mean_luma = float(rgb_luma_diagnostics["mean_luma_median"])
+    return {
+        "checked": no_flashlight_control,
+        "median_mean_luma": median_mean_luma,
+        "likely_residual_environment_static_or_material_lighting": bool(
+            no_flashlight_control and median_mean_luma > 20.0),
+        "threshold_mean_luma": 20.0,
+    }
 
 
 def depth_to_meters(data):
@@ -956,9 +1474,211 @@ def write_depth_viridis_frames(depth_frame_files, frame_dir, min_depth, max_dept
         cv2.imwrite(os.path.join(frame_dir, f"frame_{frame_index:04d}.png"), depth_frame)
 
 
-def capture_scene(camera_components):
+def capture_scene(camera_components, disable_render_history=True):
     for component in camera_components:
+        if disable_render_history:
+            component.bCameraCutThisFrame = True
         component.CaptureScene()
+
+
+def unwrap_property_value(value):
+    if not isinstance(value, dict) and hasattr(value, "get"):
+        try:
+            return value.get()
+        except Exception:
+            return value
+    return value
+
+
+def get_mapping_or_attr_value(obj, key):
+    if isinstance(obj, dict):
+        if key not in obj:
+            raise AttributeError(key)
+        return obj[key]
+    if hasattr(obj, "get_editor_property"):
+        return obj.get_editor_property(key)
+    return getattr(obj, key)
+
+
+def try_get_mapping_or_attr_value(obj, key):
+    try:
+        return unwrap_property_value(get_mapping_or_attr_value(obj=obj, key=key))
+    except Exception:
+        return None
+
+
+def get_first_property_value(obj, property_names):
+    for property_name in property_names:
+        try:
+            return get_mapping_or_attr_value(obj=obj, key=property_name)
+        except Exception:
+            continue
+    return None
+
+
+def set_mapping_or_attr_value(obj, key, value):
+    if isinstance(obj, dict):
+        if key not in obj:
+            raise AttributeError(key)
+        obj[key] = value
+        return True
+    if hasattr(obj, "set_editor_property"):
+        try:
+            obj.set_editor_property(name=key, value=value)
+        except TypeError:
+            obj.set_editor_property(key, value)
+        return True
+    if not hasattr(obj, key):
+        raise AttributeError(key)
+    setattr(obj, key, value)
+    return True
+
+
+def try_set_mapping_or_attr_value(obj, key, value):
+    try:
+        set_mapping_or_attr_value(obj=obj, key=key, value=value)
+    except Exception:
+        return False
+    return True
+
+
+def values_match(actual_value, expected_value):
+    if isinstance(expected_value, bool):
+        return bool(actual_value) is expected_value
+    try:
+        return float(actual_value) == float(expected_value)
+    except (TypeError, ValueError):
+        return actual_value == expected_value
+
+
+def try_set_property_and_verify(obj, property_names, value):
+    for property_name in property_names:
+        if not try_set_mapping_or_attr_value(obj=obj, key=property_name, value=value):
+            continue
+        actual_value = try_get_mapping_or_attr_value(obj=obj, key=property_name)
+        if actual_value is not None and values_match(actual_value=actual_value, expected_value=value):
+            return True
+    return False
+
+
+def set_boolean_property_with_readback(obj, property_names, value):
+    attempts = []
+    for property_name in property_names:
+        attempt = {
+            "property": property_name,
+            "set": False,
+            "readback": None,
+            "verified": False,
+        }
+        attempt["set"] = try_set_mapping_or_attr_value(obj=obj, key=property_name, value=value)
+        readback = try_get_mapping_or_attr_value(obj=obj, key=property_name)
+        if readback is not None:
+            attempt["readback"] = bool(readback)
+            attempt["verified"] = bool(readback) is bool(value)
+        attempts.append(attempt)
+        if attempt["verified"]:
+            return True, attempts
+    return False, attempts
+
+
+def configure_deterministic_capture_component(component):
+    state = {
+        "always_persist_rendering_state_disabled": False,
+        "always_persist_rendering_state_attempts": [],
+        "dynamic_global_illumination_override_disabled": False,
+        "reflection_override_disabled": False,
+    }
+
+    (
+        state["always_persist_rendering_state_disabled"],
+        state["always_persist_rendering_state_attempts"],
+    ) = set_boolean_property_with_readback(
+        obj=component,
+        property_names=PERSIST_RENDERING_STATE_PROPERTY_NAMES,
+        value=False)
+
+    post_process_settings = get_first_property_value(
+        obj=component,
+        property_names=POST_PROCESS_SETTINGS_PROPERTY_NAMES)
+    if post_process_settings is not None:
+        post_process_settings_value = unwrap_property_value(value=post_process_settings)
+        state["dynamic_global_illumination_override_disabled"] = try_set_property_and_verify(
+            obj=post_process_settings_value,
+            property_names=("override_dynamic_global_illumination_method", "OverrideDynamicGlobalIlluminationMethod"),
+            value=False)
+        state["reflection_override_disabled"] = try_set_property_and_verify(
+            obj=post_process_settings_value,
+            property_names=("override_reflection_method", "OverrideReflectionMethod"),
+            value=False)
+        if post_process_settings_value is not post_process_settings:
+            for property_name in POST_PROCESS_SETTINGS_PROPERTY_NAMES:
+                if try_set_mapping_or_attr_value(
+                        obj=component,
+                        key=property_name,
+                        value=post_process_settings_value):
+                    break
+
+    return state
+
+
+def make_scene_off_show_flag_settings():
+    return [
+        {
+            "ShowFlagName": show_flag_name,
+            "Enabled": False,
+        }
+        for show_flag_name in SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS
+    ]
+
+
+def get_show_flag_setter_method_names(show_flag_name):
+    snake_name = re.sub(r"(?<!^)(?=[A-Z])", "_", show_flag_name).lower()
+    return (
+        f"Set{show_flag_name}",
+        f"set_{snake_name}",
+    )
+
+
+def try_disable_show_flag_object_methods(show_flags, show_flag_name):
+    for method_name in get_show_flag_setter_method_names(show_flag_name=show_flag_name):
+        if try_call_method(show_flags, method_name, Value=False):
+            return True
+        if try_call_method(show_flags, method_name, bEnabled=False):
+            return True
+        if try_call_method(show_flags, method_name, Enabled=False):
+            return True
+    return False
+
+
+def configure_scene_off_capture_show_flags(component):
+    show_flag_settings = make_scene_off_show_flag_settings()
+    state = {
+        "configured": False,
+        "show_flag_settings_set": False,
+        "show_flag_settings_property": None,
+        "show_flag_methods_disabled": [],
+        "show_flag_methods_unverified": [],
+    }
+
+    for property_name in ("ShowFlagSettings", "show_flag_settings"):
+        if try_set_mapping_or_attr_value(obj=component, key=property_name, value=show_flag_settings):
+            state["show_flag_settings_set"] = True
+            state["show_flag_settings_property"] = property_name
+            break
+
+    show_flags = get_first_property_value(obj=component, property_names=("ShowFlags", "show_flags"))
+    if show_flags is not None:
+        show_flags = unwrap_property_value(value=show_flags)
+        for show_flag_name in SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS:
+            if try_disable_show_flag_object_methods(show_flags=show_flags, show_flag_name=show_flag_name):
+                state["show_flag_methods_disabled"].append(show_flag_name)
+            else:
+                state["show_flag_methods_unverified"].append(show_flag_name)
+
+    state["configured"] = (
+        state["show_flag_settings_set"]
+        or bool(state["show_flag_methods_disabled"]))
+    return state
 
 
 def write_video(frames_dir, video_file, frame_count, fps):
@@ -1003,7 +1723,13 @@ def get_render_image_size(args, orbit_spec):
     return int(width), int(height)
 
 
-def setup_camera_sensor(game, width, height, initial_viewport_desc):
+def setup_camera_sensor(
+        game,
+        width,
+        height,
+        initial_viewport_desc,
+        disable_render_history=True,
+        scene_off_lighting_isolation=False):
     bp_camera_sensor_uclass = game.unreal_service.load_class(
         uclass="AActor",
         name="/SpContent/Blueprints/BP_CameraSensor.BP_CameraSensor_C")
@@ -1027,14 +1753,96 @@ def setup_camera_sensor(game, width, height, initial_viewport_desc):
         widths=[width for _ in camera_components],
         heights=[height for _ in camera_components])
 
-    for component in camera_components:
+    for component_desc, component in zip(component_descs, camera_components):
         component.BufferingMode = "SingleBuffered"
         component.bCaptureEveryFrame = False
         component.bCaptureOnMovement = False
         component.Initialize()
         component.initialize_sp_funcs()
+        if disable_render_history:
+            component_desc["deterministic_capture_state"] = configure_deterministic_capture_component(
+                component=component)
+        if scene_off_lighting_isolation:
+            component_desc["scene_off_lighting_isolation_state"] = configure_scene_off_capture_show_flags(
+                component=component)
 
     return camera_sensor, component_descs, camera_components
+
+
+def capture_orbit_frame(
+        instance,
+        game,
+        camera_sensor,
+        camera_components,
+        component_descs,
+        viewport_desc,
+        width,
+        height,
+        flashlight,
+        spot_light_component,
+        command,
+        disable_render_history,
+        read_pixel_data=True):
+    component_data = {}
+    with instance.begin_frame():
+        game.rendering_service.align_camera_with_viewport(
+            camera_sensor=camera_sensor,
+            camera_components=camera_components,
+            viewport_desc=viewport_desc,
+            widths=[width for _ in camera_components],
+            heights=[height for _ in camera_components])
+        if flashlight is not None and spot_light_component is not None:
+            flashlight.K2_SetActorLocationAndRotation(
+                NewLocation=viewport_desc["camera_location"],
+                NewRotation=build_light_rotation(camera_rotation=viewport_desc["camera_rotation"], command=command),
+                bSweep=False,
+                bTeleport=True)
+            set_light_enabled(spot_light_component=spot_light_component, command=command)
+        capture_scene(
+            camera_components=camera_components,
+            disable_render_history=disable_render_history)
+    with instance.end_frame(single_step=True):
+        for component_desc in component_descs:
+            data_bundle = component_desc["component"].read_pixels()
+            if read_pixel_data:
+                component_data[component_desc["name"]] = data_bundle["arrays"]["data"].copy()
+
+    return component_data
+
+
+def discard_warmup_captures(
+        instance,
+        game,
+        camera_sensor,
+        camera_components,
+        component_descs,
+        viewport_desc,
+        width,
+        height,
+        flashlight,
+        spot_light_component,
+        command,
+        disable_render_history,
+        num_captures):
+    for _ in range(num_captures):
+        capture_orbit_frame(
+            instance=instance,
+            game=game,
+            camera_sensor=camera_sensor,
+            camera_components=camera_components,
+            component_descs=component_descs,
+            viewport_desc=viewport_desc,
+            width=width,
+            height=height,
+            flashlight=flashlight,
+            spot_light_component=spot_light_component,
+            command=command,
+            disable_render_history=disable_render_history,
+            read_pixel_data=False)
+
+
+def get_warmup_capture_count(args):
+    return max(int(args.settle_frames), 1)
 
 
 def spawn_flashlight(game, location, rotation, args, command, stable_name):
@@ -1104,7 +1912,7 @@ def run_teleop(args):
             pawn = set_camera_movement_speed(game=game, movement_speed=args.movement_speed)
             player_controller = get_player_controller(game=game)
             if args.disable_scene_lights:
-                disabled_components = disable_scene_lights(game=game)
+                disabled_components = disable_scene_lighting(game=game)
                 spear.log("Disabled scene light components: ", disabled_components)
             elif args.scene_light_intensity_scale != 1.0:
                 scaled_components, skipped_components = scale_scene_light_intensities(
@@ -1286,12 +2094,8 @@ def settle_render_state(instance, num_frames):
             pass
 
 
-def run_render(args):
+def run_render_group(args, orbit_spec, light_settings, scene_lights_enabled):
     cv2 = import_cv2()
-    orbit_spec = read_json_file(args.orbit_spec_file)
-    validate_orbit_spec(orbit_spec=orbit_spec)
-    light_settings = read_json_file(args.light_settings_file)
-    validate_light_settings(light_settings=light_settings)
 
     width, height = get_render_image_size(args=args, orbit_spec=orbit_spec)
     fps = get_render_value(args=args, orbit_spec=orbit_spec, arg_name="--fps", spec_key="fps", cast=float)
@@ -1306,7 +2110,8 @@ def run_render(args):
     if was_arg_supplied("--fov-degrees"):
         fov_degrees = args.fov_degrees
 
-    max_num_frames = len(light_settings) * (frame_count + args.settle_frames + 2) + 8
+    warmup_capture_count = get_warmup_capture_count(args=args)
+    max_num_frames = len(light_settings) * (frame_count + warmup_capture_count + 2) + warmup_capture_count + 8
     config = build_config(
         args=args,
         orbit_spec=orbit_spec,
@@ -1320,8 +2125,23 @@ def run_render(args):
     camera_sensor = None
     camera_components = []
     flashlight = None
+    spot_light_component = None
+    scene_light_state = {
+        "components": 0,
+        "visibility_disabled": 0,
+        "direct_intensity_zeroed": 0,
+        "indirect_lighting_intensity_zeroed": 0,
+        "scaled_components": 0,
+        "skipped_components": 0,
+        "scale": args.scene_light_intensity_scale,
+    }
 
     try:
+        spear.log(
+            "Rendering scene lights ",
+            "enabled" if scene_lights_enabled else "disabled",
+            " for settings: ",
+            [setting["name"] for setting in light_settings])
         start_pose = orbit_spec["start_camera_pose"]
         first_location, first_rotation = build_orbit_pose(
             start_camera_location=start_pose["camera_location"],
@@ -1334,16 +2154,24 @@ def run_render(args):
             width=width,
             height=height,
             fov_degrees=fov_degrees)
-        baseline_command = command_from_setting(orbit_spec["light_baseline_settings"])
+        initial_light_setup = get_initial_render_light_setup(light_settings=light_settings)
+        flashlight_ever_spawned = False
+        flashlight_ever_enabled = False
 
         with instance.begin_frame():
             if args.disable_scene_lights:
-                disabled_components = disable_scene_lights(game=game)
-                spear.log("Disabled scene light components: ", disabled_components)
+                scene_light_state.update(disable_scene_lighting(game=game))
+                scene_light_state["scene_off_lighting_isolation_console_commands"] = (
+                    apply_scene_off_lighting_isolation_console_commands(game=game))
+                spear.log("Disabled scene light components: ", scene_light_state)
             elif args.scene_light_intensity_scale != 1.0:
                 scaled_components, skipped_components = scale_scene_light_intensities(
                     game=game,
                     intensity_scale=args.scene_light_intensity_scale)
+                scene_light_state.update({
+                    "scaled_components": scaled_components,
+                    "skipped_components": skipped_components,
+                })
                 spear.log(
                     "Scaled scene light components: ",
                     scaled_components,
@@ -1355,19 +2183,43 @@ def run_render(args):
                 game=game,
                 width=width,
                 height=height,
-                initial_viewport_desc=initial_viewport_desc)
-            flashlight, spot_light_component = spawn_flashlight(
-                game=game,
-                location=first_location,
-                rotation=first_rotation,
-                args=args,
-                command=baseline_command,
-                stable_name="Debug/OrbitCollectionRenderFlashlight")
+                initial_viewport_desc=initial_viewport_desc,
+                disable_render_history=args.disable_render_history,
+                scene_off_lighting_isolation=should_apply_scene_off_lighting_isolation(args=args))
+            if initial_light_setup["spawn_flashlight"]:
+                flashlight, spot_light_component = spawn_flashlight(
+                    game=game,
+                    location=first_location,
+                    rotation=first_rotation,
+                    args=args,
+                    command=initial_light_setup["command"],
+                    stable_name="Debug/OrbitCollectionRenderFlashlight")
+                flashlight_ever_spawned = True
+                flashlight_ever_enabled = bool(initial_light_setup["command"].enabled)
         with instance.end_frame(single_step=True):
             pass
 
         spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
-        settle_render_state(instance=instance, num_frames=args.settle_frames)
+        spear.log("Initial render light setup: ", {
+            "source": initial_light_setup["source"],
+            "setting_name": initial_light_setup["setting_name"],
+            "spawn_flashlight": initial_light_setup["spawn_flashlight"],
+        })
+        spear.log("Discarding warm-up captures after camera sensor setup: ", warmup_capture_count)
+        discard_warmup_captures(
+            instance=instance,
+            game=game,
+            camera_sensor=camera_sensor,
+            camera_components=camera_components,
+            component_descs=component_descs,
+            viewport_desc=initial_viewport_desc,
+            width=width,
+            height=height,
+            flashlight=flashlight,
+            spot_light_component=spot_light_component,
+            command=initial_light_setup["command"],
+            disable_render_history=args.disable_render_history,
+            num_captures=warmup_capture_count)
 
         poses = build_orbit_poses(
             start_camera_location=start_pose["camera_location"],
@@ -1377,6 +2229,25 @@ def run_render(args):
 
         for setting in light_settings:
             command = command_from_setting(setting=setting)
+            setting_spawns_flashlight = should_spawn_flashlight_for_setting(setting=setting)
+            flashlight_ever_spawned_before_setting = flashlight_ever_spawned
+            flashlight_ever_enabled_before_setting = flashlight_ever_enabled
+            if not setting_spawns_flashlight and flashlight_ever_spawned:
+                raise RuntimeError(
+                    f"Light setting {setting['name']} has spawn_flashlight=false but a render flashlight already exists. "
+                    "Move no-flashlight-ever diagnostic settings before any setting that spawns the flashlight.")
+            if setting_spawns_flashlight and flashlight is None:
+                with instance.begin_frame():
+                    flashlight, spot_light_component = spawn_flashlight(
+                        game=game,
+                        location=first_location,
+                        rotation=first_rotation,
+                        args=args,
+                        command=command,
+                        stable_name="Debug/OrbitCollectionRenderFlashlight")
+                    flashlight_ever_spawned = True
+                with instance.end_frame(single_step=True):
+                    pass
             setting_dir, frame_dirs = prepare_setting_output_dir(
                 output_dir=args.output_dir,
                 setting_name=setting["name"],
@@ -1385,10 +2256,57 @@ def run_render(args):
             spear.log("Rendering light setting: ", setting["name"])
 
             with instance.begin_frame():
-                set_light_enabled(spot_light_component=spot_light_component, command=command)
+                if setting_spawns_flashlight:
+                    set_light_enabled(spot_light_component=spot_light_component, command=command)
             with instance.end_frame(single_step=True):
                 pass
-            settle_render_state(instance=instance, num_frames=args.settle_frames)
+            if setting_spawns_flashlight and command.enabled:
+                flashlight_ever_enabled = True
+
+            render_diagnostics = {
+                "initial_light_setup": {
+                    "source": initial_light_setup["source"],
+                    "setting_name": initial_light_setup["setting_name"],
+                    "spawn_flashlight": initial_light_setup["spawn_flashlight"],
+                    "command": light_command_to_metadata(command=initial_light_setup["command"]),
+                },
+                "flashlight_spawned_for_setting": setting_spawns_flashlight,
+                "flashlight_ever_spawned_before_setting": flashlight_ever_spawned_before_setting,
+                "flashlight_ever_enabled_before_setting": flashlight_ever_enabled_before_setting,
+                "flashlight_ever_spawned_after_setting_setup": flashlight_ever_spawned,
+                "flashlight_ever_enabled_after_setting_setup": flashlight_ever_enabled,
+                "no_flashlight_ever_control": (
+                    not setting_spawns_flashlight
+                    and not flashlight_ever_spawned_before_setting
+                    and not flashlight_ever_enabled_before_setting),
+            }
+            metadata_file = write_setting_metadata(
+                setting_dir=setting_dir,
+                setting=setting,
+                scene_lights_enabled=scene_lights_enabled,
+                scene_light_state=scene_light_state,
+                disable_auto_exposure=args.disable_auto_exposure,
+                disable_render_history=args.disable_render_history,
+                component_descs=component_descs,
+                scene_off_lighting_isolation_requested=should_apply_scene_off_lighting_isolation(args=args),
+                render_diagnostics=render_diagnostics)
+            spear.log("Wrote render metadata: ", metadata_file)
+
+            spear.log("Discarding warm-up captures after light setting change: ", warmup_capture_count)
+            discard_warmup_captures(
+                instance=instance,
+                game=game,
+                camera_sensor=camera_sensor,
+                camera_components=camera_components,
+                component_descs=component_descs,
+                viewport_desc=initial_viewport_desc,
+                width=width,
+                height=height,
+                flashlight=flashlight,
+                spot_light_component=spot_light_component,
+                command=command if setting_spawns_flashlight else None,
+                disable_render_history=args.disable_render_history,
+                num_captures=warmup_capture_count)
 
             depth_frame_files = []
             finite_min_depth = None
@@ -1400,25 +2318,20 @@ def run_render(args):
                     width=width,
                     height=height,
                     fov_degrees=fov_degrees)
-                component_data = {}
-                with instance.begin_frame():
-                    game.rendering_service.align_camera_with_viewport(
-                        camera_sensor=camera_sensor,
-                        camera_components=camera_components,
-                        viewport_desc=viewport_desc,
-                        widths=[width for _ in camera_components],
-                        heights=[height for _ in camera_components])
-                    flashlight.K2_SetActorLocationAndRotation(
-                        NewLocation=location,
-                        NewRotation=build_light_rotation(camera_rotation=rotation, command=command),
-                        bSweep=False,
-                        bTeleport=True)
-                    set_light_enabled(spot_light_component=spot_light_component, command=command)
-                    capture_scene(camera_components=camera_components)
-                with instance.end_frame(single_step=True):
-                    for component_desc in component_descs:
-                        data_bundle = component_desc["component"].read_pixels()
-                        component_data[component_desc["name"]] = data_bundle["arrays"]["data"].copy()
+                component_data = capture_orbit_frame(
+                    instance=instance,
+                    game=game,
+                    camera_sensor=camera_sensor,
+                    camera_components=camera_components,
+                    component_descs=component_descs,
+                    viewport_desc=viewport_desc,
+                    width=width,
+                    height=height,
+                    flashlight=flashlight,
+                    spot_light_component=spot_light_component,
+                    command=command if setting_spawns_flashlight else None,
+                    disable_render_history=args.disable_render_history,
+                    read_pixel_data=True)
 
                 rgb_frame = visualize_rgb(data=component_data["rgb"])
                 depth = depth_to_meters(data=component_data["depth_meters"])
@@ -1433,6 +2346,20 @@ def run_render(args):
 
                 if frame_index % max(int(round(fps)), 1) == 0:
                     spear.log("Rendered frame ", frame_index + 1, "/", frame_count, " for ", setting["name"])
+
+            rgb_luma_diagnostics = compute_rgb_luma_diagnostics(
+                frame_dir=frame_dirs["rgb"],
+                frame_count=frame_count)
+            residual_scene_off_illumination = get_residual_scene_off_illumination_diagnostics(
+                render_diagnostics=render_diagnostics,
+                rgb_luma_diagnostics=rgb_luma_diagnostics)
+            update_setting_metadata(
+                metadata_file=metadata_file,
+                updates={
+                    "rgb_luma_diagnostics": rgb_luma_diagnostics,
+                    "residual_scene_off_illumination": residual_scene_off_illumination,
+                })
+            spear.log("RGB luma diagnostics for ", setting["name"], ": ", rgb_luma_diagnostics)
 
             min_depth, max_depth = get_depth_visualization_bounds(
                 depth_frame_files=depth_frame_files,
@@ -1488,6 +2415,20 @@ def run_render(args):
 
         instance.close()
         spear.log("Done.")
+
+
+def run_render(args):
+    orbit_spec = read_json_file(args.orbit_spec_file)
+    validate_orbit_spec(orbit_spec=orbit_spec)
+    light_settings = read_json_file(args.light_settings_file)
+    validate_light_settings(light_settings=light_settings)
+
+    for scene_lights_enabled, group_settings in get_scene_light_render_groups(light_settings=light_settings):
+        run_render_group(
+            args=get_scene_light_group_args(args=args, scene_lights_enabled=scene_lights_enabled),
+            orbit_spec=orbit_spec,
+            light_settings=group_settings,
+            scene_lights_enabled=scene_lights_enabled)
 
 
 def main(argv=None):

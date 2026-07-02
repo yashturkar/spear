@@ -165,21 +165,11 @@ requires a running simulator and Rerun viewer.
 
 ## Orbit collection
 
-Use teleop mode to choose a target point and save an orbit specification:
+Use the workflow helper to choose a target point and save an orbit
+specification:
 
 ```console
-python examples/flashlight/run_orbit_collection.py \
-  --mode teleop \
-  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
-  --movement-speed 600 \
-  --disable-auto-exposure \
-  --scene-light-intensity-scale 0.2 \
-  --intensity 1500 \
-  --attenuation-radius 450 \
-  --inner-cone-angle 8 \
-  --outer-cone-angle 20 \
-  --indirect-lighting-intensity 0 \
-  --orbit-spec-file examples/flashlight/orbit_spec.json
+examples/flashlight/run_orbit_workflow.sh teleop
 ```
 
 Move the spectator pawn normally. Press `Gamepad_RightShoulder` to select the
@@ -191,18 +181,56 @@ the spectator pawn location and PlayerController control rotation from before
 the orbit. The flashlight uses the same toggle key, D-pad aiming, intensity,
 cone, attenuation, and indirect lighting options as `run.py`.
 
+The helper defaults to the cafeteria v2 map path,
+`examples/flashlight/orbit_spec.json`,
+`examples/flashlight/orbit_light_settings.json`, and
+`examples/flashlight/orbit_collection_output`. It passes fixed exposure
+explicitly with `--disable-auto-exposure`, scales scene lights with
+`--scene-light-intensity-scale 0.2`, leaves scene-capture render history
+disabled by the Python script default, and uses the current small-room
+flashlight profile:
+`--intensity 1500`, `--attenuation-radius 450`,
+`--inner-cone-angle 8`, `--outer-cone-angle 20`, and
+`--indirect-lighting-intensity 0`. Override these with matching helper flags or
+environment variables such as `SPEAR_SCENE_LIGHT_INTENSITY_SCALE=0.1`.
+
 The orbit spec JSON records the map/map path, start camera pose, selected target
 point, orbit radius, duration, FPS, image size, field of view, and baseline
 light settings. Render mode reuses that orbit spec and applies each entry in a
-light settings JSON list. A reusable three-setting example lives at
-`examples/flashlight/light_settings.example.json`:
+light settings JSON list. The checked-in active-illumination set lives at
+`examples/flashlight/orbit_light_settings.json`:
 
 ```json
 [
   {
-    "name": "baseline_on",
+    "name": "scene_on_flashlight_off",
+    "scene_lights_enabled": true,
+    "enabled": false,
+    "intensity": 0.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  },
+  {
+    "name": "scene_off_flashlight_off",
+    "scene_lights_enabled": false,
+    "enabled": false,
+    "intensity": 0.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  },
+  {
+    "name": "scene_off_flashlight_on",
+    "scene_lights_enabled": false,
     "enabled": true,
-    "intensity": 30000.0,
+    "intensity": 1500.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  },
+  {
+    "name": "scene_on_flashlight_on",
+    "scene_lights_enabled": true,
+    "enabled": true,
+    "intensity": 1500.0,
     "yaw_offset_degrees": 0.0,
     "pitch_offset_degrees": 0.0
   }
@@ -212,12 +240,23 @@ light settings JSON list. A reusable three-setting example lives at
 Render RGB and depth videos for every light setting:
 
 ```console
-python examples/flashlight/run_orbit_collection.py \
-  --mode render \
-  --orbit-spec-file examples/flashlight/orbit_spec.json \
-  --light-settings-file examples/flashlight/light_settings.example.json \
-  --output-dir examples/flashlight/orbit_collection_output
+examples/flashlight/run_orbit_workflow.sh render
 ```
+
+`--scene-light-intensity-scale` controls the ambient and fixture scene lights
+for scene-on renders. Entries with `"scene_lights_enabled": false` are rendered
+in a separate scene-off pass with scene lights disabled, independent of the
+configured scene-on scale. The default render command therefore writes exactly
+these active-illumination conditions: `scene_on_flashlight_off`,
+`scene_off_flashlight_off`, `scene_off_flashlight_on`, and
+`scene_on_flashlight_on`. The scene-off flashlight-off output is a diagnostic
+control for baked, static, or environment illumination that can remain after
+runtime scene lights are disabled. Render mode marks each explicit capture as a
+camera cut by default, disables capture render-state persistence, and turns off
+Lumen GI/reflections, screen-space reflections, Temporal AA, and motion blur for
+deterministic data collection; pass
+`examples/flashlight/run_orbit_workflow.sh render -- --enable-render-history`
+only when comparing against the engine's normal temporal behavior.
 
 To render the saved orbit with just `light_on` and `light_off` settings, run:
 
@@ -233,6 +272,20 @@ examples/flashlight/orbit_collection_output/<name>/frames/depth_meters_npy/
 examples/flashlight/orbit_collection_output/<name>/frames/depth_meters_viridis/
 examples/flashlight/orbit_collection_output/<name>/rgb.mp4
 examples/flashlight/orbit_collection_output/<name>/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/<name>/metadata.json
+```
+
+With the default helper settings, the MP4 files land at:
+
+```text
+examples/flashlight/orbit_collection_output/scene_on_flashlight_off/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_on_flashlight_off/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_off/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_off/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_on/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_on/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/scene_on_flashlight_on/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_on_flashlight_on/depth_meters_viridis.mp4
 ```
 
 Depth `.npy` frames store raw metric depth. Viridis PNGs and depth videos use

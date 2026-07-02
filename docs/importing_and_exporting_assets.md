@@ -229,6 +229,25 @@ For the next live validation pass, compare the same camera pose at fixed
 exposure with `--scene-light-intensity-scale 0.2`, `0.1`, and `0.0` before
 falling back to `--disable-scene-lights`.
 
+For orbit captures that require a near-black scene-off control, the validated
+dark cafeteria map variant is:
+
+```text
+/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark
+```
+
+This variant was created from `cafeteria_500sqft_v2` for flashlight validation
+by hiding residual exterior/window/fixture-emissive contributors, making the
+eight light components movable, and setting `force_no_precomputed_lighting`
+with readback true. Its 2026-07-01 cook/package and orbit render validation
+passed the `scene_off_flashlight_off` acceptance check: median mean luma was
+`0.0` against the `20.0` threshold, the control never spawned or enabled a
+flashlight, and the paired `scene_off_flashlight_on` run showed localized
+flashlight illumination rather than scene-wide residual lighting. The editor
+report could not directly clear `map_build_data`, and orbit metadata still
+reports unverified capture render-history/show-flag readback, so retain the
+run logs and luma summary as the empirical acceptance record for this variant.
+
 ### Cook and run the imported map
 
 After the map is imported and saved, cook it into the SpearSim standalone

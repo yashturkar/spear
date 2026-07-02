@@ -2,6 +2,7 @@ import contextlib
 import importlib.util
 import io
 import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -13,6 +14,7 @@ ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.join(ROOT_DIR, "python"))
 
 MODULE_FILE = os.path.join(ROOT_DIR, "examples", "flashlight", "run_orbit_collection.py")
+WORKFLOW_FILE = os.path.join(ROOT_DIR, "examples", "flashlight", "run_orbit_workflow.sh")
 SPEC = importlib.util.spec_from_file_location("run_orbit_collection", MODULE_FILE)
 orbit_collection = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = orbit_collection
@@ -61,6 +63,227 @@ def make_light_settings(name="baseline_on", intensity=30000.0):
     }]
 
 
+class FakeCaptureComponent:
+    def __init__(self):
+        self.bCameraCutThisFrame = False
+        self.bAlwaysPersistRenderingState = True
+        self.PostProcessSettings = {
+            "override_dynamic_global_illumination_method": True,
+            "override_reflection_method": True,
+        }
+        self.ShowFlagSettings = []
+        self.ShowFlags = FakeShowFlags()
+        self.capture_count = 0
+        self.camera_cut_values_at_capture = []
+        self.initialize_count = 0
+        self.initialize_sp_funcs_count = 0
+
+    def CaptureScene(self):
+        self.capture_count += 1
+        self.camera_cut_values_at_capture.append(self.bCameraCutThisFrame)
+
+    def read_pixels(self):
+        return {
+            "arrays": {
+                "data": np.array([[self.capture_count]], dtype=np.float32),
+            },
+        }
+
+    def Initialize(self):
+        self.initialize_count += 1
+        self.bAlwaysPersistRenderingState = True
+        self.PostProcessSettings["override_dynamic_global_illumination_method"] = True
+        self.PostProcessSettings["override_reflection_method"] = True
+
+    def initialize_sp_funcs(self):
+        self.initialize_sp_funcs_count += 1
+
+
+class FakeShowFlags:
+    def __init__(self):
+        self.values = {}
+
+    def __getattr__(self, name):
+        if not name.startswith("Set"):
+            raise AttributeError(name)
+
+        def setter(value):
+            self.values[name[3:]] = value
+
+        return setter
+
+
+class FakeLightComponent:
+    def __init__(self, supports_indirect=True):
+        self.visible = True
+        self.intensity = 100.0
+        self.indirect_lighting_intensity = 1.0
+        self.supports_indirect = supports_indirect
+
+    def SetVisibility(self, bNewVisibility, bPropagateToChildren):
+        self.visible = bNewVisibility
+
+    def SetIntensity(self, NewIntensity):
+        self.intensity = NewIntensity
+
+    def SetIndirectLightingIntensity(self, NewIntensity):
+        if not self.supports_indirect:
+            raise AttributeError("No indirect lighting intensity")
+        self.indirect_lighting_intensity = NewIntensity
+
+
+class FakeEnvironmentComponent:
+    def __init__(self):
+        self.visible = True
+        self.Intensity = 3.0
+
+    def SetVisibility(self, bNewVisibility, bPropagateToChildren):
+        self.visible = bNewVisibility
+
+
+class FakeEditorPropertyCaptureComponent(FakeCaptureComponent):
+    def __init__(self, persist_property_name):
+        super().__init__()
+        self.persist_property_name = persist_property_name
+        del self.bAlwaysPersistRenderingState
+        self.properties = {
+            persist_property_name: True,
+            "post_process_settings": self.PostProcessSettings,
+        }
+
+    def set_editor_property(self, name, value):
+        if name not in self.properties:
+            raise AttributeError(name)
+        self.properties[name] = value
+
+    def get_editor_property(self, name):
+        if name not in self.properties:
+            raise AttributeError(name)
+        return self.properties[name]
+
+
+class FakeUnrealService:
+    def __init__(self, components_by_actor, components_by_name=None):
+        self.components_by_actor = components_by_actor
+        self.components_by_name = components_by_name or {}
+
+    def find_actors(self):
+        return list(self.components_by_actor.keys())
+
+    def get_components_by_class(self, actor, uclass, include_from_child_actors):
+        self.request = {
+            "uclass": uclass,
+            "include_from_child_actors": include_from_child_actors,
+        }
+        actor_components = self.components_by_actor[actor]
+        if isinstance(actor_components, dict):
+            return actor_components.get(uclass, [])
+        return actor_components
+
+    def load_class(self, uclass, name):
+        self.loaded_class = {
+            "uclass": uclass,
+            "name": name,
+        }
+        return name
+
+    def spawn_actor(self, uclass):
+        self.spawned_actor = {
+            "uclass": uclass,
+        }
+        return "camera_sensor"
+
+    def set_stable_name_for_actor(self, actor, stable_name):
+        self.stable_name = {
+            "actor": actor,
+            "stable_name": stable_name,
+        }
+
+    def get_component_by_name(self, actor, component_name, uclass):
+        self.last_component_by_name_request = {
+            "actor": actor,
+            "component_name": component_name,
+            "uclass": uclass,
+        }
+        return self.components_by_name[component_name]
+
+
+class FakeRenderingService:
+    def __init__(self):
+        self.align_requests = []
+
+    def align_camera_with_viewport(self, **kwargs):
+        self.align_requests.append(kwargs)
+
+
+class FakeFrameContext:
+    def __init__(self, owner, name):
+        self.owner = owner
+        self.name = name
+
+    def __enter__(self):
+        self.owner.events.append(f"begin:{self.name}")
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.owner.events.append(f"end:{self.name}")
+        return False
+
+
+class FakeInstance:
+    def __init__(self):
+        self.events = []
+
+    def begin_frame(self):
+        return FakeFrameContext(owner=self, name="begin_frame")
+
+    def end_frame(self, single_step=False):
+        self.events.append(f"single_step:{single_step}")
+        return FakeFrameContext(owner=self, name="end_frame")
+
+
+class FakeFlashlight:
+    def __init__(self):
+        self.poses = []
+
+    def K2_SetActorLocationAndRotation(self, **kwargs):
+        self.poses.append(kwargs)
+
+
+class FakeGame:
+    def __init__(self, components_by_actor=None, components_by_name=None):
+        self.unreal_service = FakeUnrealService(
+            components_by_actor=components_by_actor or {},
+            components_by_name=components_by_name)
+        self.rendering_service = FakeRenderingService()
+
+
+class FakeConsolePlayerController:
+    def __init__(self):
+        self.commands = []
+
+    def ConsoleCommand(self, Command, bWriteToLog):
+        self.commands.append((Command, bWriteToLog))
+
+
+class FakeGameplayStatics:
+    def __init__(self, player_controller):
+        self.player_controller = player_controller
+
+    def GetPlayerController(self, PlayerIndex):
+        return self.player_controller
+
+
+class FakeConsoleGame(FakeGame):
+    def __init__(self):
+        super().__init__()
+        self.player_controller = FakeConsolePlayerController()
+
+    def get_unreal_object(self, uclass):
+        self.uclass = uclass
+        return FakeGameplayStatics(player_controller=self.player_controller)
+
+
 class OrbitCollectionValidationTests(unittest.TestCase):
     def test_parse_args_defaults_orbit_controls_to_shoulders(self):
         args = orbit_collection.parse_args([])
@@ -75,6 +298,7 @@ class OrbitCollectionValidationTests(unittest.TestCase):
         self.assertEqual(args.indirect_lighting_intensity, 0.0)
         self.assertEqual(args.scene_light_intensity_scale, 1.0)
         self.assertTrue(args.disable_auto_exposure)
+        self.assertTrue(args.disable_render_history)
         self.assertEqual(args.depth_visualization_lower_percentile, 1.0)
         self.assertEqual(args.depth_visualization_upper_percentile, 99.0)
         self.assertIsNone(args.depth_visualization_min_meters)
@@ -103,6 +327,436 @@ class OrbitCollectionValidationTests(unittest.TestCase):
         self.assertFalse(run_enabled_args.disable_auto_exposure)
         self.assertTrue(orbit_disabled_args.disable_auto_exposure)
         self.assertTrue(run_disabled_args.disable_auto_exposure)
+
+    def test_render_history_can_be_explicitly_enabled_or_disabled(self):
+        enabled_args = orbit_collection.parse_args(["--enable-render-history"])
+        disabled_args = orbit_collection.parse_args(["--disable-render-history"])
+
+        self.assertFalse(enabled_args.disable_render_history)
+        self.assertTrue(disabled_args.disable_render_history)
+
+    def test_workflow_render_history_override_does_not_inject_conflicting_disable(self):
+        env = os.environ.copy()
+        env["PYTHON"] = "/bin/echo"
+
+        result = subprocess.run(
+            [WORKFLOW_FILE, "render", "--", "--enable-render-history"],
+            cwd=ROOT_DIR,
+            env=env,
+            check=True,
+            capture_output=True,
+            text=True)
+
+        self.assertIn("--enable-render-history", result.stdout)
+        self.assertNotIn("--disable-render-history", result.stdout)
+
+    def test_capture_scene_marks_camera_cut_when_render_history_disabled(self):
+        components = [FakeCaptureComponent(), FakeCaptureComponent()]
+
+        orbit_collection.capture_scene(camera_components=components, disable_render_history=True)
+
+        self.assertEqual([component.capture_count for component in components], [1, 1])
+        self.assertEqual([component.camera_cut_values_at_capture for component in components], [[True], [True]])
+
+    def test_capture_scene_preserves_camera_cut_when_render_history_enabled(self):
+        component = FakeCaptureComponent()
+
+        orbit_collection.capture_scene(camera_components=[component], disable_render_history=False)
+
+        self.assertEqual(component.capture_count, 1)
+        self.assertEqual(component.camera_cut_values_at_capture, [False])
+
+    def test_discard_warmup_captures_captures_and_reads_without_returning_frames(self):
+        components = [FakeCaptureComponent(), FakeCaptureComponent()]
+        component_descs = [
+            {"name": "rgb", "component": components[0]},
+            {"name": "depth_meters", "component": components[1]},
+        ]
+        game = FakeGame()
+        instance = FakeInstance()
+        flashlight = FakeFlashlight()
+        spot_light_component = FakeLightComponent()
+        viewport_desc = orbit_collection.make_viewport_desc(
+            location={"X": 0.0, "Y": 0.0, "Z": 100.0},
+            rotation={"Pitch": 0.0, "Yaw": 0.0, "Roll": 0.0},
+            width=320,
+            height=240,
+            fov_degrees=80.0)
+
+        orbit_collection.discard_warmup_captures(
+            instance=instance,
+            game=game,
+            camera_sensor="camera_sensor",
+            camera_components=components,
+            component_descs=component_descs,
+            viewport_desc=viewport_desc,
+            width=320,
+            height=240,
+            flashlight=flashlight,
+            spot_light_component=spot_light_component,
+            command=orbit_collection.LightCommand(
+                enabled=True,
+                intensity=1500.0,
+                yaw_offset_degrees=0.0,
+                pitch_offset_degrees=0.0),
+            disable_render_history=True,
+            num_captures=2)
+
+        self.assertEqual([component.capture_count for component in components], [2, 2])
+        self.assertEqual(len(game.rendering_service.align_requests), 2)
+        self.assertEqual(len(flashlight.poses), 2)
+        self.assertEqual(spot_light_component.intensity, 1500.0)
+        self.assertEqual([component.camera_cut_values_at_capture for component in components], [[True, True], [True, True]])
+
+    def test_discard_warmup_captures_supports_no_flashlight_control(self):
+        component = FakeCaptureComponent()
+        component_descs = [{"name": "rgb", "component": component}]
+        game = FakeGame()
+        instance = FakeInstance()
+        viewport_desc = orbit_collection.make_viewport_desc(
+            location={"X": 0.0, "Y": 0.0, "Z": 100.0},
+            rotation={"Pitch": 0.0, "Yaw": 0.0, "Roll": 0.0},
+            width=320,
+            height=240,
+            fov_degrees=80.0)
+
+        orbit_collection.discard_warmup_captures(
+            instance=instance,
+            game=game,
+            camera_sensor="camera_sensor",
+            camera_components=[component],
+            component_descs=component_descs,
+            viewport_desc=viewport_desc,
+            width=320,
+            height=240,
+            flashlight=None,
+            spot_light_component=None,
+            command=None,
+            disable_render_history=True,
+            num_captures=2)
+
+        self.assertEqual(component.capture_count, 2)
+        self.assertEqual(len(game.rendering_service.align_requests), 2)
+        self.assertEqual(component.camera_cut_values_at_capture, [True, True])
+
+    def test_deterministic_capture_component_disables_temporal_overrides(self):
+        component = FakeCaptureComponent()
+
+        state = orbit_collection.configure_deterministic_capture_component(component)
+
+        self.assertFalse(component.bAlwaysPersistRenderingState)
+        self.assertFalse(component.PostProcessSettings["override_dynamic_global_illumination_method"])
+        self.assertFalse(component.PostProcessSettings["override_reflection_method"])
+        self.assertEqual(
+            {
+                key: state[key]
+                for key in (
+                    "always_persist_rendering_state_disabled",
+                    "dynamic_global_illumination_override_disabled",
+                    "reflection_override_disabled",
+                )
+            },
+            {
+                "always_persist_rendering_state_disabled": True,
+                "dynamic_global_illumination_override_disabled": True,
+                "reflection_override_disabled": True,
+            })
+        self.assertIn("bAlwaysPersistRenderingState", [
+            attempt["property"]
+            for attempt in state["always_persist_rendering_state_attempts"]
+        ])
+
+    def test_deterministic_capture_component_uses_unreal_python_property_readback(self):
+        component = FakeEditorPropertyCaptureComponent("always_persist_rendering_state")
+
+        state = orbit_collection.configure_deterministic_capture_component(component)
+
+        self.assertTrue(state["always_persist_rendering_state_disabled"])
+        self.assertFalse(component.properties["always_persist_rendering_state"])
+
+    def test_deterministic_capture_component_does_not_report_unverified_persist_disable(self):
+        component = FakeEditorPropertyCaptureComponent("unrelated_property")
+
+        state = orbit_collection.configure_deterministic_capture_component(component)
+
+        self.assertFalse(state["always_persist_rendering_state_disabled"])
+
+    def test_setup_camera_sensor_applies_deterministic_capture_config_after_initialize(self):
+        components_by_name = {
+            component_desc["long_name"]: FakeCaptureComponent()
+            for component_desc in orbit_collection.CAPTURE_COMPONENT_DESCS
+        }
+        game = FakeGame(components_by_name=components_by_name)
+
+        _, component_descs, camera_components = orbit_collection.setup_camera_sensor(
+            game=game,
+            width=320,
+            height=240,
+            initial_viewport_desc=make_orbit_spec()["start_camera_pose"],
+            disable_render_history=True)
+
+        self.assertEqual(len(component_descs), 2)
+        self.assertEqual(game.rendering_service.align_requests[0]["widths"], [320, 320])
+        self.assertEqual(game.rendering_service.align_requests[0]["heights"], [240, 240])
+        for component_desc, component in zip(component_descs, camera_components):
+            self.assertEqual(component.initialize_count, 1)
+            self.assertEqual(component.initialize_sp_funcs_count, 1)
+            self.assertFalse(component.bAlwaysPersistRenderingState)
+            self.assertFalse(component.PostProcessSettings["override_dynamic_global_illumination_method"])
+            self.assertFalse(component.PostProcessSettings["override_reflection_method"])
+            self.assertEqual(
+                {
+                    key: component_desc["deterministic_capture_state"][key]
+                    for key in (
+                        "always_persist_rendering_state_disabled",
+                        "dynamic_global_illumination_override_disabled",
+                        "reflection_override_disabled",
+                    )
+                },
+                {
+                    "always_persist_rendering_state_disabled": True,
+                    "dynamic_global_illumination_override_disabled": True,
+                    "reflection_override_disabled": True,
+                })
+
+    def test_setup_camera_sensor_preserves_render_history_when_enabled(self):
+        components_by_name = {
+            component_desc["long_name"]: FakeCaptureComponent()
+            for component_desc in orbit_collection.CAPTURE_COMPONENT_DESCS
+        }
+        game = FakeGame(components_by_name=components_by_name)
+
+        _, component_descs, camera_components = orbit_collection.setup_camera_sensor(
+            game=game,
+            width=320,
+            height=240,
+            initial_viewport_desc=make_orbit_spec()["start_camera_pose"],
+            disable_render_history=False)
+
+        for component_desc, component in zip(component_descs, camera_components):
+            self.assertNotIn("deterministic_capture_state", component_desc)
+            self.assertEqual(component.initialize_count, 1)
+            self.assertEqual(component.initialize_sp_funcs_count, 1)
+            self.assertTrue(component.bAlwaysPersistRenderingState)
+            self.assertTrue(component.PostProcessSettings["override_dynamic_global_illumination_method"])
+            self.assertTrue(component.PostProcessSettings["override_reflection_method"])
+
+    def test_setup_camera_sensor_can_apply_scene_off_capture_show_flags(self):
+        components_by_name = {
+            component_desc["long_name"]: FakeCaptureComponent()
+            for component_desc in orbit_collection.CAPTURE_COMPONENT_DESCS
+        }
+        game = FakeGame(components_by_name=components_by_name)
+
+        _, component_descs, camera_components = orbit_collection.setup_camera_sensor(
+            game=game,
+            width=320,
+            height=240,
+            initial_viewport_desc=make_orbit_spec()["start_camera_pose"],
+            disable_render_history=True,
+            scene_off_lighting_isolation=True)
+
+        for component_desc, component in zip(component_descs, camera_components):
+            state = component_desc["scene_off_lighting_isolation_state"]
+            self.assertTrue(state["configured"])
+            self.assertTrue(state["show_flag_settings_set"])
+            self.assertEqual(
+                [entry["ShowFlagName"] for entry in component.ShowFlagSettings],
+                list(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS))
+            self.assertEqual(
+                set(component.ShowFlags.values.keys()),
+                set(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS))
+            self.assertTrue(all(value is False for value in component.ShowFlags.values.values()))
+
+    def test_disable_scene_lights_hides_and_zeroes_existing_light_components(self):
+        first_component = FakeLightComponent()
+        second_component = FakeLightComponent(supports_indirect=False)
+        game = FakeGame(components_by_actor={
+            "first_actor": [first_component],
+            "second_actor": [second_component],
+        })
+
+        state = orbit_collection.disable_scene_lights(game=game)
+
+        self.assertEqual(state["components"], 2)
+        self.assertEqual(state["visibility_disabled"], 2)
+        self.assertEqual(state["direct_intensity_zeroed"], 2)
+        self.assertEqual(state["indirect_lighting_intensity_zeroed"], 1)
+        self.assertFalse(first_component.visible)
+        self.assertEqual(first_component.intensity, 0.0)
+        self.assertEqual(first_component.indirect_lighting_intensity, 0.0)
+        self.assertFalse(second_component.visible)
+        self.assertEqual(second_component.intensity, 0.0)
+
+    def test_disable_scene_lighting_records_environment_contributors(self):
+        light_component = FakeLightComponent()
+        sky_component = FakeEnvironmentComponent()
+        game = FakeGame(components_by_actor={
+            "actor": {
+                "ULightComponentBase": [light_component],
+                "USkyLightComponent": [sky_component],
+            },
+        })
+
+        state = orbit_collection.disable_scene_lighting(game=game)
+
+        self.assertEqual(state["components"], 1)
+        self.assertEqual(state["environment_contributors"]["components"], 1)
+        self.assertEqual(state["environment_contributors"]["component_classes"]["USkyLightComponent"], 1)
+        self.assertFalse(light_component.visible)
+        self.assertFalse(sky_component.visible)
+        self.assertEqual(sky_component.Intensity, 0.0)
+
+    def test_scene_off_lighting_isolation_sends_show_flag_console_commands(self):
+        game = FakeConsoleGame()
+
+        state = orbit_collection.apply_scene_off_lighting_isolation_console_commands(game=game)
+
+        self.assertEqual(state["applied"], len(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS))
+        self.assertEqual(
+            [command for command, _ in game.player_controller.commands],
+            [
+                f"ShowFlag.{show_flag_name} 0"
+                for show_flag_name in orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS
+            ])
+
+    def test_write_setting_metadata_records_scene_light_and_render_state(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            setting_dir = os.path.join(temp_dir, "scene_off_flashlight_on")
+            os.makedirs(setting_dir)
+            metadata_file = orbit_collection.write_setting_metadata(
+                setting_dir=setting_dir,
+                setting={
+                    "name": "scene_off_flashlight_on",
+                    "scene_lights_enabled": False,
+                    "enabled": True,
+                    "intensity": 1500.0,
+                    "yaw_offset_degrees": 0.0,
+                    "pitch_offset_degrees": 0.0,
+                },
+                scene_lights_enabled=False,
+                scene_light_state={
+                    "components": 2,
+                    "visibility_disabled": 2,
+                    "direct_intensity_zeroed": 2,
+                    "indirect_lighting_intensity_zeroed": 1,
+                },
+                disable_auto_exposure=True,
+                disable_render_history=True,
+                component_descs=[{
+                    "name": "rgb",
+                    "deterministic_capture_state": {
+                        "always_persist_rendering_state_disabled": True,
+                    },
+                }])
+
+            with open(metadata_file, "r", encoding="utf-8") as f:
+                metadata = orbit_collection.json.load(f)
+
+        self.assertFalse(metadata["scene_lights_enabled"])
+        self.assertTrue(metadata["disable_auto_exposure"])
+        self.assertTrue(metadata["disable_render_history"])
+        self.assertTrue(metadata["render_history_disable_verified"])
+        self.assertEqual(metadata["scene_light_state"]["direct_intensity_zeroed"], 2)
+        self.assertTrue(metadata["deterministic_capture"]["render_history_disable_verified"])
+        self.assertEqual(metadata["deterministic_capture_components"][0]["name"], "rgb")
+
+    def test_write_setting_metadata_does_not_verify_render_history_without_readback(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            setting_dir = os.path.join(temp_dir, "scene_off_flashlight_off")
+            os.makedirs(setting_dir)
+            metadata_file = orbit_collection.write_setting_metadata(
+                setting_dir=setting_dir,
+                setting={
+                    "name": "scene_off_flashlight_off",
+                    "scene_lights_enabled": False,
+                    "spawn_flashlight": False,
+                    "enabled": False,
+                    "intensity": 0.0,
+                    "yaw_offset_degrees": 0.0,
+                    "pitch_offset_degrees": 0.0,
+                },
+                scene_lights_enabled=False,
+                scene_light_state={},
+                disable_auto_exposure=True,
+                disable_render_history=True,
+                component_descs=[{
+                    "name": "rgb",
+                    "deterministic_capture_state": {
+                        "always_persist_rendering_state_disabled": False,
+                        "always_persist_rendering_state_attempts": [{
+                            "property": "bAlwaysPersistRenderingState",
+                            "set": False,
+                            "readback": None,
+                            "verified": False,
+                        }],
+                    },
+                }],
+                render_diagnostics={
+                    "no_flashlight_ever_control": True,
+                })
+
+            with open(metadata_file, "r", encoding="utf-8") as f:
+                metadata = orbit_collection.json.load(f)
+
+        self.assertFalse(metadata["render_history_disable_verified"])
+        self.assertFalse(metadata["deterministic_capture"]["render_history_disable_verified"])
+        self.assertEqual(metadata["deterministic_capture"]["unverified_render_history_components"], ["rgb"])
+        self.assertTrue(metadata["render_diagnostics"]["no_flashlight_ever_control"])
+
+    def test_write_setting_metadata_records_scene_off_lighting_isolation(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            setting_dir = os.path.join(temp_dir, "scene_off_flashlight_off")
+            os.makedirs(setting_dir)
+            metadata_file = orbit_collection.write_setting_metadata(
+                setting_dir=setting_dir,
+                setting={
+                    "name": "scene_off_flashlight_off",
+                    "scene_lights_enabled": False,
+                    "spawn_flashlight": False,
+                    "enabled": False,
+                    "intensity": 0.0,
+                    "yaw_offset_degrees": 0.0,
+                    "pitch_offset_degrees": 0.0,
+                },
+                scene_lights_enabled=False,
+                scene_light_state={},
+                disable_auto_exposure=True,
+                disable_render_history=True,
+                component_descs=[{
+                    "name": "rgb",
+                    "scene_off_lighting_isolation_state": {
+                        "configured": True,
+                        "show_flag_settings_set": True,
+                    },
+                    "deterministic_capture_state": {
+                        "always_persist_rendering_state_disabled": True,
+                    },
+                }],
+                scene_off_lighting_isolation_requested=True,
+                render_diagnostics={
+                    "no_flashlight_ever_control": True,
+                })
+
+            with open(metadata_file, "r", encoding="utf-8") as f:
+                metadata = orbit_collection.json.load(f)
+
+        self.assertTrue(metadata["scene_off_lighting_isolation"]["requested"])
+        self.assertTrue(metadata["scene_off_lighting_isolation"]["engine_ini_applied"])
+        self.assertTrue(metadata["scene_off_lighting_isolation"]["capture_show_flags_configured"])
+        self.assertIn("SkyLighting", metadata["scene_off_lighting_isolation"]["disabled_show_flags"])
+
+    def test_residual_scene_off_illumination_diagnostics_flags_bright_no_flashlight_control(self):
+        diagnostics = orbit_collection.get_residual_scene_off_illumination_diagnostics(
+            render_diagnostics={
+                "no_flashlight_ever_control": True,
+            },
+            rgb_luma_diagnostics={
+                "mean_luma_median": 136.0,
+            })
+
+        self.assertTrue(diagnostics["checked"])
+        self.assertTrue(diagnostics["likely_residual_environment_static_or_material_lighting"])
 
     def test_build_config_keeps_sp_core_ini_keys_compatible(self):
         args = orbit_collection.parse_args([
@@ -146,6 +800,11 @@ class OrbitCollectionValidationTests(unittest.TestCase):
         self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertIn("r.DefaultFeature.AutoExposure=False", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertIn("r.EyeAdaptationQuality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.DynamicGlobalIlluminationMethod=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.ReflectionMethod=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.Lumen.DiffuseIndirect.Allow=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.Lumen.Reflections.Allow=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.TemporalAA.Quality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
 
         for key in (
             "EDITOR_INI_CONFIG_VALUES",
@@ -182,6 +841,57 @@ class OrbitCollectionValidationTests(unittest.TestCase):
         self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertNotIn("r.DefaultFeature.AutoExposure=False", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertNotIn("r.EyeAdaptationQuality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+
+    def test_orbit_build_config_preserves_temporal_rendering_when_enabled(self):
+        args = orbit_collection.parse_args(["--mode", "render", "--enable-render-history"])
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            user_config_file = os.path.join(temp_dir, "user_config.yaml")
+            with open(user_config_file, "w", encoding="utf-8") as f:
+                f.write(
+                    "SP_CORE:\n"
+                    "  OVERRIDE_CONFIG_ENGINE_INI: True\n"
+                    "  CONFIG_ENGINE_INI_STRING: |\n"
+                    "    [/Script/Engine.RendererSettings]\n"
+                    "    r.CustomDepth=3\n")
+
+            config = orbit_collection.build_config(
+                args=args,
+                benchmarking=True,
+                max_num_frames=3,
+                user_config_files=[user_config_file])
+
+        self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.DefaultFeature.AutoExposure=False", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.DynamicGlobalIlluminationMethod=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.ReflectionMethod=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.TemporalAA.Quality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+
+    def test_orbit_build_config_isolates_scene_off_residual_lighting(self):
+        args = orbit_collection.parse_args(["--mode", "render", "--disable-scene-lights"])
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            user_config_file = os.path.join(temp_dir, "user_config.yaml")
+            with open(user_config_file, "w", encoding="utf-8") as f:
+                f.write(
+                    "SP_CORE:\n"
+                    "  OVERRIDE_CONFIG_ENGINE_INI: True\n"
+                    "  CONFIG_ENGINE_INI_STRING: |\n"
+                    "    [/Script/Engine.RendererSettings]\n"
+                    "    r.CustomDepth=3\n")
+
+            config = orbit_collection.build_config(
+                args=args,
+                benchmarking=True,
+                max_num_frames=3,
+                user_config_files=[user_config_file])
+
+        self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("[SystemSettings]", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("ShowFlag.SkyLighting=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("ShowFlag.GlobalIllumination=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("ShowFlag.IndirectLightingCache=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("ShowFlag.VolumetricLightmap=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
 
     def test_run_build_config_disables_auto_exposure_by_default(self):
         args = flashlight_run.parse_args([])
@@ -354,6 +1064,7 @@ class OrbitCollectionValidationTests(unittest.TestCase):
             ["--scene-light-intensity-scale", "nan"],
             ["--scene-light-intensity-scale", "inf"],
             ["--disable-auto-exposure", "--enable-auto-exposure"],
+            ["--disable-render-history", "--enable-render-history"],
             ["--depth-visualization-lower-percentile", "-1"],
             ["--depth-visualization-upper-percentile", "101"],
             ["--depth-visualization-lower-percentile", "90", "--depth-visualization-upper-percentile", "90"],
@@ -388,6 +1099,134 @@ class OrbitCollectionValidationTests(unittest.TestCase):
             with self.subTest(key=key):
                 with self.assertRaises(ValueError):
                     orbit_collection.validate_light_settings(settings)
+
+    def test_light_settings_reject_non_boolean_scene_lights_enabled(self):
+        settings = make_light_settings()
+        settings[0]["scene_lights_enabled"] = "false"
+
+        with self.assertRaises(ValueError):
+            orbit_collection.validate_light_settings(settings)
+
+    def test_light_settings_reject_invalid_spawn_flashlight_controls(self):
+        settings = make_light_settings()
+        settings[0]["spawn_flashlight"] = "false"
+        with self.assertRaises(ValueError):
+            orbit_collection.validate_light_settings(settings)
+
+        settings = make_light_settings()
+        settings[0]["spawn_flashlight"] = False
+        with self.assertRaises(ValueError):
+            orbit_collection.validate_light_settings(settings)
+
+    def test_initial_render_light_setup_uses_first_setting_not_orbit_baseline(self):
+        settings = [
+            {
+                "name": "scene_off_flashlight_off",
+                "scene_lights_enabled": False,
+                "spawn_flashlight": False,
+                "enabled": False,
+                "intensity": 0.0,
+                "yaw_offset_degrees": 0.0,
+                "pitch_offset_degrees": 0.0,
+            },
+            {
+                "name": "scene_off_flashlight_on",
+                "scene_lights_enabled": False,
+                "enabled": True,
+                "intensity": 1500.0,
+                "yaw_offset_degrees": 1.0,
+                "pitch_offset_degrees": -2.0,
+            },
+        ]
+
+        setup = orbit_collection.get_initial_render_light_setup(light_settings=settings)
+
+        self.assertEqual(setup["setting_name"], "scene_off_flashlight_off")
+        self.assertFalse(setup["spawn_flashlight"])
+        self.assertIsNone(setup["command"])
+
+    def test_initial_render_light_setup_spawns_with_first_setting_command_when_needed(self):
+        settings = [
+            {
+                "name": "scene_on_flashlight_off",
+                "scene_lights_enabled": True,
+                "enabled": False,
+                "intensity": 0.0,
+                "yaw_offset_degrees": 0.0,
+                "pitch_offset_degrees": 0.0,
+            },
+        ]
+
+        setup = orbit_collection.get_initial_render_light_setup(light_settings=settings)
+
+        self.assertTrue(setup["spawn_flashlight"])
+        self.assertFalse(setup["command"].enabled)
+        self.assertEqual(setup["command"].intensity, 0.0)
+
+    def test_scene_light_render_groups_default_to_scene_on_then_scene_off(self):
+        settings = [
+            {
+                "name": "scene_on_flashlight_off",
+                "scene_lights_enabled": True,
+                "enabled": False,
+                "intensity": 0.0,
+                "yaw_offset_degrees": 0.0,
+                "pitch_offset_degrees": 0.0,
+            },
+            {
+                "name": "scene_off_flashlight_on",
+                "scene_lights_enabled": False,
+                "enabled": True,
+                "intensity": 1500.0,
+                "yaw_offset_degrees": 0.0,
+                "pitch_offset_degrees": 0.0,
+            },
+            {
+                "name": "scene_on_flashlight_on",
+                "enabled": True,
+                "intensity": 1500.0,
+                "yaw_offset_degrees": 0.0,
+                "pitch_offset_degrees": 0.0,
+            },
+        ]
+
+        groups = orbit_collection.get_scene_light_render_groups(settings)
+
+        self.assertEqual(
+            [(enabled, [setting["name"] for setting in group]) for enabled, group in groups],
+            [
+                (True, ["scene_on_flashlight_off", "scene_on_flashlight_on"]),
+                (False, ["scene_off_flashlight_on"]),
+            ])
+
+    def test_scene_off_group_args_disable_scene_lights_independent_of_scene_on_scale(self):
+        args = orbit_collection.parse_args(["--mode", "render", "--scene-light-intensity-scale", "0.2"])
+
+        group_args = orbit_collection.get_scene_light_group_args(args=args, scene_lights_enabled=False)
+
+        self.assertTrue(group_args.disable_scene_lights)
+        self.assertEqual(group_args.scene_light_intensity_scale, 1.0)
+        self.assertFalse(args.disable_scene_lights)
+        self.assertEqual(args.scene_light_intensity_scale, 0.2)
+
+    def test_checked_in_orbit_light_settings_are_valid(self):
+        settings_file = os.path.join(ROOT_DIR, "examples", "flashlight", "orbit_light_settings.json")
+        with open(settings_file, "r", encoding="utf-8") as f:
+            settings = orbit_collection.json.load(f)
+
+        orbit_collection.validate_light_settings(settings)
+        self.assertEqual(
+            [setting["name"] for setting in settings],
+            [
+                "scene_on_flashlight_off",
+                "scene_off_flashlight_off",
+                "scene_off_flashlight_on",
+                "scene_on_flashlight_on",
+            ])
+        self.assertEqual(
+            [setting["scene_lights_enabled"] for setting in settings],
+            [True, False, False, True])
+        self.assertFalse(settings[1]["spawn_flashlight"])
 
     def test_orbit_spec_rejects_non_finite_nested_numbers(self):
         invalid_specs = []

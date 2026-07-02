@@ -128,18 +128,19 @@ inspection before data collection.
 ## Running the flashlight orbit collection workflow
 
 The flashlight example can save a user-selected orbit around a target point and
-then render RGB and depth-visualization videos for multiple light settings. Use
-teleop mode to navigate to the view you want, select the target point with
+then render RGB and depth-visualization videos for multiple light settings. The
+workflow helper runs the current cafeteria v2 validation profile by default:
+fixed exposure, `--scene-light-intensity-scale 0.2`, and the small-room
+flashlight settings `--intensity 1500`, `--attenuation-radius 450`,
+`--inner-cone-angle 8`, `--outer-cone-angle 20`, and
+`--indirect-lighting-intensity 0`. It also disables scene-capture render
+history for orbit captures by relying on the Python script default. Use teleop
+mode to navigate to the view you want, select the target point with
 `Gamepad_RightShoulder`, and preview the visible orbit with
 `Gamepad_LeftShoulder`:
 
 ```console
-python examples/flashlight/run_orbit_collection.py \
-  --mode teleop \
-  --map japanese_office_dark \
-  --movement-speed 600 \
-  --disable-scene-lights \
-  --orbit-spec-file examples/flashlight/orbit_spec.json
+examples/flashlight/run_orbit_workflow.sh teleop
 ```
 
 Teleop mode writes an orbit spec JSON containing the map, start camera pose,
@@ -148,17 +149,63 @@ and baseline light settings. The preview restores the spectator pawn pose and
 control rotation after the orbit. If target selection does not hit geometry, the
 script records a fallback target along the camera forward direction.
 
+The helper defaults to the cafeteria v2 map path,
+`examples/flashlight/orbit_spec.json`,
+`examples/flashlight/orbit_light_settings.json`, and
+`examples/flashlight/orbit_collection_output`. Override these defaults with
+matching helper flags, or with environment variables such as
+`SPEAR_ORBIT_MAP_PATH`, `SPEAR_ORBIT_SPEC_FILE`,
+`SPEAR_ORBIT_LIGHT_SETTINGS_FILE`, `SPEAR_ORBIT_OUTPUT_DIR`, and
+`SPEAR_SCENE_LIGHT_INTENSITY_SCALE`.
+
 Render mode reuses the saved orbit spec and applies each entry in a light
 settings JSON file. The repository includes
-`examples/flashlight/light_settings.example.json` as a starting point:
+`examples/flashlight/orbit_light_settings.json` with the active-illumination
+set `scene_on_flashlight_off`, `scene_off_flashlight_off`,
+`scene_off_flashlight_on`, and `scene_on_flashlight_on`:
 
 ```console
-python examples/flashlight/run_orbit_collection.py \
-  --mode render \
-  --orbit-spec-file examples/flashlight/orbit_spec.json \
-  --light-settings-file examples/flashlight/light_settings.example.json \
-  --output-dir examples/flashlight/orbit_collection_output
+examples/flashlight/run_orbit_workflow.sh render
 ```
+
+`--scene-light-intensity-scale` controls scene lights for scene-on renders.
+Settings with `"scene_lights_enabled": false` run in a separate scene-off pass
+with scene lights disabled, independent of the configured scene-on scale. The
+helper keeps fixed exposure explicit with `--disable-auto-exposure` and does
+not require users to hand-write JSON. `scene_off_flashlight_off` is a
+no-flashlight-ever diagnostic control for baked, static, or environment
+illumination that can remain after runtime scene lights are disabled; that
+setting uses `"spawn_flashlight": false` so the scene-off setup does not warm up
+with the saved orbit baseline flashlight. Scene-off passes hide existing scene
+light components, zero direct and indirect lighting intensity, and also try to
+disable available environment contributors such as sky, fog, reflection capture,
+and post-process components before any flashlight setting that needs a spawned
+spotlight. Render history is disabled by default in `run_orbit_collection.py`,
+so each explicit capture is treated as a camera cut and the script attempts
+capture-component render-state readback after initialization. The metadata
+reports whether that readback verified render-history disablement for every
+capture component. Lumen GI/reflections, screen-space reflections, Temporal AA,
+and motion blur are also disabled for deterministic data collection. Before
+writing output frames, render mode runs readback-only warm-up captures after
+camera sensor setup and after each light-setting change; those warm-up captures
+are discarded so `frame_0000` is the first saved orbit frame for that setting. Use
+`examples/flashlight/run_orbit_workflow.sh render -- --enable-render-history`
+only when deliberately comparing against normal temporal rendering.
+
+For flashlight-only validation where the scene-off baseline must be black, use
+the dark cafeteria validation map:
+`/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark`.
+A 2026-07-01 validation run against that map wrote
+`examples/flashlight/orbit_collection_output_validation_dark_map`; all four
+default light settings produced complete RGB/depth videos and 240-frame RGB and
+depth frame sets. In that run, `scene_off_flashlight_off` stayed black for all
+frames with median mean luma `0.0`, `scene_off_flashlight_on` showed localized
+flashlight-only illumination with median mean luma about `19.64`, both
+scene-on settings remained lit, and saved RGB/depth frames showed no progressive
+exposure accumulation. The same run still reported unverified capture
+render-history/show-flag readback in metadata, so treat the saved-frame luma
+checks as the acceptance evidence and keep those metadata fields visible when
+validating future maps.
 
 The orbit collection script keeps its config compatible with both current
 `SP_CORE` INI override keys and older standalone `SpearSim` binaries that still
@@ -173,7 +220,22 @@ depth PNG frames under
 `orbit_collection_output/<name>/frames/depth_meters_viridis/`. It also writes
 `rgb.mp4` and `depth_meters_viridis.mp4`. The `.npy` frames preserve raw metric
 depth, while the viridis PNG and video outputs use one stable depth range per
-light setting.
+light setting. Each setting directory also includes `metadata.json` with the
+scene-light state and deterministic capture settings used for that render.
+
+With the default helper settings, the MP4 files are:
+
+```text
+examples/flashlight/orbit_collection_output/scene_on_flashlight_off/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_on_flashlight_off/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_off/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_off/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_on/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_on/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/scene_on_flashlight_on/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_on_flashlight_on/depth_meters_viridis.mp4
+```
+
 By default, that visualization range clips to the 1st and 99th percentiles of
 finite metric depth samples so far-plane outliers do not wash out the orbit
 contrast. Use `--depth-visualization-lower-percentile` and

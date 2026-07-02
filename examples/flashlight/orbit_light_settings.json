@@ -1,0 +1,35 @@
+[
+  {
+    "name": "scene_on_flashlight_off",
+    "scene_lights_enabled": true,
+    "enabled": false,
+    "intensity": 0.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  },
+  {
+    "name": "scene_off_flashlight_off",
+    "scene_lights_enabled": false,
+    "spawn_flashlight": false,
+    "enabled": false,
+    "intensity": 0.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  },
+  {
+    "name": "scene_off_flashlight_on",
+    "scene_lights_enabled": false,
+    "enabled": true,
+    "intensity": 1500.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  },
+  {
+    "name": "scene_on_flashlight_on",
+    "scene_lights_enabled": true,
+    "enabled": true,
+    "intensity": 1500.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  }
+]
