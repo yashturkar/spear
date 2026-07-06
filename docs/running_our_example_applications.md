@@ -130,10 +130,11 @@ inspection before data collection.
 The flashlight example can save a user-selected orbit around a target point and
 then render RGB and depth-visualization videos for multiple light settings. The
 workflow helper runs the current cafeteria v2 validation profile by default:
-fixed exposure, `--scene-light-intensity-scale 0.2`, and the small-room
-flashlight settings `--intensity 1500`, `--attenuation-radius 450`,
-`--inner-cone-angle 8`, `--outer-cone-angle 20`, and
-`--indirect-lighting-intensity 0`. It also disables scene-capture render
+fixed exposure, `--scene-light-intensity-scale 0.2`, and a soft floodlight
+profile for small rooms: `--intensity 1200`, `--attenuation-radius 650`,
+`--inner-cone-angle 2`, `--outer-cone-angle 60`, `--source-radius 12`,
+`--soft-source-radius 80`, and `--indirect-lighting-intensity 0`. It also
+disables scene-capture render
 history for orbit captures by relying on the Python script default. Use teleop
 mode to navigate to the view you want, select the target point with
 `Gamepad_RightShoulder`, and preview the visible orbit with
@@ -155,32 +156,36 @@ The helper defaults to the cafeteria v2 map path,
 `examples/flashlight/orbit_collection_output`. Override these defaults with
 matching helper flags, or with environment variables such as
 `SPEAR_ORBIT_MAP_PATH`, `SPEAR_ORBIT_SPEC_FILE`,
-`SPEAR_ORBIT_LIGHT_SETTINGS_FILE`, `SPEAR_ORBIT_OUTPUT_DIR`, and
-`SPEAR_SCENE_LIGHT_INTENSITY_SCALE`.
+`SPEAR_ORBIT_LIGHT_SETTINGS_FILE`, `SPEAR_ORBIT_OUTPUT_DIR`,
+`SPEAR_SCENE_LIGHT_INTENSITY_SCALE`, `SPEAR_FLASHLIGHT_SOURCE_RADIUS`, and
+`SPEAR_FLASHLIGHT_SOFT_SOURCE_RADIUS`.
 
-Render mode reuses the saved orbit spec and applies each entry in a light
-settings JSON file. The repository includes
-`examples/flashlight/orbit_light_settings.json` with the active-illumination
-set `scene_on_flashlight_off`, `scene_off_flashlight_off`,
-`scene_off_flashlight_on`, and `scene_on_flashlight_on`:
+Render mode reuses the saved orbit spec. By default, the
+`color-flashlight-only` preset writes temporary settings and produces the four
+active-illumination RGB outputs `scene_on_flashlight_off`,
+`scene_on_flashlight_on`, `scene_off_flashlight_off`, and
+`scene_off_flashlight_on`:
 
 ```console
 examples/flashlight/run_orbit_workflow.sh render
 ```
 
-`--scene-light-intensity-scale` controls scene lights for scene-on renders.
-Settings with `"scene_lights_enabled": false` run in a separate scene-off pass
-with scene lights disabled, independent of the configured scene-on scale. The
-helper keeps fixed exposure explicit with `--disable-auto-exposure` and does
-not require users to hand-write JSON. `scene_off_flashlight_off` is a
-no-flashlight-ever diagnostic control for baked, static, or environment
-illumination that can remain after runtime scene lights are disabled; that
-setting uses `"spawn_flashlight": false` so the scene-off setup does not warm up
-with the saved orbit baseline flashlight. Scene-off passes hide existing scene
-light components, zero direct and indirect lighting intensity, and also try to
-disable available environment contributors such as sky, fog, reflection capture,
-and post-process components before any flashlight setting that needs a spawned
-spotlight. Render history is disabled by default in `run_orbit_collection.py`,
+`--scene-light-intensity-scale` controls scene lights for scene-on renders. The
+default scene-off pass keeps material-color RGB capture active and forces scene
+light scale `0.0`, independent of the configured scene-on scale. Use
+`--render-preset validation` to render the checked-in
+`examples/flashlight/orbit_light_settings.json` diagnostic settings, including
+scene-off lighting-only capture entries. The helper keeps fixed exposure
+explicit with `--disable-auto-exposure` and does not require users to hand-write
+JSON. `scene_off_flashlight_off` is a no-flashlight-ever diagnostic control for
+baked, static, or environment illumination that can remain after runtime scene
+lights are disabled; the validation JSON setting uses `"spawn_flashlight":
+false` so the scene-off setup does not warm up with the saved orbit baseline
+flashlight. Validation scene-off passes hide existing scene light components,
+zero direct and indirect lighting intensity, and also try to disable available
+environment contributors such as sky, fog, reflection capture, and post-process
+components before any flashlight setting that needs a spawned spotlight. Render
+history is disabled by default in `run_orbit_collection.py`,
 so each explicit capture is treated as a camera cut and the script attempts
 capture-component render-state readback after initialization. The metadata
 reports whether that readback verified render-history disablement for every

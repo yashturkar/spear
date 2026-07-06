@@ -55,10 +55,12 @@ python examples/flashlight/run.py \
   --movement-speed 600 \
   --disable-auto-exposure \
   --scene-light-intensity-scale 0.2 \
-  --intensity 1500 \
-  --attenuation-radius 450 \
-  --inner-cone-angle 8 \
-  --outer-cone-angle 20 \
+  --intensity 1200 \
+  --attenuation-radius 650 \
+  --inner-cone-angle 2 \
+  --outer-cone-angle 60 \
+  --source-radius 12 \
+  --soft-source-radius 80 \
   --indirect-lighting-intensity 0
 ```
 
@@ -72,10 +74,12 @@ python examples/flashlight/run.py \
   --movement-speed 600 \
   --disable-auto-exposure \
   --scene-light-intensity-scale 0.1 \
-  --intensity 1500 \
-  --attenuation-radius 450 \
-  --inner-cone-angle 8 \
-  --outer-cone-angle 20 \
+  --intensity 1200 \
+  --attenuation-radius 650 \
+  --inner-cone-angle 2 \
+  --outer-cone-angle 60 \
+  --source-radius 12 \
+  --soft-source-radius 80 \
   --indirect-lighting-intensity 0
 ```
 
@@ -88,10 +92,12 @@ python examples/flashlight/run.py \
   --movement-speed 600 \
   --disable-auto-exposure \
   --scene-light-intensity-scale 0.2 \
-  --intensity 1500 \
-  --attenuation-radius 450 \
-  --inner-cone-angle 8 \
-  --outer-cone-angle 20 \
+  --intensity 1200 \
+  --attenuation-radius 650 \
+  --inner-cone-angle 2 \
+  --outer-cone-angle 60 \
+  --source-radius 12 \
+  --soft-source-radius 80 \
   --indirect-lighting-intensity 0
 
 python examples/flashlight/run.py \
@@ -99,10 +105,12 @@ python examples/flashlight/run.py \
   --movement-speed 600 \
   --disable-auto-exposure \
   --scene-light-intensity-scale 0.1 \
-  --intensity 1500 \
-  --attenuation-radius 450 \
-  --inner-cone-angle 8 \
-  --outer-cone-angle 20 \
+  --intensity 1200 \
+  --attenuation-radius 650 \
+  --inner-cone-angle 2 \
+  --outer-cone-angle 60 \
+  --source-radius 12 \
+  --soft-source-radius 80 \
   --indirect-lighting-intensity 0
 
 python examples/flashlight/run.py \
@@ -110,10 +118,12 @@ python examples/flashlight/run.py \
   --movement-speed 600 \
   --disable-auto-exposure \
   --scene-light-intensity-scale 0.0 \
-  --intensity 1500 \
-  --attenuation-radius 450 \
-  --inner-cone-angle 8 \
-  --outer-cone-angle 20 \
+  --intensity 1200 \
+  --attenuation-radius 650 \
+  --inner-cone-angle 2 \
+  --outer-cone-angle 60 \
+  --source-radius 12 \
+  --soft-source-radius 80 \
   --indirect-lighting-intensity 0
 ```
 
@@ -189,10 +199,13 @@ explicitly with `--disable-auto-exposure`, scales scene lights with
 `--scene-light-intensity-scale 0.2`, leaves scene-capture render history
 disabled by the Python script default, and uses the current small-room
 flashlight profile:
-`--intensity 1500`, `--attenuation-radius 450`,
-`--inner-cone-angle 8`, `--outer-cone-angle 20`, and
+`--intensity 1200`, `--attenuation-radius 650`,
+`--inner-cone-angle 2`, `--outer-cone-angle 60`,
+`--source-radius 12`, `--soft-source-radius 80`, and
 `--indirect-lighting-intensity 0`. Override these with matching helper flags or
-environment variables such as `SPEAR_SCENE_LIGHT_INTENSITY_SCALE=0.1`.
+environment variables such as `SPEAR_SCENE_LIGHT_INTENSITY_SCALE=0.1`,
+`SPEAR_FLASHLIGHT_SOURCE_RADIUS=12`, or
+`SPEAR_FLASHLIGHT_SOFT_SOURCE_RADIUS=80`.
 
 The orbit spec JSON records the map/map path, start camera pose, selected target
 point, orbit radius, duration, FPS, image size, field of view, and baseline
@@ -213,6 +226,7 @@ light settings JSON list. The checked-in active-illumination set lives at
   {
     "name": "scene_off_flashlight_off",
     "scene_lights_enabled": false,
+    "spawn_flashlight": false,
     "enabled": false,
     "intensity": 0.0,
     "yaw_offset_degrees": 0.0,
@@ -222,7 +236,7 @@ light settings JSON list. The checked-in active-illumination set lives at
     "name": "scene_off_flashlight_on",
     "scene_lights_enabled": false,
     "enabled": true,
-    "intensity": 1500.0,
+    "intensity": 1200.0,
     "yaw_offset_degrees": 0.0,
     "pitch_offset_degrees": 0.0
   },
@@ -230,7 +244,7 @@ light settings JSON list. The checked-in active-illumination set lives at
     "name": "scene_on_flashlight_on",
     "scene_lights_enabled": true,
     "enabled": true,
-    "intensity": 1500.0,
+    "intensity": 1200.0,
     "yaw_offset_degrees": 0.0,
     "pitch_offset_degrees": 0.0
   }
@@ -243,18 +257,23 @@ Render RGB and depth videos for every light setting:
 examples/flashlight/run_orbit_workflow.sh render
 ```
 
-`--scene-light-intensity-scale` controls the ambient and fixture scene lights
-for scene-on renders. Entries with `"scene_lights_enabled": false` are rendered
-in a separate scene-off pass with scene lights disabled, independent of the
-configured scene-on scale. The default render command therefore writes exactly
-these active-illumination conditions: `scene_on_flashlight_off`,
-`scene_off_flashlight_off`, `scene_off_flashlight_on`, and
-`scene_on_flashlight_on`. The scene-off flashlight-off output is a diagnostic
-control for baked, static, or environment illumination that can remain after
-runtime scene lights are disabled. Render mode marks each explicit capture as a
-camera cut by default, disables capture render-state persistence, and turns off
-Lumen GI/reflections, screen-space reflections, Temporal AA, and motion blur for
-deterministic data collection; pass
+The default `color-flashlight-only` render preset writes temporary settings and
+runs two color passes against the dark cafeteria validation map. The scene-on
+pass uses the configured `--scene-light-intensity-scale`; the scene-off pass
+keeps the RGB capture on `final_tone_curve_hdr` and forces
+`--scene-light-intensity-scale 0.0`, preserving material color while removing
+runtime scene light contribution. The default render command therefore writes
+exactly these active-illumination conditions: `scene_on_flashlight_off`,
+`scene_on_flashlight_on`, `scene_off_flashlight_off`, and
+`scene_off_flashlight_on`. Use `--render-preset validation` to render the
+checked-in `examples/flashlight/orbit_light_settings.json` diagnostic path,
+including its scene-off lighting-only capture settings. The scene-off
+flashlight-off output is a diagnostic control for baked, static, or environment
+illumination that can remain after runtime scene lights are removed. Render mode
+marks each explicit capture as a camera cut by default, disables capture
+render-state persistence, and turns off Lumen GI/reflections, screen-space
+reflections, Temporal AA, and motion blur for deterministic data collection;
+pass
 `examples/flashlight/run_orbit_workflow.sh render -- --enable-render-history`
 only when comparing against the engine's normal temporal behavior.
 
