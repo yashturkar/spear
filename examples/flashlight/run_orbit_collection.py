@@ -58,6 +58,7 @@ r.TemporalAA.Quality=0
 """
 
 SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS = (
+    "AmbientOcclusion",
     "AmbientCubemap",
     "Atmosphere",
     "Cloud",
@@ -65,17 +66,26 @@ SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS = (
     "Fog",
     "GlobalIllumination",
     "IndirectLightingCache",
+    "LightShafts",
+    "LocalExposure",
     "LumenGlobalIllumination",
     "LumenReflections",
+    "Materials",
     "ReflectionEnvironment",
     "ScreenSpaceAO",
     "ScreenSpaceReflections",
+    "Specular",
     "SkyLighting",
     "VolumetricFog",
     "VolumetricLightmap",
 )
 
+SCENE_OFF_LIGHTING_ISOLATION_ENABLED_SHOW_FLAGS = (
+    "LightingOnlyOverride",
+)
+
 SCENE_OFF_LIGHTING_ISOLATION_ENGINE_INI = """[SystemSettings]
+ShowFlag.AmbientOcclusion=0
 ShowFlag.AmbientCubemap=0
 ShowFlag.Atmosphere=0
 ShowFlag.Cloud=0
@@ -83,11 +93,16 @@ ShowFlag.DistanceFieldAO=0
 ShowFlag.Fog=0
 ShowFlag.GlobalIllumination=0
 ShowFlag.IndirectLightingCache=0
+ShowFlag.LightShafts=0
+ShowFlag.LightingOnlyOverride=1
+ShowFlag.LocalExposure=0
 ShowFlag.LumenGlobalIllumination=0
 ShowFlag.LumenReflections=0
+ShowFlag.Materials=0
 ShowFlag.ReflectionEnvironment=0
 ShowFlag.ScreenSpaceAO=0
 ShowFlag.ScreenSpaceReflections=0
+ShowFlag.Specular=0
 ShowFlag.SkyLighting=0
 ShowFlag.VolumetricFog=0
 ShowFlag.VolumetricLightmap=0
@@ -107,16 +122,52 @@ MAPS = {
     "vehicle_offroad": "/Game/VehicleTemplate/Maps/VehicleOffroadExampleMap",
 }
 
+RGB_CAPTURE_PROFILE_FINAL_TONE_CURVE = "final_tone_curve_hdr"
+RGB_CAPTURE_PROFILE_LIGHTING_ONLY = "lighting_only_post_process_input_2"
+
+FINAL_TONE_CURVE_RGB_COMPONENT_LONG_NAME = "DefaultSceneRoot.final_tone_curve_hdr_"
+SCENE_OFF_LIGHTING_ONLY_RGB_COMPONENT_LONG_NAME = "DefaultSceneRoot.lighting_only_post_process_input_2_"
+
 CAPTURE_COMPONENT_DESCS = [
     {
         "name": "rgb",
-        "long_name": "DefaultSceneRoot.final_tone_curve_hdr_",
+        "long_name": FINAL_TONE_CURVE_RGB_COMPONENT_LONG_NAME,
+        "capture_profile": RGB_CAPTURE_PROFILE_FINAL_TONE_CURVE,
+        "scene_off_lighting_only_rgb_requested": False,
     },
     {
         "name": "depth_meters",
         "long_name": "DefaultSceneRoot.sp_depth_meters_",
     },
 ]
+
+SCENE_OFF_CAPTURE_COMPONENT_DESCS = [
+    {
+        "name": "rgb",
+        "long_name": SCENE_OFF_LIGHTING_ONLY_RGB_COMPONENT_LONG_NAME,
+        "capture_profile": RGB_CAPTURE_PROFILE_LIGHTING_ONLY,
+        "scene_off_lighting_only_rgb_requested": True,
+    },
+    {
+        "name": "depth_meters",
+        "long_name": "DefaultSceneRoot.sp_depth_meters_",
+    },
+]
+
+
+def get_capture_component_descs(scene_off_lighting_isolation=False):
+    component_descs = (
+        SCENE_OFF_CAPTURE_COMPONENT_DESCS
+        if scene_off_lighting_isolation
+        else CAPTURE_COMPONENT_DESCS)
+    return [dict(component_desc) for component_desc in component_descs]
+
+
+def get_rgb_capture_component_desc(component_descs):
+    for component_desc in component_descs:
+        if component_desc["name"] == "rgb":
+            return component_desc
+    raise RuntimeError("No rgb capture component descriptor is configured.")
 
 PERSIST_RENDERING_STATE_PROPERTY_NAMES = (
     "always_persist_rendering_state",
@@ -768,13 +819,21 @@ def apply_scene_off_lighting_isolation_console_commands(game):
         state["error"] = str(exc)
         return state
 
-    for show_flag_name in SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS:
-        command = f"ShowFlag.{show_flag_name} 0"
-        applied = try_call_method(
-            player_controller,
-            "ConsoleCommand",
-            Command=command,
-            bWriteToLog=True)
+    show_flag_values = {
+        show_flag_name: False
+        for show_flag_name in SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS
+    }
+    show_flag_values.update({
+        show_flag_name: True
+        for show_flag_name in SCENE_OFF_LIGHTING_ISOLATION_ENABLED_SHOW_FLAGS
+    })
+
+    for show_flag_name, enabled in show_flag_values.items():
+        command = f"ShowFlag.{show_flag_name} {1 if enabled else 0}"
+        applied = try_execute_console_command(
+            game=game,
+            player_controller=player_controller,
+            command=command)
         state["commands"].append({
             "command": command,
             "applied": applied,
@@ -783,6 +842,40 @@ def apply_scene_off_lighting_isolation_console_commands(game):
             state["applied"] += 1
 
     return state
+
+
+def try_execute_console_command(game, player_controller, command):
+    if try_call_method(
+            player_controller,
+            "ConsoleCommand",
+            Command=command,
+            bWriteToLog=True):
+        return True
+    if try_call_method(
+            player_controller,
+            "ConsoleCommand",
+            Cmd=command,
+            bWriteToLog=True):
+        return True
+
+    try:
+        kismet_system_library = game.get_unreal_object(uclass="UKismetSystemLibrary")
+    except Exception:
+        return False
+
+    for player_arg_name in ("SpecificPlayer", "Player"):
+        if try_call_method(
+                kismet_system_library,
+                "ExecuteConsoleCommand",
+                Command=command,
+                **{player_arg_name: player_controller}):
+            return True
+    if try_call_method(
+            kismet_system_library,
+            "ExecuteConsoleCommand",
+            Command=command):
+        return True
+    return False
 
 
 def build_config(
@@ -1283,6 +1376,19 @@ def get_deterministic_capture_metadata(component_descs, disable_render_history):
     }
 
 
+def get_capture_component_metadata(component_descs):
+    return [
+        {
+            "name": component_desc["name"],
+            "long_name": component_desc.get("long_name"),
+            "capture_profile": component_desc.get("capture_profile"),
+            "scene_off_lighting_only_rgb_requested": bool(
+                component_desc.get("scene_off_lighting_only_rgb_requested", False)),
+        }
+        for component_desc in component_descs
+    ]
+
+
 def get_scene_off_lighting_isolation_metadata(component_descs, requested):
     components = [
         {
@@ -1294,6 +1400,7 @@ def get_scene_off_lighting_isolation_metadata(component_descs, requested):
     return {
         "requested": bool(requested),
         "disabled_show_flags": list(SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS) if requested else [],
+        "enabled_show_flags": list(SCENE_OFF_LIGHTING_ISOLATION_ENABLED_SHOW_FLAGS) if requested else [],
         "engine_ini_applied": bool(requested),
         "capture_show_flags_attempted": bool(requested),
         "capture_show_flags_configured": bool(requested) and all(
@@ -1301,7 +1408,7 @@ def get_scene_off_lighting_isolation_metadata(component_descs, requested):
             for component in components),
         "components": components,
         "note": (
-            "Scene-off renders request direct-light-only capture by disabling skylight, GI, ambient, reflection, fog, and volumetric show flags."
+            "Scene-off renders request lighting-only direct-light capture by disabling materials, skylight, GI, ambient, reflection, fog, and volumetric show flags."
             if requested
             else "Scene-off lighting isolation was not requested."
         ),
@@ -1324,6 +1431,12 @@ def write_setting_metadata(
     scene_off_lighting_isolation = get_scene_off_lighting_isolation_metadata(
         component_descs=component_descs,
         requested=scene_off_lighting_isolation_requested)
+    capture_components = get_capture_component_metadata(component_descs=component_descs)
+    rgb_capture_components = [
+        component_desc
+        for component_desc in capture_components
+        if component_desc["name"] == "rgb"
+    ]
     metadata = {
         "schema_version": "1.0.0",
         "setting": to_plain_dict(setting),
@@ -1331,6 +1444,8 @@ def write_setting_metadata(
         "scene_light_state": to_plain_dict(scene_light_state),
         "disable_auto_exposure": bool(disable_auto_exposure),
         "disable_render_history": bool(disable_render_history),
+        "capture_components": capture_components,
+        "rgb_capture_component": rgb_capture_components[0] if rgb_capture_components else None,
         "render_history_disable_verified": deterministic_capture["render_history_disable_verified"],
         "deterministic_capture": deterministic_capture,
         "deterministic_capture_components": deterministic_capture["components"],
@@ -1352,11 +1467,24 @@ def update_setting_metadata(metadata_file, updates):
     return metadata
 
 
-def visualize_rgb(data):
+def visualize_rgb(data, capture_profile=RGB_CAPTURE_PROFILE_FINAL_TONE_CURVE):
     image = np.asarray(data)
-    if image.ndim == 3 and image.shape[2] >= 3:
-        return image[:, :, :3]
-    return image
+    if capture_profile == RGB_CAPTURE_PROFILE_LIGHTING_ONLY:
+        if image.ndim == 3 and image.shape[2] >= 3:
+            image = image[:, :, :3]
+        if np.issubdtype(image.dtype, np.floating):
+            image = np.nan_to_num(image, nan=0.0, posinf=1.0, neginf=0.0)
+            image = (np.clip(image, 0.0, 1.0) * 255.0).astype(np.uint8)
+        else:
+            image = np.clip(image, 0, 255).astype(np.uint8)
+        if image.ndim == 3 and image.shape[2] >= 3:
+            return image[:, :, [2, 1, 0]]
+        return image
+    if capture_profile == RGB_CAPTURE_PROFILE_FINAL_TONE_CURVE:
+        if image.ndim == 3 and image.shape[2] >= 3:
+            return image[:, :, :3]
+        return image
+    raise ValueError(f"Unsupported RGB capture profile: {capture_profile}")
 
 
 def compute_rgb_luma_diagnostics(frame_dir, frame_count):
@@ -1678,13 +1806,25 @@ def configure_deterministic_capture_component(component):
     return state
 
 
-def make_scene_off_show_flag_settings():
+def get_scene_off_show_flag_values():
+    show_flag_values = {
+        show_flag_name: False
+        for show_flag_name in SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS
+    }
+    show_flag_values.update({
+        show_flag_name: True
+        for show_flag_name in SCENE_OFF_LIGHTING_ISOLATION_ENABLED_SHOW_FLAGS
+    })
+    return show_flag_values
+
+
+def make_scene_off_show_flag_settings(name_key="ShowFlagName", enabled_key="Enabled"):
     return [
         {
-            "ShowFlagName": show_flag_name,
-            "Enabled": False,
+            name_key: show_flag_name,
+            enabled_key: enabled,
         }
-        for show_flag_name in SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS
+        for show_flag_name, enabled in get_scene_off_show_flag_values().items()
     ]
 
 
@@ -1707,35 +1847,84 @@ def try_disable_show_flag_object_methods(show_flags, show_flag_name):
     return False
 
 
+def try_set_show_flag_settings_property(component, property_name, show_flag_settings):
+    if try_set_mapping_or_attr_value(obj=component, key=property_name, value=show_flag_settings):
+        return True
+    set_property_value = getattr(component, "set_property_value", None)
+    if set_property_value is not None:
+        try:
+            set_property_value(property_name, show_flag_settings, notify_editor=True)
+            return True
+        except TypeError:
+            try:
+                set_property_value(property_name, show_flag_settings)
+                return True
+            except Exception:
+                pass
+        except Exception:
+            pass
+    return False
+
+
 def configure_scene_off_capture_show_flags(component):
-    show_flag_settings = make_scene_off_show_flag_settings()
     state = {
         "configured": False,
         "show_flag_settings_set": False,
         "show_flag_settings_property": None,
+        "show_flag_settings_key_style": None,
         "show_flag_methods_disabled": [],
+        "show_flag_methods_enabled": [],
         "show_flag_methods_unverified": [],
     }
 
+    show_flag_setting_variants = (
+        ("pascal", make_scene_off_show_flag_settings("ShowFlagName", "Enabled")),
+        ("snake", make_scene_off_show_flag_settings("show_flag_name", "enabled")),
+    )
     for property_name in ("ShowFlagSettings", "show_flag_settings"):
-        if try_set_mapping_or_attr_value(obj=component, key=property_name, value=show_flag_settings):
-            state["show_flag_settings_set"] = True
-            state["show_flag_settings_property"] = property_name
+        for key_style, show_flag_settings in show_flag_setting_variants:
+            if try_set_show_flag_settings_property(
+                    component=component,
+                    property_name=property_name,
+                    show_flag_settings=show_flag_settings):
+                state["show_flag_settings_set"] = True
+                state["show_flag_settings_property"] = property_name
+                state["show_flag_settings_key_style"] = key_style
+                break
+        if state["show_flag_settings_set"]:
             break
 
     show_flags = get_first_property_value(obj=component, property_names=("ShowFlags", "show_flags"))
     if show_flags is not None:
         show_flags = unwrap_property_value(value=show_flags)
-        for show_flag_name in SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS:
-            if try_disable_show_flag_object_methods(show_flags=show_flags, show_flag_name=show_flag_name):
-                state["show_flag_methods_disabled"].append(show_flag_name)
+        for show_flag_name, enabled in get_scene_off_show_flag_values().items():
+            if try_set_show_flag_object_methods(
+                    show_flags=show_flags,
+                    show_flag_name=show_flag_name,
+                    enabled=enabled):
+                if enabled:
+                    state["show_flag_methods_enabled"].append(show_flag_name)
+                else:
+                    state["show_flag_methods_disabled"].append(show_flag_name)
             else:
                 state["show_flag_methods_unverified"].append(show_flag_name)
 
     state["configured"] = (
         state["show_flag_settings_set"]
-        or bool(state["show_flag_methods_disabled"]))
+        or bool(state["show_flag_methods_disabled"])
+        or bool(state["show_flag_methods_enabled"]))
     return state
+
+
+def try_set_show_flag_object_methods(show_flags, show_flag_name, enabled):
+    for method_name in get_show_flag_setter_method_names(show_flag_name=show_flag_name):
+        if try_call_method(show_flags, method_name, Value=enabled):
+            return True
+        if try_call_method(show_flags, method_name, bEnabled=enabled):
+            return True
+        if try_call_method(show_flags, method_name, Enabled=enabled):
+            return True
+    return False
 
 
 def write_video(frames_dir, video_file, frame_count, fps):
@@ -1793,7 +1982,8 @@ def setup_camera_sensor(
     camera_sensor = game.unreal_service.spawn_actor(uclass=bp_camera_sensor_uclass)
     game.unreal_service.set_stable_name_for_actor(actor=camera_sensor, stable_name="Debug/OrbitCollectionCameraSensor")
 
-    component_descs = [dict(component_desc) for component_desc in CAPTURE_COMPONENT_DESCS]
+    component_descs = get_capture_component_descs(
+        scene_off_lighting_isolation=scene_off_lighting_isolation)
     camera_components = []
     for component_desc in component_descs:
         component = game.unreal_service.get_component_by_name(
@@ -2401,7 +2591,12 @@ def run_render_group(args, orbit_spec, light_settings, scene_lights_enabled):
                     disable_render_history=args.disable_render_history,
                     read_pixel_data=True)
 
-                rgb_frame = visualize_rgb(data=component_data["rgb"])
+                rgb_capture_component_desc = get_rgb_capture_component_desc(component_descs=component_descs)
+                rgb_frame = visualize_rgb(
+                    data=component_data["rgb"],
+                    capture_profile=rgb_capture_component_desc.get(
+                        "capture_profile",
+                        RGB_CAPTURE_PROFILE_FINAL_TONE_CURVE))
                 depth = depth_to_meters(data=component_data["depth_meters"])
                 finite_min_depth, finite_max_depth = update_depth_range(
                     depth=depth,

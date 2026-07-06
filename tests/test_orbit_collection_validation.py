@@ -214,6 +214,7 @@ class FakeUnrealService:
     def __init__(self, components_by_actor, components_by_name=None):
         self.components_by_actor = components_by_actor
         self.components_by_name = components_by_name or {}
+        self.component_name_requests = []
 
     def find_actors(self):
         return list(self.components_by_actor.keys())
@@ -248,6 +249,7 @@ class FakeUnrealService:
         }
 
     def get_component_by_name(self, actor, component_name, uclass):
+        self.component_name_requests.append(component_name)
         self.last_component_by_name_request = {
             "actor": actor,
             "component_name": component_name,
@@ -314,6 +316,18 @@ class FakeConsolePlayerController:
         self.commands.append((Command, bWriteToLog))
 
 
+class FakeNoDirectConsolePlayerController:
+    pass
+
+
+class FakeKismetSystemLibrary:
+    def __init__(self):
+        self.commands = []
+
+    def ExecuteConsoleCommand(self, Command, SpecificPlayer=None):
+        self.commands.append((Command, SpecificPlayer))
+
+
 class FakeGameplayStatics:
     def __init__(self, player_controller):
         self.player_controller = player_controller
@@ -330,6 +344,33 @@ class FakeConsoleGame(FakeGame):
     def get_unreal_object(self, uclass):
         self.uclass = uclass
         return FakeGameplayStatics(player_controller=self.player_controller)
+
+
+class FakeKismetConsoleGame(FakeGame):
+    def __init__(self):
+        super().__init__()
+        self.player_controller = FakeNoDirectConsolePlayerController()
+        self.kismet_system_library = FakeKismetSystemLibrary()
+
+    def get_unreal_object(self, uclass):
+        if uclass == "UGameplayStatics":
+            return FakeGameplayStatics(player_controller=self.player_controller)
+        if uclass == "UKismetSystemLibrary":
+            return self.kismet_system_library
+        raise AttributeError(uclass)
+
+
+class FakeShowFlagSettingsSetPropertyComponent:
+    def __init__(self):
+        self.calls = []
+        self.ShowFlags = FakeShowFlags()
+
+    def set_property_value(self, property_name, value, notify_editor=False):
+        self.calls.append((property_name, value, notify_editor))
+        if property_name != "ShowFlagSettings":
+            raise AttributeError(property_name)
+        if not value or "show_flag_name" not in value[0] or "enabled" not in value[0]:
+            raise ValueError("snake-case show flag settings required")
 
 
 class OrbitCollectionValidationTests(unittest.TestCase):
@@ -676,10 +717,84 @@ class OrbitCollectionValidationTests(unittest.TestCase):
             self.assertTrue(component.PostProcessSettings["override_dynamic_global_illumination_method"])
             self.assertTrue(component.PostProcessSettings["override_reflection_method"])
 
+    def test_capture_component_descs_use_lighting_only_rgb_for_scene_off(self):
+        default_descs = orbit_collection.get_capture_component_descs(
+            scene_off_lighting_isolation=False)
+        scene_off_descs = orbit_collection.get_capture_component_descs(
+            scene_off_lighting_isolation=True)
+
+        self.assertEqual(
+            orbit_collection.get_rgb_capture_component_desc(default_descs)["long_name"],
+            orbit_collection.FINAL_TONE_CURVE_RGB_COMPONENT_LONG_NAME)
+        self.assertEqual(
+            orbit_collection.get_rgb_capture_component_desc(default_descs)["capture_profile"],
+            orbit_collection.RGB_CAPTURE_PROFILE_FINAL_TONE_CURVE)
+        self.assertEqual(
+            orbit_collection.get_rgb_capture_component_desc(scene_off_descs)["long_name"],
+            orbit_collection.SCENE_OFF_LIGHTING_ONLY_RGB_COMPONENT_LONG_NAME)
+        self.assertEqual(
+            orbit_collection.get_rgb_capture_component_desc(scene_off_descs)["capture_profile"],
+            orbit_collection.RGB_CAPTURE_PROFILE_LIGHTING_ONLY)
+        self.assertTrue(
+            orbit_collection.get_rgb_capture_component_desc(scene_off_descs)[
+                "scene_off_lighting_only_rgb_requested"])
+
+    def test_setup_camera_sensor_uses_lighting_only_rgb_component_for_scene_off(self):
+        components_by_name = {
+            component_desc["long_name"]: FakeCaptureComponent()
+            for component_desc in orbit_collection.SCENE_OFF_CAPTURE_COMPONENT_DESCS
+        }
+        game = FakeGame(components_by_name=components_by_name)
+
+        _, component_descs, _ = orbit_collection.setup_camera_sensor(
+            game=game,
+            width=320,
+            height=240,
+            initial_viewport_desc=make_orbit_spec()["start_camera_pose"],
+            disable_render_history=True,
+            scene_off_lighting_isolation=True)
+
+        self.assertEqual(
+            component_descs[0]["long_name"],
+            orbit_collection.SCENE_OFF_LIGHTING_ONLY_RGB_COMPONENT_LONG_NAME)
+        self.assertEqual(
+            game.unreal_service.component_name_requests[0],
+            orbit_collection.SCENE_OFF_LIGHTING_ONLY_RGB_COMPONENT_LONG_NAME)
+
+    def test_visualize_rgb_preserves_final_tone_curve_bgr_uint8_frames(self):
+        data = np.array([[[10, 20, 30, 255]]], dtype=np.uint8)
+
+        image = orbit_collection.visualize_rgb(
+            data=data,
+            capture_profile=orbit_collection.RGB_CAPTURE_PROFILE_FINAL_TONE_CURVE)
+
+        self.assertEqual(image.dtype, np.uint8)
+        np.testing.assert_array_equal(
+            image,
+            np.array([[[10, 20, 30]]], dtype=np.uint8))
+
+    def test_visualize_rgb_converts_lighting_only_float_rgb_to_bgr_uint8(self):
+        data = np.array([[
+            [0.0, 0.5, 1.0, 1.0],
+            [np.nan, np.inf, -1.0, 0.0],
+        ]], dtype=np.float32)
+
+        image = orbit_collection.visualize_rgb(
+            data=data,
+            capture_profile=orbit_collection.RGB_CAPTURE_PROFILE_LIGHTING_ONLY)
+
+        self.assertEqual(image.dtype, np.uint8)
+        np.testing.assert_array_equal(
+            image,
+            np.array([[
+                [255, 127, 0],
+                [0, 255, 0],
+            ]], dtype=np.uint8))
+
     def test_setup_camera_sensor_can_apply_scene_off_capture_show_flags(self):
         components_by_name = {
             component_desc["long_name"]: FakeCaptureComponent()
-            for component_desc in orbit_collection.CAPTURE_COMPONENT_DESCS
+            for component_desc in orbit_collection.SCENE_OFF_CAPTURE_COMPONENT_DESCS
         }
         game = FakeGame(components_by_name=components_by_name)
 
@@ -697,11 +812,16 @@ class OrbitCollectionValidationTests(unittest.TestCase):
             self.assertTrue(state["show_flag_settings_set"])
             self.assertEqual(
                 [entry["ShowFlagName"] for entry in component.ShowFlagSettings],
-                list(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS))
+                list(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS)
+                + list(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_ENABLED_SHOW_FLAGS))
             self.assertEqual(
                 set(component.ShowFlags.values.keys()),
-                set(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS))
-            self.assertTrue(all(value is False for value in component.ShowFlags.values.values()))
+                set(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS)
+                | set(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_ENABLED_SHOW_FLAGS))
+            for show_flag_name in orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS:
+                self.assertFalse(component.ShowFlags.values[show_flag_name])
+            for show_flag_name in orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_ENABLED_SHOW_FLAGS:
+                self.assertTrue(component.ShowFlags.values[show_flag_name])
 
     def test_disable_scene_lights_hides_and_zeroes_existing_light_components(self):
         first_component = FakeLightComponent()
@@ -747,13 +867,46 @@ class OrbitCollectionValidationTests(unittest.TestCase):
 
         state = orbit_collection.apply_scene_off_lighting_isolation_console_commands(game=game)
 
-        self.assertEqual(state["applied"], len(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS))
+        self.assertEqual(
+            state["applied"],
+            len(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS)
+            + len(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_ENABLED_SHOW_FLAGS))
         self.assertEqual(
             [command for command, _ in game.player_controller.commands],
             [
                 f"ShowFlag.{show_flag_name} 0"
                 for show_flag_name in orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS
+            ] + [
+                f"ShowFlag.{show_flag_name} 1"
+                for show_flag_name in orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_ENABLED_SHOW_FLAGS
             ])
+
+    def test_scene_off_lighting_isolation_uses_kismet_console_command_fallback(self):
+        game = FakeKismetConsoleGame()
+
+        state = orbit_collection.apply_scene_off_lighting_isolation_console_commands(game=game)
+
+        expected_count = (
+            len(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_SHOW_FLAGS)
+            + len(orbit_collection.SCENE_OFF_LIGHTING_ISOLATION_ENABLED_SHOW_FLAGS))
+        self.assertEqual(state["applied"], expected_count)
+        self.assertEqual(len(game.kismet_system_library.commands), expected_count)
+        self.assertIs(game.kismet_system_library.commands[0][1], game.player_controller)
+
+    def test_scene_off_capture_show_flags_try_snake_case_set_property_fallback(self):
+        component = FakeShowFlagSettingsSetPropertyComponent()
+
+        state = orbit_collection.configure_scene_off_capture_show_flags(component=component)
+
+        self.assertTrue(state["configured"])
+        self.assertTrue(state["show_flag_settings_set"])
+        self.assertEqual(state["show_flag_settings_property"], "ShowFlagSettings")
+        self.assertEqual(state["show_flag_settings_key_style"], "snake")
+        self.assertTrue(any(
+            entry["show_flag_name"] == "LightingOnlyOverride" and entry["enabled"] is True
+            for _, settings, _ in component.calls
+            for entry in settings
+            if "show_flag_name" in entry))
 
     def test_write_setting_metadata_records_scene_light_and_render_state(self):
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -880,6 +1033,54 @@ class OrbitCollectionValidationTests(unittest.TestCase):
         self.assertTrue(metadata["scene_off_lighting_isolation"]["engine_ini_applied"])
         self.assertTrue(metadata["scene_off_lighting_isolation"]["capture_show_flags_configured"])
         self.assertIn("SkyLighting", metadata["scene_off_lighting_isolation"]["disabled_show_flags"])
+        self.assertIn("Materials", metadata["scene_off_lighting_isolation"]["disabled_show_flags"])
+        self.assertIn("LightingOnlyOverride", metadata["scene_off_lighting_isolation"]["enabled_show_flags"])
+
+    def test_write_setting_metadata_records_scene_off_rgb_capture_component(self):
+        component_descs = orbit_collection.get_capture_component_descs(
+            scene_off_lighting_isolation=True)
+        for component_desc in component_descs:
+            component_desc["deterministic_capture_state"] = {
+                "always_persist_rendering_state_disabled": True,
+            }
+            component_desc["scene_off_lighting_isolation_state"] = {
+                "configured": True,
+                "show_flag_settings_set": True,
+            }
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            setting_dir = os.path.join(temp_dir, "scene_off_flashlight_off")
+            os.makedirs(setting_dir)
+            metadata_file = orbit_collection.write_setting_metadata(
+                setting_dir=setting_dir,
+                setting={
+                    "name": "scene_off_flashlight_off",
+                    "scene_lights_enabled": False,
+                    "spawn_flashlight": False,
+                    "enabled": False,
+                    "intensity": 0.0,
+                    "yaw_offset_degrees": 0.0,
+                    "pitch_offset_degrees": 0.0,
+                },
+                scene_lights_enabled=False,
+                scene_light_state={},
+                disable_auto_exposure=True,
+                disable_render_history=True,
+                component_descs=component_descs,
+                scene_off_lighting_isolation_requested=True)
+
+            with open(metadata_file, "r", encoding="utf-8") as f:
+                metadata = orbit_collection.json.load(f)
+
+        rgb_capture_component = metadata["rgb_capture_component"]
+        self.assertEqual(
+            rgb_capture_component["long_name"],
+            orbit_collection.SCENE_OFF_LIGHTING_ONLY_RGB_COMPONENT_LONG_NAME)
+        self.assertEqual(
+            rgb_capture_component["capture_profile"],
+            orbit_collection.RGB_CAPTURE_PROFILE_LIGHTING_ONLY)
+        self.assertTrue(rgb_capture_component["scene_off_lighting_only_rgb_requested"])
+        self.assertIn(rgb_capture_component, metadata["capture_components"])
 
     def test_residual_scene_off_illumination_diagnostics_flags_bright_no_flashlight_control(self):
         diagnostics = orbit_collection.get_residual_scene_off_illumination_diagnostics(
@@ -1027,6 +1228,8 @@ class OrbitCollectionValidationTests(unittest.TestCase):
         self.assertIn("ShowFlag.GlobalIllumination=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertIn("ShowFlag.IndirectLightingCache=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertIn("ShowFlag.VolumetricLightmap=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("ShowFlag.Materials=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("ShowFlag.LightingOnlyOverride=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
 
     def test_run_build_config_disables_auto_exposure_by_default(self):
         args = flashlight_run.parse_args([])
