@@ -39,6 +39,10 @@ r.EyeAdaptationQuality=0
 r.DefaultFeature.LocalExposure.HighlightContrastScale=0
 r.DefaultFeature.LocalExposure.ShadowContrastScale=0
 """
+DEFAULT_INNER_CONE_ANGLE = 2.0
+DEFAULT_OUTER_CONE_ANGLE = 60.0
+DEFAULT_SOURCE_RADIUS = 12.0
+DEFAULT_SOFT_SOURCE_RADIUS = 80.0
 
 DETERMINISTIC_ORBIT_RENDER_ENGINE_INI = """[/Script/Engine.RendererSettings]
 r.DefaultFeature.AntiAliasing=0
@@ -215,8 +219,10 @@ def parse_args(argv=None):
     parser.add_argument("--intensity", type=float, default=30000.0)
     parser.add_argument("--attenuation-radius", type=float, default=1200.0)
     parser.add_argument("--indirect-lighting-intensity", type=float, default=0.0)
-    parser.add_argument("--inner-cone-angle", type=float, default=12.0)
-    parser.add_argument("--outer-cone-angle", type=float, default=30.0)
+    parser.add_argument("--inner-cone-angle", type=float, default=DEFAULT_INNER_CONE_ANGLE)
+    parser.add_argument("--outer-cone-angle", type=float, default=DEFAULT_OUTER_CONE_ANGLE)
+    parser.add_argument("--source-radius", type=float, default=DEFAULT_SOURCE_RADIUS)
+    parser.add_argument("--soft-source-radius", type=float, default=DEFAULT_SOFT_SOURCE_RADIUS)
     parser.add_argument("--initial-light-disabled", action="store_true")
     parser.add_argument("--light-yaw-offset-degrees", type=float, default=0.0)
     parser.add_argument("--light-pitch-offset-degrees", type=float, default=0.0)
@@ -267,16 +273,20 @@ def parse_args(argv=None):
         parser.error("--fps must be positive")
     if args.fov_degrees <= 0.0:
         parser.error("--fov-degrees must be positive")
-    if args.intensity < 0.0:
-        parser.error("--intensity must be non-negative")
-    if args.attenuation_radius <= 0.0:
-        parser.error("--attenuation-radius must be positive")
+    if not math.isfinite(args.intensity) or args.intensity < 0.0:
+        parser.error("--intensity must be a finite non-negative value")
+    if not math.isfinite(args.attenuation_radius) or args.attenuation_radius <= 0.0:
+        parser.error("--attenuation-radius must be a finite positive value")
     if not math.isfinite(args.indirect_lighting_intensity) or args.indirect_lighting_intensity < 0.0:
         parser.error("--indirect-lighting-intensity must be a finite non-negative value")
-    if args.inner_cone_angle < 0.0:
-        parser.error("--inner-cone-angle must be non-negative")
-    if args.outer_cone_angle < args.inner_cone_angle:
-        parser.error("--outer-cone-angle must be greater than or equal to --inner-cone-angle")
+    if not math.isfinite(args.inner_cone_angle) or args.inner_cone_angle < 0.0:
+        parser.error("--inner-cone-angle must be a finite non-negative value")
+    if not math.isfinite(args.outer_cone_angle) or args.outer_cone_angle < args.inner_cone_angle:
+        parser.error("--outer-cone-angle must be finite and greater than or equal to --inner-cone-angle")
+    if not math.isfinite(args.source_radius) or args.source_radius < 0.0:
+        parser.error("--source-radius must be a finite non-negative value")
+    if not math.isfinite(args.soft_source_radius) or args.soft_source_radius < 0.0:
+        parser.error("--soft-source-radius must be a finite non-negative value")
     if args.movement_speed <= 0.0:
         parser.error("--movement-speed must be positive")
     if not math.isfinite(args.scene_light_intensity_scale) or args.scene_light_intensity_scale < 0.0:
@@ -452,6 +462,53 @@ def try_call_method(obj, method_name, **kwargs):
     except Exception:
         return False
     return True
+
+
+def try_set_float_property(obj, property_names, value):
+    for property_name in property_names:
+        set_editor_property = getattr(obj, "set_editor_property", None)
+        if set_editor_property is not None:
+            try:
+                set_editor_property(property_name, value)
+                get_editor_property = getattr(obj, "get_editor_property", None)
+                if get_editor_property is None or get_editor_property(property_name) == value:
+                    return True
+            except Exception:
+                pass
+
+        if hasattr(obj, property_name):
+            try:
+                setattr(obj, property_name, value)
+                if getattr(obj, property_name) == value:
+                    return True
+            except Exception:
+                pass
+
+    return False
+
+
+def try_call_source_radius_method(spot_light_component, method_name, value):
+    return try_call_method(spot_light_component, method_name, bNewValue=value)
+
+
+def apply_spot_light_shape_controls(spot_light_component, args):
+    state = {
+        "source_radius_set": False,
+        "soft_source_radius_set": False,
+    }
+    state["source_radius_set"] = (
+        try_call_source_radius_method(spot_light_component, "SetSourceRadius", args.source_radius)
+        or try_set_float_property(
+            obj=spot_light_component,
+            property_names=("SourceRadius", "source_radius"),
+            value=args.source_radius))
+    state["soft_source_radius_set"] = (
+        try_call_source_radius_method(spot_light_component, "SetSoftSourceRadius", args.soft_source_radius)
+        or try_set_float_property(
+            obj=spot_light_component,
+            property_names=("SoftSourceRadius", "soft_source_radius"),
+            value=args.soft_source_radius))
+    return state
 
 
 def disable_scene_light_component(light_component):
@@ -1859,6 +1916,13 @@ def spawn_flashlight(game, location, rotation, args, command, stable_name):
     spot_light_component.SetIndirectLightingIntensity(NewIntensity=args.indirect_lighting_intensity)
     spot_light_component.SetInnerConeAngle(NewInnerConeAngle=args.inner_cone_angle)
     spot_light_component.SetOuterConeAngle(NewOuterConeAngle=args.outer_cone_angle)
+    light_shape_state = apply_spot_light_shape_controls(
+        spot_light_component=spot_light_component,
+        args=args)
+    try:
+        spot_light_component._spear_light_shape_state = light_shape_state
+    except Exception:
+        pass
     set_light_enabled(spot_light_component=spot_light_component, command=command)
     return flashlight, spot_light_component
 
@@ -1949,6 +2013,8 @@ def run_teleop(args):
         spear.log("Orbit collection teleop mode is running.")
         spear.log("Select target key: ", args.select_key)
         spear.log("Preview orbit key: ", args.orbit_key)
+        spear.log("Flashlight cone angles: ", args.inner_cone_angle, " inner, ", args.outer_cone_angle, " outer")
+        spear.log("Flashlight source radii: ", args.source_radius, " source, ", args.soft_source_radius, " soft source")
         spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
         spear.log("Flashlight toggle key: ", args.toggle_key)
         spear.log("Orbit spec file: ", args.orbit_spec_file)
@@ -2199,6 +2265,8 @@ def run_render_group(args, orbit_spec, light_settings, scene_lights_enabled):
         with instance.end_frame(single_step=True):
             pass
 
+        spear.log("Flashlight cone angles: ", args.inner_cone_angle, " inner, ", args.outer_cone_angle, " outer")
+        spear.log("Flashlight source radii: ", args.source_radius, " source, ", args.soft_source_radius, " soft source")
         spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
         spear.log("Initial render light setup: ", {
             "source": initial_light_setup["source"],

@@ -20,7 +20,7 @@
     "name": "scene_off_flashlight_on",
     "scene_lights_enabled": false,
     "enabled": true,
-    "intensity": 1500.0,
+    "intensity": 1200.0,
     "yaw_offset_degrees": 0.0,
     "pitch_offset_degrees": 0.0
   },
@@ -28,7 +28,7 @@
     "name": "scene_on_flashlight_on",
     "scene_lights_enabled": true,
     "enabled": true,
-    "intensity": 1500.0,
+    "intensity": 1200.0,
     "yaw_offset_degrees": 0.0,
     "pitch_offset_degrees": 0.0
   }

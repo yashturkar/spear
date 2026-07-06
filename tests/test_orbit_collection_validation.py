@@ -118,6 +118,8 @@ class FakeLightComponent:
         self.visible = True
         self.intensity = 100.0
         self.indirect_lighting_intensity = 1.0
+        self.source_radius = None
+        self.soft_source_radius = None
         self.supports_indirect = supports_indirect
 
     def SetVisibility(self, bNewVisibility, bPropagateToChildren):
@@ -130,6 +132,52 @@ class FakeLightComponent:
         if not self.supports_indirect:
             raise AttributeError("No indirect lighting intensity")
         self.indirect_lighting_intensity = NewIntensity
+
+    def SetSourceRadius(self, bNewValue):
+        self.source_radius = bNewValue
+
+    def SetSoftSourceRadius(self, bNewValue):
+        self.soft_source_radius = bNewValue
+
+
+class FakeReflectedSourceRadiusLightComponent:
+    def __init__(self):
+        self.source_radius = None
+        self.soft_source_radius = None
+        self.source_radius_args = []
+        self.soft_source_radius_args = []
+
+    def SetSourceRadius(self, **kwargs):
+        self.source_radius_args.append(kwargs)
+        if set(kwargs.keys()) != {"bNewValue"}:
+            raise RuntimeError("SetSourceRadius called with non-reflected argument names")
+        self.source_radius = kwargs["bNewValue"]
+
+    def SetSoftSourceRadius(self, **kwargs):
+        self.soft_source_radius_args.append(kwargs)
+        if set(kwargs.keys()) != {"bNewValue"}:
+            raise RuntimeError("SetSoftSourceRadius called with non-reflected argument names")
+        self.soft_source_radius = kwargs["bNewValue"]
+
+
+class FakeEditorPropertyLightComponent:
+    __slots__ = ("properties",)
+
+    def __init__(self):
+        self.properties = {}
+
+    def set_editor_property(self, name, value):
+        if name not in {"SourceRadius", "SoftSourceRadius"}:
+            raise AttributeError(name)
+        self.properties[name] = value
+
+
+class FakeMissingShapeLightComponent:
+    __slots__ = ()
+
+
+class FakeDynamicMissingShapeLightComponent:
+    pass
 
 
 class FakeEnvironmentComponent:
@@ -296,6 +344,10 @@ class OrbitCollectionValidationTests(unittest.TestCase):
         self.assertEqual(args.aim_up_key, "Gamepad_DPad_Up")
         self.assertEqual(args.aim_down_key, "Gamepad_DPad_Down")
         self.assertEqual(args.indirect_lighting_intensity, 0.0)
+        self.assertEqual(args.inner_cone_angle, 2.0)
+        self.assertEqual(args.outer_cone_angle, 60.0)
+        self.assertEqual(args.source_radius, 12.0)
+        self.assertEqual(args.soft_source_radius, 80.0)
         self.assertEqual(args.scene_light_intensity_scale, 1.0)
         self.assertTrue(args.disable_auto_exposure)
         self.assertTrue(args.disable_render_history)
@@ -308,7 +360,90 @@ class OrbitCollectionValidationTests(unittest.TestCase):
         args = flashlight_run.parse_args([])
 
         self.assertEqual(args.scene_light_intensity_scale, 1.0)
+        self.assertEqual(args.inner_cone_angle, 2.0)
+        self.assertEqual(args.outer_cone_angle, 60.0)
+        self.assertEqual(args.source_radius, 12.0)
+        self.assertEqual(args.soft_source_radius, 80.0)
         self.assertTrue(args.disable_auto_exposure)
+
+    def test_spot_light_shape_controls_use_available_methods(self):
+        component = FakeLightComponent()
+        args = orbit_collection.parse_args(["--source-radius", "14", "--soft-source-radius", "90"])
+
+        state = orbit_collection.apply_spot_light_shape_controls(
+            spot_light_component=component,
+            args=args)
+
+        self.assertEqual(state, {
+            "source_radius_set": True,
+            "soft_source_radius_set": True,
+        })
+        self.assertEqual(component.source_radius, 14.0)
+        self.assertEqual(component.soft_source_radius, 90.0)
+
+    def test_spot_light_shape_controls_use_reflected_bnewvalue_argument(self):
+        for module in (orbit_collection, flashlight_run):
+            with self.subTest(module=module.__name__):
+                component = FakeReflectedSourceRadiusLightComponent()
+                args = module.parse_args(["--source-radius", "14", "--soft-source-radius", "90"])
+
+                state = module.apply_spot_light_shape_controls(
+                    spot_light_component=component,
+                    args=args)
+
+                self.assertEqual(state, {
+                    "source_radius_set": True,
+                    "soft_source_radius_set": True,
+                })
+                self.assertEqual(component.source_radius_args, [{"bNewValue": 14.0}])
+                self.assertEqual(component.soft_source_radius_args, [{"bNewValue": 90.0}])
+                self.assertEqual(component.source_radius, 14.0)
+                self.assertEqual(component.soft_source_radius, 90.0)
+
+    def test_spot_light_shape_controls_fall_back_to_editor_properties(self):
+        component = FakeEditorPropertyLightComponent()
+        args = orbit_collection.parse_args(["--source-radius", "6", "--soft-source-radius", "32"])
+
+        state = orbit_collection.apply_spot_light_shape_controls(
+            spot_light_component=component,
+            args=args)
+
+        self.assertEqual(state, {
+            "source_radius_set": True,
+            "soft_source_radius_set": True,
+        })
+        self.assertEqual(component.properties["SourceRadius"], 6.0)
+        self.assertEqual(component.properties["SoftSourceRadius"], 32.0)
+
+    def test_spot_light_shape_controls_tolerate_missing_unreal_members(self):
+        component = FakeMissingShapeLightComponent()
+        args = orbit_collection.parse_args([])
+
+        state = orbit_collection.apply_spot_light_shape_controls(
+            spot_light_component=component,
+            args=args)
+
+        self.assertEqual(state, {
+            "source_radius_set": False,
+            "soft_source_radius_set": False,
+        })
+
+    def test_spot_light_shape_controls_do_not_report_dynamic_python_attrs_as_unreal_properties(self):
+        for module in (orbit_collection, flashlight_run):
+            with self.subTest(module=module.__name__):
+                component = FakeDynamicMissingShapeLightComponent()
+                args = module.parse_args([])
+
+                state = module.apply_spot_light_shape_controls(
+                    spot_light_component=component,
+                    args=args)
+
+                self.assertEqual(state, {
+                    "source_radius_set": False,
+                    "soft_source_radius_set": False,
+                })
+                self.assertFalse(hasattr(component, "SourceRadius"))
+                self.assertFalse(hasattr(component, "SoftSourceRadius"))
 
     def test_scene_light_intensity_scale_allows_zero(self):
         orbit_args = orbit_collection.parse_args(["--scene-light-intensity-scale", "0"])
@@ -1058,8 +1193,20 @@ class OrbitCollectionValidationTests(unittest.TestCase):
 
     def test_depth_visualization_args_reject_invalid_bounds(self):
         invalid_argvs = [
+            ["--intensity", "-1"],
+            ["--intensity", "nan"],
+            ["--attenuation-radius", "0"],
+            ["--attenuation-radius", "inf"],
             ["--indirect-lighting-intensity", "-1"],
             ["--indirect-lighting-intensity", "nan"],
+            ["--inner-cone-angle", "-1"],
+            ["--inner-cone-angle", "nan"],
+            ["--outer-cone-angle", "5", "--inner-cone-angle", "10"],
+            ["--outer-cone-angle", "inf"],
+            ["--source-radius", "-1"],
+            ["--source-radius", "nan"],
+            ["--soft-source-radius", "-1"],
+            ["--soft-source-radius", "inf"],
             ["--scene-light-intensity-scale", "-1"],
             ["--scene-light-intensity-scale", "nan"],
             ["--scene-light-intensity-scale", "inf"],
@@ -1080,6 +1227,18 @@ class OrbitCollectionValidationTests(unittest.TestCase):
 
     def test_run_scene_light_intensity_scale_rejects_invalid_values(self):
         invalid_argvs = [
+            ["--intensity", "-1"],
+            ["--intensity", "nan"],
+            ["--attenuation-radius", "0"],
+            ["--attenuation-radius", "inf"],
+            ["--inner-cone-angle", "-1"],
+            ["--inner-cone-angle", "nan"],
+            ["--outer-cone-angle", "5", "--inner-cone-angle", "10"],
+            ["--outer-cone-angle", "inf"],
+            ["--source-radius", "-1"],
+            ["--source-radius", "nan"],
+            ["--soft-source-radius", "-1"],
+            ["--soft-source-radius", "inf"],
             ["--scene-light-intensity-scale", "-1"],
             ["--scene-light-intensity-scale", "nan"],
             ["--scene-light-intensity-scale", "inf"],
@@ -1227,6 +1386,8 @@ class OrbitCollectionValidationTests(unittest.TestCase):
             [setting["scene_lights_enabled"] for setting in settings],
             [True, False, False, True])
         self.assertFalse(settings[1]["spawn_flashlight"])
+        self.assertEqual(settings[2]["intensity"], 1200.0)
+        self.assertEqual(settings[3]["intensity"], 1200.0)
 
     def test_orbit_spec_rejects_non_finite_nested_numbers(self):
         invalid_specs = []

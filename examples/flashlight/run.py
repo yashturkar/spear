@@ -27,6 +27,10 @@ AUTO_EXPOSURE_DISABLED_ENGINE_INI = """[/Script/Engine.RendererSettings]
 r.DefaultFeature.AutoExposure=False
 r.EyeAdaptationQuality=0
 """
+DEFAULT_INNER_CONE_ANGLE = 2.0
+DEFAULT_OUTER_CONE_ANGLE = 60.0
+DEFAULT_SOURCE_RADIUS = 12.0
+DEFAULT_SOFT_SOURCE_RADIUS = 80.0
 
 MAPS = {
     "apartment_0000": "/Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000",
@@ -48,8 +52,10 @@ parser.add_argument("--map-path", default=None)
 parser.add_argument("--intensity", type=float, default=30000.0)
 parser.add_argument("--attenuation-radius", type=float, default=1200.0)
 parser.add_argument("--indirect-lighting-intensity", type=float, default=0.0)
-parser.add_argument("--inner-cone-angle", type=float, default=12.0)
-parser.add_argument("--outer-cone-angle", type=float, default=30.0)
+parser.add_argument("--inner-cone-angle", type=float, default=DEFAULT_INNER_CONE_ANGLE)
+parser.add_argument("--outer-cone-angle", type=float, default=DEFAULT_OUTER_CONE_ANGLE)
+parser.add_argument("--source-radius", type=float, default=DEFAULT_SOURCE_RADIUS)
+parser.add_argument("--soft-source-radius", type=float, default=DEFAULT_SOFT_SOURCE_RADIUS)
 parser.add_argument("--movement-speed", type=float, default=1200.0)
 parser.add_argument("--disable-scene-lights", action="store_true")
 parser.add_argument("--scene-light-intensity-scale", type=float, default=1.0)
@@ -81,8 +87,20 @@ def parse_args(argv=None):
         parser.error("--aim-pitch-min-degrees must be less than or equal to --aim-pitch-max-degrees")
     if args.aim_rate_degrees_per_second < 0.0:
         parser.error("--aim-rate-degrees-per-second must be non-negative")
+    if not math.isfinite(args.intensity) or args.intensity < 0.0:
+        parser.error("--intensity must be a finite non-negative value")
+    if not math.isfinite(args.attenuation_radius) or args.attenuation_radius <= 0.0:
+        parser.error("--attenuation-radius must be a finite positive value")
     if not math.isfinite(args.indirect_lighting_intensity) or args.indirect_lighting_intensity < 0.0:
         parser.error("--indirect-lighting-intensity must be a finite non-negative value")
+    if not math.isfinite(args.inner_cone_angle) or args.inner_cone_angle < 0.0:
+        parser.error("--inner-cone-angle must be a finite non-negative value")
+    if not math.isfinite(args.outer_cone_angle) or args.outer_cone_angle < args.inner_cone_angle:
+        parser.error("--outer-cone-angle must be finite and greater than or equal to --inner-cone-angle")
+    if not math.isfinite(args.source_radius) or args.source_radius < 0.0:
+        parser.error("--source-radius must be a finite non-negative value")
+    if not math.isfinite(args.soft_source_radius) or args.soft_source_radius < 0.0:
+        parser.error("--soft-source-radius must be a finite non-negative value")
     if not math.isfinite(args.scene_light_intensity_scale) or args.scene_light_intensity_scale < 0.0:
         parser.error("--scene-light-intensity-scale must be a finite non-negative value")
 
@@ -181,6 +199,76 @@ def attach_light_to_pawn(light, pawn):
         ScaleRule="KeepWorld",
         bWeldSimulatedBodies=False)
     assert attached
+
+
+def try_call_method(obj, method_name, **kwargs):
+    method = getattr(obj, method_name, None)
+    if method is None:
+        call = getattr(obj, "call", None)
+        if call is None:
+            return False
+        try:
+            call(method_name, args=kwargs)
+        except Exception:
+            return False
+        return True
+    try:
+        method(**kwargs)
+    except TypeError:
+        try:
+            method(*kwargs.values())
+        except Exception:
+            return False
+    except Exception:
+        return False
+    return True
+
+
+def try_set_float_property(obj, property_names, value):
+    for property_name in property_names:
+        set_editor_property = getattr(obj, "set_editor_property", None)
+        if set_editor_property is not None:
+            try:
+                set_editor_property(property_name, value)
+                get_editor_property = getattr(obj, "get_editor_property", None)
+                if get_editor_property is None or get_editor_property(property_name) == value:
+                    return True
+            except Exception:
+                pass
+
+        if hasattr(obj, property_name):
+            try:
+                setattr(obj, property_name, value)
+                if getattr(obj, property_name) == value:
+                    return True
+            except Exception:
+                pass
+
+    return False
+
+
+def try_call_source_radius_method(spot_light_component, method_name, value):
+    return try_call_method(spot_light_component, method_name, bNewValue=value)
+
+
+def apply_spot_light_shape_controls(spot_light_component, args):
+    state = {
+        "source_radius_set": False,
+        "soft_source_radius_set": False,
+    }
+    state["source_radius_set"] = (
+        try_call_source_radius_method(spot_light_component, "SetSourceRadius", args.source_radius)
+        or try_set_float_property(
+            obj=spot_light_component,
+            property_names=("SourceRadius", "source_radius"),
+            value=args.source_radius))
+    state["soft_source_radius_set"] = (
+        try_call_source_radius_method(spot_light_component, "SetSoftSourceRadius", args.soft_source_radius)
+        or try_set_float_property(
+            obj=spot_light_component,
+            property_names=("SoftSourceRadius", "soft_source_radius"),
+            value=args.soft_source_radius))
+    return state
 
 
 def disable_scene_lights(game):
@@ -326,6 +414,9 @@ if __name__ == "__main__":
             spot_light_component.SetIndirectLightingIntensity(NewIntensity=args.indirect_lighting_intensity)
             spot_light_component.SetInnerConeAngle(NewInnerConeAngle=args.inner_cone_angle)
             spot_light_component.SetOuterConeAngle(NewOuterConeAngle=args.outer_cone_angle)
+            light_shape_state = apply_spot_light_shape_controls(
+                spot_light_component=spot_light_component,
+                args=args)
 
         with instance.end_frame():
             pass
@@ -338,6 +429,9 @@ if __name__ == "__main__":
             pass
 
         spear.log("Spawned camera flashlight. Press Ctrl+C to stop.")
+        spear.log("Flashlight cone angles: ", args.inner_cone_angle, " inner, ", args.outer_cone_angle, " outer")
+        spear.log("Flashlight source radii: ", args.source_radius, " source, ", args.soft_source_radius, " soft source")
+        spear.log("Flashlight source radius controls applied: ", light_shape_state)
         spear.log("Camera movement speed: ", args.movement_speed)
         spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
         spear.log("Flashlight toggle key: ", args.toggle_key)
