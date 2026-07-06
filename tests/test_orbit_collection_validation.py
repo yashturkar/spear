@@ -121,6 +121,10 @@ class FakeLightComponent:
         self.indirect_lighting_intensity = 1.0
         self.source_radius = None
         self.soft_source_radius = None
+        self.cast_shadows = None
+        self.cast_dynamic_shadows = None
+        self.contact_shadows = None
+        self.contact_shadow_length = None
         self.supports_indirect = supports_indirect
 
     def SetVisibility(self, bNewVisibility, bPropagateToChildren):
@@ -139,6 +143,18 @@ class FakeLightComponent:
 
     def SetSoftSourceRadius(self, bNewValue):
         self.soft_source_radius = bNewValue
+
+    def SetCastShadows(self, bNewValue):
+        self.cast_shadows = bNewValue
+
+    def SetCastDynamicShadows(self, bNewValue):
+        self.cast_dynamic_shadows = bNewValue
+
+    def SetUseContactShadow(self, bNewValue):
+        self.contact_shadows = bNewValue
+
+    def SetContactShadowLength(self, bNewValue):
+        self.contact_shadow_length = bNewValue
 
 
 class FakeReflectedSourceRadiusLightComponent:
@@ -406,7 +422,15 @@ record = {
     "scene_light_intensity_scale": arg_value("--scene-light-intensity-scale"),
     "light_settings_file": settings_file,
     "output_dir": arg_value("--output-dir"),
+    "flashlight_profile": arg_value("--flashlight-profile"),
+    "flashlight_profile_file": arg_value("--flashlight-profile-file"),
+    "render_lighting_mode": arg_value("--render-lighting-mode"),
     "intensity": arg_value("--intensity"),
+    "attenuation_radius": arg_value("--attenuation-radius"),
+    "inner_cone_angle": arg_value("--inner-cone-angle"),
+    "outer_cone_angle": arg_value("--outer-cone-angle"),
+    "source_radius": arg_value("--source-radius"),
+    "soft_source_radius": arg_value("--soft-source-radius"),
     "settings": settings,
 }
 with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
@@ -446,14 +470,21 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertEqual(args.aim_right_key, "Gamepad_DPad_Right")
         self.assertEqual(args.aim_up_key, "Gamepad_DPad_Up")
         self.assertEqual(args.aim_down_key, "Gamepad_DPad_Down")
-        self.assertEqual(args.indirect_lighting_intensity, 0.0)
-        self.assertEqual(args.inner_cone_angle, 2.0)
-        self.assertEqual(args.outer_cone_angle, 60.0)
-        self.assertEqual(args.source_radius, 12.0)
-        self.assertEqual(args.soft_source_radius, 80.0)
+        self.assertEqual(args.flashlight_profile, "real_handheld_16in_16in")
+        self.assertEqual(args.intensity, 1500.0)
+        self.assertEqual(args.indirect_lighting_intensity, 0.25)
+        self.assertEqual(args.inner_cone_angle, 17.0)
+        self.assertAlmostEqual(args.outer_cone_angle, 26.5650511771)
+        self.assertEqual(args.source_radius, 2.0)
+        self.assertEqual(args.soft_source_radius, 12.0)
+        self.assertTrue(args.cast_shadows)
+        self.assertTrue(args.cast_dynamic_shadows)
+        self.assertTrue(args.contact_shadows)
+        self.assertEqual(args.contact_shadow_length, 0.25)
         self.assertEqual(args.scene_light_intensity_scale, 1.0)
         self.assertTrue(args.disable_auto_exposure)
         self.assertTrue(args.disable_render_history)
+        self.assertEqual(args.render_lighting_mode, "natural")
         self.assertEqual(args.depth_visualization_lower_percentile, 1.0)
         self.assertEqual(args.depth_visualization_upper_percentile, 99.0)
         self.assertIsNone(args.depth_visualization_min_meters)
@@ -463,11 +494,41 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         args = flashlight_run.parse_args([])
 
         self.assertEqual(args.scene_light_intensity_scale, 1.0)
-        self.assertEqual(args.inner_cone_angle, 2.0)
-        self.assertEqual(args.outer_cone_angle, 60.0)
-        self.assertEqual(args.source_radius, 12.0)
-        self.assertEqual(args.soft_source_radius, 80.0)
+        self.assertEqual(args.flashlight_profile, "real_handheld_16in_16in")
+        self.assertEqual(args.intensity, 1500.0)
+        self.assertEqual(args.indirect_lighting_intensity, 0.25)
+        self.assertEqual(args.inner_cone_angle, 17.0)
+        self.assertAlmostEqual(args.outer_cone_angle, 26.5650511771)
+        self.assertEqual(args.source_radius, 2.0)
+        self.assertEqual(args.soft_source_radius, 12.0)
+        self.assertTrue(args.cast_shadows)
+        self.assertTrue(args.cast_dynamic_shadows)
+        self.assertTrue(args.contact_shadows)
+        self.assertEqual(args.contact_shadow_length, 0.25)
         self.assertTrue(args.disable_auto_exposure)
+
+    def test_flashlight_profile_cli_values_override_profile_defaults(self):
+        for module in (orbit_collection, flashlight_run):
+            with self.subTest(module=module.__name__):
+                args = module.parse_args([
+                    "--flashlight-profile", "soft_flood_validation",
+                    "--intensity", "800",
+                    "--outer-cone-angle", "42",
+                    "--disable-flashlight-contact-shadows",
+                ])
+
+                self.assertEqual(args.flashlight_profile, "soft_flood_validation")
+                self.assertEqual(args.intensity, 800.0)
+                self.assertEqual(args.outer_cone_angle, 42.0)
+                self.assertEqual(args.inner_cone_angle, 2.0)
+                self.assertFalse(args.contact_shadows)
+
+    def test_flashlight_profile_rejects_unknown_profile(self):
+        for module in (orbit_collection, flashlight_run):
+            with self.subTest(module=module.__name__):
+                with contextlib.redirect_stderr(io.StringIO()):
+                    with self.assertRaises(SystemExit):
+                        module.parse_args(["--flashlight-profile", "missing"])
 
     def test_spot_light_shape_controls_use_available_methods(self):
         component = FakeLightComponent()
@@ -483,6 +544,40 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         })
         self.assertEqual(component.source_radius, 14.0)
         self.assertEqual(component.soft_source_radius, 90.0)
+
+    def test_spot_light_shadow_controls_use_available_methods(self):
+        component = FakeLightComponent()
+        args = orbit_collection.parse_args([
+            "--disable-flashlight-shadows",
+            "--enable-flashlight-dynamic-shadows",
+            "--enable-flashlight-contact-shadows",
+            "--contact-shadow-length", "0.4",
+        ])
+
+        state = orbit_collection.flashlight_profiles.apply_spot_light_shadow_controls(
+            spot_light_component=component,
+            args=args)
+
+        self.assertEqual(state, {
+            "cast_shadows_set": True,
+            "cast_dynamic_shadows_set": True,
+            "contact_shadows_set": True,
+            "contact_shadow_length_set": True,
+        })
+        self.assertFalse(component.cast_shadows)
+        self.assertEqual(component.contact_shadow_length, 0.4)
+
+    def test_spot_light_shadow_controls_skip_contact_call_when_disabled(self):
+        component = FakeLightComponent()
+        args = orbit_collection.parse_args(["--disable-flashlight-contact-shadows"])
+
+        state = orbit_collection.flashlight_profiles.apply_spot_light_shadow_controls(
+            spot_light_component=component,
+            args=args)
+
+        self.assertFalse(state["contact_shadows_set"])
+        self.assertFalse(state["contact_shadow_length_set"])
+        self.assertIsNone(component.contact_shadow_length)
 
     def test_spot_light_shape_controls_use_reflected_bnewvalue_argument(self):
         for module in (orbit_collection, flashlight_run):
@@ -586,18 +681,25 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
                 "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark")
             self.assertIn("--enable-render-history", record["argv"])
             self.assertNotIn("--disable-render-history", record["argv"])
-        self.assertIn("--intensity 1200", result.stdout)
-        self.assertIn("--attenuation-radius 650", result.stdout)
-        self.assertIn("--inner-cone-angle 2", result.stdout)
-        self.assertIn("--outer-cone-angle 60", result.stdout)
-        self.assertIn("--source-radius 12", result.stdout)
-        self.assertIn("--soft-source-radius 80", result.stdout)
+            self.assertEqual(record["flashlight_profile"], "real_handheld_16in_16in")
+            self.assertEqual(record["render_lighting_mode"], "natural")
+            self.assertIsNone(record["intensity"])
+            self.assertIsNone(record["attenuation_radius"])
+            self.assertIsNone(record["inner_cone_angle"])
+            self.assertIsNone(record["outer_cone_angle"])
+            self.assertIsNone(record["source_radius"])
+            self.assertIsNone(record["soft_source_radius"])
+        self.assertIn("--flashlight-profile real_handheld_16in_16in", result.stdout)
+        self.assertIn("--render-lighting-mode natural", result.stdout)
+        self.assertNotIn("--intensity 1200", result.stdout)
 
     def test_workflow_default_color_preset_runs_scene_on_and_scene_off_color_passes(self):
         _, records = self.run_workflow_with_fake_python(["render"])
 
         self.assertEqual(len(records), 2)
         self.assertEqual([record["scene_light_intensity_scale"] for record in records], ["0.2", "0.0"])
+        self.assertEqual([record["flashlight_profile"] for record in records], ["real_handheld_16in_16in", "real_handheld_16in_16in"])
+        self.assertEqual([record["render_lighting_mode"] for record in records], ["natural", "natural"])
         self.assertIn("spear_color_flashlight_scene_on_settings.", records[0]["light_settings_file"])
         self.assertIn("spear_color_flashlight_scene_off_settings.", records[1]["light_settings_file"])
         self.assertNotEqual(records[0]["light_settings_file"], "examples/flashlight/orbit_light_settings.json")
@@ -614,6 +716,8 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertEqual(
             [setting["scene_lights_enabled"] for setting in records[1]["settings"]],
             [True, True])
+        self.assertNotIn("intensity", records[0]["settings"][1])
+        self.assertNotIn("intensity", records[1]["settings"][1])
 
     def test_workflow_color_preset_applies_requested_scale_and_flashlight_intensity(self):
         output_dir = os.path.join(ROOT_DIR, "examples", "flashlight", "orbit_collection_output")
@@ -627,14 +731,16 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertEqual([record["scene_light_intensity_scale"] for record in records], ["0.35", "0.0"])
         self.assertEqual([record["output_dir"] for record in records], [output_dir, output_dir])
         self.assertEqual([record["intensity"] for record in records], ["800", "800"])
-        self.assertEqual(records[0]["settings"][1]["intensity"], 800)
-        self.assertEqual(records[1]["settings"][1]["intensity"], 800)
+        self.assertNotIn("intensity", records[0]["settings"][1])
+        self.assertNotIn("intensity", records[1]["settings"][1])
 
     def test_workflow_validation_preset_uses_checked_in_diagnostic_settings(self):
         _, records = self.run_workflow_with_fake_python(["render", "--render-preset", "validation"])
 
         self.assertEqual(len(records), 1)
         self.assertEqual(records[0]["scene_light_intensity_scale"], "0.2")
+        self.assertEqual(records[0]["flashlight_profile"], "soft_flood_validation")
+        self.assertEqual(records[0]["render_lighting_mode"], "validation")
         self.assertEqual(records[0]["light_settings_file"], "examples/flashlight/orbit_light_settings.json")
         self.assertEqual(
             [setting["scene_lights_enabled"] for setting in records[0]["settings"]],
@@ -1250,11 +1356,11 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertIn("r.DefaultFeature.AutoExposure=False", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertIn("r.EyeAdaptationQuality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
-        self.assertIn("r.DynamicGlobalIlluminationMethod=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
-        self.assertIn("r.ReflectionMethod=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
-        self.assertIn("r.Lumen.DiffuseIndirect.Allow=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
-        self.assertIn("r.Lumen.Reflections.Allow=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
-        self.assertIn("r.TemporalAA.Quality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.DynamicGlobalIlluminationMethod=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.ReflectionMethod=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.Lumen.DiffuseIndirect.Allow=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.Lumen.Reflections.Allow=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.TemporalAA.Quality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
 
         for key in (
             "EDITOR_INI_CONFIG_VALUES",
@@ -1269,6 +1375,34 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         config_dump = config.dump()
         self.assertIn("CONFIG_ENGINE_INI_STRING", config_dump)
         self.assertIn("ENGINE_INI_CONFIG_VALUES: {}", config_dump)
+
+    def test_orbit_build_config_validation_lighting_mode_disables_gi_for_deterministic_render(self):
+        args = orbit_collection.parse_args([
+            "--mode", "render",
+            "--render-lighting-mode", "validation",
+        ])
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            user_config_file = os.path.join(temp_dir, "user_config.yaml")
+            with open(user_config_file, "w", encoding="utf-8") as f:
+                f.write(
+                    "SP_CORE:\n"
+                    "  OVERRIDE_CONFIG_ENGINE_INI: True\n"
+                    "  CONFIG_ENGINE_INI_STRING: |\n"
+                    "    [/Script/Engine.RendererSettings]\n"
+                    "    r.CustomDepth=3\n")
+
+            config = orbit_collection.build_config(
+                args=args,
+                benchmarking=True,
+                max_num_frames=3,
+                user_config_files=[user_config_file])
+
+        self.assertIn("r.DynamicGlobalIlluminationMethod=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.ReflectionMethod=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.Lumen.DiffuseIndirect.Allow=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.Lumen.Reflections.Allow=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.TemporalAA.Quality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
 
     def test_run_build_config_can_preserve_auto_exposure_when_enabled(self):
         args = flashlight_run.parse_args(["--enable-auto-exposure"])
@@ -1615,7 +1749,8 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
             },
         ]
 
-        setup = orbit_collection.get_initial_render_light_setup(light_settings=settings)
+        args = orbit_collection.parse_args([])
+        setup = orbit_collection.get_initial_render_light_setup(args=args, light_settings=settings)
 
         self.assertEqual(setup["setting_name"], "scene_off_flashlight_off")
         self.assertFalse(setup["spawn_flashlight"])
@@ -1633,11 +1768,30 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
             },
         ]
 
-        setup = orbit_collection.get_initial_render_light_setup(light_settings=settings)
+        args = orbit_collection.parse_args([])
+        setup = orbit_collection.get_initial_render_light_setup(args=args, light_settings=settings)
 
         self.assertTrue(setup["spawn_flashlight"])
         self.assertFalse(setup["command"].enabled)
         self.assertEqual(setup["command"].intensity, 0.0)
+
+    def test_initial_render_light_setup_uses_profile_intensity_when_setting_omits_intensity(self):
+        settings = [
+            {
+                "name": "scene_on_flashlight_on",
+                "scene_lights_enabled": True,
+                "enabled": True,
+                "yaw_offset_degrees": 0.0,
+                "pitch_offset_degrees": 0.0,
+            },
+        ]
+        args = orbit_collection.parse_args([])
+
+        setup = orbit_collection.get_initial_render_light_setup(args=args, light_settings=settings)
+
+        self.assertTrue(setup["spawn_flashlight"])
+        self.assertTrue(setup["command"].enabled)
+        self.assertEqual(setup["command"].intensity, args.intensity)
 
     def test_scene_light_render_groups_default_to_scene_on_then_scene_off(self):
         settings = [

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "default_profile": "real_handheld_16in_16in",
+  "profiles": {
+    "real_handheld_16in_16in": {
+      "description": "Natural handheld flashlight matched to a 16 inch diameter beam at 16 inches.",
+      "beam": {
+        "diameter": 16.0,
+        "distance": 16.0,
+        "units": "inch"
+      },
+      "intensity": 1500.0,
+      "attenuation_radius": 650.0,
+      "indirect_lighting_intensity": 0.25,
+      "inner_cone_angle": 17.0,
+      "source_radius": 2.0,
+      "soft_source_radius": 12.0,
+      "cast_shadows": true,
+      "cast_dynamic_shadows": true,
+      "contact_shadows": true,
+      "contact_shadow_length": 0.25
+    },
+    "soft_flood_validation": {
+      "description": "Soft flood profile used for previous small-room validation captures.",
+      "intensity": 1200.0,
+      "attenuation_radius": 650.0,
+      "indirect_lighting_intensity": 0.0,
+      "inner_cone_angle": 2.0,
+      "outer_cone_angle": 60.0,
+      "source_radius": 12.0,
+      "soft_source_radius": 80.0,
+      "cast_shadows": true,
+      "cast_dynamic_shadows": true,
+      "contact_shadows": true,
+      "contact_shadow_length": 0.15
+    },
+    "high_contrast_spot": {
+      "description": "Sharper profile for geometry inspection and high-contrast direct shadows.",
+      "intensity": 1500.0,
+      "attenuation_radius": 650.0,
+      "indirect_lighting_intensity": 0.0,
+      "inner_cone_angle": 20.0,
+      "outer_cone_angle": 27.0,
+      "source_radius": 1.0,
+      "soft_source_radius": 4.0,
+      "cast_shadows": true,
+      "cast_dynamic_shadows": true,
+      "contact_shadows": true,
+      "contact_shadow_length": 0.35
+    }
+  }
+}

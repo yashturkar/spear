@@ -46,27 +46,26 @@ default so launch-time scene-light scale changes are visible instead of being
 normalized by exposure adaptation. Pass `--enable-auto-exposure` only when you
 want the map's normal adaptive exposure behavior.
 
-Use a slower camera and dim the cafeteria v2 fixture lights so the co-located
-flashlight is visible while the real indoor lights stay enabled:
+Flashlight beam, falloff, bounce, and shadow defaults come from
+`examples/flashlight/flashlight_profiles.json`. The default
+`real_handheld_16in_16in` profile models a handheld light with a 16 inch beam
+diameter at 16 inches, visible contact shadows, and modest indirect bounce.
+Existing numeric flags such as `--intensity` and `--outer-cone-angle` still
+override the selected profile.
+
+Use a slower camera and dim the cafeteria v2 fixture lights so the profiled
+co-located flashlight is visible while the real indoor lights stay enabled:
 
 ```console
 python examples/flashlight/run.py \
   --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
   --movement-speed 600 \
   --disable-auto-exposure \
-  --scene-light-intensity-scale 0.2 \
-  --intensity 1200 \
-  --attenuation-radius 650 \
-  --inner-cone-angle 2 \
-  --outer-cone-angle 60 \
-  --source-radius 12 \
-  --soft-source-radius 80 \
-  --indirect-lighting-intensity 0
+  --scene-light-intensity-scale 0.2
 ```
 
-For small interiors with saturated nearby surfaces, keep direct flashlight
-bounce out of Lumen indirect lighting and dim scene fixtures instead of
-disabling them:
+For a softer validation-style floodlight, select the checked-in profile rather
+than hand-tuning every low-level spotlight field:
 
 ```console
 python examples/flashlight/run.py \
@@ -74,13 +73,7 @@ python examples/flashlight/run.py \
   --movement-speed 600 \
   --disable-auto-exposure \
   --scene-light-intensity-scale 0.1 \
-  --intensity 1200 \
-  --attenuation-radius 650 \
-  --inner-cone-angle 2 \
-  --outer-cone-angle 60 \
-  --source-radius 12 \
-  --soft-source-radius 80 \
-  --indirect-lighting-intensity 0
+  --flashlight-profile soft_flood_validation
 ```
 
 For fixed-exposure brightness validation, compare the same camera position
@@ -188,8 +181,8 @@ logs that it used `--fallback-target-distance` centimeters along the camera
 forward vector. Press `Gamepad_LeftShoulder` to preview one visible 360
 degree orbit around the selected target. After the preview, the script restores
 the spectator pawn location and PlayerController control rotation from before
-the orbit. The flashlight uses the same toggle key, D-pad aiming, intensity,
-cone, attenuation, and indirect lighting options as `run.py`.
+the orbit. The flashlight uses the same toggle key, D-pad aiming, profile,
+shadow, intensity, cone, attenuation, and indirect lighting options as `run.py`.
 
 The helper defaults to the cafeteria v2 map path,
 `examples/flashlight/orbit_spec.json`,
@@ -197,15 +190,12 @@ The helper defaults to the cafeteria v2 map path,
 `examples/flashlight/orbit_collection_output`. It passes fixed exposure
 explicitly with `--disable-auto-exposure`, scales scene lights with
 `--scene-light-intensity-scale 0.2`, leaves scene-capture render history
-disabled by the Python script default, and uses the current small-room
-flashlight profile:
-`--intensity 1200`, `--attenuation-radius 650`,
-`--inner-cone-angle 2`, `--outer-cone-angle 60`,
-`--source-radius 12`, `--soft-source-radius 80`, and
-`--indirect-lighting-intensity 0`. Override these with matching helper flags or
-environment variables such as `SPEAR_SCENE_LIGHT_INTENSITY_SCALE=0.1`,
-`SPEAR_FLASHLIGHT_SOURCE_RADIUS=12`, or
-`SPEAR_FLASHLIGHT_SOFT_SOURCE_RADIUS=80`.
+disabled by the Python script default, and uses the default
+`real_handheld_16in_16in` flashlight profile. Override the profile with
+`--flashlight-profile`, or override individual values with matching helper
+flags or environment variables such as `SPEAR_SCENE_LIGHT_INTENSITY_SCALE=0.1`,
+`SPEAR_FLASHLIGHT_PROFILE=high_contrast_spot`, or
+`SPEAR_FLASHLIGHT_SOURCE_RADIUS=12`.
 
 The orbit spec JSON records the map/map path, start camera pose, selected target
 point, orbit radius, duration, FPS, image size, field of view, and baseline

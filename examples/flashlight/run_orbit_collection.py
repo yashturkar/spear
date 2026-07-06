@@ -20,6 +20,12 @@ import numpy as np
 import spear
 import yacs.config
 
+FLASHLIGHT_DIR = os.path.dirname(__file__)
+if FLASHLIGHT_DIR not in sys.path:
+    sys.path.insert(0, FLASHLIGHT_DIR)
+
+import flashlight_profiles
+
 
 INPUT_POLL_PERIOD_SECONDS = 1.0 / 60.0
 DEPTH_VISUALIZATION_EPSILON = 1.0e-6
@@ -267,13 +273,14 @@ def parse_args(argv=None):
     parser.add_argument("--height", type=int, default=720)
     parser.add_argument("--fps", type=float, default=24.0)
     parser.add_argument("--fov-degrees", type=float, default=80.0)
-    parser.add_argument("--intensity", type=float, default=30000.0)
-    parser.add_argument("--attenuation-radius", type=float, default=1200.0)
-    parser.add_argument("--indirect-lighting-intensity", type=float, default=0.0)
-    parser.add_argument("--inner-cone-angle", type=float, default=DEFAULT_INNER_CONE_ANGLE)
-    parser.add_argument("--outer-cone-angle", type=float, default=DEFAULT_OUTER_CONE_ANGLE)
-    parser.add_argument("--source-radius", type=float, default=DEFAULT_SOURCE_RADIUS)
-    parser.add_argument("--soft-source-radius", type=float, default=DEFAULT_SOFT_SOURCE_RADIUS)
+    parser.add_argument("--intensity", type=float, default=None)
+    parser.add_argument("--attenuation-radius", type=float, default=None)
+    parser.add_argument("--indirect-lighting-intensity", type=float, default=None)
+    parser.add_argument("--inner-cone-angle", type=float, default=None)
+    parser.add_argument("--outer-cone-angle", type=float, default=None)
+    parser.add_argument("--source-radius", type=float, default=None)
+    parser.add_argument("--soft-source-radius", type=float, default=None)
+    flashlight_profiles.add_flashlight_profile_args(parser)
     parser.add_argument("--initial-light-disabled", action="store_true")
     parser.add_argument("--light-yaw-offset-degrees", type=float, default=0.0)
     parser.add_argument("--light-pitch-offset-degrees", type=float, default=0.0)
@@ -286,6 +293,7 @@ def parse_args(argv=None):
     render_history_group = parser.add_mutually_exclusive_group()
     render_history_group.add_argument("--disable-render-history", dest="disable_render_history", action="store_true", default=True)
     render_history_group.add_argument("--enable-render-history", dest="disable_render_history", action="store_false")
+    parser.add_argument("--render-lighting-mode", choices=["natural", "validation"], default="natural")
     parser.add_argument("--orbit-duration-seconds", type=float, default=10.0)
     parser.add_argument("--fallback-target-distance", type=float, default=500.0)
     parser.add_argument("--target-ray-distance", type=float, default=100000.0)
@@ -312,7 +320,12 @@ def parse_args(argv=None):
     parser.add_argument("--depth-visualization-min-meters", type=float, default=None)
     parser.add_argument("--depth-visualization-max-meters", type=float, default=None)
     parser.add_argument("--depth-visualization-max-samples", type=int, default=DEFAULT_DEPTH_VISUALIZATION_MAX_SAMPLES)
+    raw_argv = sys.argv[1:] if argv is None else list(argv)
     args = parser.parse_args(argv)
+    try:
+        flashlight_profiles.apply_profile_to_args(args=args, argv=raw_argv)
+    except ValueError as exc:
+        parser.error(str(exc))
 
     if args.map is not None and args.map_path is not None:
         parser.error("--map and --map-path are mutually exclusive")
@@ -338,6 +351,8 @@ def parse_args(argv=None):
         parser.error("--source-radius must be a finite non-negative value")
     if not math.isfinite(args.soft_source_radius) or args.soft_source_radius < 0.0:
         parser.error("--soft-source-radius must be a finite non-negative value")
+    if not math.isfinite(args.contact_shadow_length) or args.contact_shadow_length < 0.0:
+        parser.error("--contact-shadow-length must be a finite non-negative value")
     if args.movement_speed <= 0.0:
         parser.error("--movement-speed must be positive")
     if not math.isfinite(args.scene_light_intensity_scale) or args.scene_light_intensity_scale < 0.0:
@@ -791,7 +806,7 @@ def apply_auto_exposure_config(config, args):
 
 
 def apply_deterministic_orbit_render_config(config, args):
-    if args.mode == "render" and args.disable_render_history:
+    if args.mode == "render" and args.disable_render_history and args.render_lighting_mode == "validation":
         append_engine_ini_config(
             config=config,
             engine_ini_config=DETERMINISTIC_ORBIT_RENDER_ENGINE_INI)
@@ -1081,6 +1096,7 @@ def make_orbit_spec(args, map_path, start_viewport_desc, target_point, target_wa
             "yaw_offset_degrees": float(command.yaw_offset_degrees),
             "pitch_offset_degrees": float(command.pitch_offset_degrees),
         },
+        "flashlight_profile": flashlight_profiles.get_resolved_flashlight_settings(args),
     }
 
 
@@ -1160,7 +1176,7 @@ def validate_light_setting_name(name, context):
 def validate_light_setting_desc(setting, context):
     if not isinstance(setting, dict):
         raise ValueError(f"{context} must be an object.")
-    for key in ("name", "enabled", "intensity", "yaw_offset_degrees", "pitch_offset_degrees"):
+    for key in ("name", "enabled", "yaw_offset_degrees", "pitch_offset_degrees"):
         if key not in setting:
             raise ValueError(f"{context} is missing required key: {key}")
     validate_light_setting_name(name=setting["name"], context=context)
@@ -1172,9 +1188,10 @@ def validate_light_setting_desc(setting, context):
         raise ValueError(f"Light setting {setting['name']} spawn_flashlight must be a JSON boolean.")
     if setting.get("spawn_flashlight") is False and setting["enabled"]:
         raise ValueError(f"Light setting {setting['name']} cannot enable a flashlight when spawn_flashlight is false.")
-    intensity = parse_finite_float(value=setting["intensity"], context=f"Light setting {setting['name']} intensity")
-    if intensity < 0.0:
-        raise ValueError(f"Light setting {setting['name']} intensity must be non-negative.")
+    if "intensity" in setting:
+        intensity = parse_finite_float(value=setting["intensity"], context=f"Light setting {setting['name']} intensity")
+        if intensity < 0.0:
+            raise ValueError(f"Light setting {setting['name']} intensity must be non-negative.")
     parse_finite_float(value=setting["yaw_offset_degrees"], context=f"Light setting {setting['name']} yaw_offset_degrees")
     parse_finite_float(value=setting["pitch_offset_degrees"], context=f"Light setting {setting['name']} pitch_offset_degrees")
 
@@ -1260,10 +1277,10 @@ def validate_light_settings(light_settings):
         validate_light_setting_desc(setting=setting, context=f"Light setting {index}")
 
 
-def command_from_setting(setting):
+def command_from_setting(setting, default_intensity):
     return LightCommand(
         enabled=bool(setting["enabled"]),
-        intensity=parse_finite_float(setting["intensity"], f"Light setting {setting['name']} intensity"),
+        intensity=parse_finite_float(setting.get("intensity", default_intensity), f"Light setting {setting['name']} intensity"),
         yaw_offset_degrees=parse_finite_float(setting["yaw_offset_degrees"], f"Light setting {setting['name']} yaw_offset_degrees"),
         pitch_offset_degrees=parse_finite_float(setting["pitch_offset_degrees"], f"Light setting {setting['name']} pitch_offset_degrees"))
 
@@ -1287,14 +1304,14 @@ def should_spawn_flashlight_for_setting(setting):
     return bool(setting.get("spawn_flashlight", True))
 
 
-def get_initial_render_light_setup(light_settings):
+def get_initial_render_light_setup(args, light_settings):
     first_setting = light_settings[0]
     spawn_flashlight = should_spawn_flashlight_for_setting(setting=first_setting)
     return {
         "source": "first_light_setting",
         "setting_name": first_setting["name"],
         "spawn_flashlight": spawn_flashlight,
-        "command": command_from_setting(setting=first_setting) if spawn_flashlight else None,
+        "command": command_from_setting(setting=first_setting, default_intensity=args.intensity) if spawn_flashlight else None,
     }
 
 
@@ -1423,6 +1440,8 @@ def write_setting_metadata(
         disable_auto_exposure,
         disable_render_history,
         component_descs,
+        flashlight_settings=None,
+        render_lighting_mode=None,
         scene_off_lighting_isolation_requested=False,
         render_diagnostics=None):
     deterministic_capture = get_deterministic_capture_metadata(
@@ -1444,6 +1463,8 @@ def write_setting_metadata(
         "scene_light_state": to_plain_dict(scene_light_state),
         "disable_auto_exposure": bool(disable_auto_exposure),
         "disable_render_history": bool(disable_render_history),
+        "flashlight_settings": to_plain_dict(flashlight_settings) if flashlight_settings is not None else None,
+        "render_lighting_mode": render_lighting_mode,
         "capture_components": capture_components,
         "rgb_capture_component": rgb_capture_components[0] if rgb_capture_components else None,
         "render_history_disable_verified": deterministic_capture["render_history_disable_verified"],
@@ -2109,8 +2130,15 @@ def spawn_flashlight(game, location, rotation, args, command, stable_name):
     light_shape_state = apply_spot_light_shape_controls(
         spot_light_component=spot_light_component,
         args=args)
+    light_shadow_state = flashlight_profiles.apply_spot_light_shadow_controls(
+        spot_light_component=spot_light_component,
+        args=args)
     try:
         spot_light_component._spear_light_shape_state = light_shape_state
+    except Exception:
+        pass
+    try:
+        spot_light_component._spear_light_shadow_state = light_shadow_state
     except Exception:
         pass
     set_light_enabled(spot_light_component=spot_light_component, command=command)
@@ -2203,8 +2231,10 @@ def run_teleop(args):
         spear.log("Orbit collection teleop mode is running.")
         spear.log("Select target key: ", args.select_key)
         spear.log("Preview orbit key: ", args.orbit_key)
+        spear.log("Flashlight profile: ", args.flashlight_profile)
         spear.log("Flashlight cone angles: ", args.inner_cone_angle, " inner, ", args.outer_cone_angle, " outer")
         spear.log("Flashlight source radii: ", args.source_radius, " source, ", args.soft_source_radius, " soft source")
+        spear.log("Flashlight shadow controls applied: ", getattr(spot_light_component, "_spear_light_shadow_state", None))
         spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
         spear.log("Flashlight toggle key: ", args.toggle_key)
         spear.log("Orbit spec file: ", args.orbit_spec_file)
@@ -2410,7 +2440,7 @@ def run_render_group(args, orbit_spec, light_settings, scene_lights_enabled):
             width=width,
             height=height,
             fov_degrees=fov_degrees)
-        initial_light_setup = get_initial_render_light_setup(light_settings=light_settings)
+        initial_light_setup = get_initial_render_light_setup(args=args, light_settings=light_settings)
         flashlight_ever_spawned = False
         flashlight_ever_enabled = False
 
@@ -2457,6 +2487,9 @@ def run_render_group(args, orbit_spec, light_settings, scene_lights_enabled):
 
         spear.log("Flashlight cone angles: ", args.inner_cone_angle, " inner, ", args.outer_cone_angle, " outer")
         spear.log("Flashlight source radii: ", args.source_radius, " source, ", args.soft_source_radius, " soft source")
+        spear.log("Flashlight profile: ", args.flashlight_profile)
+        spear.log("Flashlight render lighting mode: ", args.render_lighting_mode)
+        spear.log("Flashlight shadow controls applied: ", getattr(spot_light_component, "_spear_light_shadow_state", None))
         spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
         spear.log("Initial render light setup: ", {
             "source": initial_light_setup["source"],
@@ -2486,7 +2519,7 @@ def run_render_group(args, orbit_spec, light_settings, scene_lights_enabled):
             frame_count=frame_count)
 
         for setting in light_settings:
-            command = command_from_setting(setting=setting)
+            command = command_from_setting(setting=setting, default_intensity=args.intensity)
             setting_spawns_flashlight = should_spawn_flashlight_for_setting(setting=setting)
             flashlight_ever_spawned_before_setting = flashlight_ever_spawned
             flashlight_ever_enabled_before_setting = flashlight_ever_enabled
@@ -2546,6 +2579,8 @@ def run_render_group(args, orbit_spec, light_settings, scene_lights_enabled):
                 disable_auto_exposure=args.disable_auto_exposure,
                 disable_render_history=args.disable_render_history,
                 component_descs=component_descs,
+                flashlight_settings=flashlight_profiles.get_resolved_flashlight_settings(args),
+                render_lighting_mode=args.render_lighting_mode,
                 scene_off_lighting_isolation_requested=should_apply_scene_off_lighting_isolation(args=args),
                 render_diagnostics=render_diagnostics)
             spear.log("Wrote render metadata: ", metadata_file)

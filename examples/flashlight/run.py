@@ -14,6 +14,12 @@ import time
 import spear
 import yacs.config
 
+FLASHLIGHT_DIR = os.path.dirname(__file__)
+if FLASHLIGHT_DIR not in sys.path:
+    sys.path.insert(0, FLASHLIGHT_DIR)
+
+import flashlight_profiles
+
 
 INPUT_POLL_PERIOD_SECONDS = 1.0 / 60.0
 LEGACY_SP_CORE_INI_CONFIG_VALUE_KEYS = (
@@ -49,13 +55,14 @@ MAPS = {
 parser = argparse.ArgumentParser()
 parser.add_argument("--map", choices=sorted(MAPS.keys()), default=None)
 parser.add_argument("--map-path", default=None)
-parser.add_argument("--intensity", type=float, default=30000.0)
-parser.add_argument("--attenuation-radius", type=float, default=1200.0)
-parser.add_argument("--indirect-lighting-intensity", type=float, default=0.0)
-parser.add_argument("--inner-cone-angle", type=float, default=DEFAULT_INNER_CONE_ANGLE)
-parser.add_argument("--outer-cone-angle", type=float, default=DEFAULT_OUTER_CONE_ANGLE)
-parser.add_argument("--source-radius", type=float, default=DEFAULT_SOURCE_RADIUS)
-parser.add_argument("--soft-source-radius", type=float, default=DEFAULT_SOFT_SOURCE_RADIUS)
+parser.add_argument("--intensity", type=float, default=None)
+parser.add_argument("--attenuation-radius", type=float, default=None)
+parser.add_argument("--indirect-lighting-intensity", type=float, default=None)
+parser.add_argument("--inner-cone-angle", type=float, default=None)
+parser.add_argument("--outer-cone-angle", type=float, default=None)
+parser.add_argument("--source-radius", type=float, default=None)
+parser.add_argument("--soft-source-radius", type=float, default=None)
+flashlight_profiles.add_flashlight_profile_args(parser)
 parser.add_argument("--movement-speed", type=float, default=1200.0)
 parser.add_argument("--disable-scene-lights", action="store_true")
 parser.add_argument("--scene-light-intensity-scale", type=float, default=1.0)
@@ -79,7 +86,12 @@ parser.add_argument("--idle-period-seconds", type=float, default=0.5)
 
 
 def parse_args(argv=None):
+    raw_argv = sys.argv[1:] if argv is None else list(argv)
     args = parser.parse_args(argv)
+    try:
+        flashlight_profiles.apply_profile_to_args(args=args, argv=raw_argv)
+    except ValueError as exc:
+        parser.error(str(exc))
 
     if args.aim_yaw_min_degrees > args.aim_yaw_max_degrees:
         parser.error("--aim-yaw-min-degrees must be less than or equal to --aim-yaw-max-degrees")
@@ -101,6 +113,8 @@ def parse_args(argv=None):
         parser.error("--source-radius must be a finite non-negative value")
     if not math.isfinite(args.soft_source_radius) or args.soft_source_radius < 0.0:
         parser.error("--soft-source-radius must be a finite non-negative value")
+    if not math.isfinite(args.contact_shadow_length) or args.contact_shadow_length < 0.0:
+        parser.error("--contact-shadow-length must be a finite non-negative value")
     if not math.isfinite(args.scene_light_intensity_scale) or args.scene_light_intensity_scale < 0.0:
         parser.error("--scene-light-intensity-scale must be a finite non-negative value")
 
@@ -417,6 +431,9 @@ if __name__ == "__main__":
             light_shape_state = apply_spot_light_shape_controls(
                 spot_light_component=spot_light_component,
                 args=args)
+            light_shadow_state = flashlight_profiles.apply_spot_light_shadow_controls(
+                spot_light_component=spot_light_component,
+                args=args)
 
         with instance.end_frame():
             pass
@@ -432,6 +449,8 @@ if __name__ == "__main__":
         spear.log("Flashlight cone angles: ", args.inner_cone_angle, " inner, ", args.outer_cone_angle, " outer")
         spear.log("Flashlight source radii: ", args.source_radius, " source, ", args.soft_source_radius, " soft source")
         spear.log("Flashlight source radius controls applied: ", light_shape_state)
+        spear.log("Flashlight profile: ", args.flashlight_profile)
+        spear.log("Flashlight shadow controls applied: ", light_shadow_state)
         spear.log("Camera movement speed: ", args.movement_speed)
         spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
         spear.log("Flashlight toggle key: ", args.toggle_key)
