@@ -1,6 +1,7 @@
 import contextlib
 import importlib.util
 import io
+import json
 import os
 import subprocess
 import sys
@@ -374,6 +375,67 @@ class FakeShowFlagSettingsSetPropertyComponent:
 
 
 class OrbitCollectionValidationTests(unittest.TestCase):
+    def run_workflow_with_fake_python(self, workflow_args, env_overrides=None):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            fake_python = os.path.join(temp_dir, "fake_python.py")
+            log_file = os.path.join(temp_dir, "workflow_calls.jsonl")
+            with open(fake_python, "w", encoding="utf-8") as f:
+                f.write("""#!/usr/bin/env python3
+import json
+import os
+import sys
+
+argv = sys.argv[1:]
+
+def arg_value(flag):
+    try:
+        return argv[argv.index(flag) + 1]
+    except ValueError:
+        return None
+
+settings_file = arg_value("--light-settings-file")
+settings = None
+if settings_file is not None:
+    with open(settings_file, "r", encoding="utf-8") as f:
+        settings = json.load(f)
+
+record = {
+    "argv": argv,
+    "map": arg_value("--map"),
+    "map_path": arg_value("--map-path"),
+    "scene_light_intensity_scale": arg_value("--scene-light-intensity-scale"),
+    "light_settings_file": settings_file,
+    "output_dir": arg_value("--output-dir"),
+    "intensity": arg_value("--intensity"),
+    "settings": settings,
+}
+with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
+    f.write(json.dumps(record, sort_keys=True) + "\\n")
+""")
+            os.chmod(fake_python, 0o755)
+            env = os.environ.copy()
+            env.update({
+                "PYTHON": fake_python,
+                "TMPDIR": temp_dir,
+                "WORKFLOW_FAKE_LOG": log_file,
+            })
+            if env_overrides:
+                env.update(env_overrides)
+
+            result = subprocess.run(
+                [WORKFLOW_FILE] + workflow_args,
+                cwd=ROOT_DIR,
+                env=env,
+                check=True,
+                capture_output=True,
+                text=True)
+
+            records = []
+            if os.path.exists(log_file):
+                with open(log_file, "r", encoding="utf-8") as f:
+                    records = [json.loads(line) for line in f]
+            return result, records
+
     def test_parse_args_defaults_orbit_controls_to_shoulders(self):
         args = orbit_collection.parse_args([])
 
@@ -512,19 +574,71 @@ class OrbitCollectionValidationTests(unittest.TestCase):
         self.assertTrue(disabled_args.disable_render_history)
 
     def test_workflow_render_history_override_does_not_inject_conflicting_disable(self):
-        env = os.environ.copy()
-        env["PYTHON"] = "/bin/echo"
-
-        result = subprocess.run(
-            [WORKFLOW_FILE, "render", "--", "--enable-render-history"],
-            cwd=ROOT_DIR,
-            env=env,
-            check=True,
-            capture_output=True,
-            text=True)
+        result, records = self.run_workflow_with_fake_python(
+            ["render", "--", "--enable-render-history"])
 
         self.assertIn("--enable-render-history", result.stdout)
         self.assertNotIn("--disable-render-history", result.stdout)
+        self.assertEqual(len(records), 2)
+        for record in records:
+            self.assertEqual(
+                record["map_path"],
+                "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark")
+            self.assertIn("--enable-render-history", record["argv"])
+            self.assertNotIn("--disable-render-history", record["argv"])
+        self.assertIn("--intensity 1200", result.stdout)
+        self.assertIn("--attenuation-radius 650", result.stdout)
+        self.assertIn("--inner-cone-angle 2", result.stdout)
+        self.assertIn("--outer-cone-angle 60", result.stdout)
+        self.assertIn("--source-radius 12", result.stdout)
+        self.assertIn("--soft-source-radius 80", result.stdout)
+
+    def test_workflow_default_color_preset_runs_scene_on_and_scene_off_color_passes(self):
+        _, records = self.run_workflow_with_fake_python(["render"])
+
+        self.assertEqual(len(records), 2)
+        self.assertEqual([record["scene_light_intensity_scale"] for record in records], ["0.2", "0.0"])
+        self.assertIn("spear_color_flashlight_scene_on_settings.", records[0]["light_settings_file"])
+        self.assertIn("spear_color_flashlight_scene_off_settings.", records[1]["light_settings_file"])
+        self.assertNotEqual(records[0]["light_settings_file"], "examples/flashlight/orbit_light_settings.json")
+        self.assertNotEqual(records[1]["light_settings_file"], "examples/flashlight/orbit_light_settings.json")
+        self.assertEqual(
+            [setting["name"] for setting in records[0]["settings"]],
+            ["scene_on_flashlight_off", "scene_on_flashlight_on"])
+        self.assertEqual(
+            [setting["name"] for setting in records[1]["settings"]],
+            ["scene_off_flashlight_off", "scene_off_flashlight_on"])
+        self.assertEqual(
+            [setting["scene_lights_enabled"] for setting in records[0]["settings"]],
+            [True, True])
+        self.assertEqual(
+            [setting["scene_lights_enabled"] for setting in records[1]["settings"]],
+            [True, True])
+
+    def test_workflow_color_preset_applies_requested_scale_and_flashlight_intensity(self):
+        output_dir = os.path.join(ROOT_DIR, "examples", "flashlight", "orbit_collection_output")
+        _, records = self.run_workflow_with_fake_python([
+            "render",
+            "--scene-light-intensity-scale", "0.35",
+            "--intensity", "800",
+            "--output-dir", output_dir,
+        ])
+
+        self.assertEqual([record["scene_light_intensity_scale"] for record in records], ["0.35", "0.0"])
+        self.assertEqual([record["output_dir"] for record in records], [output_dir, output_dir])
+        self.assertEqual([record["intensity"] for record in records], ["800", "800"])
+        self.assertEqual(records[0]["settings"][1]["intensity"], 800)
+        self.assertEqual(records[1]["settings"][1]["intensity"], 800)
+
+    def test_workflow_validation_preset_uses_checked_in_diagnostic_settings(self):
+        _, records = self.run_workflow_with_fake_python(["render", "--render-preset", "validation"])
+
+        self.assertEqual(len(records), 1)
+        self.assertEqual(records[0]["scene_light_intensity_scale"], "0.2")
+        self.assertEqual(records[0]["light_settings_file"], "examples/flashlight/orbit_light_settings.json")
+        self.assertEqual(
+            [setting["scene_lights_enabled"] for setting in records[0]["settings"]],
+            [True, False, False, True])
 
     def test_capture_scene_marks_camera_cut_when_render_history_disabled(self):
         components = [FakeCaptureComponent(), FakeCaptureComponent()]
