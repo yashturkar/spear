@@ -151,6 +151,88 @@ Each world directory contains the map under `Maps/` plus referenced assets such 
 
 For regenerated Infinigen scenes, keep the corresponding `/home/yashturkar/Workspace/infinigen/outputs/<scene>` folder as provenance and reimport source. These Infinigen `.blend`, FBX, script, floorplan, and log files are not SPEAR runtime assets. See [Importing and Exporting Assets](docs/importing_and_exporting_assets.md) for the import, cook, and run commands.
 
+## Local Active-Illumination Additions
+
+This checkout contains project-specific active-illumination environments and
+helpers beyond upstream/base SPEAR. The table below is an inventory of the
+current reusable maps and their validation state. Do not treat cook/package
+success as visual validation; runtime and visual caveats are called out
+explicitly.
+
+| Environment | Unreal content path | Current validation status | User-facing entry point |
+| --- | --- | --- | --- |
+| `cafeteria_500sqft_v2` | `/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2` | Preferred replacement for the visually rejected `cafeteria_500sqft` v1. Generated/imported with materials, textures, auto collision, post-import Unreal RectLight fixtures, and successful cook/package validation. User visual validation of the live map is still pending. | `python examples/flashlight/run.py --map cafeteria_500sqft_v2 --movement-speed 600 --disable-auto-exposure --scene-light-intensity-scale 0.2` |
+| `cafeteria_500sqft_v2_flashlight_validation_dark` | `/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark` | Dark validation variant created from cafeteria v2, cooked/packaged, and orbit-validated on 2026-07-01. `scene_off_flashlight_off` stayed black for all 240 RGB frames with median mean luma `0.0`; `scene_off_flashlight_on` showed localized flashlight-only illumination. Metadata still reports unverified capture render-history/show-flag readback and uncleared map build data, so keep the luma/frame checks as acceptance evidence. | `examples/flashlight/run_orbit_workflow.sh render` defaults to this map for the `color-flashlight-only` preset. |
+| `infinigen_indoors_0000` | `/Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000` | End-to-end Infinigen FBX export, Unreal editor import, AssetCheck validation, cook/build, and user-confirmed cooked runtime launch passed on 2026-06-25. | `python examples/flashlight/run.py --map-path /Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000 --movement-speed 600` |
+| `one_bed_apartment` | `/Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment` | Larger seed-21 Infinigen apartment imported with collision, materials, and textures disabled, then cooked/packaged successfully. A later flythrough run produced two complete 1080p MP4s for quick review, but interactive checks of visual quality, scale, lighting, collision, and `PlayerStart` usability remain pending. | `python examples/flashlight/run.py --map-path /Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment --movement-speed 600` |
+| `college_classroom` | `/Game/SPEAR/Scenes/college_classroom/Maps/college_classroom` | Compact Infinigen classroom imported with collision, materials, and textures disabled. Import completed with `285` static mesh assets / `285` spawned static mesh actors and successful cook/package validation. Runtime visual inspection is still pending. | `python examples/flashlight/run.py --map-path /Game/SPEAR/Scenes/college_classroom/Maps/college_classroom --movement-speed 600` |
+
+The main project-specific workflows are:
+
+- Flashlight live teleop: `examples/flashlight/run.py` spawns a camera-mounted
+  `ASpotLight`, supports map aliases or full `--map-path` values, and uses
+  profile-driven settings from
+  `examples/flashlight/flashlight_profiles.json`. The default profile is
+  `real_handheld_16in_16in`. Cafeteria live testing currently uses
+  `realistic_live_flashlight`; `realistic_live_flashlight_2x` is the same
+  realistic profile with doubled intensity (`1600.0`) for brighter trials.
+- Realistic live cafeteria command:
+
+  ```console
+  python examples/flashlight/run.py \
+    --map cafeteria_500sqft_v2 \
+    --live-lighting-mode realistic \
+    --flashlight-profile realistic_live_flashlight \
+    --scene-light-intensity-scale 0.0005 \
+    --movement-speed 600 \
+    --disable-auto-exposure \
+    --startup-warmup-seconds 3
+  ```
+
+  This mode suppresses auto/local exposure while preserving Lumen GI,
+  reflections, material/specular response, inverse-square falloff, direct
+  shadows, contact shadows, and profile-driven flashlight values. Static/unit
+  validation and cafeteria cook/package validation passed, but the 2026-07-07
+  agent-side runtime attempt was blocked in a headless shell because
+  `DISPLAY`/`WAYLAND_DISPLAY` were unavailable; Unreal crashed during RHI
+  initialization before map load, warmup, or teleop logs. Re-run from a
+  display-capable session before claiming live visual validation. To try the
+  brighter variant, change only `--flashlight-profile` to
+  `realistic_live_flashlight_2x`.
+- Fixed exposure and lighting controls: `run.py` and
+  `run_orbit_collection.py` default to fixed exposure using Unreal renderer INI
+  overrides. Use `--enable-auto-exposure` only when normal eye adaptation is
+  desired. `--scene-light-intensity-scale` scales existing scene lights at
+  launch, and `--indirect-lighting-intensity` controls spawned flashlight
+  indirect bounce.
+- Rerun stream: `python examples/flashlight/run_programmatic_rerun.py --map
+  japanese_office_dark --movement-speed 600 --disable-scene-lights` follows the
+  live viewport camera and logs top-level `rgb`, `depth_meters`,
+  `depth_meters_visualization`, `camera_position_plot`, `status/camera/*`, and
+  `status/light/*` streams with a fixed Rerun blueprint. Live SPEAR/Rerun
+  validation still requires a user-run simulator and viewer.
+- Orbit collection/render workflow:
+  `examples/flashlight/run_orbit_workflow.sh teleop` saves an orbit spec after
+  selecting a target point, and `examples/flashlight/run_orbit_workflow.sh
+  render` renders RGB/depth videos for scene-on/off and flashlight-on/off
+  conditions. The default render preset uses the dark cafeteria validation map,
+  fixed exposure, material-color RGB, scene-off scale `0.0`, and outputs under
+  `examples/flashlight/orbit_collection_output/`.
+- Flythrough and video helpers: `examples/flashlight/render_flythrough.py`
+  writes flashlight flythrough frames and MP4s, supports synchronized ground
+  truth modalities, and can render aligned flashlight on/off comparisons.
+  `examples/flashlight/make_tiled_video.py` builds tiled MP4 previews from
+  rendered modality folders. The broader free-space pipeline under `pipeline/`
+  has a validated `one_bed_apartment` flythrough artifact, but that artifact is
+  not a substitute for interactive simulator inspection.
+- Infinigen import/export/cook workflow:
+  `examples/flashlight/setup_infinigen_indoors.py` imports Infinigen FBX scenes
+  into `/Game/SPEAR/Scenes/<scene>/`, creates maps and mesh directories, and
+  supports replacement flags. Cook maps with `python tools/run_uat.py
+  --cook-maps <Unreal map path> -cook -stage -package -archive -pak
+  -skipbuild`. Full generation, export, import, cook, and run details are in
+  [Importing and Exporting Assets](docs/importing_and_exporting_assets.md).
+
 ## More Documentation
 
 - Our [Getting Started](docs/getting_started.md) tutorial explains how to set up your development environment.

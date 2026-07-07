@@ -125,6 +125,37 @@ successfully after importing `285` static mesh assets with collision, material,
 and texture import disabled. It still needs interactive visual/runtime
 inspection before data collection.
 
+## Running the realistic live cafeteria flashlight
+
+For live cafeteria teleop with very dim scene lights and a profiled realistic
+flashlight, run:
+
+```console
+python examples/flashlight/run.py \
+  --map cafeteria_500sqft_v2 \
+  --live-lighting-mode realistic \
+  --flashlight-profile realistic_live_flashlight \
+  --scene-light-intensity-scale 0.0005 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --startup-warmup-seconds 3
+```
+
+This mode suppresses auto exposure and local exposure so dim fixture-light
+changes remain visible, while preserving Lumen global illumination, Lumen
+reflections, specular/material response, and related live rendering behavior.
+The `realistic_live_flashlight` profile uses the checked-in beam/profile values
+instead of ad hoc numeric tuning, including inverse-square flashlight falloff.
+For brighter live trials, `realistic_live_flashlight_2x` preserves the same
+realistic live settings while doubling flashlight intensity to `1600.0`.
+
+As of 2026-07-07, static/unit validation and cafeteria cook/package validation
+passed, but agent-side runtime validation of this exact live command was
+blocked in a headless shell: Unreal crashed during RHI initialization because
+`DISPLAY`/`WAYLAND_DISPLAY` were unavailable, before map load, startup warmup,
+or teleop logs. Re-run from an environment with a working display before
+treating the visual behavior as validated.
+
 ## Running the flashlight orbit collection workflow
 
 The flashlight example can save a user-selected orbit around a target point and

@@ -64,6 +64,28 @@ python examples/flashlight/run.py \
   --scene-light-intensity-scale 0.2
 ```
 
+For the realistic live cafeteria teleop setup, use the map alias, realistic live
+renderer mode, and the profile-driven flashlight:
+
+```console
+python examples/flashlight/run.py \
+  --map cafeteria_500sqft_v2 \
+  --live-lighting-mode realistic \
+  --flashlight-profile realistic_live_flashlight \
+  --scene-light-intensity-scale 0.0005 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --startup-warmup-seconds 3
+```
+
+This command suppresses auto exposure and local exposure while preserving Lumen
+global illumination, Lumen reflections, and material/specular response for live
+inspection. The `realistic_live_flashlight` profile supplies the flashlight
+beam and inverse-square falloff settings. A 2026-07-07 agent-side runtime
+attempt was blocked by a headless `DISPLAY`/`WAYLAND_DISPLAY` crash before map
+load or warmup, so visual validation still requires running the command from a
+display-capable session.
+
 For a softer validation-style floodlight, select the checked-in profile rather
 than hand-tuning every low-level spotlight field:
 
