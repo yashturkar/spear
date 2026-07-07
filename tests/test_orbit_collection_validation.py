@@ -125,6 +125,7 @@ class FakeLightComponent:
         self.cast_dynamic_shadows = None
         self.contact_shadows = None
         self.contact_shadow_length = None
+        self.use_inverse_squared_falloff = None
         self.supports_indirect = supports_indirect
 
     def SetVisibility(self, bNewVisibility, bPropagateToChildren):
@@ -156,6 +157,9 @@ class FakeLightComponent:
     def SetContactShadowLength(self, bNewValue):
         self.contact_shadow_length = bNewValue
 
+    def SetUseInverseSquaredFalloff(self, bNewValue):
+        self.use_inverse_squared_falloff = bNewValue
+
 
 class FakeReflectedSourceRadiusLightComponent:
     def __init__(self):
@@ -184,7 +188,7 @@ class FakeEditorPropertyLightComponent:
         self.properties = {}
 
     def set_editor_property(self, name, value):
-        if name not in {"SourceRadius", "SoftSourceRadius"}:
+        if name not in {"SourceRadius", "SoftSourceRadius", "UseInverseSquaredFalloff"}:
             raise AttributeError(name)
         self.properties[name] = value
 
@@ -480,6 +484,7 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertTrue(args.cast_shadows)
         self.assertTrue(args.cast_dynamic_shadows)
         self.assertTrue(args.contact_shadows)
+        self.assertFalse(args.use_inverse_squared_falloff)
         self.assertEqual(args.contact_shadow_length, 0.25)
         self.assertEqual(args.scene_light_intensity_scale, 1.0)
         self.assertTrue(args.disable_auto_exposure)
@@ -494,6 +499,8 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         args = flashlight_run.parse_args([])
 
         self.assertEqual(args.scene_light_intensity_scale, 1.0)
+        self.assertEqual(args.live_lighting_mode, "default")
+        self.assertEqual(args.startup_warmup_seconds, 0.0)
         self.assertEqual(args.flashlight_profile, "real_handheld_16in_16in")
         self.assertEqual(args.intensity, 1500.0)
         self.assertEqual(args.indirect_lighting_intensity, 0.25)
@@ -504,8 +511,23 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertTrue(args.cast_shadows)
         self.assertTrue(args.cast_dynamic_shadows)
         self.assertTrue(args.contact_shadows)
+        self.assertFalse(args.use_inverse_squared_falloff)
         self.assertEqual(args.contact_shadow_length, 0.25)
         self.assertTrue(args.disable_auto_exposure)
+
+    def test_run_realistic_live_mode_defaults_startup_warmup(self):
+        args = flashlight_run.parse_args(["--live-lighting-mode", "realistic"])
+
+        self.assertEqual(args.live_lighting_mode, "realistic")
+        self.assertEqual(args.startup_warmup_seconds, flashlight_run.DEFAULT_REALISTIC_LIVE_WARMUP_SECONDS)
+
+    def test_run_startup_warmup_override_is_respected(self):
+        args = flashlight_run.parse_args([
+            "--live-lighting-mode", "realistic",
+            "--startup-warmup-seconds", "1.25",
+        ])
+
+        self.assertEqual(args.startup_warmup_seconds, 1.25)
 
     def test_flashlight_profile_cli_values_override_profile_defaults(self):
         for module in (orbit_collection, flashlight_run):
@@ -514,6 +536,7 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
                     "--flashlight-profile", "soft_flood_validation",
                     "--intensity", "800",
                     "--outer-cone-angle", "42",
+                    "--enable-flashlight-inverse-square",
                     "--disable-flashlight-contact-shadows",
                 ])
 
@@ -521,7 +544,19 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
                 self.assertEqual(args.intensity, 800.0)
                 self.assertEqual(args.outer_cone_angle, 42.0)
                 self.assertEqual(args.inner_cone_angle, 2.0)
+                self.assertTrue(args.use_inverse_squared_falloff)
                 self.assertFalse(args.contact_shadows)
+
+    def test_realistic_live_flashlight_profile_enables_inverse_square(self):
+        args = flashlight_run.parse_args(["--flashlight-profile", "realistic_live_flashlight"])
+
+        self.assertEqual(args.flashlight_profile, "realistic_live_flashlight")
+        self.assertEqual(args.intensity, 800.0)
+        self.assertEqual(args.indirect_lighting_intensity, 0.35)
+        self.assertTrue(args.use_inverse_squared_falloff)
+        self.assertTrue(args.cast_shadows)
+        self.assertTrue(args.cast_dynamic_shadows)
+        self.assertTrue(args.contact_shadows)
 
     def test_flashlight_profile_rejects_unknown_profile(self):
         for module in (orbit_collection, flashlight_run):
@@ -565,6 +600,8 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
             "contact_shadow_length_set": True,
         })
         self.assertFalse(component.cast_shadows)
+        self.assertTrue(component.cast_dynamic_shadows)
+        self.assertTrue(component.contact_shadows)
         self.assertEqual(component.contact_shadow_length, 0.4)
 
     def test_spot_light_shadow_controls_skip_contact_call_when_disabled(self):
@@ -575,9 +612,42 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
             spot_light_component=component,
             args=args)
 
-        self.assertFalse(state["contact_shadows_set"])
+        self.assertTrue(state["contact_shadows_set"])
         self.assertFalse(state["contact_shadow_length_set"])
+        self.assertFalse(component.contact_shadows)
         self.assertIsNone(component.contact_shadow_length)
+
+    def test_spot_light_inverse_square_controls_use_available_method(self):
+        component = FakeLightComponent()
+        args = flashlight_run.parse_args(["--enable-flashlight-inverse-square"])
+
+        state = flashlight_run.flashlight_profiles.apply_spot_light_inverse_square_controls(
+            spot_light_component=component,
+            args=args)
+
+        self.assertEqual(state, {
+            "requested": True,
+            "method_set": True,
+            "property_set": False,
+            "applied": True,
+        })
+        self.assertTrue(component.use_inverse_squared_falloff)
+
+    def test_spot_light_inverse_square_controls_fall_back_to_editor_property(self):
+        component = FakeEditorPropertyLightComponent()
+        args = flashlight_run.parse_args(["--enable-flashlight-inverse-square"])
+
+        state = flashlight_run.flashlight_profiles.apply_spot_light_inverse_square_controls(
+            spot_light_component=component,
+            args=args)
+
+        self.assertEqual(state, {
+            "requested": True,
+            "method_set": False,
+            "property_set": True,
+            "applied": True,
+        })
+        self.assertTrue(component.properties["UseInverseSquaredFalloff"])
 
     def test_spot_light_shape_controls_use_reflected_bnewvalue_argument(self):
         for module in (orbit_collection, flashlight_run):
@@ -667,6 +737,70 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
 
         self.assertFalse(enabled_args.disable_render_history)
         self.assertTrue(disabled_args.disable_render_history)
+
+    def test_live_startup_warmup_advances_frames_before_control(self):
+        instance = FakeInstance()
+        current_time = [10.0]
+        sleep_durations = []
+
+        def fake_monotonic():
+            return current_time[0]
+
+        def fake_sleep(duration):
+            sleep_durations.append(duration)
+            current_time[0] += duration
+
+        state = flashlight_run.run_live_startup_warmup(
+            instance=instance,
+            duration_seconds=0.05,
+            frame_period_seconds=0.02,
+            sleep_fn=fake_sleep,
+            monotonic_fn=fake_monotonic)
+
+        self.assertEqual(state["duration_seconds"], 0.05)
+        self.assertEqual(state["frames"], 3)
+        self.assertEqual(
+            instance.events,
+            [
+                "begin:begin_frame", "end:begin_frame", "single_step:False", "begin:end_frame", "end:end_frame",
+                "begin:begin_frame", "end:begin_frame", "single_step:False", "begin:end_frame", "end:end_frame",
+                "begin:begin_frame", "end:begin_frame", "single_step:False", "begin:end_frame", "end:end_frame",
+            ])
+        self.assertEqual(len(sleep_durations), 3)
+        self.assertAlmostEqual(sleep_durations[0], 0.02)
+        self.assertAlmostEqual(sleep_durations[1], 0.02)
+        self.assertAlmostEqual(sleep_durations[2], 0.01)
+
+    def test_live_startup_warmup_zero_duration_does_not_step_frames(self):
+        instance = FakeInstance()
+
+        state = flashlight_run.run_live_startup_warmup(
+            instance=instance,
+            duration_seconds=0.0)
+
+        self.assertEqual(state["frames"], 0)
+        self.assertEqual(instance.events, [])
+
+    def test_live_runtime_render_config_applies_local_exposure_and_lumen_commands(self):
+        game = FakeConsoleGame()
+        player_controller = game.player_controller
+        args = flashlight_run.parse_args(["--live-lighting-mode", "realistic", "--enable-auto-exposure"])
+
+        state = flashlight_run.apply_live_runtime_render_config(
+            game=game,
+            player_controller=player_controller,
+            args=args)
+
+        commands = [command for command, _ in player_controller.commands]
+        self.assertFalse(state["disable_auto_exposure"])
+        self.assertTrue(state["suppress_local_exposure"])
+        self.assertTrue(state["realistic_live_mode"])
+        self.assertIn("r.DefaultFeature.LocalExposure.HighlightContrastScale 0", commands)
+        self.assertIn("r.DefaultFeature.LocalExposure.ShadowContrastScale 0", commands)
+        self.assertIn("ShowFlag.LocalExposure 0", commands)
+        self.assertIn("r.DynamicGlobalIlluminationMethod 1", commands)
+        self.assertIn("r.ReflectionMethod 1", commands)
+        self.assertIn("ShowFlag.Materials 1", commands)
 
     def test_workflow_render_history_override_does_not_inject_conflicting_disable(self):
         result, records = self.run_workflow_with_fake_python(
@@ -1356,6 +1490,8 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertIn("r.DefaultFeature.AutoExposure=False", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertIn("r.EyeAdaptationQuality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.DefaultFeature.LocalExposure.HighlightContrastScale=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.DefaultFeature.LocalExposure.ShadowContrastScale=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertNotIn("r.DynamicGlobalIlluminationMethod=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertNotIn("r.ReflectionMethod=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertNotIn("r.Lumen.DiffuseIndirect.Allow=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
@@ -1425,6 +1561,35 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertNotIn("r.DefaultFeature.AutoExposure=False", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertNotIn("r.EyeAdaptationQuality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.DefaultFeature.LocalExposure.HighlightContrastScale=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.DefaultFeature.LocalExposure.ShadowContrastScale=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+
+    def test_run_build_config_realistic_live_suppresses_local_exposure_with_auto_exposure_enabled(self):
+        args = flashlight_run.parse_args(["--live-lighting-mode", "realistic", "--enable-auto-exposure"])
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            user_config_file = os.path.join(temp_dir, "user_config.yaml")
+            with open(user_config_file, "w", encoding="utf-8") as f:
+                f.write(
+                    "SP_CORE:\n"
+                    "  OVERRIDE_CONFIG_ENGINE_INI: True\n"
+                    "  CONFIG_ENGINE_INI_STRING: |\n"
+                    "    [/Script/Engine.RendererSettings]\n"
+                    "    r.CustomDepth=3\n")
+
+            config = flashlight_run.build_config(
+                args=args,
+                user_config_files=[user_config_file])
+
+        self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.DefaultFeature.AutoExposure=False", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.EyeAdaptationQuality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.DefaultFeature.LocalExposure.HighlightContrastScale=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.DefaultFeature.LocalExposure.ShadowContrastScale=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.DynamicGlobalIlluminationMethod=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.ReflectionMethod=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.Lumen.DiffuseIndirect.Allow=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.Lumen.Reflections.Allow=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
 
     def test_orbit_build_config_preserves_temporal_rendering_when_enabled(self):
         args = orbit_collection.parse_args(["--mode", "render", "--enable-render-history"])
@@ -1500,6 +1665,8 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertIn("r.CustomDepth=3", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertIn("r.DefaultFeature.AutoExposure=False", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertIn("r.EyeAdaptationQuality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.DefaultFeature.LocalExposure.HighlightContrastScale=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.DefaultFeature.LocalExposure.ShadowContrastScale=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
 
     def test_light_setting_names_reject_path_escape_segments(self):
         for name in (".", "..", ".hidden", "nested/path"):
@@ -1662,6 +1829,7 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
             ["--scene-light-intensity-scale", "nan"],
             ["--scene-light-intensity-scale", "inf"],
             ["--disable-auto-exposure", "--enable-auto-exposure"],
+            ["--enable-flashlight-inverse-square", "--disable-flashlight-inverse-square"],
             ["--disable-render-history", "--enable-render-history"],
             ["--depth-visualization-lower-percentile", "-1"],
             ["--depth-visualization-upper-percentile", "101"],
@@ -1693,7 +1861,10 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
             ["--scene-light-intensity-scale", "-1"],
             ["--scene-light-intensity-scale", "nan"],
             ["--scene-light-intensity-scale", "inf"],
+            ["--startup-warmup-seconds", "-1"],
+            ["--startup-warmup-seconds", "nan"],
             ["--disable-auto-exposure", "--enable-auto-exposure"],
+            ["--enable-flashlight-inverse-square", "--disable-flashlight-inverse-square"],
         ]
 
         for argv in invalid_argvs:

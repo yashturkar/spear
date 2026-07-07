@@ -18,6 +18,26 @@
       "cast_shadows": true,
       "cast_dynamic_shadows": true,
       "contact_shadows": true,
+      "use_inverse_squared_falloff": false,
+      "contact_shadow_length": 0.25
+    },
+    "realistic_live_flashlight": {
+      "description": "Stable live profile for dim cafeteria teleop with inverse-square flashlight falloff, Lumen bounce, direct shadows, and contact shadows.",
+      "beam": {
+        "diameter": 16.0,
+        "distance": 16.0,
+        "units": "inch"
+      },
+      "intensity": 800.0,
+      "attenuation_radius": 600.0,
+      "indirect_lighting_intensity": 0.35,
+      "inner_cone_angle": 16.0,
+      "source_radius": 2.0,
+      "soft_source_radius": 10.0,
+      "cast_shadows": true,
+      "cast_dynamic_shadows": true,
+      "contact_shadows": true,
+      "use_inverse_squared_falloff": true,
       "contact_shadow_length": 0.25
     },
     "soft_flood_validation": {
@@ -32,6 +52,7 @@
       "cast_shadows": true,
       "cast_dynamic_shadows": true,
       "contact_shadows": true,
+      "use_inverse_squared_falloff": false,
       "contact_shadow_length": 0.15
     },
     "high_contrast_spot": {
@@ -46,7 +67,27 @@
       "cast_shadows": true,
       "cast_dynamic_shadows": true,
       "contact_shadows": true,
+      "use_inverse_squared_falloff": false,
       "contact_shadow_length": 0.35
+    },
+    "realistic_live_flashlight_2x": {
+      "description": "Twice-bright realistic live cafeteria flashlight with inverse-square falloff, Lumen bounce, direct shadows, and contact shadows.",
+      "beam": {
+        "diameter": 16.0,
+        "distance": 16.0,
+        "units": "inch"
+      },
+      "intensity": 1600.0,
+      "attenuation_radius": 600.0,
+      "indirect_lighting_intensity": 0.35,
+      "inner_cone_angle": 16.0,
+      "source_radius": 2.0,
+      "soft_source_radius": 10.0,
+      "cast_shadows": true,
+      "cast_dynamic_shadows": true,
+      "contact_shadows": true,
+      "use_inverse_squared_falloff": true,
+      "contact_shadow_length": 0.25
     }
   }
 }

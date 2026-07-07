@@ -2130,11 +2130,18 @@ def spawn_flashlight(game, location, rotation, args, command, stable_name):
     light_shape_state = apply_spot_light_shape_controls(
         spot_light_component=spot_light_component,
         args=args)
+    light_inverse_square_state = flashlight_profiles.apply_spot_light_inverse_square_controls(
+        spot_light_component=spot_light_component,
+        args=args)
     light_shadow_state = flashlight_profiles.apply_spot_light_shadow_controls(
         spot_light_component=spot_light_component,
         args=args)
     try:
         spot_light_component._spear_light_shape_state = light_shape_state
+    except Exception:
+        pass
+    try:
+        spot_light_component._spear_light_inverse_square_state = light_inverse_square_state
     except Exception:
         pass
     try:
@@ -2235,6 +2242,7 @@ def run_teleop(args):
         spear.log("Flashlight cone angles: ", args.inner_cone_angle, " inner, ", args.outer_cone_angle, " outer")
         spear.log("Flashlight source radii: ", args.source_radius, " source, ", args.soft_source_radius, " soft source")
         spear.log("Flashlight shadow controls applied: ", getattr(spot_light_component, "_spear_light_shadow_state", None))
+        spear.log("Flashlight inverse-square controls applied: ", getattr(spot_light_component, "_spear_light_inverse_square_state", None))
         spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
         spear.log("Flashlight toggle key: ", args.toggle_key)
         spear.log("Orbit spec file: ", args.orbit_spec_file)
@@ -2490,6 +2498,7 @@ def run_render_group(args, orbit_spec, light_settings, scene_lights_enabled):
         spear.log("Flashlight profile: ", args.flashlight_profile)
         spear.log("Flashlight render lighting mode: ", args.render_lighting_mode)
         spear.log("Flashlight shadow controls applied: ", getattr(spot_light_component, "_spear_light_shadow_state", None))
+        spear.log("Flashlight inverse-square controls applied: ", getattr(spot_light_component, "_spear_light_inverse_square_state", None))
         spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
         spear.log("Initial render light setup: ", {
             "source": initial_light_setup["source"],

@@ -25,6 +25,7 @@ BOOLEAN_PROFILE_FIELDS = (
     "cast_shadows",
     "cast_dynamic_shadows",
     "contact_shadows",
+    "use_inverse_squared_falloff",
 )
 CLI_FLAG_BY_FIELD = {
     "intensity": "--intensity",
@@ -38,6 +39,7 @@ CLI_FLAG_BY_FIELD = {
     "cast_shadows": ("--enable-flashlight-shadows", "--disable-flashlight-shadows"),
     "cast_dynamic_shadows": ("--enable-flashlight-dynamic-shadows", "--disable-flashlight-dynamic-shadows"),
     "contact_shadows": ("--enable-flashlight-contact-shadows", "--disable-flashlight-contact-shadows"),
+    "use_inverse_squared_falloff": ("--enable-flashlight-inverse-square", "--disable-flashlight-inverse-square"),
 }
 
 
@@ -53,6 +55,9 @@ def add_flashlight_profile_args(parser):
     contact_shadow_group = parser.add_mutually_exclusive_group()
     contact_shadow_group.add_argument("--enable-flashlight-contact-shadows", dest="contact_shadows", action="store_true", default=None)
     contact_shadow_group.add_argument("--disable-flashlight-contact-shadows", dest="contact_shadows", action="store_false")
+    inverse_square_group = parser.add_mutually_exclusive_group()
+    inverse_square_group.add_argument("--enable-flashlight-inverse-square", dest="use_inverse_squared_falloff", action="store_true", default=None)
+    inverse_square_group.add_argument("--disable-flashlight-inverse-square", dest="use_inverse_squared_falloff", action="store_false")
     parser.add_argument("--contact-shadow-length", type=float, default=None)
 
 
@@ -126,6 +131,8 @@ def normalize_profile(profile_name, profile):
     if normalized["outer_cone_angle"] < normalized["inner_cone_angle"]:
         raise ValueError(f"Flashlight profile {profile_name} outer_cone_angle must be >= inner_cone_angle.")
     for field in BOOLEAN_PROFILE_FIELDS:
+        if field == "use_inverse_squared_falloff" and field not in normalized:
+            normalized[field] = False
         if field not in normalized:
             raise ValueError(f"Flashlight profile {profile_name} is missing {field}.")
         if not isinstance(normalized[field], bool):
@@ -177,6 +184,7 @@ def get_resolved_flashlight_settings(args):
         "cast_shadows": bool(args.cast_shadows),
         "cast_dynamic_shadows": bool(args.cast_dynamic_shadows),
         "contact_shadows": bool(args.contact_shadows),
+        "use_inverse_squared_falloff": bool(args.use_inverse_squared_falloff),
         "contact_shadow_length": float(args.contact_shadow_length),
     }
 
@@ -211,6 +219,59 @@ def try_call_any_method(obj, method_name, value):
     return False
 
 
+def try_set_reflected_property(obj, property_names, value):
+    for property_name in property_names:
+        set_editor_property = getattr(obj, "set_editor_property", None)
+        if set_editor_property is not None:
+            try:
+                set_editor_property(property_name, value)
+                get_editor_property = getattr(obj, "get_editor_property", None)
+                if get_editor_property is None or get_editor_property(property_name) == value:
+                    return True
+            except Exception:
+                pass
+
+        properties = getattr(obj, "__dict__", None)
+        if isinstance(properties, dict) and property_name in properties:
+            try:
+                setattr(obj, property_name, value)
+                if getattr(obj, property_name) == value:
+                    return True
+            except Exception:
+                pass
+
+    return False
+
+
+def apply_spot_light_inverse_square_controls(spot_light_component, args):
+    state = {
+        "requested": bool(args.use_inverse_squared_falloff),
+        "method_set": False,
+        "property_set": False,
+        "applied": False,
+    }
+    value = bool(args.use_inverse_squared_falloff)
+    for method_name in (
+            "SetUseInverseSquaredFalloff",
+            "SetUseInverseSquareFalloff",
+            "SetInverseSquaredFalloff"):
+        if try_call_any_method(spot_light_component, method_name, value):
+            state["method_set"] = True
+            state["applied"] = True
+            return state
+
+    state["property_set"] = try_set_reflected_property(
+        obj=spot_light_component,
+        property_names=(
+            "UseInverseSquaredFalloff",
+            "bUseInverseSquaredFalloff",
+            "use_inverse_squared_falloff",
+            "b_use_inverse_squared_falloff"),
+        value=value)
+    state["applied"] = state["property_set"]
+    return state
+
+
 def apply_spot_light_shadow_controls(spot_light_component, args):
     state = {
         "cast_shadows_set": False,
@@ -222,11 +283,37 @@ def apply_spot_light_shadow_controls(spot_light_component, args):
         spot_light_component,
         "SetCastShadows",
         args.cast_shadows)
-    state["cast_dynamic_shadows_set"] = state["cast_shadows_set"]
-    if args.contact_shadows:
-        state["contact_shadow_length_set"] = try_call_any_method(
+    if not state["cast_shadows_set"]:
+        state["cast_shadows_set"] = try_set_reflected_property(
+            obj=spot_light_component,
+            property_names=("CastShadows", "cast_shadows"),
+            value=args.cast_shadows)
+    state["cast_dynamic_shadows_set"] = (
+        try_call_any_method(
             spot_light_component,
-            "SetContactShadowLength",
-            args.contact_shadow_length)
-        state["contact_shadows_set"] = state["contact_shadow_length_set"]
+            "SetCastDynamicShadows",
+            args.cast_dynamic_shadows)
+        or try_set_reflected_property(
+            obj=spot_light_component,
+            property_names=("CastDynamicShadows", "bCastDynamicShadow", "cast_dynamic_shadows", "b_cast_dynamic_shadow"),
+            value=args.cast_dynamic_shadows))
+    for method_name in ("SetUseContactShadow", "SetContactShadows", "SetContactShadow"):
+        if try_call_any_method(spot_light_component, method_name, args.contact_shadows):
+            state["contact_shadows_set"] = True
+            break
+    if not state["contact_shadows_set"]:
+        state["contact_shadows_set"] = try_set_reflected_property(
+            obj=spot_light_component,
+            property_names=("UseContactShadow", "bUseContactShadow", "ContactShadows", "contact_shadows", "use_contact_shadow"),
+            value=args.contact_shadows)
+    if args.contact_shadows:
+        state["contact_shadow_length_set"] = (
+            try_call_any_method(
+                spot_light_component,
+                "SetContactShadowLength",
+                args.contact_shadow_length)
+            or try_set_reflected_property(
+                obj=spot_light_component,
+                property_names=("ContactShadowLength", "contact_shadow_length"),
+                value=args.contact_shadow_length))
     return state
