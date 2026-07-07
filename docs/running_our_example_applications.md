@@ -46,7 +46,7 @@ We recommend browsing through our example applications to get a sense of what is
   - [`examples/control_simple_agent`](../examples/control_simple_agent) demonstrates how to control a simple agent and obtain egocentric visual observations.
   - [`examples/control_stackobot_sample`](../examples/control_stackobot_sample) demonstrates how to control Epic Games' `StackOBot` project.
   - [`examples/enhanced_input`](../examples/enhanced_input) demonstrates how to interact with Unreal's Enhanced Input system.
-  - [`examples/flashlight`](../examples/flashlight) demonstrates interactive and programmatic flashlight control, including a Rerun stream and orbit collection workflow for active-illumination inspection.
+  - [`examples/flashlight`](../examples/flashlight) demonstrates interactive and programmatic flashlight control, including a Rerun stream, orbit collection workflow for active-illumination inspection, and an Infinigen indoor FBX import setup script.
   - [`examples/get_class_info`](../examples/get_class_info) demonstrates how to interact with Unreal's runtime reflection system.
   - [`examples/getting_started`](../examples/getting_started) demonstrates how to spawn an object and access object properties.
   - [`examples/getting_started_editor`](../examples/getting_started_editor) demonstrates how to spawn an object using the Unreal Editor's built-in Python API.
@@ -102,21 +102,78 @@ simulator and viewer; see [`examples/flashlight`](../examples/flashlight) for
 the full workflow, including the imported Japanese office map and rendered
 flythrough helpers.
 
+The flashlight example can also launch a cooked map by Unreal content path. For
+example, after following the Infinigen import and cook workflow in
+[`Importing and Exporting Assets`](importing_and_exporting_assets.md), run:
+
+```console
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000 \
+  --movement-speed 600
+```
+
+A larger validated imported scene is also available at
+`/Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment`; it was cooked
+successfully after importing with collision, material, and texture import
+disabled. A separate free-space flythrough run has produced complete 1080p
+MP4s for quick visual review, but the map still needs interactive inspection of
+scale, lighting, collision, and player-start usability before data collection.
+
+A compact validated imported college classroom scene is available at
+`/Game/SPEAR/Scenes/college_classroom/Maps/college_classroom`; it was cooked
+successfully after importing `285` static mesh assets with collision, material,
+and texture import disabled. It still needs interactive visual/runtime
+inspection before data collection.
+
+## Running the realistic live cafeteria flashlight
+
+For live cafeteria teleop with very dim scene lights and a profiled realistic
+flashlight, run:
+
+```console
+python examples/flashlight/run.py \
+  --map cafeteria_500sqft_v2 \
+  --live-lighting-mode realistic \
+  --flashlight-profile realistic_live_flashlight \
+  --scene-light-intensity-scale 0.0005 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --startup-warmup-seconds 3
+```
+
+This mode suppresses auto exposure and local exposure so dim fixture-light
+changes remain visible, while preserving Lumen global illumination, Lumen
+reflections, specular/material response, and related live rendering behavior.
+The `realistic_live_flashlight` profile uses the checked-in beam/profile values
+instead of ad hoc numeric tuning, including inverse-square flashlight falloff.
+For brighter live trials, `realistic_live_flashlight_2x` preserves the same
+realistic live settings while doubling flashlight intensity to `1600.0`.
+
+As of 2026-07-07, static/unit validation and cafeteria cook/package validation
+passed, but agent-side runtime validation of this exact live command was
+blocked in a headless shell: Unreal crashed during RHI initialization because
+`DISPLAY`/`WAYLAND_DISPLAY` were unavailable, before map load, startup warmup,
+or teleop logs. Re-run from an environment with a working display before
+treating the visual behavior as validated.
+
 ## Running the flashlight orbit collection workflow
 
 The flashlight example can save a user-selected orbit around a target point and
-then render RGB and depth-visualization videos for multiple light settings. Use
-teleop mode to navigate to the view you want, select the target point with
+then render RGB and depth-visualization videos for multiple light settings. The
+workflow helper runs the current cafeteria v2 natural flashlight profile by
+default: fixed exposure, `--scene-light-intensity-scale 0.2`, and the
+`real_handheld_16in_16in` profile from
+`examples/flashlight/flashlight_profiles.json`. That profile models a 16 inch
+diameter beam at 16 inches with visible direct/contact shadows and modest
+indirect bounce. Existing numeric flags still override profile values. It also
+disables scene-capture render history for orbit captures by relying on the
+Python script default. Use teleop mode to navigate to the view you want, select
+the target point with
 `Gamepad_RightShoulder`, and preview the visible orbit with
 `Gamepad_LeftShoulder`:
 
 ```console
-python examples/flashlight/run_orbit_collection.py \
-  --mode teleop \
-  --map japanese_office_dark \
-  --movement-speed 600 \
-  --disable-scene-lights \
-  --orbit-spec-file examples/flashlight/orbit_spec.json
+examples/flashlight/run_orbit_workflow.sh teleop
 ```
 
 Teleop mode writes an orbit spec JSON containing the map, start camera pose,
@@ -125,26 +182,108 @@ and baseline light settings. The preview restores the spectator pawn pose and
 control rotation after the orbit. If target selection does not hit geometry, the
 script records a fallback target along the camera forward direction.
 
-Render mode reuses the saved orbit spec and applies each entry in a light
-settings JSON file. The repository includes
-`examples/flashlight/light_settings.example.json` as a starting point:
+The helper defaults to the cafeteria v2 map path,
+`examples/flashlight/orbit_spec.json`,
+`examples/flashlight/orbit_light_settings.json`, and
+`examples/flashlight/orbit_collection_output`. Override these defaults with
+matching helper flags, or with environment variables such as
+`SPEAR_ORBIT_MAP_PATH`, `SPEAR_ORBIT_SPEC_FILE`,
+`SPEAR_ORBIT_LIGHT_SETTINGS_FILE`, `SPEAR_ORBIT_OUTPUT_DIR`,
+`SPEAR_SCENE_LIGHT_INTENSITY_SCALE`, `SPEAR_FLASHLIGHT_PROFILE`, and
+`SPEAR_FLASHLIGHT_SOURCE_RADIUS`.
+
+Render mode reuses the saved orbit spec. By default, the
+`color-flashlight-only` preset writes temporary settings and produces the four
+active-illumination RGB outputs `scene_on_flashlight_off`,
+`scene_on_flashlight_on`, `scene_off_flashlight_off`, and
+`scene_off_flashlight_on`:
 
 ```console
-python examples/flashlight/run_orbit_collection.py \
-  --mode render \
-  --orbit-spec-file examples/flashlight/orbit_spec.json \
-  --light-settings-file examples/flashlight/light_settings.example.json \
-  --output-dir examples/flashlight/orbit_collection_output
+examples/flashlight/run_orbit_workflow.sh render
 ```
+
+`--scene-light-intensity-scale` controls scene lights for scene-on renders. The
+default scene-off pass keeps material-color RGB capture active and forces scene
+light scale `0.0`, independent of the configured scene-on scale. Use
+`--render-preset validation` to render the checked-in
+`examples/flashlight/orbit_light_settings.json` diagnostic settings, including
+scene-off lighting-only capture entries. Default render mode uses natural
+lighting so teleop and render share the same profile; validation mode switches
+to the `soft_flood_validation` profile and `--render-lighting-mode validation`
+to preserve the older GI/reflection-disabled diagnostic path. The helper keeps
+fixed exposure explicit with `--disable-auto-exposure` and does not require
+users to hand-write JSON. `scene_off_flashlight_off` is a no-flashlight-ever
+diagnostic control for
+baked, static, or environment illumination that can remain after runtime scene
+lights are disabled; the validation JSON setting uses `"spawn_flashlight":
+false` so the scene-off setup does not warm up with the saved orbit baseline
+flashlight. Validation scene-off passes hide existing scene light components,
+zero direct and indirect lighting intensity, and also try to disable available
+environment contributors such as sky, fog, reflection capture, and post-process
+components before any flashlight setting that needs a spawned spotlight. Render
+history is disabled by default in `run_orbit_collection.py`,
+so each explicit capture is treated as a camera cut and the script attempts
+capture-component render-state readback after initialization. The metadata
+reports whether that readback verified render-history disablement for every
+capture component. Lumen GI/reflections, screen-space reflections, Temporal AA,
+and motion blur are also disabled for deterministic data collection. Before
+writing output frames, render mode runs readback-only warm-up captures after
+camera sensor setup and after each light-setting change; those warm-up captures
+are discarded so `frame_0000` is the first saved orbit frame for that setting. Use
+`examples/flashlight/run_orbit_workflow.sh render -- --enable-render-history`
+only when deliberately comparing against normal temporal rendering.
+
+For flashlight-only validation where the scene-off baseline must be black, use
+the dark cafeteria validation map:
+`/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark`.
+A 2026-07-01 validation run against that map wrote
+`examples/flashlight/orbit_collection_output_validation_dark_map`; all four
+default light settings produced complete RGB/depth videos and 240-frame RGB and
+depth frame sets. In that run, `scene_off_flashlight_off` stayed black for all
+frames with median mean luma `0.0`, `scene_off_flashlight_on` showed localized
+flashlight-only illumination with median mean luma about `19.64`, both
+scene-on settings remained lit, and saved RGB/depth frames showed no progressive
+exposure accumulation. The same run still reported unverified capture
+render-history/show-flag readback in metadata, so treat the saved-frame luma
+checks as the acceptance evidence and keep those metadata fields visible when
+validating future maps.
+
+The orbit collection script keeps its config compatible with both current
+`SP_CORE` INI override keys and older standalone `SpearSim` binaries that still
+query legacy `*_INI_CONFIG_VALUES` maps. Users should keep `user_config.yaml`
+focused on local overrides such as `SPEAR.INSTANCE.GAME_EXECUTABLE`; the script
+fills the missing legacy maps at runtime when needed.
 
 Each light setting writes RGB PNG frames under
 `orbit_collection_output/<name>/frames/rgb/`, raw metric depth `.npy` frames
 under `orbit_collection_output/<name>/frames/depth_meters_npy/`, and viridis
 depth PNG frames under
 `orbit_collection_output/<name>/frames/depth_meters_viridis/`. It also writes
-`rgb.mp4`, legacy `depth_meters_visualization.mp4`, and
-`depth_meters_viridis.mp4`. The `.npy` frames preserve raw metric depth, while
-the viridis PNG and video outputs use one finite depth range per light setting
-so colors remain stable through the orbit. The default orbit spec and output
-paths are generated artifacts and are ignored by Git. Live render validation
-still requires a running SPEAR simulator.
+`rgb.mp4` and `depth_meters_viridis.mp4`. The `.npy` frames preserve raw metric
+depth, while the viridis PNG and video outputs use one stable depth range per
+light setting. Each setting directory also includes `metadata.json` with the
+scene-light state and deterministic capture settings used for that render.
+
+With the default helper settings, the MP4 files are:
+
+```text
+examples/flashlight/orbit_collection_output/scene_on_flashlight_off/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_on_flashlight_off/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_off/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_off/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_on/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_on/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/scene_on_flashlight_on/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_on_flashlight_on/depth_meters_viridis.mp4
+```
+
+By default, that visualization range clips to the 1st and 99th percentiles of
+finite metric depth samples so far-plane outliers do not wash out the orbit
+contrast. Use `--depth-visualization-lower-percentile` and
+`--depth-visualization-upper-percentile` to tune clipping, or
+`--depth-visualization-min-meters` and `--depth-visualization-max-meters` for
+fixed visualization bounds. For large renders,
+`--depth-visualization-max-samples` caps the number of finite depth samples used
+to estimate percentile bounds; it defaults to `1000000`. The default orbit spec
+and output paths are generated artifacts and are ignored by Git. Live render
+validation still requires a running SPEAR simulator.

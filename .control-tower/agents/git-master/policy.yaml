@@ -5,5 +5,6 @@ allowed_paths:
   - .control-tower/
   - docs/
 prohibited_actions:
+  - commit without explicit user request
   - force push without approval
   - destructive history rewrite

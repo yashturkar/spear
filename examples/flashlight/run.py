@@ -5,21 +5,58 @@
 
 import argparse
 import json
+import math
 import os
 import select
 import sys
 import time
 
 import spear
+import yacs.config
+
+FLASHLIGHT_DIR = os.path.dirname(__file__)
+if FLASHLIGHT_DIR not in sys.path:
+    sys.path.insert(0, FLASHLIGHT_DIR)
+
+import flashlight_profiles
 
 
 INPUT_POLL_PERIOD_SECONDS = 1.0 / 60.0
+LEGACY_SP_CORE_INI_CONFIG_VALUE_KEYS = (
+    "EDITOR_INI_CONFIG_VALUES",
+    "ENGINE_INI_CONFIG_VALUES",
+    "GAME_INI_CONFIG_VALUES",
+    "GAME_USER_SETTINGS_INI_CONFIG_VALUES",
+    "INPUT_INI_CONFIG_VALUES",
+)
+AUTO_EXPOSURE_DISABLED_ENGINE_INI = """[/Script/Engine.RendererSettings]
+r.DefaultFeature.AutoExposure=False
+r.EyeAdaptationQuality=0
+r.DefaultFeature.LocalExposure.HighlightContrastScale=0
+r.DefaultFeature.LocalExposure.ShadowContrastScale=0
+"""
+LOCAL_EXPOSURE_DISABLED_ENGINE_INI = """[/Script/Engine.RendererSettings]
+r.DefaultFeature.LocalExposure.HighlightContrastScale=0
+r.DefaultFeature.LocalExposure.ShadowContrastScale=0
+"""
+REALISTIC_LIVE_RENDERER_ENGINE_INI = """[/Script/Engine.RendererSettings]
+r.DynamicGlobalIlluminationMethod=1
+r.ReflectionMethod=1
+r.Lumen.DiffuseIndirect.Allow=1
+r.Lumen.Reflections.Allow=1
+"""
+DEFAULT_INNER_CONE_ANGLE = 2.0
+DEFAULT_OUTER_CONE_ANGLE = 60.0
+DEFAULT_SOURCE_RADIUS = 12.0
+DEFAULT_SOFT_SOURCE_RADIUS = 80.0
+DEFAULT_REALISTIC_LIVE_WARMUP_SECONDS = 3.0
 
 MAPS = {
     "apartment_0000": "/Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000",
     "debug_0000": "/Game/SPEAR/Scenes/debug_0000/Maps/debug_0000",
     "debug_0001": "/Game/SPEAR/Scenes/debug_0001/Maps/debug_0001",
     "advanced_lighting": "/Game/StarterContent/Maps/Advanced_Lighting",
+    "cafeteria_500sqft_v2": "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2",
     "japanese_office": "/Game/JapaneseOffice/Maps/Demonstration",
     "japanese_office_dark": "/Game/JapaneseOffice/Maps/Demonstration_Dark",
     "minimal_default": "/Game/StarterContent/Maps/Minimal_Default",
@@ -32,12 +69,22 @@ MAPS = {
 parser = argparse.ArgumentParser()
 parser.add_argument("--map", choices=sorted(MAPS.keys()), default=None)
 parser.add_argument("--map-path", default=None)
-parser.add_argument("--intensity", type=float, default=30000.0)
-parser.add_argument("--attenuation-radius", type=float, default=1200.0)
-parser.add_argument("--inner-cone-angle", type=float, default=12.0)
-parser.add_argument("--outer-cone-angle", type=float, default=30.0)
+parser.add_argument("--intensity", type=float, default=None)
+parser.add_argument("--attenuation-radius", type=float, default=None)
+parser.add_argument("--indirect-lighting-intensity", type=float, default=None)
+parser.add_argument("--inner-cone-angle", type=float, default=None)
+parser.add_argument("--outer-cone-angle", type=float, default=None)
+parser.add_argument("--source-radius", type=float, default=None)
+parser.add_argument("--soft-source-radius", type=float, default=None)
+flashlight_profiles.add_flashlight_profile_args(parser)
 parser.add_argument("--movement-speed", type=float, default=1200.0)
 parser.add_argument("--disable-scene-lights", action="store_true")
+parser.add_argument("--scene-light-intensity-scale", type=float, default=1.0)
+parser.add_argument("--live-lighting-mode", choices=["default", "realistic"], default="default")
+parser.add_argument("--startup-warmup-seconds", type=float, default=None)
+auto_exposure_group = parser.add_mutually_exclusive_group()
+auto_exposure_group.add_argument("--disable-auto-exposure", dest="disable_auto_exposure", action="store_true", default=True)
+auto_exposure_group.add_argument("--enable-auto-exposure", dest="disable_auto_exposure", action="store_false")
 parser.add_argument("--capture-poses", action="store_true")
 parser.add_argument("--capture-key", default="Gamepad_FaceButton_Top")
 parser.add_argument("--toggle-key", default="Gamepad_FaceButton_Right")
@@ -52,14 +99,46 @@ parser.add_argument("--aim-up-key", default="Gamepad_DPad_Up")
 parser.add_argument("--aim-down-key", default="Gamepad_DPad_Down")
 parser.add_argument("--pose-output-file", default=os.path.realpath(os.path.join(os.path.dirname(__file__), "camera_poses.jsonl")))
 parser.add_argument("--idle-period-seconds", type=float, default=0.5)
-args = parser.parse_args()
 
-if args.aim_yaw_min_degrees > args.aim_yaw_max_degrees:
-    parser.error("--aim-yaw-min-degrees must be less than or equal to --aim-yaw-max-degrees")
-if args.aim_pitch_min_degrees > args.aim_pitch_max_degrees:
-    parser.error("--aim-pitch-min-degrees must be less than or equal to --aim-pitch-max-degrees")
-if args.aim_rate_degrees_per_second < 0.0:
-    parser.error("--aim-rate-degrees-per-second must be non-negative")
+
+def parse_args(argv=None):
+    raw_argv = sys.argv[1:] if argv is None else list(argv)
+    args = parser.parse_args(argv)
+    try:
+        flashlight_profiles.apply_profile_to_args(args=args, argv=raw_argv)
+    except ValueError as exc:
+        parser.error(str(exc))
+
+    if args.aim_yaw_min_degrees > args.aim_yaw_max_degrees:
+        parser.error("--aim-yaw-min-degrees must be less than or equal to --aim-yaw-max-degrees")
+    if args.aim_pitch_min_degrees > args.aim_pitch_max_degrees:
+        parser.error("--aim-pitch-min-degrees must be less than or equal to --aim-pitch-max-degrees")
+    if args.aim_rate_degrees_per_second < 0.0:
+        parser.error("--aim-rate-degrees-per-second must be non-negative")
+    if not math.isfinite(args.intensity) or args.intensity < 0.0:
+        parser.error("--intensity must be a finite non-negative value")
+    if not math.isfinite(args.attenuation_radius) or args.attenuation_radius <= 0.0:
+        parser.error("--attenuation-radius must be a finite positive value")
+    if not math.isfinite(args.indirect_lighting_intensity) or args.indirect_lighting_intensity < 0.0:
+        parser.error("--indirect-lighting-intensity must be a finite non-negative value")
+    if not math.isfinite(args.inner_cone_angle) or args.inner_cone_angle < 0.0:
+        parser.error("--inner-cone-angle must be a finite non-negative value")
+    if not math.isfinite(args.outer_cone_angle) or args.outer_cone_angle < args.inner_cone_angle:
+        parser.error("--outer-cone-angle must be finite and greater than or equal to --inner-cone-angle")
+    if not math.isfinite(args.source_radius) or args.source_radius < 0.0:
+        parser.error("--source-radius must be a finite non-negative value")
+    if not math.isfinite(args.soft_source_radius) or args.soft_source_radius < 0.0:
+        parser.error("--soft-source-radius must be a finite non-negative value")
+    if not math.isfinite(args.contact_shadow_length) or args.contact_shadow_length < 0.0:
+        parser.error("--contact-shadow-length must be a finite non-negative value")
+    if not math.isfinite(args.scene_light_intensity_scale) or args.scene_light_intensity_scale < 0.0:
+        parser.error("--scene-light-intensity-scale must be a finite non-negative value")
+    if args.startup_warmup_seconds is None:
+        args.startup_warmup_seconds = DEFAULT_REALISTIC_LIVE_WARMUP_SECONDS if args.live_lighting_mode == "realistic" else 0.0
+    if not math.isfinite(args.startup_warmup_seconds) or args.startup_warmup_seconds < 0.0:
+        parser.error("--startup-warmup-seconds must be a finite non-negative value")
+
+    return args
 
 
 def get_viewport_pose(game):
@@ -156,6 +235,76 @@ def attach_light_to_pawn(light, pawn):
     assert attached
 
 
+def try_call_method(obj, method_name, **kwargs):
+    method = getattr(obj, method_name, None)
+    if method is None:
+        call = getattr(obj, "call", None)
+        if call is None:
+            return False
+        try:
+            call(method_name, args=kwargs)
+        except Exception:
+            return False
+        return True
+    try:
+        method(**kwargs)
+    except TypeError:
+        try:
+            method(*kwargs.values())
+        except Exception:
+            return False
+    except Exception:
+        return False
+    return True
+
+
+def try_set_float_property(obj, property_names, value):
+    for property_name in property_names:
+        set_editor_property = getattr(obj, "set_editor_property", None)
+        if set_editor_property is not None:
+            try:
+                set_editor_property(property_name, value)
+                get_editor_property = getattr(obj, "get_editor_property", None)
+                if get_editor_property is None or get_editor_property(property_name) == value:
+                    return True
+            except Exception:
+                pass
+
+        if hasattr(obj, property_name):
+            try:
+                setattr(obj, property_name, value)
+                if getattr(obj, property_name) == value:
+                    return True
+            except Exception:
+                pass
+
+    return False
+
+
+def try_call_source_radius_method(spot_light_component, method_name, value):
+    return try_call_method(spot_light_component, method_name, bNewValue=value)
+
+
+def apply_spot_light_shape_controls(spot_light_component, args):
+    state = {
+        "source_radius_set": False,
+        "soft_source_radius_set": False,
+    }
+    state["source_radius_set"] = (
+        try_call_source_radius_method(spot_light_component, "SetSourceRadius", args.source_radius)
+        or try_set_float_property(
+            obj=spot_light_component,
+            property_names=("SourceRadius", "source_radius"),
+            value=args.source_radius))
+    state["soft_source_radius_set"] = (
+        try_call_source_radius_method(spot_light_component, "SetSoftSourceRadius", args.soft_source_radius)
+        or try_set_float_property(
+            obj=spot_light_component,
+            property_names=("SoftSourceRadius", "soft_source_radius"),
+            value=args.soft_source_radius))
+    return state
+
+
 def disable_scene_lights(game):
     disabled_components = 0
     actors = game.unreal_service.find_actors()
@@ -173,17 +322,231 @@ def disable_scene_lights(game):
     return disabled_components
 
 
-if __name__ == "__main__":
+def try_scale_light_component_intensity(light_component, intensity_scale):
+    try:
+        intensity = light_component.Intensity
+        if hasattr(intensity, "get"):
+            intensity = intensity.get()
+        intensity = float(intensity)
+    except Exception:
+        return False
 
-    config = spear.get_config(user_config_files=[os.path.realpath(os.path.join(os.path.dirname(__file__), "user_config.yaml"))])
+    if not math.isfinite(intensity):
+        return False
+
+    try:
+        light_component.SetIntensity(NewIntensity=intensity * intensity_scale)
+    except Exception:
+        return False
+
+    return True
+
+
+def scale_scene_light_intensities(game, intensity_scale):
+    scaled_components = 0
+    skipped_components = 0
+    actors = game.unreal_service.find_actors()
+
+    for actor in actors:
+        light_components = game.unreal_service.get_components_by_class(
+            actor=actor,
+            uclass="ULightComponentBase",
+            include_from_child_actors=True)
+
+        for light_component in light_components:
+            if try_scale_light_component_intensity(
+                    light_component=light_component,
+                    intensity_scale=intensity_scale):
+                scaled_components += 1
+            else:
+                skipped_components += 1
+
+    return scaled_components, skipped_components
+
+
+def ensure_legacy_sp_core_ini_config_values(config):
+    was_new_allowed = config.SP_CORE.is_new_allowed()
+    config.SP_CORE.set_new_allowed(True)
+    for key in LEGACY_SP_CORE_INI_CONFIG_VALUE_KEYS:
+        if key not in config.SP_CORE:
+            config.SP_CORE[key] = yacs.config.CfgNode(new_allowed=True)
+    config.SP_CORE.set_new_allowed(was_new_allowed)
+
+
+def append_engine_ini_config(config, engine_ini_config):
+    config.SP_CORE.OVERRIDE_CONFIG_ENGINE_INI = True
+    existing_engine_ini_config = config.SP_CORE.CONFIG_ENGINE_INI_STRING or ""
+    if existing_engine_ini_config and not existing_engine_ini_config.endswith("\n"):
+        existing_engine_ini_config += "\n"
+    config.SP_CORE.CONFIG_ENGINE_INI_STRING = existing_engine_ini_config + engine_ini_config
+
+
+def is_realistic_live_mode(args):
+    return args.live_lighting_mode == "realistic"
+
+
+def should_suppress_local_exposure(args):
+    return bool(args.disable_auto_exposure or is_realistic_live_mode(args=args))
+
+
+def apply_auto_exposure_config(config, args):
+    if args.disable_auto_exposure:
+        append_engine_ini_config(
+            config=config,
+            engine_ini_config=AUTO_EXPOSURE_DISABLED_ENGINE_INI)
+    elif should_suppress_local_exposure(args=args):
+        append_engine_ini_config(
+            config=config,
+            engine_ini_config=LOCAL_EXPOSURE_DISABLED_ENGINE_INI)
+
+
+def apply_realistic_live_renderer_config(config, args):
+    if is_realistic_live_mode(args=args):
+        append_engine_ini_config(
+            config=config,
+            engine_ini_config=REALISTIC_LIVE_RENDERER_ENGINE_INI)
+
+
+def build_config(args, user_config_files=None):
+    if user_config_files is None:
+        user_config_files = [os.path.realpath(os.path.join(os.path.dirname(__file__), "user_config.yaml"))]
+    config = spear.get_config(user_config_files=user_config_files)
     config.defrost()
+    ensure_legacy_sp_core_ini_config_values(config=config)
+    apply_auto_exposure_config(config=config, args=args)
+    apply_realistic_live_renderer_config(config=config, args=args)
     config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.OVERRIDE_BENCHMARKING = True
     config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.BENCHMARKING = False
     if args.map is not None or args.map_path is not None:
         config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.OVERRIDE_GAME_DEFAULT_MAP = True
         config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.GAME_DEFAULT_MAP = args.map_path if args.map_path is not None else MAPS[args.map]
     config.freeze()
+    return config
 
+
+def try_execute_console_command(game, player_controller, command):
+    if try_call_method(
+            player_controller,
+            "ConsoleCommand",
+            Command=command,
+            bWriteToLog=True):
+        return True
+    if try_call_method(
+            player_controller,
+            "ConsoleCommand",
+            Cmd=command,
+            bWriteToLog=True):
+        return True
+
+    try:
+        kismet_system_library = game.get_unreal_object(uclass="UKismetSystemLibrary")
+    except Exception:
+        return False
+
+    for player_arg_name in ("SpecificPlayer", "Player"):
+        if try_call_method(
+                kismet_system_library,
+                "ExecuteConsoleCommand",
+                Command=command,
+                **{player_arg_name: player_controller}):
+            return True
+    if try_call_method(
+            kismet_system_library,
+            "ExecuteConsoleCommand",
+            Command=command):
+        return True
+    return False
+
+
+def apply_live_runtime_render_config(game, player_controller, args):
+    state = {
+        "disable_auto_exposure": bool(args.disable_auto_exposure),
+        "suppress_local_exposure": should_suppress_local_exposure(args=args),
+        "realistic_live_mode": is_realistic_live_mode(args=args),
+        "commands": [],
+        "applied": 0,
+    }
+    commands = []
+    if args.disable_auto_exposure:
+        commands.extend((
+            "r.DefaultFeature.AutoExposure 0",
+            "r.EyeAdaptationQuality 0",
+        ))
+    if should_suppress_local_exposure(args=args):
+        commands.extend((
+            "r.DefaultFeature.LocalExposure.HighlightContrastScale 0",
+            "r.DefaultFeature.LocalExposure.ShadowContrastScale 0",
+            "ShowFlag.LocalExposure 0",
+        ))
+    if is_realistic_live_mode(args=args):
+        commands.extend((
+            "r.DynamicGlobalIlluminationMethod 1",
+            "r.ReflectionMethod 1",
+            "r.Lumen.DiffuseIndirect.Allow 1",
+            "r.Lumen.Reflections.Allow 1",
+            "ShowFlag.GlobalIllumination 1",
+            "ShowFlag.LumenGlobalIllumination 1",
+            "ShowFlag.LumenReflections 1",
+            "ShowFlag.Materials 1",
+            "ShowFlag.ReflectionEnvironment 1",
+            "ShowFlag.ScreenSpaceReflections 1",
+            "ShowFlag.Specular 1",
+        ))
+
+    for command in commands:
+        applied = try_execute_console_command(
+            game=game,
+            player_controller=player_controller,
+            command=command)
+        state["commands"].append({
+            "command": command,
+            "applied": applied,
+        })
+        if applied:
+            state["applied"] += 1
+    return state
+
+
+def is_instance_running(instance):
+    is_running = getattr(instance, "is_running", None)
+    if is_running is None:
+        return True
+    try:
+        return bool(is_running())
+    except Exception:
+        return True
+
+
+def run_live_startup_warmup(
+        instance,
+        duration_seconds,
+        frame_period_seconds=INPUT_POLL_PERIOD_SECONDS,
+        sleep_fn=time.sleep,
+        monotonic_fn=time.monotonic):
+    state = {
+        "duration_seconds": float(duration_seconds),
+        "frames": 0,
+    }
+    if duration_seconds <= 0.0:
+        return state
+
+    end_time = monotonic_fn() + duration_seconds
+    while is_instance_running(instance=instance) and monotonic_fn() < end_time:
+        with instance.begin_frame():
+            pass
+        with instance.end_frame():
+            pass
+        state["frames"] += 1
+        remaining_seconds = end_time - monotonic_fn()
+        if remaining_seconds > 0.0:
+            sleep_fn(min(frame_period_seconds, remaining_seconds))
+    return state
+
+
+if __name__ == "__main__":
+    args = parse_args()
+
+    config = build_config(args=args)
     spear.configure_system(config=config)
     instance = spear.Instance(config=config)
     game = instance.get_game()
@@ -193,9 +556,34 @@ if __name__ == "__main__":
     try:
         with instance.begin_frame():
             pawn = set_camera_movement_speed(game=game, movement_speed=args.movement_speed)
+            player_controller = get_player_controller(game=game)
+            runtime_render_config_state = apply_live_runtime_render_config(
+                game=game,
+                player_controller=player_controller,
+                args=args)
+            scene_light_state = {
+                "disabled_components": 0,
+                "scaled_components": 0,
+                "skipped_components": 0,
+                "scale": args.scene_light_intensity_scale,
+            }
             if args.disable_scene_lights:
                 disabled_components = disable_scene_lights(game=game)
+                scene_light_state["disabled_components"] = disabled_components
                 spear.log("Disabled scene light components: ", disabled_components)
+            elif args.scene_light_intensity_scale != 1.0:
+                scaled_components, skipped_components = scale_scene_light_intensities(
+                    game=game,
+                    intensity_scale=args.scene_light_intensity_scale)
+                scene_light_state["scaled_components"] = scaled_components
+                scene_light_state["skipped_components"] = skipped_components
+                spear.log(
+                    "Scaled scene light components: ",
+                    scaled_components,
+                    " by ",
+                    args.scene_light_intensity_scale)
+                if skipped_components > 0:
+                    spear.log("Skipped scene light components without scalable intensity: ", skipped_components)
 
             viewport_desc = get_viewport_pose(game=game)
 
@@ -210,8 +598,18 @@ if __name__ == "__main__":
             spot_light_component = game.unreal_service.get_component_by_class(actor=light, uclass="USpotLightComponent")
             spot_light_component.SetIntensity(NewIntensity=args.intensity)
             spot_light_component.SetAttenuationRadius(NewRadius=args.attenuation_radius)
+            spot_light_component.SetIndirectLightingIntensity(NewIntensity=args.indirect_lighting_intensity)
             spot_light_component.SetInnerConeAngle(NewInnerConeAngle=args.inner_cone_angle)
             spot_light_component.SetOuterConeAngle(NewOuterConeAngle=args.outer_cone_angle)
+            light_shape_state = apply_spot_light_shape_controls(
+                spot_light_component=spot_light_component,
+                args=args)
+            light_inverse_square_state = flashlight_profiles.apply_spot_light_inverse_square_controls(
+                spot_light_component=spot_light_component,
+                args=args)
+            light_shadow_state = flashlight_profiles.apply_spot_light_shadow_controls(
+                spot_light_component=spot_light_component,
+                args=args)
 
         with instance.end_frame():
             pass
@@ -223,8 +621,25 @@ if __name__ == "__main__":
         with instance.end_frame():
             pass
 
+        startup_warmup_state = run_live_startup_warmup(
+            instance=instance,
+            duration_seconds=args.startup_warmup_seconds)
+
         spear.log("Spawned camera flashlight. Press Ctrl+C to stop.")
+        spear.log("Live lighting mode: ", args.live_lighting_mode)
+        spear.log("Exposure/local exposure runtime config: ", runtime_render_config_state)
+        spear.log("Scene light state: ", scene_light_state)
+        spear.log("Realistic live renderer retains Lumen GI/reflections/material response: ", is_realistic_live_mode(args=args))
+        spear.log("Flashlight cone angles: ", args.inner_cone_angle, " inner, ", args.outer_cone_angle, " outer")
+        spear.log("Flashlight source radii: ", args.source_radius, " source, ", args.soft_source_radius, " soft source")
+        spear.log("Flashlight source radius controls applied: ", light_shape_state)
+        spear.log("Flashlight profile: ", args.flashlight_profile_desc)
+        spear.log("Flashlight inverse-square controls applied: ", light_inverse_square_state)
+        spear.log("Flashlight shadow controls applied: ", light_shadow_state)
         spear.log("Camera movement speed: ", args.movement_speed)
+        spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
+        spear.log("Startup warmup before live control: ", startup_warmup_state)
+        spear.log("Live flashlight control begins.")
         spear.log("Flashlight toggle key: ", args.toggle_key)
         spear.log("Flashlight aim D-pad keys: ", args.aim_left_key, args.aim_right_key, args.aim_up_key, args.aim_down_key)
         spear.log(

@@ -41,10 +41,105 @@ Launch the dark duplicate of the Japanese office map:
 python examples/flashlight/run.py --map japanese_office_dark --movement-speed 600
 ```
 
-Use a slower camera and turn off scene lights so the flashlight dominates:
+The flashlight entry points disable Unreal auto exposure / eye adaptation by
+default so launch-time scene-light scale changes are visible instead of being
+normalized by exposure adaptation. Pass `--enable-auto-exposure` only when you
+want the map's normal adaptive exposure behavior.
+
+Flashlight beam, falloff, bounce, and shadow defaults come from
+`examples/flashlight/flashlight_profiles.json`. The default
+`real_handheld_16in_16in` profile models a handheld light with a 16 inch beam
+diameter at 16 inches, visible contact shadows, and modest indirect bounce.
+Existing numeric flags such as `--intensity` and `--outer-cone-angle` still
+override the selected profile.
+
+Use a slower camera and dim the cafeteria v2 fixture lights so the profiled
+co-located flashlight is visible while the real indoor lights stay enabled:
 
 ```console
-python examples/flashlight/run.py --map japanese_office --movement-speed 600 --disable-scene-lights
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --scene-light-intensity-scale 0.2
+```
+
+For the realistic live cafeteria teleop setup, use the map alias, realistic live
+renderer mode, and the profile-driven flashlight:
+
+```console
+python examples/flashlight/run.py \
+  --map cafeteria_500sqft_v2 \
+  --live-lighting-mode realistic \
+  --flashlight-profile realistic_live_flashlight \
+  --scene-light-intensity-scale 0.0005 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --startup-warmup-seconds 3
+```
+
+This command suppresses auto exposure and local exposure while preserving Lumen
+global illumination, Lumen reflections, and material/specular response for live
+inspection. The `realistic_live_flashlight` profile supplies the flashlight
+beam and inverse-square falloff settings. A 2026-07-07 agent-side runtime
+attempt was blocked by a headless `DISPLAY`/`WAYLAND_DISPLAY` crash before map
+load or warmup, so visual validation still requires running the command from a
+display-capable session.
+
+For a softer validation-style floodlight, select the checked-in profile rather
+than hand-tuning every low-level spotlight field:
+
+```console
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --scene-light-intensity-scale 0.1 \
+  --flashlight-profile soft_flood_validation
+```
+
+For fixed-exposure brightness validation, compare the same camera position
+across scene-light scales:
+
+```console
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --scene-light-intensity-scale 0.2 \
+  --intensity 1200 \
+  --attenuation-radius 650 \
+  --inner-cone-angle 2 \
+  --outer-cone-angle 60 \
+  --source-radius 12 \
+  --soft-source-radius 80 \
+  --indirect-lighting-intensity 0
+
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --scene-light-intensity-scale 0.1 \
+  --intensity 1200 \
+  --attenuation-radius 650 \
+  --inner-cone-angle 2 \
+  --outer-cone-angle 60 \
+  --source-radius 12 \
+  --soft-source-radius 80 \
+  --indirect-lighting-intensity 0
+
+python examples/flashlight/run.py \
+  --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 \
+  --movement-speed 600 \
+  --disable-auto-exposure \
+  --scene-light-intensity-scale 0.0 \
+  --intensity 1200 \
+  --attenuation-radius 650 \
+  --inner-cone-angle 2 \
+  --outer-cone-angle 60 \
+  --source-radius 12 \
+  --soft-source-radius 80 \
+  --indirect-lighting-intensity 0
 ```
 
 Press `Ctrl+C` in the terminal to stop the script and destroy the spawned
@@ -95,15 +190,11 @@ requires a running simulator and Rerun viewer.
 
 ## Orbit collection
 
-Use teleop mode to choose a target point and save an orbit specification:
+Use the workflow helper to choose a target point and save an orbit
+specification:
 
 ```console
-python examples/flashlight/run_orbit_collection.py \
-  --mode teleop \
-  --map japanese_office_dark \
-  --movement-speed 600 \
-  --disable-scene-lights \
-  --orbit-spec-file examples/flashlight/orbit_spec.json
+examples/flashlight/run_orbit_workflow.sh teleop
 ```
 
 Move the spectator pawn normally. Press `Gamepad_RightShoulder` to select the
@@ -112,21 +203,60 @@ logs that it used `--fallback-target-distance` centimeters along the camera
 forward vector. Press `Gamepad_LeftShoulder` to preview one visible 360
 degree orbit around the selected target. After the preview, the script restores
 the spectator pawn location and PlayerController control rotation from before
-the orbit. The flashlight uses the same toggle key, D-pad aiming, intensity,
-cone, and attenuation options as `run.py`.
+the orbit. The flashlight uses the same toggle key, D-pad aiming, profile,
+shadow, intensity, cone, attenuation, and indirect lighting options as `run.py`.
+
+The helper defaults to the cafeteria v2 map path,
+`examples/flashlight/orbit_spec.json`,
+`examples/flashlight/orbit_light_settings.json`, and
+`examples/flashlight/orbit_collection_output`. It passes fixed exposure
+explicitly with `--disable-auto-exposure`, scales scene lights with
+`--scene-light-intensity-scale 0.2`, leaves scene-capture render history
+disabled by the Python script default, and uses the default
+`real_handheld_16in_16in` flashlight profile. Override the profile with
+`--flashlight-profile`, or override individual values with matching helper
+flags or environment variables such as `SPEAR_SCENE_LIGHT_INTENSITY_SCALE=0.1`,
+`SPEAR_FLASHLIGHT_PROFILE=high_contrast_spot`, or
+`SPEAR_FLASHLIGHT_SOURCE_RADIUS=12`.
 
 The orbit spec JSON records the map/map path, start camera pose, selected target
 point, orbit radius, duration, FPS, image size, field of view, and baseline
 light settings. Render mode reuses that orbit spec and applies each entry in a
-light settings JSON list. A reusable three-setting example lives at
-`examples/flashlight/light_settings.example.json`:
+light settings JSON list. The checked-in active-illumination set lives at
+`examples/flashlight/orbit_light_settings.json`:
 
 ```json
 [
   {
-    "name": "baseline_on",
+    "name": "scene_on_flashlight_off",
+    "scene_lights_enabled": true,
+    "enabled": false,
+    "intensity": 0.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  },
+  {
+    "name": "scene_off_flashlight_off",
+    "scene_lights_enabled": false,
+    "spawn_flashlight": false,
+    "enabled": false,
+    "intensity": 0.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  },
+  {
+    "name": "scene_off_flashlight_on",
+    "scene_lights_enabled": false,
     "enabled": true,
-    "intensity": 30000.0,
+    "intensity": 1200.0,
+    "yaw_offset_degrees": 0.0,
+    "pitch_offset_degrees": 0.0
+  },
+  {
+    "name": "scene_on_flashlight_on",
+    "scene_lights_enabled": true,
+    "enabled": true,
+    "intensity": 1200.0,
     "yaw_offset_degrees": 0.0,
     "pitch_offset_degrees": 0.0
   }
@@ -136,12 +266,28 @@ light settings JSON list. A reusable three-setting example lives at
 Render RGB and depth videos for every light setting:
 
 ```console
-python examples/flashlight/run_orbit_collection.py \
-  --mode render \
-  --orbit-spec-file examples/flashlight/orbit_spec.json \
-  --light-settings-file examples/flashlight/light_settings.example.json \
-  --output-dir examples/flashlight/orbit_collection_output
+examples/flashlight/run_orbit_workflow.sh render
 ```
+
+The default `color-flashlight-only` render preset writes temporary settings and
+runs two color passes against the dark cafeteria validation map. The scene-on
+pass uses the configured `--scene-light-intensity-scale`; the scene-off pass
+keeps the RGB capture on `final_tone_curve_hdr` and forces
+`--scene-light-intensity-scale 0.0`, preserving material color while removing
+runtime scene light contribution. The default render command therefore writes
+exactly these active-illumination conditions: `scene_on_flashlight_off`,
+`scene_on_flashlight_on`, `scene_off_flashlight_off`, and
+`scene_off_flashlight_on`. Use `--render-preset validation` to render the
+checked-in `examples/flashlight/orbit_light_settings.json` diagnostic path,
+including its scene-off lighting-only capture settings. The scene-off
+flashlight-off output is a diagnostic control for baked, static, or environment
+illumination that can remain after runtime scene lights are removed. Render mode
+marks each explicit capture as a camera cut by default, disables capture
+render-state persistence, and turns off Lumen GI/reflections, screen-space
+reflections, Temporal AA, and motion blur for deterministic data collection;
+pass
+`examples/flashlight/run_orbit_workflow.sh render -- --enable-render-history`
+only when comparing against the engine's normal temporal behavior.
 
 To render the saved orbit with just `light_on` and `light_off` settings, run:
 
@@ -156,13 +302,31 @@ examples/flashlight/orbit_collection_output/<name>/frames/rgb/
 examples/flashlight/orbit_collection_output/<name>/frames/depth_meters_npy/
 examples/flashlight/orbit_collection_output/<name>/frames/depth_meters_viridis/
 examples/flashlight/orbit_collection_output/<name>/rgb.mp4
-examples/flashlight/orbit_collection_output/<name>/depth_meters_visualization.mp4
 examples/flashlight/orbit_collection_output/<name>/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/<name>/metadata.json
 ```
 
-Depth `.npy` frames store raw metric depth. Viridis PNGs are normalized once
-across all finite depth values in that light setting, so the per-frame PNGs and
-depth videos use a stable color range through the full orbit.
+With the default helper settings, the MP4 files land at:
+
+```text
+examples/flashlight/orbit_collection_output/scene_on_flashlight_off/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_on_flashlight_off/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_off/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_off/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_on/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_off_flashlight_on/depth_meters_viridis.mp4
+examples/flashlight/orbit_collection_output/scene_on_flashlight_on/rgb.mp4
+examples/flashlight/orbit_collection_output/scene_on_flashlight_on/depth_meters_viridis.mp4
+```
+
+Depth `.npy` frames store raw metric depth. Viridis PNGs and depth videos use
+one stable color range per light setting, but the default range is clipped to
+the 1st and 99th percentiles of finite metric depth samples so huge far-plane
+values or other outliers do not flatten the useful orbit contrast. This affects
+only the PNG/MP4 visualization outputs. Adjust the clipping with
+`--depth-visualization-lower-percentile` and
+`--depth-visualization-upper-percentile`, or force explicit bounds with
+`--depth-visualization-min-meters` and `--depth-visualization-max-meters`.
 
 The default orbit spec and orbit collection output paths are generated artifacts
 and are ignored by Git.

@@ -11,6 +11,17 @@
       "search": false,
       "backend": "codex"
     },
+    "experimenter": {
+      "name": "Experimenter",
+      "role": "process-orchestration",
+      "description": "Runs and monitors long local generation, import, cook, render, and validation processes.",
+      "enabled": true,
+      "model": null,
+      "dangerously_bypass": true,
+      "sandbox": "workspace-write",
+      "search": false,
+      "backend": "codex"
+    },
     "inspector": {
       "name": "Inspector",
       "role": "review",
