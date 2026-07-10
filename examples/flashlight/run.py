@@ -45,6 +45,13 @@ r.ReflectionMethod=1
 r.Lumen.DiffuseIndirect.Allow=1
 r.Lumen.Reflections.Allow=1
 """
+HARDWARE_RAY_TRACING_CVARS = (
+    ("r.RayTracing.Enable", 1),
+    ("r.Lumen.HardwareRayTracing", 1),
+    ("r.Lumen.Reflections.HardwareRayTracing", 1),
+    ("r.Lumen.ScreenProbeGather.HardwareRayTracing", 1),
+    ("r.Lumen.ScreenProbeGather.ShortRangeAO.HardwareRayTracing", 1),
+)
 DEFAULT_INNER_CONE_ANGLE = 2.0
 DEFAULT_OUTER_CONE_ANGLE = 60.0
 DEFAULT_SOURCE_RADIUS = 12.0
@@ -81,6 +88,7 @@ parser.add_argument("--movement-speed", type=float, default=1200.0)
 parser.add_argument("--disable-scene-lights", action="store_true")
 parser.add_argument("--scene-light-intensity-scale", type=float, default=1.0)
 parser.add_argument("--live-lighting-mode", choices=["default", "realistic"], default="default")
+parser.add_argument("--disable-hardware-ray-tracing", action="store_true")
 parser.add_argument("--startup-warmup-seconds", type=float, default=None)
 auto_exposure_group = parser.add_mutually_exclusive_group()
 auto_exposure_group.add_argument("--disable-auto-exposure", dest="disable_auto_exposure", action="store_true", default=True)
@@ -385,6 +393,10 @@ def is_realistic_live_mode(args):
     return args.live_lighting_mode == "realistic"
 
 
+def should_request_hardware_ray_tracing(args):
+    return bool(is_realistic_live_mode(args=args) and not args.disable_hardware_ray_tracing)
+
+
 def should_suppress_local_exposure(args):
     return bool(args.disable_auto_exposure or is_realistic_live_mode(args=args))
 
@@ -405,6 +417,35 @@ def apply_realistic_live_renderer_config(config, args):
         append_engine_ini_config(
             config=config,
             engine_ini_config=REALISTIC_LIVE_RENDERER_ENGINE_INI)
+    if should_request_hardware_ray_tracing(args=args):
+        append_engine_ini_config(
+            config=config,
+            engine_ini_config=get_hardware_ray_tracing_engine_ini())
+
+
+def get_hardware_ray_tracing_engine_ini():
+    lines = ["[/Script/Engine.RendererSettings]"]
+    lines.extend(
+        f"{cvar_name}={value}"
+        for cvar_name, value in HARDWARE_RAY_TRACING_CVARS)
+    return "\n".join(lines) + "\n"
+
+
+def get_hardware_ray_tracing_requested_state(args):
+    requested = should_request_hardware_ray_tracing(args=args)
+    return {
+        "requested": requested,
+        "disabled_by_cli": bool(args.disable_hardware_ray_tracing),
+        "requires_realistic_live_mode": True,
+        "cvars": [
+            {
+                "name": cvar_name,
+                "value": value,
+                "requested": requested,
+            }
+            for cvar_name, value in HARDWARE_RAY_TRACING_CVARS
+        ],
+    }
 
 
 def build_config(args, user_config_files=None):
@@ -458,11 +499,148 @@ def try_execute_console_command(game, player_controller, command):
     return False
 
 
+def try_read_console_variable_int(game, cvar_name):
+    state = {
+        "name": cvar_name,
+        "available": False,
+        "readback_ok": False,
+        "value": None,
+        "error": None,
+    }
+    unreal_service = getattr(game, "unreal_service", None)
+    find_console_variable_by_name = getattr(unreal_service, "find_console_variable_by_name", None)
+    if find_console_variable_by_name is None:
+        state["error"] = "unreal_service.find_console_variable_by_name unavailable"
+        return state
+
+    try:
+        cvar = find_console_variable_by_name(console_variable_name=cvar_name)
+    except Exception as exc:
+        state["error"] = f"find failed: {exc}"
+        return state
+
+    if not cvar:
+        state["error"] = "console variable not found"
+        return state
+
+    state["available"] = True
+    for getter_name in (
+            "get_console_variable_value_as_int",
+            "get_console_variable_value_as_bool",
+            "get_console_variable_value_as_float",
+            "get_console_variable_value_as_string"):
+        getter = getattr(unreal_service, getter_name, None)
+        if getter is None:
+            continue
+        try:
+            value = getter(cvar=cvar)
+        except Exception:
+            continue
+        try:
+            state["value"] = int(value)
+        except (TypeError, ValueError):
+            state["value"] = value
+        state["readback_ok"] = True
+        state["getter"] = getter_name
+        return state
+
+    state["error"] = "no console variable value getter succeeded"
+    return state
+
+
+def make_hardware_ray_tracing_console_commands():
+    return [
+        f"{cvar_name} {value}"
+        for cvar_name, value in HARDWARE_RAY_TRACING_CVARS
+    ]
+
+
+def read_hardware_ray_tracing_runtime_state(game):
+    cvar_states = []
+    confirmed = True
+    has_readback = False
+    for cvar_name, requested_value in HARDWARE_RAY_TRACING_CVARS:
+        readback = try_read_console_variable_int(game=game, cvar_name=cvar_name)
+        matches_request = readback["readback_ok"] and readback["value"] == requested_value
+        if readback["readback_ok"]:
+            has_readback = True
+        else:
+            confirmed = False
+        if readback["readback_ok"] and not matches_request:
+            confirmed = False
+        cvar_states.append({
+            "name": cvar_name,
+            "requested_value": requested_value,
+            "readback": readback,
+            "matches_request": matches_request,
+        })
+
+    return {
+        "confirmed": confirmed if has_readback else None,
+        "has_readback": has_readback,
+        "cvars": cvar_states,
+    }
+
+
+def is_hardware_ray_tracing_runtime_confirmed(runtime_render_config_state):
+    hardware_ray_tracing_state = runtime_render_config_state.get("hardware_ray_tracing", {})
+    readback = hardware_ray_tracing_state.get("readback")
+    return bool(
+        hardware_ray_tracing_state.get("requested") is True
+        and isinstance(readback, dict)
+        and readback.get("confirmed") is True)
+
+
+def apply_live_spot_light_ray_traced_shadow_intent(
+        spot_light_component,
+        args,
+        runtime_render_config_state,
+        intent_fn=None):
+    if intent_fn is None:
+        intent_fn = flashlight_profiles.apply_spot_light_ray_traced_shadow_intent
+
+    requested_by_config = should_request_hardware_ray_tracing(args=args)
+    runtime_confirmed = is_hardware_ray_tracing_runtime_confirmed(
+        runtime_render_config_state=runtime_render_config_state)
+    state = {
+        "requested_by_config": requested_by_config,
+        "cast_shadows": bool(args.cast_shadows),
+        "runtime_confirmed": runtime_confirmed,
+        "skipped_reason": None,
+        "intent": None,
+        "applied": False,
+    }
+    if not requested_by_config:
+        state["skipped_reason"] = "hardware ray tracing not requested"
+        return state
+    if not args.cast_shadows:
+        state["skipped_reason"] = "flashlight shadows disabled"
+        return state
+    if not runtime_confirmed:
+        state["skipped_reason"] = "hardware ray tracing runtime readback not confirmed"
+        return state
+
+    intent_state = intent_fn(
+        spot_light_component=spot_light_component,
+        requested=True)
+    state["intent"] = intent_state
+    state["applied"] = bool(intent_state.get("applied"))
+    if not state["applied"]:
+        state["skipped_reason"] = "ray-traced shadow API unavailable"
+    return state
+
+
 def apply_live_runtime_render_config(game, player_controller, args):
     state = {
         "disable_auto_exposure": bool(args.disable_auto_exposure),
         "suppress_local_exposure": should_suppress_local_exposure(args=args),
         "realistic_live_mode": is_realistic_live_mode(args=args),
+        "hardware_ray_tracing": {
+            "requested": should_request_hardware_ray_tracing(args=args),
+            "disabled_by_cli": bool(args.disable_hardware_ray_tracing),
+            "commands": [],
+            "readback": None,
+        },
         "commands": [],
         "applied": 0,
     }
@@ -492,6 +670,8 @@ def apply_live_runtime_render_config(game, player_controller, args):
             "ShowFlag.ScreenSpaceReflections 1",
             "ShowFlag.Specular 1",
         ))
+        if should_request_hardware_ray_tracing(args=args):
+            commands.extend(make_hardware_ray_tracing_console_commands())
 
     for command in commands:
         applied = try_execute_console_command(
@@ -504,6 +684,15 @@ def apply_live_runtime_render_config(game, player_controller, args):
         })
         if applied:
             state["applied"] += 1
+
+    hardware_commands = set(make_hardware_ray_tracing_console_commands())
+    state["hardware_ray_tracing"]["commands"] = [
+        command_state
+        for command_state in state["commands"]
+        if command_state["command"] in hardware_commands
+    ]
+    if should_request_hardware_ray_tracing(args=args):
+        state["hardware_ray_tracing"]["readback"] = read_hardware_ray_tracing_runtime_state(game=game)
     return state
 
 
@@ -610,6 +799,10 @@ if __name__ == "__main__":
             light_shadow_state = flashlight_profiles.apply_spot_light_shadow_controls(
                 spot_light_component=spot_light_component,
                 args=args)
+            light_ray_traced_shadow_state = apply_live_spot_light_ray_traced_shadow_intent(
+                spot_light_component=spot_light_component,
+                args=args,
+                runtime_render_config_state=runtime_render_config_state)
 
         with instance.end_frame():
             pass
@@ -627,6 +820,9 @@ if __name__ == "__main__":
 
         spear.log("Spawned camera flashlight. Press Ctrl+C to stop.")
         spear.log("Live lighting mode: ", args.live_lighting_mode)
+        spear.log("Hardware ray tracing requested config: ", get_hardware_ray_tracing_requested_state(args=args))
+        spear.log("Hardware ray tracing runtime command/readback state: ", runtime_render_config_state["hardware_ray_tracing"])
+        spear.log("Hardware ray tracing readback caveat: readback must confirm requested CVars; unsupported Vulkan SM5/RHI paths may reject or ignore the request.")
         spear.log("Exposure/local exposure runtime config: ", runtime_render_config_state)
         spear.log("Scene light state: ", scene_light_state)
         spear.log("Realistic live renderer retains Lumen GI/reflections/material response: ", is_realistic_live_mode(args=args))
@@ -636,6 +832,7 @@ if __name__ == "__main__":
         spear.log("Flashlight profile: ", args.flashlight_profile_desc)
         spear.log("Flashlight inverse-square controls applied: ", light_inverse_square_state)
         spear.log("Flashlight shadow controls applied: ", light_shadow_state)
+        spear.log("Flashlight ray-traced shadow intent applied: ", light_ray_traced_shadow_state)
         spear.log("Camera movement speed: ", args.movement_speed)
         spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
         spear.log("Startup warmup before live control: ", startup_warmup_state)
