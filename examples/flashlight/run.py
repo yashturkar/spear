@@ -57,6 +57,10 @@ DEFAULT_OUTER_CONE_ANGLE = 60.0
 DEFAULT_SOURCE_RADIUS = 12.0
 DEFAULT_SOFT_SOURCE_RADIUS = 80.0
 DEFAULT_REALISTIC_LIVE_WARMUP_SECONDS = 3.0
+DEFAULT_INTENSITY_TRIGGER_DEADZONE = 0.05
+DEFAULT_INTENSITY_MAX_SCALE = 10.0
+DEFAULT_INTENSITY_MAX_RATE_SECONDS = 5.0
+DEFAULT_INTENSITY_MIN_RATE = 1000.0
 
 MAPS = {
     "apartment_0000": "/Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000",
@@ -105,6 +109,13 @@ parser.add_argument("--aim-left-key", default="Gamepad_DPad_Left")
 parser.add_argument("--aim-right-key", default="Gamepad_DPad_Right")
 parser.add_argument("--aim-up-key", default="Gamepad_DPad_Up")
 parser.add_argument("--aim-down-key", default="Gamepad_DPad_Down")
+parser.add_argument("--intensity-down-key", default="Gamepad_LeftTriggerAxis")
+parser.add_argument("--intensity-up-key", default="Gamepad_RightTriggerAxis")
+parser.add_argument("--intensity-adjust-rate", type=float, default=None)
+parser.add_argument("--intensity-min", type=float, default=0.0)
+parser.add_argument("--intensity-max", type=float, default=None)
+parser.add_argument("--intensity-trigger-deadzone", type=float, default=DEFAULT_INTENSITY_TRIGGER_DEADZONE)
+parser.add_argument("--intensity-log-period-seconds", type=float, default=0.25)
 parser.add_argument("--pose-output-file", default=os.path.realpath(os.path.join(os.path.dirname(__file__), "camera_poses.jsonl")))
 parser.add_argument("--idle-period-seconds", type=float, default=0.5)
 
@@ -125,6 +136,27 @@ def parse_args(argv=None):
         parser.error("--aim-rate-degrees-per-second must be non-negative")
     if not math.isfinite(args.intensity) or args.intensity < 0.0:
         parser.error("--intensity must be a finite non-negative value")
+    if args.intensity_adjust_rate is None:
+        args.intensity_adjust_rate = max(args.intensity, DEFAULT_INTENSITY_MIN_RATE)
+    if not math.isfinite(args.intensity_adjust_rate) or args.intensity_adjust_rate < 0.0:
+        parser.error("--intensity-adjust-rate must be a finite non-negative value")
+    if not math.isfinite(args.intensity_min) or args.intensity_min < 0.0:
+        parser.error("--intensity-min must be a finite non-negative value")
+    if args.intensity_max is None:
+        args.intensity_max = max(
+            args.intensity * DEFAULT_INTENSITY_MAX_SCALE,
+            args.intensity + args.intensity_adjust_rate * DEFAULT_INTENSITY_MAX_RATE_SECONDS,
+            args.intensity_min)
+    if not math.isfinite(args.intensity_max) or args.intensity_max < 0.0:
+        parser.error("--intensity-max must be a finite non-negative value")
+    if args.intensity_min > args.intensity_max:
+        parser.error("--intensity-min must be less than or equal to --intensity-max")
+    if args.intensity < args.intensity_min or args.intensity > args.intensity_max:
+        parser.error("--intensity must be between --intensity-min and --intensity-max")
+    if not math.isfinite(args.intensity_trigger_deadzone) or not 0.0 <= args.intensity_trigger_deadzone < 1.0:
+        parser.error("--intensity-trigger-deadzone must be finite and in [0, 1)")
+    if not math.isfinite(args.intensity_log_period_seconds) or args.intensity_log_period_seconds < 0.0:
+        parser.error("--intensity-log-period-seconds must be a finite non-negative value")
     if not math.isfinite(args.attenuation_radius) or args.attenuation_radius <= 0.0:
         parser.error("--attenuation-radius must be a finite positive value")
     if not math.isfinite(args.indirect_lighting_intensity) or args.indirect_lighting_intensity < 0.0:
@@ -206,8 +238,98 @@ def is_input_key_down(player_controller, key_name):
     return player_controller.IsInputKeyDown(Key=get_input_key_arg(key_name=key_name))
 
 
+def get_input_axis_value(player_controller, key_name):
+    get_input_analog_key_state = getattr(player_controller, "GetInputAnalogKeyState", None)
+    if get_input_analog_key_state is None:
+        return 0.0
+
+    key_arg = get_input_key_arg(key_name=key_name)
+    for call_args, call_kwargs in (
+            ((), {"Key": key_arg}),
+            ((key_arg,), {})):
+        try:
+            value = get_input_analog_key_state(*call_args, **call_kwargs)
+        except TypeError:
+            continue
+        except Exception:
+            return 0.0
+        if hasattr(value, "get"):
+            value = value.get()
+        try:
+            value = float(value)
+        except (TypeError, ValueError):
+            return 0.0
+        if not math.isfinite(value):
+            return 0.0
+        return value
+    return 0.0
+
+
 def clamp(value, min_value, max_value):
     return min(max(value, min_value), max_value)
+
+
+def normalize_trigger_axis(value, deadzone):
+    value = clamp(value=value, min_value=0.0, max_value=1.0)
+    if value <= deadzone:
+        return 0.0
+    return (value - deadzone) / (1.0 - deadzone)
+
+
+def compute_live_flashlight_intensity(
+        current_intensity,
+        decrease_axis,
+        increase_axis,
+        delta_seconds,
+        intensity_adjust_rate,
+        intensity_min,
+        intensity_max,
+        trigger_deadzone):
+    decrease = normalize_trigger_axis(value=decrease_axis, deadzone=trigger_deadzone)
+    increase = normalize_trigger_axis(value=increase_axis, deadzone=trigger_deadzone)
+    delta = (increase - decrease) * intensity_adjust_rate * max(delta_seconds, 0.0)
+    intensity = clamp(
+        value=current_intensity + delta,
+        min_value=intensity_min,
+        max_value=intensity_max)
+    return {
+        "previous_intensity": current_intensity,
+        "intensity": intensity,
+        "decrease": decrease,
+        "increase": increase,
+        "delta": intensity - current_intensity,
+        "changed": not math.isclose(intensity, current_intensity, rel_tol=0.0, abs_tol=1.0e-9),
+        "at_min": intensity <= intensity_min,
+        "at_max": intensity >= intensity_max,
+    }
+
+
+def update_live_flashlight_intensity_from_triggers(
+        player_controller,
+        spot_light_component,
+        current_intensity,
+        delta_seconds,
+        args):
+    decrease_axis = get_input_axis_value(
+        player_controller=player_controller,
+        key_name=args.intensity_down_key)
+    increase_axis = get_input_axis_value(
+        player_controller=player_controller,
+        key_name=args.intensity_up_key)
+    state = compute_live_flashlight_intensity(
+        current_intensity=current_intensity,
+        decrease_axis=decrease_axis,
+        increase_axis=increase_axis,
+        delta_seconds=delta_seconds,
+        intensity_adjust_rate=args.intensity_adjust_rate,
+        intensity_min=args.intensity_min,
+        intensity_max=args.intensity_max,
+        trigger_deadzone=args.intensity_trigger_deadzone)
+    state["decrease_axis"] = decrease_axis
+    state["increase_axis"] = increase_axis
+    if state["changed"]:
+        spot_light_component.SetIntensity(NewIntensity=state["intensity"])
+    return state
 
 
 def was_input_key_pressed_since_last_poll(player_controller, key_name, previous_key_down_by_name):
@@ -840,6 +962,23 @@ if __name__ == "__main__":
         spear.log("Flashlight toggle key: ", args.toggle_key)
         spear.log("Flashlight aim D-pad keys: ", args.aim_left_key, args.aim_right_key, args.aim_up_key, args.aim_down_key)
         spear.log(
+            "Flashlight intensity triggers: ",
+            args.intensity_down_key,
+            " decreases, ",
+            args.intensity_up_key,
+            " increases")
+        spear.log(
+            "Flashlight intensity control: current ",
+            args.intensity,
+            ", rate ",
+            args.intensity_adjust_rate,
+            ", min ",
+            args.intensity_min,
+            ", max ",
+            args.intensity_max,
+            ", trigger deadzone ",
+            args.intensity_trigger_deadzone)
+        spear.log(
             "Flashlight aim yaw range: ",
             args.aim_yaw_min_degrees,
             " to ",
@@ -859,6 +998,8 @@ if __name__ == "__main__":
 
         pose_index = 0
         flashlight_visible = True
+        flashlight_intensity = args.intensity
+        last_intensity_log_time = None
         aim_yaw_offset_degrees = 0.0
         aim_pitch_offset_degrees = 0.0
         previous_poll_time = time.monotonic()
@@ -872,6 +1013,7 @@ if __name__ == "__main__":
             should_toggle_flashlight = False
             aim_yaw_direction = 0.0
             aim_pitch_direction = 0.0
+            intensity_state = None
             if args.capture_poses:
                 if sys.stdin in select.select([sys.stdin], [], [], 0.0)[0]:
                     sys.stdin.readline()
@@ -896,8 +1038,32 @@ if __name__ == "__main__":
                     aim_pitch_direction += 1.0
                 if is_input_key_down(player_controller=player_controller, key_name=args.aim_down_key):
                     aim_pitch_direction -= 1.0
+                intensity_state = update_live_flashlight_intensity_from_triggers(
+                    player_controller=player_controller,
+                    spot_light_component=spot_light_component,
+                    current_intensity=flashlight_intensity,
+                    delta_seconds=poll_delta_seconds,
+                    args=args)
             with instance.end_frame():
                 pass
+
+            if intensity_state is not None and intensity_state["changed"]:
+                flashlight_intensity = intensity_state["intensity"]
+                should_log_intensity = (
+                    last_intensity_log_time is None
+                    or poll_time - last_intensity_log_time >= args.intensity_log_period_seconds
+                    or intensity_state["at_min"]
+                    or intensity_state["at_max"])
+                if should_log_intensity:
+                    last_intensity_log_time = poll_time
+                    spear.log(
+                        "Flashlight intensity: ",
+                        flashlight_intensity,
+                        " (left trigger ",
+                        intensity_state["decrease_axis"],
+                        ", right trigger ",
+                        intensity_state["increase_axis"],
+                        ")")
 
             if aim_yaw_direction != 0.0 or aim_pitch_direction != 0.0:
                 aim_yaw_offset_degrees = clamp(

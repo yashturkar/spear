@@ -165,6 +165,14 @@ The `realistic_live_flashlight` profile uses the checked-in beam/profile values
 instead of ad hoc numeric tuning, including inverse-square flashlight falloff.
 For brighter live trials, `realistic_live_flashlight_2x` preserves the same
 realistic live settings while doubling flashlight intensity to `1600.0`.
+During live teleop, the left gamepad trigger decreases flashlight intensity and
+the right trigger increases it on the existing spotlight without restarting the
+scene. Runtime intensity is clamped; override the defaults with
+`--intensity-adjust-rate`, `--intensity-min`, and `--intensity-max` when a trial
+needs a narrower or wider control range. The trigger axes default to
+`Gamepad_LeftTriggerAxis` and `Gamepad_RightTriggerAxis`; use
+`--intensity-down-key` and `--intensity-up-key` to remap them, and tune
+`--intensity-trigger-deadzone` if the gamepad reports trigger noise near rest.
 
 As of 2026-07-08, static/unit validation and package artifact validation have
 passed, but live runtime validation of this exact command still has not run in

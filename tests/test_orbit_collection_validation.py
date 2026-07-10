@@ -408,6 +408,16 @@ class FakeConsolePlayerController:
         self.commands.append((Command, bWriteToLog))
 
 
+class FakeAnalogPlayerController:
+    def __init__(self, values):
+        self.values = values
+        self.requests = []
+
+    def GetInputAnalogKeyState(self, Key):
+        self.requests.append(Key)
+        return self.values.get(Key["KeyName"], 0.0)
+
+
 class FakeNoDirectConsolePlayerController:
     pass
 
@@ -591,6 +601,12 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertFalse(args.use_inverse_squared_falloff)
         self.assertEqual(args.contact_shadow_length, 0.25)
         self.assertTrue(args.disable_auto_exposure)
+        self.assertEqual(args.intensity_down_key, "Gamepad_LeftTriggerAxis")
+        self.assertEqual(args.intensity_up_key, "Gamepad_RightTriggerAxis")
+        self.assertEqual(args.intensity_adjust_rate, 1500.0)
+        self.assertEqual(args.intensity_min, 0.0)
+        self.assertEqual(args.intensity_max, 15000.0)
+        self.assertEqual(args.intensity_trigger_deadzone, flashlight_run.DEFAULT_INTENSITY_TRIGGER_DEADZONE)
 
     def test_run_realistic_live_mode_defaults_startup_warmup(self):
         args = flashlight_run.parse_args(["--live-lighting-mode", "realistic"])
@@ -927,6 +943,68 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
 
         self.assertEqual(state["frames"], 0)
         self.assertEqual(instance.events, [])
+
+    def test_live_flashlight_intensity_increases_from_right_trigger(self):
+        state = flashlight_run.compute_live_flashlight_intensity(
+            current_intensity=100.0,
+            decrease_axis=0.0,
+            increase_axis=1.0,
+            delta_seconds=0.5,
+            intensity_adjust_rate=40.0,
+            intensity_min=0.0,
+            intensity_max=150.0,
+            trigger_deadzone=0.05)
+
+        self.assertTrue(state["changed"])
+        self.assertEqual(state["previous_intensity"], 100.0)
+        self.assertEqual(state["intensity"], 120.0)
+        self.assertEqual(state["delta"], 20.0)
+        self.assertFalse(state["at_max"])
+
+    def test_live_flashlight_intensity_decreases_from_left_trigger_and_clamps(self):
+        state = flashlight_run.compute_live_flashlight_intensity(
+            current_intensity=10.0,
+            decrease_axis=1.0,
+            increase_axis=0.0,
+            delta_seconds=1.0,
+            intensity_adjust_rate=40.0,
+            intensity_min=0.0,
+            intensity_max=150.0,
+            trigger_deadzone=0.05)
+
+        self.assertTrue(state["changed"])
+        self.assertEqual(state["intensity"], 0.0)
+        self.assertEqual(state["delta"], -10.0)
+        self.assertTrue(state["at_min"])
+
+    def test_live_flashlight_trigger_update_applies_existing_component_intensity(self):
+        args = flashlight_run.parse_args([
+            "--intensity", "100",
+            "--intensity-adjust-rate", "40",
+            "--intensity-max", "150",
+        ])
+        player_controller = FakeAnalogPlayerController({
+            "Gamepad_LeftTriggerAxis": 0.0,
+            "Gamepad_RightTriggerAxis": 1.0,
+        })
+        component = FakeLightComponent()
+
+        state = flashlight_run.update_live_flashlight_intensity_from_triggers(
+            player_controller=player_controller,
+            spot_light_component=component,
+            current_intensity=100.0,
+            delta_seconds=1.0,
+            args=args)
+
+        self.assertTrue(state["changed"])
+        self.assertEqual(state["intensity"], 140.0)
+        self.assertEqual(component.intensity, 140.0)
+        self.assertEqual(
+            player_controller.requests,
+            [
+                {"KeyName": "Gamepad_LeftTriggerAxis"},
+                {"KeyName": "Gamepad_RightTriggerAxis"},
+            ])
 
     def test_live_runtime_render_config_applies_local_exposure_and_lumen_commands(self):
         game = FakeConsoleGame(cvar_values={
