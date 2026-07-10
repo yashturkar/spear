@@ -1,0 +1,239 @@
+{
+  "all_required_entries_present": true,
+  "coverage": [
+    {
+      "alias": "japanese_office",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/JapaneseOffice/Maps/Demonstration"
+    },
+    {
+      "alias": "japanese_office_dark",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/JapaneseOffice/Maps/Demonstration_Dark"
+    },
+    {
+      "alias": "apartment_0000",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000"
+    },
+    {
+      "alias": "debug_0000",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/SPEAR/Scenes/debug_0000/Maps/debug_0000"
+    },
+    {
+      "alias": "debug_0001",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/SPEAR/Scenes/debug_0001/Maps/debug_0001"
+    },
+    {
+      "alias": "abandoned_room",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/Fab/Abandoned_Room_Interior/Maps/AbandonedRoom"
+    },
+    {
+      "alias": "infinigen_indoors_0000",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000"
+    },
+    {
+      "alias": "one_bed_apartment",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment"
+    },
+    {
+      "alias": "college_classroom",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/SPEAR/Scenes/college_classroom/Maps/college_classroom"
+    },
+    {
+      "alias": "cafeteria_500sqft",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/SPEAR/Scenes/cafeteria_500sqft/Maps/cafeteria_500sqft"
+    },
+    {
+      "alias": "cafeteria_500sqft_v2",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2"
+    },
+    {
+      "alias": "cafeteria_500sqft_v2_flashlight_validation_dark",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark"
+    },
+    {
+      "alias": "advanced_lighting",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/StarterContent/Maps/Advanced_Lighting"
+    },
+    {
+      "alias": "minimal_default",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/StarterContent/Maps/Minimal_Default"
+    },
+    {
+      "alias": "starter_map",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/StarterContent/Maps/StarterMap"
+    },
+    {
+      "alias": "third_person",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/ThirdPerson/Maps/ThirdPersonMap"
+    },
+    {
+      "alias": "vehicle",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/VehicleTemplate/Maps/VehicleExampleMap"
+    },
+    {
+      "alias": "vehicle_offroad",
+      "archive_ok": true,
+      "archive_uexp": true,
+      "archive_umap": true,
+      "ok": true,
+      "source_umap_exists": true,
+      "staged_ok": true,
+      "staged_uexp": true,
+      "staged_umap": true,
+      "unreal_map_path": "/Game/VehicleTemplate/Maps/VehicleOffroadExampleMap"
+    }
+  ],
+  "ledger_target_count": 18,
+  "paks": {
+    "archive": {
+      "exists": true,
+      "mtime": 1783706389.694836,
+      "path": "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+      "size_bytes": 3527193245,
+      "unrealpak_list_exit": 0
+    },
+    "staged": {
+      "exists": true,
+      "mtime": 1783706389.694836,
+      "path": "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+      "size_bytes": 3527193245,
+      "unrealpak_list_exit": 0
+    }
+  },
+  "status": "success"
+}

@@ -1,0 +1,402 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import json
+import os
+from pathlib import Path
+import shlex
+import subprocess
+import sys
+
+
+CONDA_SH = "/home/yashturkar/miniconda3/etc/profile.d/conda.sh"
+CONDA_ENV = "spear-env"
+DEFAULT_LINUX_VK_ICD = "/usr/share/vulkan/icd.d/nvidia_icd.json"
+UNREAL_ENGINE_DIR = "/home/yashturkar/Linux_Unreal_Engine_5.5.4"
+
+RUN_MAP_ALIASES = {
+    "apartment_0000",
+    "debug_0000",
+    "debug_0001",
+    "advanced_lighting",
+    "cafeteria_500sqft_v2",
+    "japanese_office",
+    "japanese_office_dark",
+    "minimal_default",
+    "starter_map",
+    "third_person",
+    "vehicle",
+    "vehicle_offroad",
+}
+RERUN_MAP_ALIASES = RUN_MAP_ALIASES - {"cafeteria_500sqft_v2"}
+ORBIT_MAP_ALIASES = RERUN_MAP_ALIASES
+FLYTHROUGH_MAP_ALIASES = {"apartment_0000", "japanese_office_dark"}
+
+LIVE_SETTINGS = {
+    "default": [
+        "--movement-speed",
+        "600",
+    ],
+    "natural": [
+        "--flashlight-profile",
+        "real_handheld_16in_16in",
+        "--disable-auto-exposure",
+        "--movement-speed",
+        "600",
+    ],
+    "realistic": [
+        "--live-lighting-mode",
+        "realistic",
+        "--flashlight-profile",
+        "realistic_live_flashlight",
+        "--scene-light-intensity-scale",
+        "0.0005",
+        "--movement-speed",
+        "600",
+        "--disable-auto-exposure",
+        "--startup-warmup-seconds",
+        "3",
+    ],
+    "realistic-2x": [
+        "--live-lighting-mode",
+        "realistic",
+        "--flashlight-profile",
+        "realistic_live_flashlight_2x",
+        "--scene-light-intensity-scale",
+        "0.0005",
+        "--movement-speed",
+        "600",
+        "--disable-auto-exposure",
+        "--startup-warmup-seconds",
+        "3",
+    ],
+}
+
+VISIBLE_BY_DEFAULT_STATUSES = {
+    "preferred-baseline",
+    "preferred-needs-live-validation",
+    "preferred-orbit-validation",
+    "runnable",
+    "usable",
+    "utility",
+}
+
+
+def repo_root() -> Path:
+    return Path(__file__).resolve().parents[1]
+
+
+def ledger_path() -> Path:
+    return repo_root() / "docs" / "environment_ledger.json"
+
+
+def load_ledger() -> dict:
+    with ledger_path().open("r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def environments_by_alias() -> dict[str, dict]:
+    ledger = load_ledger()
+    return {env["alias"]: env for env in ledger["environments"]}
+
+
+def strip_arg_separator(args: list[str]) -> list[str]:
+    if args and args[0] == "--":
+        return args[1:]
+    return args
+
+
+def fail(message: str, exit_code: int = 2) -> int:
+    print(message, file=sys.stderr)
+    return exit_code
+
+
+def get_environment(alias: str) -> dict:
+    env = environments_by_alias().get(alias)
+    if env is None:
+        raise ValueError(f"Unknown environment: {alias}. Run `spear env list` to see known aliases.")
+    return env
+
+
+def map_args_for(env: dict, supported_aliases: set[str]) -> list[str]:
+    alias = env["alias"]
+    if alias in supported_aliases:
+        return ["--map", alias]
+    map_path = env.get("unreal_map_path")
+    if map_path:
+        return ["--map-path", map_path]
+    raise ValueError(
+        f"Environment {alias!r} has no runnable Unreal map path. "
+        "Run `spear env list --all` to inspect available environments."
+    )
+
+
+def python_cmd(script: str, *args: str) -> list[str]:
+    return ["python", script, *args]
+
+
+def runtime_env() -> dict[str, str]:
+    env = os.environ.copy()
+    if sys.platform.startswith("linux") and "VK_ICD_FILENAMES" not in env:
+        env["VK_ICD_FILENAMES"] = DEFAULT_LINUX_VK_ICD
+    return env
+
+
+def command_shell(argv: list[str]) -> str:
+    return " && ".join(
+        [
+            f"cd {shlex.quote(str(repo_root()))}",
+            f"source {shlex.quote(CONDA_SH)}",
+            f"conda activate {shlex.quote(CONDA_ENV)}",
+            "exec " + shlex.join(argv),
+        ]
+    )
+
+
+def printable_command(argv: list[str]) -> str:
+    prefix = []
+    if sys.platform.startswith("linux") and "VK_ICD_FILENAMES" not in os.environ:
+        prefix.append(f"VK_ICD_FILENAMES={shlex.quote(DEFAULT_LINUX_VK_ICD)}")
+    return " ".join(prefix + ["bash", "-lc", shlex.quote(command_shell(argv))])
+
+
+def run_or_print(argv: list[str], dry_run: bool) -> int:
+    if dry_run:
+        print(printable_command(argv))
+        return 0
+    return subprocess.run(
+        ["bash", "-lc", command_shell(argv)],
+        cwd=repo_root(),
+        env=runtime_env(),
+        check=False,
+    ).returncode
+
+
+def env_list(args: argparse.Namespace) -> int:
+    ledger = load_ledger()
+    environments = ledger["environments"]
+    if not args.all:
+        environments = [env for env in environments if env["status"] in VISIBLE_BY_DEFAULT_STATUSES]
+
+    if args.json:
+        print(json.dumps({"schema_version": ledger["schema_version"], "environments": environments}, indent=2))
+        return 0
+
+    for env in environments:
+        map_path = env["unreal_map_path"] or "(no runnable map)"
+        print(f"{env['alias']}\t{env['status']}\t{map_path}")
+    return 0
+
+
+def env_show(args: argparse.Namespace) -> int:
+    try:
+        env = get_environment(args.env)
+    except ValueError as exc:
+        return fail(str(exc))
+
+    if args.json:
+        print(json.dumps(env, indent=2))
+        return 0
+
+    print(f"alias: {env['alias']}")
+    print(f"display_name: {env['display_name']}")
+    print(f"status: {env['status']}")
+    print(f"unreal_map_path: {env['unreal_map_path']}")
+    print(f"local_umap_path: {env['local_umap_path']}")
+    print(f"package_version: {env['package_version']}")
+    return 0
+
+
+def live(args: argparse.Namespace, extra_args: list[str]) -> int:
+    try:
+        env = get_environment(args.env)
+        argv = (
+            python_cmd("examples/flashlight/run.py")
+            + map_args_for(env, RUN_MAP_ALIASES)
+            + LIVE_SETTINGS[args.setting]
+            + extra_args
+        )
+    except ValueError as exc:
+        return fail(str(exc))
+    return run_or_print(argv, args.dry_run)
+
+
+def record(args: argparse.Namespace, extra_args: list[str]) -> int:
+    try:
+        env = get_environment(args.env)
+        argv = (
+            python_cmd("examples/flashlight/run.py")
+            + map_args_for(env, RUN_MAP_ALIASES)
+            + ["--capture-poses", "--movement-speed", "600"]
+            + extra_args
+        )
+    except ValueError as exc:
+        return fail(str(exc))
+    return run_or_print(argv, args.dry_run)
+
+
+def rerun(args: argparse.Namespace, extra_args: list[str]) -> int:
+    try:
+        env = get_environment(args.env)
+        argv = (
+            python_cmd("examples/flashlight/run_programmatic_rerun.py")
+            + map_args_for(env, RERUN_MAP_ALIASES)
+            + ["--movement-speed", "600"]
+            + extra_args
+        )
+    except ValueError as exc:
+        return fail(str(exc))
+    return run_or_print(argv, args.dry_run)
+
+
+def orbit_teleop(args: argparse.Namespace, extra_args: list[str]) -> int:
+    try:
+        env = get_environment(args.env)
+        argv = (
+            ["examples/flashlight/run_orbit_workflow.sh", "teleop"]
+            + map_args_for(env, ORBIT_MAP_ALIASES)
+            + extra_args
+        )
+    except ValueError as exc:
+        return fail(str(exc))
+    return run_or_print(argv, args.dry_run)
+
+
+def orbit_render(args: argparse.Namespace, extra_args: list[str]) -> int:
+    try:
+        env = get_environment(args.env)
+        argv = (
+            ["examples/flashlight/run_orbit_workflow.sh", "render"]
+            + map_args_for(env, ORBIT_MAP_ALIASES)
+            + ["--render-preset", args.preset]
+            + extra_args
+        )
+    except ValueError as exc:
+        return fail(str(exc))
+    return run_or_print(argv, args.dry_run)
+
+
+def flythrough(args: argparse.Namespace, extra_args: list[str]) -> int:
+    try:
+        env = get_environment(args.env)
+    except ValueError as exc:
+        return fail(str(exc))
+    if env["alias"] not in FLYTHROUGH_MAP_ALIASES:
+        return fail(
+            f"Environment {env['alias']!r} is not supported by examples/flashlight/render_flythrough.py. "
+            f"Supported aliases: {', '.join(sorted(FLYTHROUGH_MAP_ALIASES))}."
+        )
+    argv = python_cmd("examples/flashlight/render_flythrough.py", "--map", env["alias"]) + extra_args
+    return run_or_print(argv, args.dry_run)
+
+
+def cook(args: argparse.Namespace) -> int:
+    try:
+        envs = [get_environment(alias) for alias in args.envs]
+        map_paths = []
+        for env in envs:
+            map_path = env.get("unreal_map_path")
+            if not map_path:
+                raise ValueError(
+                    f"Environment {env['alias']!r} has no runnable Unreal map path. "
+                    "Run `spear env list --all` to inspect available environments."
+                )
+            map_paths.append(map_path)
+    except ValueError as exc:
+        return fail(str(exc))
+
+    argv = [
+        "python",
+        "tools/run_uat.py",
+        "--unreal-engine-dir",
+        UNREAL_ENGINE_DIR,
+        "--clean-archive-dir",
+        "--cook-maps",
+        *map_paths,
+        "-clean",
+        "-cook",
+        "-stage",
+        "-package",
+        "-archive",
+        "-pak",
+        "-skipbuild",
+    ]
+    print(shlex.join(argv))
+    if not args.dry_run:
+        print("Cook command was not launched; long-running cooks remain Experimenter-managed.", file=sys.stderr)
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="spear")
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    env_parser = subparsers.add_parser("env", help="Inspect environment aliases")
+    env_subparsers = env_parser.add_subparsers(dest="env_command", required=True)
+    env_list_parser = env_subparsers.add_parser("list", help="List environment aliases")
+    env_list_parser.add_argument("--json", action="store_true")
+    env_list_parser.add_argument("--all", action="store_true")
+    env_list_parser.set_defaults(func=lambda args, extra: env_list(args))
+    env_show_parser = env_subparsers.add_parser("show", help="Show one environment")
+    env_show_parser.add_argument("env")
+    env_show_parser.add_argument("--json", action="store_true")
+    env_show_parser.set_defaults(func=lambda args, extra: env_show(args))
+
+    live_parser = subparsers.add_parser("live", help="Run flashlight live teleop")
+    live_parser.add_argument("env")
+    live_parser.add_argument(
+        "--setting",
+        choices=sorted(LIVE_SETTINGS.keys()),
+        default="default",
+    )
+    live_parser.add_argument("--dry-run", action="store_true")
+    live_parser.set_defaults(func=lambda args, extra: live(args, extra))
+
+    record_parser = subparsers.add_parser("record", help="Run flashlight teleop with pose capture")
+    record_parser.add_argument("env")
+    record_parser.add_argument("--dry-run", action="store_true")
+    record_parser.set_defaults(func=lambda args, extra: record(args, extra))
+
+    rerun_parser = subparsers.add_parser("rerun", help="Run programmatic Rerun capture")
+    rerun_parser.add_argument("env")
+    rerun_parser.add_argument("--dry-run", action="store_true")
+    rerun_parser.set_defaults(func=lambda args, extra: rerun(args, extra))
+
+    orbit_parser = subparsers.add_parser("orbit", help="Run orbit workflows")
+    orbit_subparsers = orbit_parser.add_subparsers(dest="orbit_command", required=True)
+    orbit_teleop_parser = orbit_subparsers.add_parser("teleop", help="Capture an orbit spec")
+    orbit_teleop_parser.add_argument("env")
+    orbit_teleop_parser.add_argument("--dry-run", action="store_true")
+    orbit_teleop_parser.set_defaults(func=lambda args, extra: orbit_teleop(args, extra))
+    orbit_render_parser = orbit_subparsers.add_parser("render", help="Render an orbit spec")
+    orbit_render_parser.add_argument("env")
+    orbit_render_parser.add_argument(
+        "--preset",
+        choices=["color-flashlight-only", "validation"],
+        default="color-flashlight-only",
+    )
+    orbit_render_parser.add_argument("--dry-run", action="store_true")
+    orbit_render_parser.set_defaults(func=lambda args, extra: orbit_render(args, extra))
+
+    flythrough_parser = subparsers.add_parser("flythrough", help="Render a flythrough video")
+    flythrough_parser.add_argument("env")
+    flythrough_parser.add_argument("--dry-run", action="store_true")
+    flythrough_parser.set_defaults(func=lambda args, extra: flythrough(args, extra))
+
+    cook_parser = subparsers.add_parser("cook", help="Print the UAT cook command")
+    cook_parser.add_argument("envs", nargs="+")
+    cook_parser.add_argument("--dry-run", action="store_true")
+    cook_parser.set_defaults(func=lambda args, extra: cook(args))
+
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args, extra_args = parser.parse_known_args(argv)
+    return args.func(args, strip_arg_separator(extra_args))
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,578 @@
+{
+  "schema_version": "1.0.0",
+  "default_package_version": "full_ledger_linux_2026-07-10",
+  "active_package": {
+    "package_version": "full_ledger_linux_2026-07-10",
+    "run_id": "full_ledger_linux_package_20260710T175718Z",
+    "finished_at": "2026-07-10T17:59:58Z",
+    "uat_exit_status": 0,
+    "verify_exit_status": 0,
+    "ledger_target_count": 18,
+    "coverage_summary": "All 18 environments with non-null unreal_map_path have .umap and .uexp entries in both active archive and staged Linux paks.",
+    "archive_pak": "cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+    "staged_pak": "cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+    "sha256": "71439ddc9c3be4993d9c6cabb96ae090aa5dec27b6b16ba2df68571f153faebd",
+    "size_bytes": 3527193245,
+    "mtime": "2026-07-10T13:59:49.694835908-04:00",
+    "verification_artifact": ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt",
+    "coverage_artifact": ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/coverage_table.md",
+    "validation_caveat": "Cook/package coverage only; runtime visual validation statuses on individual environments remain authoritative."
+  },
+  "environments": [
+    {
+      "alias": "japanese_office",
+      "display_name": "Japanese office",
+      "unreal_map_path": "/Game/JapaneseOffice/Maps/Demonstration",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/JapaneseOffice/Maps/Demonstration.umap",
+      "category": "bundled",
+      "status": "usable",
+      "source": "Bundled JapaneseOffice content",
+      "created_or_imported_date": "pre-existing",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/verification_summary.txt",
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Textured office scene; cooked into the active 2026-07-10 full ledger Linux package.",
+        "runtime_visual_validation": "usable"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map"
+      },
+      "notes": [
+        "Base map for Japanese office flashlight work."
+      ]
+    },
+    {
+      "alias": "japanese_office_dark",
+      "display_name": "Japanese office dark",
+      "unreal_map_path": "/Game/JapaneseOffice/Maps/Demonstration_Dark",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/JapaneseOffice/Maps/Demonstration_Dark.umap",
+      "category": "active-illumination",
+      "status": "preferred-baseline",
+      "source": "Created from examples/flashlight/setup_japanese_office_dark.py",
+      "created_or_imported_date": "2026-05",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/verification_summary.txt",
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Darkened Japanese office used for flashlight teleop, Rerun, orbit, and flythrough workflows.",
+        "runtime_visual_validation": "preferred"
+      },
+      "recommended_settings": {
+        "live": "realistic-2x",
+        "map_argument_preference": "--map"
+      },
+      "notes": [
+        "Preferred dark office baseline for flashlight collection."
+      ]
+    },
+    {
+      "alias": "apartment_0000",
+      "display_name": "SPEAR apartment",
+      "unreal_map_path": "/Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/apartment_0000/Maps/apartment_0000.umap",
+      "category": "bundled",
+      "status": "usable",
+      "source": "Bundled SPEAR scene with materials/textures under Content/SPEAR/Scenes/apartment_0000",
+      "created_or_imported_date": "pre-existing",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Textured upstream SPEAR apartment scene.",
+        "runtime_visual_validation": "usable"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map"
+      },
+      "notes": [
+        "Good reference for packaged self-contained SPEAR worlds."
+      ]
+    },
+    {
+      "alias": "debug_0000",
+      "display_name": "Debug 0000",
+      "unreal_map_path": "/Game/SPEAR/Scenes/debug_0000/Maps/debug_0000",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/debug_0000/Maps/debug_0000.umap",
+      "category": "utility",
+      "status": "utility",
+      "source": "Bundled SPEAR debug scene",
+      "created_or_imported_date": "pre-existing",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Small debug map useful for API checks.",
+        "runtime_visual_validation": "not-target-scene"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map"
+      },
+      "notes": [
+        "Not intended as a data-collection scene."
+      ]
+    },
+    {
+      "alias": "debug_0001",
+      "display_name": "Debug 0001",
+      "unreal_map_path": "/Game/SPEAR/Scenes/debug_0001/Maps/debug_0001",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/debug_0001/Maps/debug_0001.umap",
+      "category": "utility",
+      "status": "utility",
+      "source": "Bundled SPEAR debug scene",
+      "created_or_imported_date": "pre-existing",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Small debug map useful for API checks.",
+        "runtime_visual_validation": "not-target-scene"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map"
+      },
+      "notes": [
+        "Not intended as a data-collection scene."
+      ]
+    },
+    {
+      "alias": "abandoned_room",
+      "display_name": "Abandoned room",
+      "unreal_map_path": "/Game/Fab/Abandoned_Room_Interior/Maps/AbandonedRoom",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/Fab/Abandoned_Room_Interior/Maps/AbandonedRoom.umap",
+      "category": "imported",
+      "status": "needs-validation",
+      "source": "Imported/setup via examples/flashlight/setup_abandoned_room.py",
+      "created_or_imported_date": "pre-existing in workspace",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Map exists locally and is cooked into the active 2026-07-10 full ledger Linux package; runtime visual validation has not been recently performed.",
+        "runtime_visual_validation": "needs-validation"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map-path"
+      },
+      "notes": [
+        "Not currently supported by flashlight --map aliases; launcher falls back to --map-path."
+      ]
+    },
+    {
+      "alias": "infinigen_indoors_0000",
+      "display_name": "Infinigen indoors 0000",
+      "unreal_map_path": "/Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000.umap",
+      "category": "infinigen-import",
+      "status": "runnable",
+      "source": "/home/yashturkar/Workspace/infinigen/outputs/indoors_gpu/coarse; FBX at /home/yashturkar/Workspace/infinigen/outputs/spear_export/export_scene.blend/export_scene.fbx",
+      "created_or_imported_date": "validated 2026-06-25",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "First validated Infinigen indoor import; user confirmed cooked map runs through the flashlight example.",
+        "runtime_visual_validation": "runnable"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map-path"
+      },
+      "notes": [
+        "Launcher uses --map-path because current flashlight scripts do not expose this alias."
+      ]
+    },
+    {
+      "alias": "one_bed_apartment",
+      "display_name": "One-bed apartment",
+      "unreal_map_path": "/Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment.umap",
+      "category": "infinigen-import",
+      "status": "not-useful-for-visual-research",
+      "source": "/home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment_spear_light/coarse; original floorplan at /home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment/one_bed_floorplan.json",
+      "created_or_imported_date": "generated/cooked 2026-06-26; flythrough 2026-06-30",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Imported with materials/textures disabled; later validation found it has no colors/textures and is not useful for current active-illumination work.",
+        "runtime_visual_validation": "rejected-for-current-work"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map-path"
+      },
+      "notes": [
+        "Kept for provenance and possible future reimport, not recommended for current data collection."
+      ]
+    },
+    {
+      "alias": "college_classroom",
+      "display_name": "College classroom",
+      "unreal_map_path": "/Game/SPEAR/Scenes/college_classroom/Maps/college_classroom",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/college_classroom/Maps/college_classroom.umap",
+      "category": "infinigen-import",
+      "status": "needs-runtime-visual-validation",
+      "source": "/home/yashturkar/Workspace/infinigen/outputs/college_classroom/coarse/scene.blend; generator /home/yashturkar/Workspace/infinigen/outputs/college_classroom/scripts/create_college_classroom.py",
+      "created_or_imported_date": "exported/imported/cooked 2026-06-30",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Cook succeeded; still needs inspection for scale, lighting, collision, player start, and material usefulness.",
+        "runtime_visual_validation": "needs-validation"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map-path"
+      },
+      "notes": [
+        "Launcher falls back to --map-path because current flashlight scripts do not expose this alias."
+      ]
+    },
+    {
+      "alias": "cafeteria_500sqft",
+      "display_name": "Cafeteria 500 sqft",
+      "unreal_map_path": "/Game/SPEAR/Scenes/cafeteria_500sqft/Maps/cafeteria_500sqft",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft/Maps/cafeteria_500sqft.umap",
+      "category": "infinigen-import",
+      "status": "rejected",
+      "source": "/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft/coarse/scene.blend; generator /home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft/scripts/create_cafeteria_500sqft.py; run logs .control-tower/runs/cafeteria_500sqft_20260701T144420Z",
+      "created_or_imported_date": "generated/imported/cooked 2026-07-01",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "User visual validation rejected v1; replaced by cafeteria_500sqft_v2.",
+        "runtime_visual_validation": "rejected"
+      },
+      "recommended_settings": {
+        "live": null,
+        "map_argument_preference": "--map-path"
+      },
+      "notes": [
+        "Rejected for decorative/non-cut-through windows, missing useful fixture lights, poor chair/table orientation, saturated materials, and flashlight color-bounce artifacts."
+      ]
+    },
+    {
+      "alias": "cafeteria_500sqft_v2",
+      "display_name": "Cafeteria 500 sqft v2",
+      "unreal_map_path": "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2.umap",
+      "category": "active-illumination",
+      "status": "preferred-needs-live-validation",
+      "source": "/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/coarse/scene.blend; generator /home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/scripts/create_cafeteria_500sqft_v2.py; light script /home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/scripts/add_unreal_lights_and_validate.py; FBX /home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/spear_export_r256/export_scene.blend/export_scene.fbx",
+      "created_or_imported_date": "generated/imported/cooked 2026-07-01; VULKAN_SM6 package verified 2026-07-08",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/verification_summary.txt",
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Preferred replacement for v1; 2026-07-08 SM6/RT package-artifact approval remains historical; live runtime visual validation still pending.",
+        "runtime_visual_validation": "needs-validation",
+        "asset_counts": {
+          "mesh_assets": 235,
+          "static_mesh_actors": 235,
+          "light_actors": 8,
+          "light_components": 7,
+          "rect_light_fixtures": 6
+        }
+      },
+      "recommended_settings": {
+        "live": "realistic-2x",
+        "map_argument_preference": "--map",
+        "scene_lights": "omit --disable-scene-lights to see cafeteria fixtures"
+      },
+      "notes": [
+        "Cook/package succeeded into Standalone-Development and Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak.",
+        "The 2026-07-08 clean Linux cook/package was approved as VULKAN_SM6 and not SM5-only."
+      ]
+    },
+    {
+      "alias": "cafeteria_500sqft_v2_flashlight_validation_dark",
+      "display_name": "Cafeteria 500 sqft v2 flashlight validation dark",
+      "unreal_map_path": "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark.umap",
+      "category": "active-illumination",
+      "status": "preferred-orbit-validation",
+      "source": "Dark validation variant created from cafeteria_500sqft_v2 for flashlight-only orbit checks",
+      "created_or_imported_date": "created/cooked/validated 2026-07-01; VULKAN_SM6 package verified 2026-07-08",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/verification_summary.txt",
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Orbit-validated dark cafeteria variant for flashlight-only render checks.",
+        "runtime_visual_validation": "orbit-validated",
+        "scene_off_flashlight_off_median_mean_luma": 0.0
+      },
+      "recommended_settings": {
+        "orbit_render_preset": "color-flashlight-only",
+        "map_argument_preference": "--map-path"
+      },
+      "notes": [
+        "The orbit workflow default color-flashlight-only preset uses this map when no map override is provided.",
+        "Current orbit collection script does not expose this alias through --map, so launcher uses --map-path."
+      ]
+    },
+    {
+      "alias": "advanced_lighting",
+      "display_name": "Starter Advanced Lighting",
+      "unreal_map_path": "/Game/StarterContent/Maps/Advanced_Lighting",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/StarterContent/Maps/Advanced_Lighting.umap",
+      "category": "utility",
+      "status": "utility",
+      "source": "Unreal StarterContent",
+      "created_or_imported_date": "pre-existing",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Starter map available through flashlight --map advanced_lighting.",
+        "runtime_visual_validation": "utility"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map"
+      },
+      "notes": [
+        "Not a target research scene."
+      ]
+    },
+    {
+      "alias": "minimal_default",
+      "display_name": "Starter Minimal Default",
+      "unreal_map_path": "/Game/StarterContent/Maps/Minimal_Default",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/StarterContent/Maps/Minimal_Default.umap",
+      "category": "utility",
+      "status": "utility",
+      "source": "Unreal StarterContent",
+      "created_or_imported_date": "pre-existing",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Starter map available through flashlight --map minimal_default.",
+        "runtime_visual_validation": "utility"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map"
+      },
+      "notes": [
+        "Not a target research scene."
+      ]
+    },
+    {
+      "alias": "starter_map",
+      "display_name": "Starter Map",
+      "unreal_map_path": "/Game/StarterContent/Maps/StarterMap",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/StarterContent/Maps/StarterMap.umap",
+      "category": "utility",
+      "status": "utility",
+      "source": "Unreal StarterContent",
+      "created_or_imported_date": "pre-existing",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Starter map available through flashlight --map starter_map.",
+        "runtime_visual_validation": "utility"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map"
+      },
+      "notes": [
+        "Not a target research scene."
+      ]
+    },
+    {
+      "alias": "third_person",
+      "display_name": "Third person map",
+      "unreal_map_path": "/Game/ThirdPerson/Maps/ThirdPersonMap",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/ThirdPerson/Maps/ThirdPersonMap.umap",
+      "category": "utility",
+      "status": "utility",
+      "source": "Unreal template content",
+      "created_or_imported_date": "pre-existing",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Template map available through flashlight --map third_person.",
+        "runtime_visual_validation": "utility"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map"
+      },
+      "notes": [
+        "Useful mainly for controls/API checks."
+      ]
+    },
+    {
+      "alias": "vehicle",
+      "display_name": "Vehicle example",
+      "unreal_map_path": "/Game/VehicleTemplate/Maps/VehicleExampleMap",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/VehicleTemplate/Maps/VehicleExampleMap.umap",
+      "category": "utility",
+      "status": "utility",
+      "source": "Unreal template content",
+      "created_or_imported_date": "pre-existing",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Template vehicle map available through flashlight --map vehicle.",
+        "runtime_visual_validation": "utility"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map"
+      },
+      "notes": [
+        "Not a target research scene."
+      ]
+    },
+    {
+      "alias": "vehicle_offroad",
+      "display_name": "Vehicle offroad example",
+      "unreal_map_path": "/Game/VehicleTemplate/Maps/VehicleOffroadExampleMap",
+      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/VehicleTemplate/Maps/VehicleOffroadExampleMap.umap",
+      "category": "utility",
+      "status": "utility",
+      "source": "Unreal template content",
+      "created_or_imported_date": "pre-existing",
+      "last_cooked_date": "2026-07-10",
+      "package_version": "full_ledger_linux_2026-07-10",
+      "cook_artifacts": [
+        ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt"
+      ],
+      "validation": {
+        "summary": "Template vehicle map available through flashlight --map vehicle_offroad.",
+        "runtime_visual_validation": "utility"
+      },
+      "recommended_settings": {
+        "live": "default",
+        "map_argument_preference": "--map"
+      },
+      "notes": [
+        "Not a target research scene."
+      ]
+    },
+    {
+      "alias": "grand_auditorium_classroom_source",
+      "display_name": "Grand auditorium classroom source",
+      "unreal_map_path": null,
+      "local_umap_path": null,
+      "category": "source-candidate",
+      "status": "source-only",
+      "source": "/home/yashturkar/Workspace/infinigen/outputs/grand_auditorium_classroom/coarse/scene.blend",
+      "created_or_imported_date": null,
+      "last_cooked_date": null,
+      "package_version": null,
+      "cook_artifacts": [],
+      "validation": {
+        "summary": "Generated source exists but has not been imported/cooked into SPEAR.",
+        "runtime_visual_validation": "not-runnable"
+      },
+      "recommended_settings": {
+        "live": null,
+        "map_argument_preference": null
+      },
+      "notes": [
+        "Generator script exists at /home/yashturkar/Workspace/infinigen/outputs/grand_auditorium_classroom/scripts/create_grand_auditorium_classroom.py."
+      ]
+    },
+    {
+      "alias": "indoors_smoke_source",
+      "display_name": "Infinigen smoke indoors source",
+      "unreal_map_path": null,
+      "local_umap_path": null,
+      "category": "source-candidate",
+      "status": "source-only",
+      "source": "/home/yashturkar/Workspace/infinigen/outputs/indoors_smoke/coarse/scene.blend",
+      "created_or_imported_date": null,
+      "last_cooked_date": null,
+      "package_version": null,
+      "cook_artifacts": [],
+      "validation": {
+        "summary": "Early smoke-test source output; not tracked as a usable SPEAR runtime world.",
+        "runtime_visual_validation": "not-runnable"
+      },
+      "recommended_settings": {
+        "live": null,
+        "map_argument_preference": null
+      },
+      "notes": [
+        "Source-only candidate."
+      ]
+    },
+    {
+      "alias": "one_bed_apartment_original_source",
+      "display_name": "Original one-bed apartment source",
+      "unreal_map_path": null,
+      "local_umap_path": null,
+      "category": "source-candidate",
+      "status": "source-only",
+      "source": "/home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment/coarse/scene.blend",
+      "created_or_imported_date": null,
+      "last_cooked_date": null,
+      "package_version": null,
+      "cook_artifacts": [],
+      "validation": {
+        "summary": "Original heavy one-bedroom source; lighter imported derivative exists but lacks useful color/texture.",
+        "runtime_visual_validation": "not-runnable"
+      },
+      "recommended_settings": {
+        "live": null,
+        "map_argument_preference": null
+      },
+      "notes": [
+        "Keep as provenance and possible future reimport source."
+      ]
+    }
+  ]
+}

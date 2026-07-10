@@ -1,6 +1,30 @@
 # World Ledger
 
-Last updated: 2026-07-01
+Last updated: 2026-07-09
+
+Canonical command/alias data now lives in
+[`docs/environment_ledger.json`](environment_ledger.json). This markdown ledger
+is retained as a human-readable history, but launchers and automation should use
+the JSON ledger for environment aliases, runnable map paths, cook evidence,
+package versions, and source-only candidates.
+
+Recommended local alias:
+
+```console
+alias spear=/home/yashturkar/Workspace/spear/tools/spear-run
+```
+
+Concise examples:
+
+```console
+spear env list
+spear live cafeteria_500sqft_v2 --setting realistic-2x
+spear live japanese_office_dark --setting realistic-2x
+spear record japanese_office_dark
+spear rerun japanese_office_dark
+spear orbit teleop japanese_office_dark
+spear orbit render cafeteria_500sqft_v2_flashlight_validation_dark
+```
 
 This ledger tracks SPEAR worlds and generated Infinigen scene sources that are
 available on this workstation. Status is about practical use for active
@@ -18,7 +42,7 @@ illumination data collection, not just whether a map asset exists.
 | One-bed apartment | `/Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment` | `cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment.umap` | `/home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment_spear_light/coarse`; original floorplan at `/home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment/one_bed_floorplan.json` | generated/cooked 2026-06-26; flythrough 2026-06-30 | Not useful for visual research | Imported with `--no-import-materials --no-import-textures`; latest user validation says it has no colors/textures and is useless for current active-illumination work. |
 | College classroom | `/Game/SPEAR/Scenes/college_classroom/Maps/college_classroom` | `cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/college_classroom/Maps/college_classroom.umap` | `/home/yashturkar/Workspace/infinigen/outputs/college_classroom/coarse/scene.blend`; generator `/home/yashturkar/Workspace/infinigen/outputs/college_classroom/scripts/create_college_classroom.py` | exported/imported/cooked 2026-06-30 | Needs runtime visual validation | Compact imported classroom. Cook succeeded; still needs inspection for scale, lighting, collision, player start, and material usefulness. |
 | Cafeteria 500 sqft | `/Game/SPEAR/Scenes/cafeteria_500sqft/Maps/cafeteria_500sqft` | `cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft/Maps/cafeteria_500sqft.umap` | `/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft/coarse/scene.blend`; generator `/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft/scripts/create_cafeteria_500sqft.py`; run logs `.control-tower/runs/cafeteria_500sqft_20260701T144420Z` | generated/imported/cooked 2026-07-01 | Rejected; replaced by v2 | User visual validation rejected v1 for decorative/non-cut-through windows, no real indoor fixture lights after import, chairs facing away from tables, cartoonish saturated materials, and room-wide flashlight color-bounce artifacts. |
-| Cafeteria 500 sqft v2 | `/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2` | `cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2.umap` | `/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/coarse/scene.blend`; generator `/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/scripts/create_cafeteria_500sqft_v2.py`; light script `/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/scripts/add_unreal_lights_and_validate.py`; FBX `/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/spear_export_r256/export_scene.blend/export_scene.fbx`; run logs `.control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z` | generated/imported/cooked 2026-07-01 | Preferred replacement for v1; needs user visual validation | Imported with materials/textures and auto-generated collision enabled; validation report says map exists with 235 mesh assets, 235 static mesh actors, 8 light actors, 7 light components, and six post-import Unreal RectLight fixture actors. Cook/package succeeded into `Standalone-Development` and `Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak`. Omit `--disable-scene-lights` to see cafeteria fixtures; include it only for flashlight-only validation. |
+| Cafeteria 500 sqft v2 | `/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2` | `cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2.umap` | `/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/coarse/scene.blend`; generator `/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/scripts/create_cafeteria_500sqft_v2.py`; light script `/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/scripts/add_unreal_lights_and_validate.py`; FBX `/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/spear_export_r256/export_scene.blend/export_scene.fbx`; run logs `.control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z` and `.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z` | generated/imported/cooked 2026-07-01; VULKAN_SM6 package verified 2026-07-08 | Preferred replacement for v1; SM6/RT-ready at package-artifact level; needs live runtime validation | Imported with materials/textures and auto-generated collision enabled; validation report says map exists with 235 mesh assets, 235 static mesh actors, 8 light actors, 7 light components, and six post-import Unreal RectLight fixture actors. Cook/package succeeded into `Standalone-Development` and `Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak`. The 2026-07-08 clean Linux cook/package was approved as VULKAN_SM6 and not SM5-only, with `Engine/GlobalShaderCache-VULKAN_SM6.bin` present and no checked VULKAN_SM5 signatures. Omit `--disable-scene-lights` to see cafeteria fixtures; include it only for flashlight-only validation. |
 | Starter Advanced Lighting | `/Game/StarterContent/Maps/Advanced_Lighting` | `cpp/unreal_projects/SpearSim/Content/StarterContent/Maps/Advanced_Lighting.umap` | Unreal StarterContent | pre-existing | Utility | Starter map available through flashlight `--map advanced_lighting`; not a target research scene. |
 | Starter Minimal Default | `/Game/StarterContent/Maps/Minimal_Default` | `cpp/unreal_projects/SpearSim/Content/StarterContent/Maps/Minimal_Default.umap` | Unreal StarterContent | pre-existing | Utility | Starter map available through flashlight `--map minimal_default`; not a target research scene. |
 | Starter Map | `/Game/StarterContent/Maps/StarterMap` | `cpp/unreal_projects/SpearSim/Content/StarterContent/Maps/StarterMap.umap` | Unreal StarterContent | pre-existing | Utility | Starter map available through flashlight `--map starter_map`; not a target research scene. |
