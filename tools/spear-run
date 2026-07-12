@@ -78,6 +78,7 @@ VISIBLE_BY_DEFAULT_STATUSES = {
     "preferred-needs-live-validation",
     "preferred-orbit-validation",
     "runnable",
+    "needs-runtime-visual-validation",
     "usable",
     "utility",
 }
