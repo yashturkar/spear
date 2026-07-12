@@ -8,7 +8,7 @@
     "uat_exit_status": 0,
     "verify_exit_status": 0,
     "ledger_target_count": 18,
-    "coverage_summary": "All 18 environments with non-null unreal_map_path have .umap and .uexp entries in both active archive and staged Linux paks.",
+    "coverage_summary": "The 2026-07-10 full-ledger package covers 18 environments. Newer kitchen entries carry per-environment package metadata.",
     "archive_pak": "cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
     "staged_pak": "cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
     "sha256": "71439ddc9c3be4993d9c6cabb96ae090aa5dec27b6b16ba2df68571f153faebd",

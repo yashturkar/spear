@@ -69,8 +69,8 @@ class SpearLauncherTests(unittest.TestCase):
                 "verify_exit_status": 0,
                 "ledger_target_count": 18,
                 "coverage_summary": (
-                    "All 18 environments with non-null unreal_map_path have .umap and .uexp "
-                    "entries in both active archive and staged Linux paks."
+                    "The 2026-07-10 full-ledger package covers 18 environments. Newer kitchen "
+                    "entries carry per-environment package metadata."
                 ),
                 "archive_pak": (
                     "cpp/unreal_projects/SpearSim/Standalone-Development/Linux/"
@@ -99,7 +99,11 @@ class SpearLauncherTests(unittest.TestCase):
         )
         aliases = [env["alias"] for env in ledger["environments"]]
         self.assertEqual(len(aliases), len(set(aliases)))
-        packaged_envs = [env for env in ledger["environments"] if env["unreal_map_path"] is not None]
+        packaged_envs = [
+            env
+            for env in ledger["environments"]
+            if env["package_version"] == ledger["active_package"]["package_version"]
+        ]
         self.assertEqual(len(packaged_envs), ledger["active_package"]["ledger_target_count"])
         for alias in [
             "japanese_office",
@@ -115,12 +119,14 @@ class SpearLauncherTests(unittest.TestCase):
                 self.assertIsNone(env["local_umap_path"])
                 self.assertIsNone(env["package_version"])
             else:
-                self.assertEqual(env["last_cooked_date"], "2026-07-10")
-                self.assertEqual(env["package_version"], ACTIVE_PACKAGE_VERSION)
-                self.assertIn(
-                    ledger["active_package"]["verification_artifact"],
-                    env["cook_artifacts"],
-                )
+                self.assertIsNotNone(env["local_umap_path"])
+                self.assertIsNotNone(env["package_version"])
+                if env["package_version"] == ACTIVE_PACKAGE_VERSION:
+                    self.assertEqual(env["last_cooked_date"], "2026-07-10")
+                    self.assertIn(
+                        ledger["active_package"]["verification_artifact"],
+                        env["cook_artifacts"],
+                    )
 
     def test_env_list_json(self):
         result = run_launcher("env", "list", "--json", "--all")
