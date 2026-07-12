@@ -126,6 +126,7 @@ class FakeLightComponent:
         self.contact_shadows = None
         self.contact_shadow_length = None
         self.use_inverse_squared_falloff = None
+        self.cast_raytraced_shadow = None
         self.supports_indirect = supports_indirect
 
     def SetVisibility(self, bNewVisibility, bPropagateToChildren):
@@ -160,6 +161,9 @@ class FakeLightComponent:
     def SetUseInverseSquaredFalloff(self, bNewValue):
         self.use_inverse_squared_falloff = bNewValue
 
+    def SetCastRaytracedShadow(self, bNewValue):
+        self.cast_raytraced_shadow = bNewValue
+
 
 class FakeReflectedSourceRadiusLightComponent:
     def __init__(self):
@@ -188,9 +192,53 @@ class FakeEditorPropertyLightComponent:
         self.properties = {}
 
     def set_editor_property(self, name, value):
-        if name not in {"SourceRadius", "SoftSourceRadius", "UseInverseSquaredFalloff"}:
+        if name not in {"SourceRadius", "SoftSourceRadius", "UseInverseSquaredFalloff", "CastRaytracedShadow"}:
             raise AttributeError(name)
         self.properties[name] = value
+
+    def get_editor_property(self, name):
+        if name not in self.properties:
+            raise AttributeError(name)
+        return self.properties[name]
+
+
+class FakeEnumRayTracedMethodLightComponent:
+    def __init__(self):
+        self.CastRaytracedShadows = None
+        self.values = []
+
+    def SetCastRaytracedShadows(self, bNewValue):
+        self.values.append(bNewValue)
+        self.CastRaytracedShadows = 1 if bNewValue is True else bNewValue
+
+
+class FakeEnumRayTracedPropertyLightComponent:
+    def __init__(self):
+        self.properties = {}
+        self.values = []
+
+    def set_editor_property(self, name, value):
+        if name != "CastRaytracedShadows":
+            raise AttributeError(name)
+        self.values.append(value)
+        self.properties[name] = 1 if value is True else value
+
+    def get_editor_property(self, name):
+        if name not in self.properties:
+            raise AttributeError(name)
+        return self.properties[name]
+
+
+class FakeStringRejectingRayTracedMethodLightComponent:
+    def __init__(self):
+        self.cast_raytraced_shadow = None
+        self.values = []
+
+    def SetCastRaytracedShadow(self, bNewValue):
+        self.values.append(bNewValue)
+        if isinstance(bNewValue, str):
+            raise AssertionError("string ray-traced shadow values should not be attempted")
+        self.cast_raytraced_shadow = bNewValue
 
 
 class FakeMissingShapeLightComponent:
@@ -232,9 +280,10 @@ class FakeEditorPropertyCaptureComponent(FakeCaptureComponent):
 
 
 class FakeUnrealService:
-    def __init__(self, components_by_actor, components_by_name=None):
+    def __init__(self, components_by_actor, components_by_name=None, cvar_values=None):
         self.components_by_actor = components_by_actor
         self.components_by_name = components_by_name or {}
+        self.cvar_values = cvar_values or {}
         self.component_name_requests = []
 
     def find_actors(self):
@@ -277,6 +326,27 @@ class FakeUnrealService:
             "uclass": uclass,
         }
         return self.components_by_name[component_name]
+
+    def find_console_variable_by_name(self, console_variable_name):
+        if console_variable_name not in self.cvar_values:
+            return None
+        return console_variable_name
+
+    def get_console_variable_value_as_int(self, cvar):
+        return int(self.cvar_values[cvar])
+
+
+class FakeZeroConsoleVariableHandleUnrealService(FakeUnrealService):
+    def __init__(self):
+        super().__init__(components_by_actor={})
+        self.value_getter_calls = []
+
+    def find_console_variable_by_name(self, console_variable_name):
+        return 0
+
+    def get_console_variable_value_as_int(self, cvar):
+        self.value_getter_calls.append(cvar)
+        raise AssertionError("console variable value getter should not be called for null handles")
 
 
 class FakeRenderingService:
@@ -322,10 +392,11 @@ class FakeFlashlight:
 
 
 class FakeGame:
-    def __init__(self, components_by_actor=None, components_by_name=None):
+    def __init__(self, components_by_actor=None, components_by_name=None, cvar_values=None):
         self.unreal_service = FakeUnrealService(
             components_by_actor=components_by_actor or {},
-            components_by_name=components_by_name)
+            components_by_name=components_by_name,
+            cvar_values=cvar_values)
         self.rendering_service = FakeRenderingService()
 
 
@@ -335,6 +406,16 @@ class FakeConsolePlayerController:
 
     def ConsoleCommand(self, Command, bWriteToLog):
         self.commands.append((Command, bWriteToLog))
+
+
+class FakeAnalogPlayerController:
+    def __init__(self, values):
+        self.values = values
+        self.requests = []
+
+    def GetInputAnalogKeyState(self, Key):
+        self.requests.append(Key)
+        return self.values.get(Key["KeyName"], 0.0)
 
 
 class FakeNoDirectConsolePlayerController:
@@ -358,8 +439,8 @@ class FakeGameplayStatics:
 
 
 class FakeConsoleGame(FakeGame):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, cvar_values=None):
+        super().__init__(cvar_values=cvar_values)
         self.player_controller = FakeConsolePlayerController()
 
     def get_unreal_object(self, uclass):
@@ -379,6 +460,12 @@ class FakeKismetConsoleGame(FakeGame):
         if uclass == "UKismetSystemLibrary":
             return self.kismet_system_library
         raise AttributeError(uclass)
+
+
+class FakeZeroConsoleVariableHandleGame(FakeConsoleGame):
+    def __init__(self):
+        super().__init__()
+        self.unreal_service = FakeZeroConsoleVariableHandleUnrealService()
 
 
 class FakeShowFlagSettingsSetPropertyComponent:
@@ -514,12 +601,34 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertFalse(args.use_inverse_squared_falloff)
         self.assertEqual(args.contact_shadow_length, 0.25)
         self.assertTrue(args.disable_auto_exposure)
+        self.assertEqual(args.intensity_down_key, "Gamepad_LeftTriggerAxis")
+        self.assertEqual(args.intensity_up_key, "Gamepad_RightTriggerAxis")
+        self.assertEqual(args.intensity_adjust_rate, 1500.0)
+        self.assertEqual(args.intensity_min, 0.0)
+        self.assertEqual(args.intensity_max, 15000.0)
+        self.assertEqual(args.intensity_trigger_deadzone, flashlight_run.DEFAULT_INTENSITY_TRIGGER_DEADZONE)
 
     def test_run_realistic_live_mode_defaults_startup_warmup(self):
         args = flashlight_run.parse_args(["--live-lighting-mode", "realistic"])
 
         self.assertEqual(args.live_lighting_mode, "realistic")
         self.assertEqual(args.startup_warmup_seconds, flashlight_run.DEFAULT_REALISTIC_LIVE_WARMUP_SECONDS)
+        self.assertFalse(args.disable_hardware_ray_tracing)
+        self.assertTrue(flashlight_run.should_request_hardware_ray_tracing(args))
+
+    def test_run_realistic_live_mode_can_disable_hardware_ray_tracing(self):
+        args = flashlight_run.parse_args([
+            "--live-lighting-mode", "realistic",
+            "--disable-hardware-ray-tracing",
+        ])
+
+        self.assertTrue(args.disable_hardware_ray_tracing)
+        self.assertFalse(flashlight_run.should_request_hardware_ray_tracing(args))
+
+    def test_run_default_live_mode_does_not_request_hardware_ray_tracing(self):
+        args = flashlight_run.parse_args([])
+
+        self.assertFalse(flashlight_run.should_request_hardware_ray_tracing(args))
 
     def test_run_startup_warmup_override_is_respected(self):
         args = flashlight_run.parse_args([
@@ -648,6 +757,60 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
             "applied": True,
         })
         self.assertTrue(component.properties["UseInverseSquaredFalloff"])
+
+    def test_spot_light_ray_traced_shadow_intent_uses_available_method(self):
+        component = FakeLightComponent()
+
+        state = flashlight_run.flashlight_profiles.apply_spot_light_ray_traced_shadow_intent(
+            spot_light_component=component,
+            requested=True)
+
+        self.assertTrue(state["requested"])
+        self.assertTrue(state["method_set"])
+        self.assertTrue(state["applied"])
+        self.assertEqual(state["candidate_strategy"], "bool_only")
+        self.assertTrue(component.cast_raytraced_shadow)
+
+    def test_spot_light_ray_traced_shadow_intent_falls_back_to_editor_property(self):
+        component = FakeEditorPropertyLightComponent()
+
+        state = flashlight_run.flashlight_profiles.apply_spot_light_ray_traced_shadow_intent(
+            spot_light_component=component,
+            requested=True)
+
+        self.assertTrue(state["requested"])
+        self.assertFalse(state["method_set"])
+        self.assertTrue(state["property_set"])
+        self.assertTrue(state["applied"])
+        self.assertEqual(state["candidate_strategy"], "bool_only")
+        self.assertTrue(component.properties["CastRaytracedShadow"])
+
+    def test_spot_light_ray_traced_shadow_intent_uses_bool_only_method_candidate(self):
+        component = FakeStringRejectingRayTracedMethodLightComponent()
+
+        state = flashlight_run.flashlight_profiles.apply_spot_light_ray_traced_shadow_intent(
+            spot_light_component=component,
+            requested=True)
+
+        self.assertTrue(state["method_set"])
+        self.assertTrue(state["applied"])
+        self.assertEqual(state["candidate_strategy"], "bool_only")
+        self.assertEqual(component.values, [True])
+        self.assertTrue(component.cast_raytraced_shadow)
+
+    def test_spot_light_ray_traced_shadow_intent_uses_bool_only_property_candidate(self):
+        component = FakeEnumRayTracedPropertyLightComponent()
+
+        state = flashlight_run.flashlight_profiles.apply_spot_light_ray_traced_shadow_intent(
+            spot_light_component=component,
+            requested=True)
+
+        self.assertFalse(state["method_set"])
+        self.assertTrue(state["property_set"])
+        self.assertTrue(state["applied"])
+        self.assertEqual(state["candidate_strategy"], "bool_only")
+        self.assertEqual(component.values, [True])
+        self.assertEqual(state["readback_value"], 1)
 
     def test_spot_light_shape_controls_use_reflected_bnewvalue_argument(self):
         for module in (orbit_collection, flashlight_run):
@@ -781,8 +944,73 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertEqual(state["frames"], 0)
         self.assertEqual(instance.events, [])
 
+    def test_live_flashlight_intensity_increases_from_right_trigger(self):
+        state = flashlight_run.compute_live_flashlight_intensity(
+            current_intensity=100.0,
+            decrease_axis=0.0,
+            increase_axis=1.0,
+            delta_seconds=0.5,
+            intensity_adjust_rate=40.0,
+            intensity_min=0.0,
+            intensity_max=150.0,
+            trigger_deadzone=0.05)
+
+        self.assertTrue(state["changed"])
+        self.assertEqual(state["previous_intensity"], 100.0)
+        self.assertEqual(state["intensity"], 120.0)
+        self.assertEqual(state["delta"], 20.0)
+        self.assertFalse(state["at_max"])
+
+    def test_live_flashlight_intensity_decreases_from_left_trigger_and_clamps(self):
+        state = flashlight_run.compute_live_flashlight_intensity(
+            current_intensity=10.0,
+            decrease_axis=1.0,
+            increase_axis=0.0,
+            delta_seconds=1.0,
+            intensity_adjust_rate=40.0,
+            intensity_min=0.0,
+            intensity_max=150.0,
+            trigger_deadzone=0.05)
+
+        self.assertTrue(state["changed"])
+        self.assertEqual(state["intensity"], 0.0)
+        self.assertEqual(state["delta"], -10.0)
+        self.assertTrue(state["at_min"])
+
+    def test_live_flashlight_trigger_update_applies_existing_component_intensity(self):
+        args = flashlight_run.parse_args([
+            "--intensity", "100",
+            "--intensity-adjust-rate", "40",
+            "--intensity-max", "150",
+        ])
+        player_controller = FakeAnalogPlayerController({
+            "Gamepad_LeftTriggerAxis": 0.0,
+            "Gamepad_RightTriggerAxis": 1.0,
+        })
+        component = FakeLightComponent()
+
+        state = flashlight_run.update_live_flashlight_intensity_from_triggers(
+            player_controller=player_controller,
+            spot_light_component=component,
+            current_intensity=100.0,
+            delta_seconds=1.0,
+            args=args)
+
+        self.assertTrue(state["changed"])
+        self.assertEqual(state["intensity"], 140.0)
+        self.assertEqual(component.intensity, 140.0)
+        self.assertEqual(
+            player_controller.requests,
+            [
+                {"KeyName": "Gamepad_LeftTriggerAxis"},
+                {"KeyName": "Gamepad_RightTriggerAxis"},
+            ])
+
     def test_live_runtime_render_config_applies_local_exposure_and_lumen_commands(self):
-        game = FakeConsoleGame()
+        game = FakeConsoleGame(cvar_values={
+            cvar_name: value
+            for cvar_name, value in flashlight_run.HARDWARE_RAY_TRACING_CVARS
+        })
         player_controller = game.player_controller
         args = flashlight_run.parse_args(["--live-lighting-mode", "realistic", "--enable-auto-exposure"])
 
@@ -801,6 +1029,132 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertIn("r.DynamicGlobalIlluminationMethod 1", commands)
         self.assertIn("r.ReflectionMethod 1", commands)
         self.assertIn("ShowFlag.Materials 1", commands)
+        self.assertIn("r.RayTracing.Enable 1", commands)
+        self.assertIn("r.Lumen.HardwareRayTracing 1", commands)
+        self.assertTrue(state["hardware_ray_tracing"]["requested"])
+        self.assertEqual(
+            state["hardware_ray_tracing"]["readback"]["confirmed"],
+            True)
+
+    def test_live_runtime_render_config_respects_hardware_ray_tracing_disable_flag(self):
+        game = FakeConsoleGame()
+        player_controller = game.player_controller
+        args = flashlight_run.parse_args([
+            "--live-lighting-mode", "realistic",
+            "--disable-hardware-ray-tracing",
+        ])
+
+        state = flashlight_run.apply_live_runtime_render_config(
+            game=game,
+            player_controller=player_controller,
+            args=args)
+
+        commands = [command for command, _ in player_controller.commands]
+        self.assertFalse(state["hardware_ray_tracing"]["requested"])
+        self.assertTrue(state["hardware_ray_tracing"]["disabled_by_cli"])
+        self.assertNotIn("r.RayTracing.Enable 1", commands)
+        self.assertNotIn("r.Lumen.HardwareRayTracing 1", commands)
+        self.assertIsNone(state["hardware_ray_tracing"]["readback"])
+
+    def test_live_runtime_render_config_treats_zero_cvar_handle_as_missing(self):
+        game = FakeZeroConsoleVariableHandleGame()
+        player_controller = game.player_controller
+        args = flashlight_run.parse_args(["--live-lighting-mode", "realistic"])
+
+        state = flashlight_run.apply_live_runtime_render_config(
+            game=game,
+            player_controller=player_controller,
+            args=args)
+
+        readback = state["hardware_ray_tracing"]["readback"]
+        self.assertIsNone(readback["confirmed"])
+        self.assertFalse(readback["has_readback"])
+        self.assertEqual(game.unreal_service.value_getter_calls, [])
+        for cvar_state in readback["cvars"]:
+            self.assertFalse(cvar_state["readback"]["available"])
+            self.assertFalse(cvar_state["readback"]["readback_ok"])
+            self.assertEqual(cvar_state["readback"]["error"], "console variable not found")
+            self.assertFalse(cvar_state["matches_request"])
+
+    def test_live_ray_traced_shadow_intent_skips_when_rt_readback_unsupported(self):
+        game = FakeZeroConsoleVariableHandleGame()
+        player_controller = game.player_controller
+        args = flashlight_run.parse_args(["--live-lighting-mode", "realistic"])
+        runtime_state = flashlight_run.apply_live_runtime_render_config(
+            game=game,
+            player_controller=player_controller,
+            args=args)
+
+        def unexpected_intent_fn(**kwargs):
+            raise AssertionError("ray-traced shadow intent should not be called")
+
+        state = flashlight_run.apply_live_spot_light_ray_traced_shadow_intent(
+            spot_light_component=FakeLightComponent(),
+            args=args,
+            runtime_render_config_state=runtime_state,
+            intent_fn=unexpected_intent_fn)
+
+        self.assertTrue(state["requested_by_config"])
+        self.assertFalse(state["runtime_confirmed"])
+        self.assertFalse(state["applied"])
+        self.assertIsNone(state["intent"])
+        self.assertEqual(state["skipped_reason"], "hardware ray tracing runtime readback not confirmed")
+
+    def test_live_ray_traced_shadow_intent_skips_when_rt_readback_false(self):
+        game = FakeConsoleGame(cvar_values={
+            cvar_name: 0
+            for cvar_name, _ in flashlight_run.HARDWARE_RAY_TRACING_CVARS
+        })
+        player_controller = game.player_controller
+        args = flashlight_run.parse_args(["--live-lighting-mode", "realistic"])
+        runtime_state = flashlight_run.apply_live_runtime_render_config(
+            game=game,
+            player_controller=player_controller,
+            args=args)
+
+        def unexpected_intent_fn(**kwargs):
+            raise AssertionError("ray-traced shadow intent should not be called")
+
+        state = flashlight_run.apply_live_spot_light_ray_traced_shadow_intent(
+            spot_light_component=FakeLightComponent(),
+            args=args,
+            runtime_render_config_state=runtime_state,
+            intent_fn=unexpected_intent_fn)
+
+        self.assertFalse(runtime_state["hardware_ray_tracing"]["readback"]["confirmed"])
+        self.assertFalse(state["runtime_confirmed"])
+        self.assertFalse(state["applied"])
+        self.assertIsNone(state["intent"])
+        self.assertEqual(state["skipped_reason"], "hardware ray tracing runtime readback not confirmed")
+
+    def test_live_ray_traced_shadow_intent_runs_when_rt_readback_confirmed(self):
+        game = FakeConsoleGame(cvar_values={
+            cvar_name: value
+            for cvar_name, value in flashlight_run.HARDWARE_RAY_TRACING_CVARS
+        })
+        player_controller = game.player_controller
+        args = flashlight_run.parse_args(["--live-lighting-mode", "realistic"])
+        runtime_state = flashlight_run.apply_live_runtime_render_config(
+            game=game,
+            player_controller=player_controller,
+            args=args)
+
+        calls = []
+
+        def intent_fn(spot_light_component, requested):
+            calls.append((spot_light_component, requested))
+            return {"applied": True}
+
+        component = FakeLightComponent()
+        state = flashlight_run.apply_live_spot_light_ray_traced_shadow_intent(
+            spot_light_component=component,
+            args=args,
+            runtime_render_config_state=runtime_state,
+            intent_fn=intent_fn)
+
+        self.assertTrue(state["runtime_confirmed"])
+        self.assertTrue(state["applied"])
+        self.assertEqual(calls, [(component, True)])
 
     def test_workflow_render_history_override_does_not_inject_conflicting_disable(self):
         result, records = self.run_workflow_with_fake_python(
@@ -1563,6 +1917,8 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertNotIn("r.EyeAdaptationQuality=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertNotIn("r.DefaultFeature.LocalExposure.HighlightContrastScale=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertNotIn("r.DefaultFeature.LocalExposure.ShadowContrastScale=0", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.RayTracing.Enable=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.Lumen.HardwareRayTracing=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
 
     def test_run_build_config_realistic_live_suppresses_local_exposure_with_auto_exposure_enabled(self):
         args = flashlight_run.parse_args(["--live-lighting-mode", "realistic", "--enable-auto-exposure"])
@@ -1590,6 +1946,35 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
         self.assertIn("r.ReflectionMethod=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertIn("r.Lumen.DiffuseIndirect.Allow=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
         self.assertIn("r.Lumen.Reflections.Allow=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.RayTracing.Enable=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.Lumen.HardwareRayTracing=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.Lumen.Reflections.HardwareRayTracing=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.Lumen.ScreenProbeGather.HardwareRayTracing=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+
+    def test_run_build_config_realistic_live_hardware_ray_tracing_can_be_disabled(self):
+        args = flashlight_run.parse_args([
+            "--live-lighting-mode", "realistic",
+            "--disable-hardware-ray-tracing",
+        ])
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            user_config_file = os.path.join(temp_dir, "user_config.yaml")
+            with open(user_config_file, "w", encoding="utf-8") as f:
+                f.write(
+                    "SP_CORE:\n"
+                    "  OVERRIDE_CONFIG_ENGINE_INI: True\n"
+                    "  CONFIG_ENGINE_INI_STRING: |\n"
+                    "    [/Script/Engine.RendererSettings]\n"
+                    "    r.CustomDepth=3\n")
+
+            config = flashlight_run.build_config(
+                args=args,
+                user_config_files=[user_config_file])
+
+        self.assertIn("r.DynamicGlobalIlluminationMethod=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertIn("r.ReflectionMethod=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.RayTracing.Enable=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
+        self.assertNotIn("r.Lumen.HardwareRayTracing=1", config.SP_CORE.CONFIG_ENGINE_INI_STRING)
 
     def test_orbit_build_config_preserves_temporal_rendering_when_enabled(self):
         args = orbit_collection.parse_args(["--mode", "render", "--enable-render-history"])

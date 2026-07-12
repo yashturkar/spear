@@ -155,9 +155,30 @@ For regenerated Infinigen scenes, keep the corresponding `/home/yashturkar/Works
 
 This checkout contains project-specific active-illumination environments and
 helpers beyond upstream/base SPEAR. The table below is an inventory of the
-current reusable maps and their validation state. Do not treat cook/package
-success as visual validation; runtime and visual caveats are called out
-explicitly.
+current reusable maps and their validation state. The canonical machine-readable
+alias and command ledger is [docs/environment_ledger.json](docs/environment_ledger.json);
+use it for launcher aliases, runtime map paths, cook evidence, package versions,
+and source-only candidates. Do not treat cook/package success as visual
+validation; runtime and visual caveats are called out explicitly.
+
+For a stable user-facing command, add this alias to `~/.zshrc`:
+
+```console
+alias spear=/home/yashturkar/Workspace/spear/tools/spear-run
+```
+
+The launcher can be run from any current working directory and supports dry-run
+checks before starting Unreal:
+
+```console
+spear env list
+spear live cafeteria_500sqft_v2 --setting realistic-2x
+spear live japanese_office_dark --setting realistic-2x
+spear record japanese_office_dark
+spear rerun japanese_office_dark
+spear orbit teleop japanese_office_dark
+spear orbit render cafeteria_500sqft_v2_flashlight_validation_dark
+```
 
 | Environment | Unreal content path | Current validation status | User-facing entry point |
 | --- | --- | --- | --- |

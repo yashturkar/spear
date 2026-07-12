@@ -144,17 +144,45 @@ python examples/flashlight/run.py \
 This mode suppresses auto exposure and local exposure so dim fixture-light
 changes remain visible, while preserving Lumen global illumination, Lumen
 reflections, specular/material response, and related live rendering behavior.
+In realistic live mode, `run.py` now requests hardware ray tracing by default
+through launch-time renderer settings and matching runtime console commands.
+Use `--disable-hardware-ray-tracing` only when intentionally testing the
+non-hardware-RT path.
+
+On Linux, the SpearSim project is configured to cook/package with Vulkan SM6
+and ray tracing enabled by overriding `LinuxTargetSettings` in
+`cpp/unreal_projects/SpearSim/Config/DefaultEngine.ini`: remove
+`SF_VULKAN_SM5`, add `SF_VULKAN_SM6`, and set `bEnableRayTracing=True`. The
+2026-07-08 clean cafeteria cook/package for `cafeteria_500sqft_v2` and
+`cafeteria_500sqft_v2_flashlight_validation_dark` was approved at the package
+artifact level as VULKAN_SM6 and not SM5-only. Evidence included VULKAN_SM6
+shader autogen, SF_VULKAN_SM6 shader compile jobs, and
+`Engine/GlobalShaderCache-VULKAN_SM6.bin` in both the archive pak listing and
+the cooked filesystem artifact scan; the checked artifacts had no VULKAN_SM5,
+`GlobalShaderCache-VULKAN_SM5`, or `SF_VULKAN_SM5` signatures.
+
 The `realistic_live_flashlight` profile uses the checked-in beam/profile values
 instead of ad hoc numeric tuning, including inverse-square flashlight falloff.
 For brighter live trials, `realistic_live_flashlight_2x` preserves the same
 realistic live settings while doubling flashlight intensity to `1600.0`.
+During live teleop, the left gamepad trigger decreases flashlight intensity and
+the right trigger increases it on the existing spotlight without restarting the
+scene. Runtime intensity is clamped; override the defaults with
+`--intensity-adjust-rate`, `--intensity-min`, and `--intensity-max` when a trial
+needs a narrower or wider control range. The trigger axes default to
+`Gamepad_LeftTriggerAxis` and `Gamepad_RightTriggerAxis`; use
+`--intensity-down-key` and `--intensity-up-key` to remap them, and tune
+`--intensity-trigger-deadzone` if the gamepad reports trigger noise near rest.
 
-As of 2026-07-07, static/unit validation and cafeteria cook/package validation
-passed, but agent-side runtime validation of this exact live command was
-blocked in a headless shell: Unreal crashed during RHI initialization because
-`DISPLAY`/`WAYLAND_DISPLAY` were unavailable, before map load, startup warmup,
-or teleop logs. Re-run from an environment with a working display before
-treating the visual behavior as validated.
+As of 2026-07-08, static/unit validation and package artifact validation have
+passed, but live runtime validation of this exact command still has not run in
+a display-capable session. The headless agent shell had empty `DISPLAY` and
+`WAYLAND_DISPLAY`, so runtime validation was not attempted after the SM6 cook.
+Re-run from an environment with a working Vulkan/NVIDIA display before treating
+visual behavior or runtime hardware-RT enablement as validated. The expected
+runtime log signatures are `Platform=VULKAN_SM6`, ray tracing enabled
+dynamically, ray tracing shaders enabled, and hardware RT readback
+`confirmed=true`.
 
 ## Running the flashlight orbit collection workflow
 

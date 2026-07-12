@@ -1,0 +1,20 @@
+| alias | unreal_map_path | archive .umap | archive .uexp | staged .umap | staged .uexp |
+| --- | --- | --- | --- | --- | --- |
+| japanese_office | /Game/JapaneseOffice/Maps/Demonstration | yes | yes | yes | yes |
+| japanese_office_dark | /Game/JapaneseOffice/Maps/Demonstration_Dark | yes | yes | yes | yes |
+| apartment_0000 | /Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000 | yes | yes | yes | yes |
+| debug_0000 | /Game/SPEAR/Scenes/debug_0000/Maps/debug_0000 | yes | yes | yes | yes |
+| debug_0001 | /Game/SPEAR/Scenes/debug_0001/Maps/debug_0001 | yes | yes | yes | yes |
+| abandoned_room | /Game/Fab/Abandoned_Room_Interior/Maps/AbandonedRoom | yes | yes | yes | yes |
+| infinigen_indoors_0000 | /Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000 | yes | yes | yes | yes |
+| one_bed_apartment | /Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment | yes | yes | yes | yes |
+| college_classroom | /Game/SPEAR/Scenes/college_classroom/Maps/college_classroom | yes | yes | yes | yes |
+| cafeteria_500sqft | /Game/SPEAR/Scenes/cafeteria_500sqft/Maps/cafeteria_500sqft | yes | yes | yes | yes |
+| cafeteria_500sqft_v2 | /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 | yes | yes | yes | yes |
+| cafeteria_500sqft_v2_flashlight_validation_dark | /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark | yes | yes | yes | yes |
+| advanced_lighting | /Game/StarterContent/Maps/Advanced_Lighting | yes | yes | yes | yes |
+| minimal_default | /Game/StarterContent/Maps/Minimal_Default | yes | yes | yes | yes |
+| starter_map | /Game/StarterContent/Maps/StarterMap | yes | yes | yes | yes |
+| third_person | /Game/ThirdPerson/Maps/ThirdPersonMap | yes | yes | yes | yes |
+| vehicle | /Game/VehicleTemplate/Maps/VehicleExampleMap | yes | yes | yes | yes |
+| vehicle_offroad | /Game/VehicleTemplate/Maps/VehicleOffroadExampleMap | yes | yes | yes | yes |

@@ -243,6 +243,22 @@ def try_set_reflected_property(obj, property_names, value):
     return False
 
 
+def try_get_reflected_property(obj, property_names):
+    for property_name in property_names:
+        get_editor_property = getattr(obj, "get_editor_property", None)
+        if get_editor_property is not None:
+            try:
+                return True, get_editor_property(property_name)
+            except Exception:
+                pass
+        if hasattr(obj, property_name):
+            try:
+                return True, getattr(obj, property_name)
+            except Exception:
+                pass
+    return False, None
+
+
 def apply_spot_light_inverse_square_controls(spot_light_component, args):
     state = {
         "requested": bool(args.use_inverse_squared_falloff),
@@ -316,4 +332,68 @@ def apply_spot_light_shadow_controls(spot_light_component, args):
                 obj=spot_light_component,
                 property_names=("ContactShadowLength", "contact_shadow_length"),
                 value=args.contact_shadow_length))
+    return state
+
+
+def apply_spot_light_ray_traced_shadow_intent(spot_light_component, requested):
+    property_names = (
+        "CastRaytracedShadow",
+        "CastRaytracedShadows",
+        "CastRayTracedShadow",
+        "CastRayTracedShadows",
+        "bCastRaytracedShadow",
+        "bCastRayTracedShadow",
+        "cast_raytraced_shadow",
+        "cast_ray_traced_shadow",
+        "cast_ray_traced_shadows",
+    )
+    state = {
+        "requested": bool(requested),
+        "method_set": False,
+        "property_set": False,
+        "applied": False,
+        "candidate_strategy": "bool_only",
+        "readback_available": False,
+        "readback_value": None,
+    }
+    if not requested:
+        return state
+
+    value = True
+    for method_name in (
+            "SetCastRaytracedShadow",
+            "SetCastRaytracedShadows",
+            "SetCastRayTracedShadow",
+            "SetCastRayTracedShadows",
+            "SetRayTracedShadows",
+            "SetCastRayTracingShadow",
+            "SetCastRayTracingShadows"):
+        if try_call_any_method(spot_light_component, method_name, value):
+            state["method_set"] = True
+            state["applied"] = True
+            readback_available, readback_value = try_get_reflected_property(
+                obj=spot_light_component,
+                property_names=property_names)
+            state["readback_available"] = readback_available
+            state["readback_value"] = readback_value
+            return state
+
+    if try_set_reflected_property(
+            obj=spot_light_component,
+            property_names=property_names,
+            value=value):
+        state["property_set"] = True
+        state["applied"] = True
+        readback_available, readback_value = try_get_reflected_property(
+            obj=spot_light_component,
+            property_names=property_names)
+        state["readback_available"] = readback_available
+        state["readback_value"] = readback_value
+        return state
+
+    readback_available, readback_value = try_get_reflected_property(
+        obj=spot_light_component,
+        property_names=property_names)
+    state["readback_available"] = readback_available
+    state["readback_value"] = readback_value
     return state
