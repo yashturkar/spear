@@ -1,0 +1,99 @@
+{
+  "map_path": "/Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130",
+  "destroyed_prior_generated_actors": [
+    "Infinigen189cc130_TableLamp_650lm_PointLight"
+  ],
+  "disabled_light_actors": [
+    {
+      "label": "Setup_DirectionalLight",
+      "class": "DirectionalLight",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 600.0
+      },
+      "component_class": "DirectionalLightComponent",
+      "visible": false,
+      "intensity": 0.0,
+      "indirect_lighting_intensity": 0.0,
+      "affects_world": false,
+      "cast_shadows": false,
+      "cast_dynamic_shadows": false
+    },
+    {
+      "label": "Setup_SkyLight",
+      "class": "SkyLight",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 300.0
+      },
+      "component_class": "SkyLightComponent",
+      "visible": false,
+      "intensity": 0.0,
+      "indirect_lighting_intensity": 0.0,
+      "affects_world": false,
+      "cast_shadows": false,
+      "cast_dynamic_shadows": false
+    }
+  ],
+  "player_start": {
+    "label": "Setup_PlayerStart",
+    "old_location": {
+      "x": 300.0,
+      "y": -1000.0,
+      "z": 120.0
+    },
+    "new_location": {
+      "x": 300.0,
+      "y": -1000.0,
+      "z": 120.0
+    },
+    "old_rotation": {
+      "pitch": -74.114,
+      "yaw": 0.0,
+      "roll": -0.0
+    },
+    "new_rotation": {
+      "pitch": 0.0,
+      "yaw": -74.114,
+      "roll": 0.0
+    }
+  },
+  "table_lamp_light": {
+    "label": "Infinigen189cc130_TableLamp_650lm_PointLight",
+    "class": "PointLight",
+    "location": {
+      "x": 369.27,
+      "y": -1243.399,
+      "z": 120.238
+    },
+    "lamp_mesh_label": "Infinigen_DeskLampFactory_8507126__spawn_asset_7901138_",
+    "lamp_mesh_bounds_origin": {
+      "x": 369.27,
+      "y": -1243.399,
+      "z": 101.476
+    },
+    "lamp_mesh_bounds_extent": {
+      "x": 10.83,
+      "y": 10.83,
+      "z": 23.452
+    },
+    "component_class": "PointLightComponent",
+    "intensity": 650.0,
+    "intensity_units": "LUMENS",
+    "attenuation_radius": 500.0,
+    "source_radius": 7.5,
+    "soft_source_radius": 18.0,
+    "use_inverse_squared_falloff": true,
+    "indirect_lighting_intensity": 1.0,
+    "cast_shadows": true,
+    "cast_dynamic_shadows": true,
+    "cast_raytraced_shadow": "ENABLED",
+    "cast_raytraced_shadow_set": true,
+    "temperature": 2700.0,
+    "use_temperature": true,
+    "light_color": "<Struct 'Color' (0x9991c562fa8) {b: 255, g: 209, r: 148, a: 255}>"
+  },
+  "saved": true
+}

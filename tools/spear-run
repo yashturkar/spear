@@ -133,6 +133,23 @@ def map_args_for(env: dict, supported_aliases: set[str]) -> list[str]:
     )
 
 
+def live_setting_args_for(env: dict, setting: str) -> list[str]:
+    overrides = (
+        env.get("recommended_settings", {})
+        .get("live_setting_overrides", {})
+    )
+    return list(overrides.get(setting, LIVE_SETTINGS[setting]))
+
+
+def resolve_boolean_passthrough(base_args: list[str], extra_args: list[str]) -> list[str]:
+    resolved = list(base_args)
+    if "--enable-flashlight" in extra_args:
+        resolved = [arg for arg in resolved if arg != "--disable-flashlight"]
+    if "--disable-flashlight" in extra_args:
+        resolved = [arg for arg in resolved if arg != "--enable-flashlight"]
+    return resolved + extra_args
+
+
 def python_cmd(script: str, *args: str) -> list[str]:
     return ["python", script, *args]
 
@@ -212,11 +229,11 @@ def env_show(args: argparse.Namespace) -> int:
 def live(args: argparse.Namespace, extra_args: list[str]) -> int:
     try:
         env = get_environment(args.env)
+        live_args = live_setting_args_for(env=env, setting=args.setting)
         argv = (
             python_cmd("examples/flashlight/run.py")
             + map_args_for(env, RUN_MAP_ALIASES)
-            + LIVE_SETTINGS[args.setting]
-            + extra_args
+            + resolve_boolean_passthrough(base_args=live_args, extra_args=extra_args)
         )
     except ValueError as exc:
         return fail(str(exc))

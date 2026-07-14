@@ -93,6 +93,9 @@ parser.add_argument("--disable-scene-lights", action="store_true")
 parser.add_argument("--scene-light-intensity-scale", type=float, default=1.0)
 parser.add_argument("--live-lighting-mode", choices=["default", "realistic"], default="default")
 parser.add_argument("--disable-hardware-ray-tracing", action="store_true")
+flashlight_spawn_group = parser.add_mutually_exclusive_group()
+flashlight_spawn_group.add_argument("--enable-flashlight", dest="disable_flashlight", action="store_false", default=False)
+flashlight_spawn_group.add_argument("--disable-flashlight", dest="disable_flashlight", action="store_true")
 parser.add_argument("--startup-warmup-seconds", type=float, default=None)
 auto_exposure_group = parser.add_mutually_exclusive_group()
 auto_exposure_group.add_argument("--disable-auto-exposure", dest="disable_auto_exposure", action="store_true", default=True)
@@ -863,6 +866,7 @@ if __name__ == "__main__":
     game = instance.get_game()
 
     light = None
+    spot_light_component = None
 
     try:
         with instance.begin_frame():
@@ -898,49 +902,58 @@ if __name__ == "__main__":
 
             viewport_desc = get_viewport_pose(game=game)
 
-            light = game.unreal_service.spawn_actor(
-                uclass="ASpotLight",
-                location=viewport_desc["camera_location"])
-            game.unreal_service.set_stable_name_for_actor(actor=light, stable_name="Debug/CameraFlashlight")
+            light_shape_state = None
+            light_inverse_square_state = None
+            light_shadow_state = None
+            light_ray_traced_shadow_state = None
+            if not args.disable_flashlight:
+                light = game.unreal_service.spawn_actor(
+                    uclass="ASpotLight",
+                    location=viewport_desc["camera_location"])
+                game.unreal_service.set_stable_name_for_actor(actor=light, stable_name="Debug/CameraFlashlight")
 
-            root_component = light.K2_GetRootComponent()
-            root_component.SetMobility(NewMobility="Movable")
+                root_component = light.K2_GetRootComponent()
+                root_component.SetMobility(NewMobility="Movable")
 
-            spot_light_component = game.unreal_service.get_component_by_class(actor=light, uclass="USpotLightComponent")
-            spot_light_component.SetIntensity(NewIntensity=args.intensity)
-            spot_light_component.SetAttenuationRadius(NewRadius=args.attenuation_radius)
-            spot_light_component.SetIndirectLightingIntensity(NewIntensity=args.indirect_lighting_intensity)
-            spot_light_component.SetInnerConeAngle(NewInnerConeAngle=args.inner_cone_angle)
-            spot_light_component.SetOuterConeAngle(NewOuterConeAngle=args.outer_cone_angle)
-            light_shape_state = apply_spot_light_shape_controls(
-                spot_light_component=spot_light_component,
-                args=args)
-            light_inverse_square_state = flashlight_profiles.apply_spot_light_inverse_square_controls(
-                spot_light_component=spot_light_component,
-                args=args)
-            light_shadow_state = flashlight_profiles.apply_spot_light_shadow_controls(
-                spot_light_component=spot_light_component,
-                args=args)
-            light_ray_traced_shadow_state = apply_live_spot_light_ray_traced_shadow_intent(
-                spot_light_component=spot_light_component,
-                args=args,
-                runtime_render_config_state=runtime_render_config_state)
+                spot_light_component = game.unreal_service.get_component_by_class(actor=light, uclass="USpotLightComponent")
+                spot_light_component.SetIntensity(NewIntensity=args.intensity)
+                spot_light_component.SetAttenuationRadius(NewRadius=args.attenuation_radius)
+                spot_light_component.SetIndirectLightingIntensity(NewIntensity=args.indirect_lighting_intensity)
+                spot_light_component.SetInnerConeAngle(NewInnerConeAngle=args.inner_cone_angle)
+                spot_light_component.SetOuterConeAngle(NewOuterConeAngle=args.outer_cone_angle)
+                light_shape_state = apply_spot_light_shape_controls(
+                    spot_light_component=spot_light_component,
+                    args=args)
+                light_inverse_square_state = flashlight_profiles.apply_spot_light_inverse_square_controls(
+                    spot_light_component=spot_light_component,
+                    args=args)
+                light_shadow_state = flashlight_profiles.apply_spot_light_shadow_controls(
+                    spot_light_component=spot_light_component,
+                    args=args)
+                light_ray_traced_shadow_state = apply_live_spot_light_ray_traced_shadow_intent(
+                    spot_light_component=spot_light_component,
+                    args=args,
+                    runtime_render_config_state=runtime_render_config_state)
 
         with instance.end_frame():
             pass
 
-        with instance.begin_frame():
-            viewport_desc = get_viewport_pose(game=game)
-            set_light_pose(light=light, viewport_desc=viewport_desc)
-            attach_light_to_pawn(light=light, pawn=pawn)
-        with instance.end_frame():
-            pass
+        if light is not None:
+            with instance.begin_frame():
+                viewport_desc = get_viewport_pose(game=game)
+                set_light_pose(light=light, viewport_desc=viewport_desc)
+                attach_light_to_pawn(light=light, pawn=pawn)
+            with instance.end_frame():
+                pass
 
         startup_warmup_state = run_live_startup_warmup(
             instance=instance,
             duration_seconds=args.startup_warmup_seconds)
 
-        spear.log("Spawned camera flashlight. Press Ctrl+C to stop.")
+        if args.disable_flashlight:
+            spear.log("Camera flashlight disabled. Press Ctrl+C to stop.")
+        else:
+            spear.log("Spawned camera flashlight. Press Ctrl+C to stop.")
         spear.log("Live lighting mode: ", args.live_lighting_mode)
         spear.log("Hardware ray tracing requested config: ", get_hardware_ray_tracing_requested_state(args=args))
         spear.log("Hardware ray tracing runtime command/readback state: ", runtime_render_config_state["hardware_ray_tracing"])
@@ -948,49 +961,52 @@ if __name__ == "__main__":
         spear.log("Exposure/local exposure runtime config: ", runtime_render_config_state)
         spear.log("Scene light state: ", scene_light_state)
         spear.log("Realistic live renderer retains Lumen GI/reflections/material response: ", is_realistic_live_mode(args=args))
-        spear.log("Flashlight cone angles: ", args.inner_cone_angle, " inner, ", args.outer_cone_angle, " outer")
-        spear.log("Flashlight source radii: ", args.source_radius, " source, ", args.soft_source_radius, " soft source")
-        spear.log("Flashlight source radius controls applied: ", light_shape_state)
-        spear.log("Flashlight profile: ", args.flashlight_profile_desc)
-        spear.log("Flashlight inverse-square controls applied: ", light_inverse_square_state)
-        spear.log("Flashlight shadow controls applied: ", light_shadow_state)
-        spear.log("Flashlight ray-traced shadow intent applied: ", light_ray_traced_shadow_state)
+        if not args.disable_flashlight:
+            spear.log("Flashlight cone angles: ", args.inner_cone_angle, " inner, ", args.outer_cone_angle, " outer")
+            spear.log("Flashlight source radii: ", args.source_radius, " source, ", args.soft_source_radius, " soft source")
+            spear.log("Flashlight source radius controls applied: ", light_shape_state)
+            spear.log("Flashlight profile: ", args.flashlight_profile_desc)
+            spear.log("Flashlight inverse-square controls applied: ", light_inverse_square_state)
+            spear.log("Flashlight shadow controls applied: ", light_shadow_state)
+            spear.log("Flashlight ray-traced shadow intent applied: ", light_ray_traced_shadow_state)
         spear.log("Camera movement speed: ", args.movement_speed)
-        spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
+        if not args.disable_flashlight:
+            spear.log("Flashlight indirect lighting intensity: ", args.indirect_lighting_intensity)
         spear.log("Startup warmup before live control: ", startup_warmup_state)
-        spear.log("Live flashlight control begins.")
-        spear.log("Flashlight toggle key: ", args.toggle_key)
-        spear.log("Flashlight aim D-pad keys: ", args.aim_left_key, args.aim_right_key, args.aim_up_key, args.aim_down_key)
-        spear.log(
-            "Flashlight intensity triggers: ",
-            args.intensity_down_key,
-            " decreases, ",
-            args.intensity_up_key,
-            " increases")
-        spear.log(
-            "Flashlight intensity control: current ",
-            args.intensity,
-            ", rate ",
-            args.intensity_adjust_rate,
-            ", min ",
-            args.intensity_min,
-            ", max ",
-            args.intensity_max,
-            ", trigger deadzone ",
-            args.intensity_trigger_deadzone)
-        spear.log(
-            "Flashlight aim yaw range: ",
-            args.aim_yaw_min_degrees,
-            " to ",
-            args.aim_yaw_max_degrees,
-            " degrees")
-        spear.log(
-            "Flashlight aim pitch range: ",
-            args.aim_pitch_min_degrees,
-            " to ",
-            args.aim_pitch_max_degrees,
-            " degrees")
-        spear.log("Flashlight aim rate: ", args.aim_rate_degrees_per_second, " degrees per second")
+        if not args.disable_flashlight:
+            spear.log("Live flashlight control begins.")
+            spear.log("Flashlight toggle key: ", args.toggle_key)
+            spear.log("Flashlight aim D-pad keys: ", args.aim_left_key, args.aim_right_key, args.aim_up_key, args.aim_down_key)
+            spear.log(
+                "Flashlight intensity triggers: ",
+                args.intensity_down_key,
+                " decreases, ",
+                args.intensity_up_key,
+                " increases")
+            spear.log(
+                "Flashlight intensity control: current ",
+                args.intensity,
+                ", rate ",
+                args.intensity_adjust_rate,
+                ", min ",
+                args.intensity_min,
+                ", max ",
+                args.intensity_max,
+                ", trigger deadzone ",
+                args.intensity_trigger_deadzone)
+            spear.log(
+                "Flashlight aim yaw range: ",
+                args.aim_yaw_min_degrees,
+                " to ",
+                args.aim_yaw_max_degrees,
+                " degrees")
+            spear.log(
+                "Flashlight aim pitch range: ",
+                args.aim_pitch_min_degrees,
+                " to ",
+                args.aim_pitch_max_degrees,
+                " degrees")
+            spear.log("Flashlight aim rate: ", args.aim_rate_degrees_per_second, " degrees per second")
         if args.capture_poses:
             spear.log("Pose capture enabled. Press Enter in this terminal or press the capture key on the controller to save the current camera pose.")
             spear.log("Capture key: ", args.capture_key)
@@ -1021,29 +1037,31 @@ if __name__ == "__main__":
 
             with instance.begin_frame():
                 player_controller = get_player_controller(game=game)
-                should_toggle_flashlight = was_input_key_pressed_since_last_poll(
-                    player_controller=player_controller,
-                    key_name=args.toggle_key,
-                    previous_key_down_by_name=previous_key_down_by_name)
+                if not args.disable_flashlight:
+                    should_toggle_flashlight = was_input_key_pressed_since_last_poll(
+                        player_controller=player_controller,
+                        key_name=args.toggle_key,
+                        previous_key_down_by_name=previous_key_down_by_name)
                 if args.capture_poses and not should_capture_pose:
                     should_capture_pose = was_input_key_pressed_since_last_poll(
                         player_controller=player_controller,
                         key_name=args.capture_key,
                         previous_key_down_by_name=previous_key_down_by_name)
-                if is_input_key_down(player_controller=player_controller, key_name=args.aim_left_key):
-                    aim_yaw_direction -= 1.0
-                if is_input_key_down(player_controller=player_controller, key_name=args.aim_right_key):
-                    aim_yaw_direction += 1.0
-                if is_input_key_down(player_controller=player_controller, key_name=args.aim_up_key):
-                    aim_pitch_direction += 1.0
-                if is_input_key_down(player_controller=player_controller, key_name=args.aim_down_key):
-                    aim_pitch_direction -= 1.0
-                intensity_state = update_live_flashlight_intensity_from_triggers(
-                    player_controller=player_controller,
-                    spot_light_component=spot_light_component,
-                    current_intensity=flashlight_intensity,
-                    delta_seconds=poll_delta_seconds,
-                    args=args)
+                if not args.disable_flashlight:
+                    if is_input_key_down(player_controller=player_controller, key_name=args.aim_left_key):
+                        aim_yaw_direction -= 1.0
+                    if is_input_key_down(player_controller=player_controller, key_name=args.aim_right_key):
+                        aim_yaw_direction += 1.0
+                    if is_input_key_down(player_controller=player_controller, key_name=args.aim_up_key):
+                        aim_pitch_direction += 1.0
+                    if is_input_key_down(player_controller=player_controller, key_name=args.aim_down_key):
+                        aim_pitch_direction -= 1.0
+                    intensity_state = update_live_flashlight_intensity_from_triggers(
+                        player_controller=player_controller,
+                        spot_light_component=spot_light_component,
+                        current_intensity=flashlight_intensity,
+                        delta_seconds=poll_delta_seconds,
+                        args=args)
             with instance.end_frame():
                 pass
 
@@ -1065,7 +1083,7 @@ if __name__ == "__main__":
                         intensity_state["increase_axis"],
                         ")")
 
-            if aim_yaw_direction != 0.0 or aim_pitch_direction != 0.0:
+            if light is not None and (aim_yaw_direction != 0.0 or aim_pitch_direction != 0.0):
                 aim_yaw_offset_degrees = clamp(
                     value=aim_yaw_offset_degrees + aim_yaw_direction * args.aim_rate_degrees_per_second * poll_delta_seconds,
                     min_value=args.aim_yaw_min_degrees,
@@ -1084,7 +1102,7 @@ if __name__ == "__main__":
                 with instance.end_frame():
                     pass
 
-            if should_toggle_flashlight:
+            if spot_light_component is not None and should_toggle_flashlight:
                 flashlight_visible = not flashlight_visible
                 with instance.begin_frame():
                     spot_light_component.SetVisibility(bNewVisibility=flashlight_visible, bPropagateToChildren=True)
@@ -1106,7 +1124,7 @@ if __name__ == "__main__":
                 spear.log("Captured pose: ", pose_desc)
 
     except KeyboardInterrupt:
-        spear.log("Stopping camera flashlight.")
+        spear.log("Stopping live session.")
 
     finally:
         if light is not None and instance.is_running():

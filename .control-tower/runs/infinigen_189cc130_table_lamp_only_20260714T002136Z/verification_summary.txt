@@ -1,0 +1,35 @@
+Infinigen 189cc130 table-lamp-only package verification
+
+User edit:
+- Preserved the user-edited Unreal map. No FBX or blend reimport was performed for this pass.
+- Bounds inspection after the user edit reported 70 static mesh actors and the desired bedroom/desk-lamp cluster.
+
+Lighting edit:
+- Before the edit, the map had only Setup_DirectionalLight and Setup_SkyLight as active light components; the table lamp was a mesh only.
+- Disabled Setup_DirectionalLight and Setup_SkyLight by setting visibility off, intensity 0, indirect intensity 0, affects_world false, and shadow flags false.
+- Added one generated PointLight at the table lamp: Infinigen189cc130_TableLamp_650lm_PointLight.
+- Table lamp settings after reposition: 650 lumens, 2700 K, inverse-square falloff, attenuation radius 500, source radius 4.0, soft source radius 10.0, indirect_lighting_intensity 1.0, dynamic shadows on, CastRaytracedShadow=ENABLED.
+- Repositioned Infinigen189cc130_TableLamp_650lm_PointLight from (369.27, -1243.399, 120.238) to (376.31, -1233.11, 119.769), on the lamp side farthest from the monitor; the final point is 51.18 cm from the monitor origin.
+- Disabled monitor/screen lighting contribution for Infinigen_MonitorFactory_1148210__spawn_asset_4488226_: it has no LightComponent, its StaticMeshComponent has emissive_light_source=false, and both material slots are assigned to /Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_NonEmissive_Black_OffScreen.
+- Added Setup_PlayerStart at (300, -1000, 120), yaw -74.114, facing the lamp.
+
+Launcher:
+- The command `spear live infinigen_189cc130 --setting realistic-2x` resolves through `--map-path /Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130`.
+- The per-environment `realistic-2x` override uses `--scene-light-intensity-scale 1.0`, so the 650 lumen table lamp is not dimmed by the global scene-light scale.
+- The per-environment override also passes `--disable-flashlight`, so this command does not spawn the usual camera flashlight.
+- To spawn the camera flashlight anyway, use `spear live infinigen_189cc130 --setting realistic-2x -- --enable-flashlight`.
+- When inspecting the command, put dry-run before the passthrough separator: `spear live infinigen_189cc130 --setting realistic-2x --dry-run -- --enable-flashlight`.
+- Realistic live mode requests Lumen GI/reflections and hardware ray tracing unless explicitly disabled by CLI.
+
+Cook/package:
+- Full 22-map Linux cook/package completed successfully with UAT exit status 0 after the lamp-repositioned screen-off material pass.
+- Known cook warnings remain: old VegaDesk unloadable assets and no-geometry convex warnings on generated Infinigen helper meshes.
+- Archive pak: cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+- Staged pak: cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+- Pak size: 5259388196 bytes
+- Pak sha256: 4b9dc32d6c02ddad8093695f629f0428b0a1595822efbd8ecaac895ad94d53fa
+- Pak listing confirmed infinigen_189cc130.umap, infinigen_189cc130.uexp, and M_NonEmissive_Black_OffScreen.uasset.
+
+Runtime status:
+- Package and launcher validation passed.
+- Runtime visual validation is still pending.

@@ -11,9 +11,9 @@ import unittest
 ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), ".."))
 LAUNCHER = os.path.join(ROOT_DIR, "tools", "spear-run")
 LEDGER = os.path.join(ROOT_DIR, "docs", "environment_ledger.json")
-ACTIVE_PACKAGE_VERSION = "full_ledger_linux_2026-07-10"
-ACTIVE_PACKAGE_RUN_ID = "full_ledger_linux_package_20260710T175718Z"
-ACTIVE_PACKAGE_SHA256 = "71439ddc9c3be4993d9c6cabb96ae090aa5dec27b6b16ba2df68571f153faebd"
+ACTIVE_PACKAGE_VERSION = "full_ledger_plus_infinigen_189cc130_table_lamp_repositioned_screen_off_linux_2026-07-13"
+ACTIVE_PACKAGE_RUN_ID = "infinigen_189cc130_table_lamp_only_20260714T002136Z"
+ACTIVE_PACKAGE_SHA256 = "4b9dc32d6c02ddad8093695f629f0428b0a1595822efbd8ecaac895ad94d53fa"
 
 
 def load_launcher_module():
@@ -64,13 +64,15 @@ class SpearLauncherTests(unittest.TestCase):
             {
                 "package_version": ACTIVE_PACKAGE_VERSION,
                 "run_id": ACTIVE_PACKAGE_RUN_ID,
-                "finished_at": "2026-07-10T17:59:58Z",
+                "finished_at": "2026-07-14T00:59:41Z",
                 "uat_exit_status": 0,
                 "verify_exit_status": 0,
-                "ledger_target_count": 18,
+                "ledger_target_count": 22,
                 "coverage_summary": (
-                    "The 2026-07-10 full-ledger package covers 18 environments. Newer kitchen "
-                    "entries carry per-environment package metadata."
+                    "The 2026-07-13 full-ledger package covers 22 runnable environments, "
+                    "including the user-edited infinigen_189cc130 map with the table "
+                    "lamp repositioned away from the monitor and screen/monitor "
+                    "emissive lighting disabled."
                 ),
                 "archive_pak": (
                     "cpp/unreal_projects/SpearSim/Standalone-Development/Linux/"
@@ -81,15 +83,15 @@ class SpearLauncherTests(unittest.TestCase):
                     "SpearSim/Content/Paks/SpearSim-Linux.pak"
                 ),
                 "sha256": ACTIVE_PACKAGE_SHA256,
-                "size_bytes": 3527193245,
-                "mtime": "2026-07-10T13:59:49.694835908-04:00",
+                "size_bytes": 5259388196,
+                "mtime": "2026-07-13T20:59:27.061929048-04:00",
                 "verification_artifact": (
-                    ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/"
+                    ".control-tower/runs/infinigen_189cc130_table_lamp_only_20260714T002136Z/"
                     "verification_summary.txt"
                 ),
                 "coverage_artifact": (
-                    ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/"
-                    "coverage_table.md"
+                    ".control-tower/runs/infinigen_189cc130_table_lamp_only_20260714T002136Z/"
+                    "cook_maps.txt"
                 ),
                 "validation_caveat": (
                     "Cook/package coverage only; runtime visual validation statuses on "
@@ -110,6 +112,8 @@ class SpearLauncherTests(unittest.TestCase):
             "japanese_office_dark",
             "cafeteria_500sqft_v2",
             "college_classroom",
+            "infinigen_1dcacf23",
+            "infinigen_189cc130",
             "grand_auditorium_classroom_source",
         ]:
             self.assertIn(alias, aliases)
@@ -122,7 +126,7 @@ class SpearLauncherTests(unittest.TestCase):
                 self.assertIsNotNone(env["local_umap_path"])
                 self.assertIsNotNone(env["package_version"])
                 if env["package_version"] == ACTIVE_PACKAGE_VERSION:
-                    self.assertEqual(env["last_cooked_date"], "2026-07-10")
+                    self.assertEqual(env["last_cooked_date"], "2026-07-13")
                     self.assertIn(
                         ledger["active_package"]["verification_artifact"],
                         env["cook_artifacts"],
@@ -135,6 +139,8 @@ class SpearLauncherTests(unittest.TestCase):
         data = json.loads(result.stdout)
         aliases = {env["alias"] for env in data["environments"]}
         self.assertIn("japanese_office_dark", aliases)
+        self.assertIn("infinigen_1dcacf23", aliases)
+        self.assertIn("infinigen_189cc130", aliases)
         self.assertIn("grand_auditorium_classroom_source", aliases)
 
     def test_env_show_japanese_office_dark_json(self):
@@ -166,6 +172,46 @@ class SpearLauncherTests(unittest.TestCase):
             result.stdout,
         )
         self.assertNotIn("--map college_classroom", result.stdout)
+
+    def test_live_infinigen_1dcacf23_realistic_2x_uses_map_path(self):
+        result = run_launcher("live", "infinigen_1dcacf23", "--setting", "realistic-2x", "--dry-run")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("examples/flashlight/run.py", result.stdout)
+        self.assertIn(
+            "--map-path /Game/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23",
+            result.stdout,
+        )
+        self.assertIn("--flashlight-profile realistic_live_flashlight_2x", result.stdout)
+        self.assertIn("--scene-light-intensity-scale 0.0005", result.stdout)
+
+    def test_live_infinigen_189cc130_realistic_2x_uses_map_path(self):
+        result = run_launcher("live", "infinigen_189cc130", "--setting", "realistic-2x", "--dry-run")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("examples/flashlight/run.py", result.stdout)
+        self.assertIn(
+            "--map-path /Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130",
+            result.stdout,
+        )
+        self.assertIn("--flashlight-profile realistic_live_flashlight_2x", result.stdout)
+        self.assertIn("--scene-light-intensity-scale 1.0", result.stdout)
+        self.assertIn("--disable-flashlight", result.stdout)
+
+    def test_live_infinigen_189cc130_enable_flashlight_removes_default_disable(self):
+        result = run_launcher(
+            "live",
+            "infinigen_189cc130",
+            "--setting",
+            "realistic-2x",
+            "--dry-run",
+            "--",
+            "--enable-flashlight",
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("--enable-flashlight", result.stdout)
+        self.assertNotIn("--disable-flashlight", result.stdout)
 
     def test_orbit_render_dark_cafeteria_uses_map_path(self):
         result = run_launcher(

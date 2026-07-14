@@ -1,0 +1,46 @@
+{
+  "map_path": "/Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130",
+  "black_material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_NonEmissive_Black_OffScreen",
+  "screen_actors": [
+    {
+      "label": "Infinigen_MonitorFactory_1148210__spawn_asset_4488226_",
+      "class": "StaticMeshActor",
+      "has_light_component": false,
+      "mesh_component_class": "StaticMeshComponent",
+      "material_slots": 2,
+      "set_emissive_light_source_false": true,
+      "assigned_black_material_slots": [
+        0,
+        1
+      ],
+      "emissive_light_source": false
+    }
+  ],
+  "light_actors": [
+    {
+      "label": "Setup_DirectionalLight",
+      "component_class": "DirectionalLightComponent",
+      "intensity": 0.0,
+      "visible": false,
+      "affects_world": false,
+      "cast_shadows": false
+    },
+    {
+      "label": "Setup_SkyLight",
+      "component_class": "SkyLightComponent",
+      "intensity": 0.0,
+      "visible": false,
+      "affects_world": false,
+      "cast_shadows": false
+    },
+    {
+      "label": "Infinigen189cc130_TableLamp_650lm_PointLight",
+      "component_class": "PointLightComponent",
+      "intensity": 650.0,
+      "visible": true,
+      "affects_world": true,
+      "cast_shadows": true
+    }
+  ],
+  "saved": true
+}

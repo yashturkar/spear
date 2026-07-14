@@ -1,0 +1,208 @@
+{
+  "map_path": "/Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130",
+  "lights": [
+    {
+      "label": "Setup_DirectionalLight",
+      "class": "DirectionalLight",
+      "component_class": "DirectionalLightComponent",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 600.0
+      },
+      "hidden_in_game": false,
+      "intensity": 3.0,
+      "intensity_units": null,
+      "attenuation_radius": null,
+      "indirect_lighting_intensity": 1.0,
+      "visible": true,
+      "affects_world": true,
+      "cast_shadows": true,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "USE_PROJECT_SETTING"
+    },
+    {
+      "label": "Setup_SkyLight",
+      "class": "SkyLight",
+      "component_class": "SkyLightComponent",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 300.0
+      },
+      "hidden_in_game": false,
+      "intensity": 1.0,
+      "intensity_units": null,
+      "attenuation_radius": null,
+      "indirect_lighting_intensity": 1.0,
+      "visible": true,
+      "affects_world": true,
+      "cast_shadows": true,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "USE_PROJECT_SETTING"
+    }
+  ],
+  "lamp_like_actors": [
+    {
+      "label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_1605105_",
+      "class": "StaticMeshActor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "bounds_origin": {
+        "x": 243.769,
+        "y": -691.085,
+        "z": 269.431
+      },
+      "bounds_extent": {
+        "x": 13.854,
+        "y": 13.854,
+        "z": 4.304
+      },
+      "has_light_component": false
+    },
+    {
+      "label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_4619103_",
+      "class": "StaticMeshActor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "bounds_origin": {
+        "x": 44.734,
+        "y": -963.684,
+        "z": 269.431
+      },
+      "bounds_extent": {
+        "x": 13.854,
+        "y": 13.854,
+        "z": 4.304
+      },
+      "has_light_component": false
+    },
+    {
+      "label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_6161506_",
+      "class": "StaticMeshActor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "bounds_origin": {
+        "x": 277.143,
+        "y": -1026.872,
+        "z": 243.141
+      },
+      "bounds_extent": {
+        "x": 13.884,
+        "y": 13.918,
+        "z": 4.678
+      },
+      "has_light_component": false
+    },
+    {
+      "label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_7968778_",
+      "class": "StaticMeshActor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "bounds_origin": {
+        "x": 435.92,
+        "y": -1202.685,
+        "z": 235.824
+      },
+      "bounds_extent": {
+        "x": 13.918,
+        "y": 13.884,
+        "z": 4.677
+      },
+      "has_light_component": false
+    },
+    {
+      "label": "Infinigen_DeskLampFactory_8507126__spawn_asset_7901138_",
+      "class": "StaticMeshActor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "bounds_origin": {
+        "x": 369.27,
+        "y": -1243.399,
+        "z": 101.476
+      },
+      "bounds_extent": {
+        "x": 10.83,
+        "y": 10.83,
+        "z": 23.452
+      },
+      "has_light_component": false
+    },
+    {
+      "label": "Infinigen_SimpleDeskFactory_863416__spawn_asset_1747122_",
+      "class": "StaticMeshActor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "bounds_origin": {
+        "x": 346.102,
+        "y": -1255.574,
+        "z": 44.934
+      },
+      "bounds_extent": {
+        "x": 47.752,
+        "y": 25.58,
+        "z": 33.089
+      },
+      "has_light_component": false
+    },
+    {
+      "label": "Setup_DirectionalLight",
+      "class": "DirectionalLight",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 600.0
+      },
+      "bounds_origin": {
+        "x": 150.0,
+        "y": 150.0,
+        "z": 387.868
+      },
+      "bounds_extent": {
+        "x": 391.421,
+        "y": 391.421,
+        "z": 353.553
+      },
+      "has_light_component": true
+    },
+    {
+      "label": "Setup_SkyLight",
+      "class": "SkyLight",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 300.0
+      },
+      "bounds_origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 277.5
+      },
+      "bounds_extent": {
+        "x": 256.0,
+        "y": 256.0,
+        "z": 278.5
+      },
+      "has_light_component": true
+    }
+  ],
+  "player_starts": []
+}

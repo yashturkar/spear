@@ -1,0 +1,76 @@
+{
+  "map_path": "/Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130",
+  "lamp_bounds": {
+    "label": "Infinigen_DeskLampFactory_8507126__spawn_asset_7901138_",
+    "origin": {
+      "x": 369.27,
+      "y": -1243.399,
+      "z": 101.476
+    },
+    "extent": {
+      "x": 10.83,
+      "y": 10.83,
+      "z": 23.452
+    },
+    "min": {
+      "x": 358.44,
+      "y": -1254.23,
+      "z": 78.024
+    },
+    "max": {
+      "x": 380.101,
+      "y": -1232.569,
+      "z": 124.928
+    }
+  },
+  "monitor_bounds": {
+    "label": "Infinigen_MonitorFactory_1148210__spawn_asset_4488226_",
+    "origin": {
+      "x": 341.842,
+      "y": -1269.415,
+      "z": 109.122
+    },
+    "extent": {
+      "x": 40.619,
+      "y": 7.499,
+      "z": 31.506
+    },
+    "min": {
+      "x": 301.224,
+      "y": -1276.914,
+      "z": 77.615
+    },
+    "max": {
+      "x": 382.461,
+      "y": -1261.916,
+      "z": 140.628
+    }
+  },
+  "light_label": "Infinigen189cc130_TableLamp_650lm_PointLight",
+  "old_light_location": {
+    "x": 369.27,
+    "y": -1243.399,
+    "z": 120.238
+  },
+  "new_light_location": {
+    "x": 376.31,
+    "y": -1233.11,
+    "z": 119.769
+  },
+  "distance_to_lamp_origin": 22.137,
+  "distance_to_monitor_origin": 51.18,
+  "component": {
+    "intensity": 650.0,
+    "intensity_units": "LUMENS",
+    "attenuation_radius": 500.0,
+    "source_radius": 4.0,
+    "soft_source_radius": 10.0,
+    "indirect_lighting_intensity": 1.0,
+    "visible": true,
+    "affects_world": true,
+    "cast_shadows": true,
+    "cast_dynamic_shadows": true,
+    "cast_raytraced_shadow": "ENABLED"
+  },
+  "saved": true
+}
