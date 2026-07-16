@@ -101,6 +101,14 @@ class GameRenderingService(RenderingService):
     def get_current_viewport_desc(self, only_get_pose=False):
         player_controller = self._gameplay_statics.GetPlayerController(PlayerIndex=0)
         pov = player_controller.PlayerCameraManager.ViewTarget.POV.get()
+        get_fov_angle = getattr(player_controller.PlayerCameraManager, "GetFOVAngle", None)
+        if callable(get_fov_angle):
+            fov_degrees = get_fov_angle()
+        else:
+            try:
+                fov_degrees = player_controller.PlayerCameraManager.call("GetFOVAngle", as_value=True)
+            except Exception:
+                fov_degrees = pov["fOV"]
 
         if only_get_pose:
             return {
@@ -113,7 +121,7 @@ class GameRenderingService(RenderingService):
 
             if is_perspective:
                 viewport_aspect_ratio = viewport_size["x"]/viewport_size["y"]
-                half_fov = pov["fOV"]*math.pi/360.0
+                half_fov = fov_degrees*math.pi/360.0
                 fov_x_degrees = math.atan(math.tan(half_fov)*viewport_aspect_ratio/pov["aspectRatio"])*360.0/math.pi
                 fov_y_degrees = math.atan(math.tan(fov_x_degrees*math.pi/360.0)/viewport_aspect_ratio)*360.0/math.pi
 
@@ -125,7 +133,7 @@ class GameRenderingService(RenderingService):
                 "is_perspective": is_perspective,
                 "fov_x_degrees": fov_x_degrees if is_perspective else None,
                 "fov_y_degrees": fov_y_degrees if is_perspective else None,
-                "fov_degrees": pov["fOV"] if is_perspective else None,
+                "fov_degrees": fov_degrees if is_perspective else None,
                 "aspect_ratio": pov["aspectRatio"] if is_perspective else None,
                 "ortho_width": pov["orthoWidth"] if not is_perspective else None,
                 "post_process_volumes": self.unreal_service.find_actors_by_class(uclass="APostProcessVolume")}

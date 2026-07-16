@@ -17,8 +17,6 @@ UNREAL_ENGINE_DIR = "/home/yashturkar/Linux_Unreal_Engine_5.5.4"
 
 RUN_MAP_ALIASES = {
     "apartment_0000",
-    "debug_0000",
-    "debug_0001",
     "advanced_lighting",
     "cafeteria_500sqft_v2",
     "japanese_office",
@@ -144,9 +142,9 @@ def live_setting_args_for(env: dict, setting: str) -> list[str]:
 def resolve_boolean_passthrough(base_args: list[str], extra_args: list[str]) -> list[str]:
     resolved = list(base_args)
     if "--enable-flashlight" in extra_args:
-        resolved = [arg for arg in resolved if arg != "--disable-flashlight"]
+        resolved = [arg for arg in resolved if arg not in {"--enable-flashlight", "--disable-flashlight"}]
     if "--disable-flashlight" in extra_args:
-        resolved = [arg for arg in resolved if arg != "--enable-flashlight"]
+        resolved = [arg for arg in resolved if arg not in {"--enable-flashlight", "--disable-flashlight"}]
     return resolved + extra_args
 
 

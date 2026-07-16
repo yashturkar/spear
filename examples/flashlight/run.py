@@ -64,8 +64,6 @@ DEFAULT_INTENSITY_MIN_RATE = 1000.0
 
 MAPS = {
     "apartment_0000": "/Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000",
-    "debug_0000": "/Game/SPEAR/Scenes/debug_0000/Maps/debug_0000",
-    "debug_0001": "/Game/SPEAR/Scenes/debug_0001/Maps/debug_0001",
     "advanced_lighting": "/Game/StarterContent/Maps/Advanced_Lighting",
     "cafeteria_500sqft_v2": "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2",
     "japanese_office": "/Game/JapaneseOffice/Maps/Demonstration",
@@ -80,6 +78,10 @@ MAPS = {
 parser = argparse.ArgumentParser()
 parser.add_argument("--map", choices=sorted(MAPS.keys()), default=None)
 parser.add_argument("--map-path", default=None)
+parser.add_argument("--resx", type=int, default=None)
+parser.add_argument("--resy", type=int, default=None)
+parser.add_argument("--camera-hfov", type=float, default=None)
+parser.add_argument("--camera-vfov", type=float, default=None)
 parser.add_argument("--intensity", type=float, default=None)
 parser.add_argument("--attenuation-radius", type=float, default=None)
 parser.add_argument("--indirect-lighting-intensity", type=float, default=None)
@@ -137,6 +139,25 @@ def parse_args(argv=None):
         parser.error("--aim-pitch-min-degrees must be less than or equal to --aim-pitch-max-degrees")
     if args.aim_rate_degrees_per_second < 0.0:
         parser.error("--aim-rate-degrees-per-second must be non-negative")
+    for field_name, flag_name in (
+            ("resx", "--resx"),
+            ("resy", "--resy")):
+        value = getattr(args, field_name)
+        if value is not None and value <= 0:
+            parser.error(f"{flag_name} must be a positive integer")
+    for field_name, flag_name in (
+            ("camera_hfov", "--camera-hfov"),
+            ("camera_vfov", "--camera-vfov")):
+        value = getattr(args, field_name)
+        if value is not None and (not math.isfinite(value) or not 0.0 < value < 180.0):
+            parser.error(f"{flag_name} must be finite and in (0, 180)")
+    if args.camera_hfov is not None and args.camera_vfov is not None and args.resx is not None and args.resy is not None:
+        requested_aspect_ratio = math.tan(math.radians(args.camera_hfov * 0.5)) / math.tan(math.radians(args.camera_vfov * 0.5))
+        window_aspect_ratio = args.resx / args.resy
+        if abs(requested_aspect_ratio - window_aspect_ratio) / requested_aspect_ratio > 0.005:
+            parser.error(
+                "--camera-hfov/--camera-vfov are inconsistent with --resx/--resy. "
+                f"Requested aspect is {requested_aspect_ratio:.6f}, window aspect is {window_aspect_ratio:.6f}.")
     if not math.isfinite(args.intensity) or args.intensity < 0.0:
         parser.error("--intensity must be a finite non-negative value")
     if args.intensity_adjust_rate is None:
@@ -186,6 +207,80 @@ def parse_args(argv=None):
 
 def get_viewport_pose(game):
     return game.rendering_service.get_current_viewport_desc(only_get_pose=True)
+
+
+def get_camera_fov_state(game, player_controller, target_hfov=None, target_vfov=None):
+    viewport_desc = game.rendering_service.get_current_viewport_desc(only_get_pose=False)
+    viewport_aspect_ratio = viewport_desc["viewport_size_x"] / viewport_desc["viewport_size_y"]
+    camera_aspect_ratio = viewport_desc["aspect_ratio"]
+    state = {
+        "requested_hfov": target_hfov,
+        "requested_vfov": target_vfov,
+        "viewport_size_x": viewport_desc["viewport_size_x"],
+        "viewport_size_y": viewport_desc["viewport_size_y"],
+        "viewport_aspect_ratio": viewport_aspect_ratio,
+        "camera_aspect_ratio": camera_aspect_ratio,
+        "fov_degrees": viewport_desc["fov_degrees"],
+        "hfov": viewport_desc["fov_x_degrees"],
+        "vfov": viewport_desc["fov_y_degrees"],
+        "applied": False,
+    }
+    if target_hfov is None and target_vfov is None:
+        return state
+
+    if target_hfov is None:
+        target_hfov = math.degrees(2.0 * math.atan(math.tan(math.radians(target_vfov * 0.5)) * viewport_aspect_ratio))
+    if target_vfov is None:
+        target_vfov = math.degrees(2.0 * math.atan(math.tan(math.radians(target_hfov * 0.5)) / viewport_aspect_ratio))
+
+    internal_fov_degrees = math.degrees(
+        2.0 * math.atan(
+            math.tan(math.radians(target_hfov * 0.5))
+            * camera_aspect_ratio
+            / viewport_aspect_ratio))
+    set_fov_applied = False
+    for property_name in (
+            "PlayerCameraManager.ViewTarget.POV.fOV",
+            "PlayerCameraManager.ViewTarget.POV.firstPersonFOV"):
+        try:
+            player_controller.set_property_value(property_name, internal_fov_degrees)
+            set_fov_applied = True
+        except Exception:
+            pass
+    if not set_fov_applied:
+        set_fov_applied = try_call_method(
+            player_controller.PlayerCameraManager,
+            "SetFOV",
+            NewFOV=internal_fov_degrees)
+    if not set_fov_applied:
+        set_fov_applied = (
+            try_call_method(
+                player_controller,
+                "ConsoleCommand",
+                Command=f"fov {internal_fov_degrees}",
+                bWriteToLog=True)
+            or try_call_method(
+                player_controller,
+                "ConsoleCommand",
+                Cmd=f"fov {internal_fov_degrees}",
+                bWriteToLog=True))
+    effective_hfov = math.degrees(
+        2.0 * math.atan(
+            math.tan(math.radians(internal_fov_degrees * 0.5))
+            * viewport_aspect_ratio
+            / camera_aspect_ratio))
+    effective_vfov = math.degrees(
+        2.0 * math.atan(math.tan(math.radians(effective_hfov * 0.5)) / viewport_aspect_ratio))
+    state.update({
+        "requested_hfov": target_hfov,
+        "requested_vfov": target_vfov,
+        "internal_fov_degrees": internal_fov_degrees,
+        "fov_degrees": internal_fov_degrees,
+        "hfov": effective_hfov,
+        "vfov": effective_vfov,
+        "applied": set_fov_applied,
+    })
+    return state
 
 
 def set_light_pose(light, viewport_desc):
@@ -369,25 +464,37 @@ def attach_light_to_pawn(light, pawn):
 
 
 def try_call_method(obj, method_name, **kwargs):
-    method = getattr(obj, method_name, None)
-    if method is None:
+    def try_reflected_call():
         call = getattr(obj, "call", None)
         if call is None:
             return False
-        try:
-            call(method_name, args=kwargs)
-        except Exception:
-            return False
-        return True
+        for call_kwargs in (
+                {"function_name": method_name, "args": kwargs},
+                {"args": kwargs}):
+            try:
+                if "function_name" in call_kwargs:
+                    call(**call_kwargs)
+                else:
+                    call(method_name, **call_kwargs)
+                return True
+            except Exception:
+                pass
+        return False
+
+    method = getattr(obj, method_name, None)
+    if method is None:
+        return try_reflected_call()
+    if not callable(method):
+        return try_reflected_call()
     try:
         method(**kwargs)
     except TypeError:
         try:
             method(*kwargs.values())
         except Exception:
-            return False
+            return try_reflected_call()
     except Exception:
-        return False
+        return try_reflected_call()
     return True
 
 
@@ -581,6 +688,10 @@ def build_config(args, user_config_files=None):
     ensure_legacy_sp_core_ini_config_values(config=config)
     apply_auto_exposure_config(config=config, args=args)
     apply_realistic_live_renderer_config(config=config, args=args)
+    if args.resx is not None:
+        config.SPEAR.INSTANCE.COMMAND_LINE_ARGS.resx = args.resx
+    if args.resy is not None:
+        config.SPEAR.INSTANCE.COMMAND_LINE_ARGS.resy = args.resy
     config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.OVERRIDE_BENCHMARKING = True
     config.SP_SERVICES.INITIALIZE_ENGINE_SERVICE.BENCHMARKING = False
     if args.map is not None or args.map_path is not None:
@@ -872,6 +983,11 @@ if __name__ == "__main__":
         with instance.begin_frame():
             pawn = set_camera_movement_speed(game=game, movement_speed=args.movement_speed)
             player_controller = get_player_controller(game=game)
+            camera_fov_state = get_camera_fov_state(
+                game=game,
+                player_controller=player_controller,
+                target_hfov=args.camera_hfov,
+                target_vfov=args.camera_vfov)
             runtime_render_config_state = apply_live_runtime_render_config(
                 game=game,
                 player_controller=player_controller,
@@ -949,6 +1065,15 @@ if __name__ == "__main__":
         startup_warmup_state = run_live_startup_warmup(
             instance=instance,
             duration_seconds=args.startup_warmup_seconds)
+        with instance.begin_frame():
+            player_controller = get_player_controller(game=game)
+            camera_fov_state = get_camera_fov_state(
+                game=game,
+                player_controller=player_controller,
+                target_hfov=args.camera_hfov,
+                target_vfov=args.camera_vfov)
+        with instance.end_frame():
+            pass
 
         if args.disable_flashlight:
             spear.log("Camera flashlight disabled. Press Ctrl+C to stop.")
@@ -959,6 +1084,7 @@ if __name__ == "__main__":
         spear.log("Hardware ray tracing runtime command/readback state: ", runtime_render_config_state["hardware_ray_tracing"])
         spear.log("Hardware ray tracing readback caveat: readback must confirm requested CVars; unsupported Vulkan SM5/RHI paths may reject or ignore the request.")
         spear.log("Exposure/local exposure runtime config: ", runtime_render_config_state)
+        spear.log("Camera FOV state: ", camera_fov_state)
         spear.log("Scene light state: ", scene_light_state)
         spear.log("Realistic live renderer retains Lumen GI/reflections/material response: ", is_realistic_live_mode(args=args))
         if not args.disable_flashlight:
@@ -1037,6 +1163,11 @@ if __name__ == "__main__":
 
             with instance.begin_frame():
                 player_controller = get_player_controller(game=game)
+                camera_fov_state = get_camera_fov_state(
+                    game=game,
+                    player_controller=player_controller,
+                    target_hfov=args.camera_hfov,
+                    target_vfov=args.camera_vfov)
                 if not args.disable_flashlight:
                     should_toggle_flashlight = was_input_key_pressed_since_last_poll(
                         player_controller=player_controller,
