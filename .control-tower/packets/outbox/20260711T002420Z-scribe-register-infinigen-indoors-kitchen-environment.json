@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "55d4f650-03a0-4271-813b-3c46e9bc52f0",
+  "trace_id": "77cf820e-96f9-4c65-9b38-87b6252bb375",
+  "parent_packet_id": null,
+  "created_at": "2026-07-11T00:24:20Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "docs",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Register Infinigen indoors kitchen environment",
+  "objective": "Add the new Infinigen-Indoors kitchen environment to the durable environment ledger and related user-facing environment documentation so tools/spear-run can resolve alias infinigen_indoors_kitchen.",
+  "instructions": [
+    "Use run artifacts from .control-tower/runs/infinigen_indoors_kitchen_20260710T235251Z. Add alias/name infinigen_indoors_kitchen with unreal map path /Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen. Record generated/cooked date as 2026-07-11 UTC. Record generation method: official infinigen_examples.generate_indoors Kitchen single-room restricted counter/sink path, exported r1024 FBX, imported into SPEAR Unreal, lit with dim movable RectLight fixtures, cooked and pak-verified. Note limitation: official Infinigen-Indoors but not real_geometry.gin because native Infinigen terrain/OcMesher libraries are missing; higher-fidelity rerun needs make terrain in /home/yashturkar/Workspace/infinigen. Do not commit.",
+    "Keep edits scoped to docs/environment_ledger.json and any existing user-facing environment list/readme section needed by spear env list or docs. Preserve existing schema and formatting."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [],
+    "artifacts": [
+      ".control-tower/runs/infinigen_indoors_kitchen_20260710T235251Z/status.txt",
+      ".control-tower/runs/infinigen_indoors_kitchen_20260710T235251Z/validation_report.json",
+      ".control-tower/runs/infinigen_indoors_kitchen_20260710T235251Z/source_stats.json",
+      ".control-tower/runs/infinigen_indoors_kitchen_20260710T235251Z/pak_verification_summary.json"
+    ],
+    "references": []
+  },
+  "expected_outputs": [
+    "Environment ledger/docs updated; tools/spear-run live infinigen_indoors_kitchen --setting realistic-2x --dry-run resolves or any remaining blocker is reported."
+  ],
+  "definition_of_done": [
+    "spear-run can resolve the new alias in dry-run, or Scribe reports exactly why not."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

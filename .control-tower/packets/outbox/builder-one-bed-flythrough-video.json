@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "668ceae1-9b7a-427b-b822-56eaaaa21e74",
+  "trace_id": "f50cc627-7b33-4485-834b-d9b98c7f0636",
+  "parent_packet_id": null,
+  "created_at": "2026-06-30T18:38:42Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "runtime-generation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Generate one-bedroom apartment flythrough video",
+  "objective": "Use the documented SPEAR flythrough pipeline to generate a good-looking flythrough MP4 for the imported Infinigen one_bed_apartment scene.",
+  "instructions": [
+    "Target map: /Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment.",
+    "Use Unreal Engine dir /home/yashturkar/Linux_Unreal_Engine_5.5.4.",
+    "Follow docs/importing_and_exporting_assets.md 'Generating flythrough videos', adapting paths for one_bed_apartment.",
+    "Use a pipeline output directory that is easy to find and disposable, e.g. /home/yashturkar/Workspace/spear-pipeline/scenes/one_bed_apartment_flythrough or a clearly named equivalent.",
+    "Run long editor/render commands inside tmux so the user can attach and monitor; report the tmux session/window name.",
+    "If the standard pipeline generates multiple videos, identify the best/most complete one and provide its path; preserve all generated outputs.",
+    "If a user_config.yaml is needed for map, camera, or render settings, create it only as a generated artifact in the pipeline output directory, not as product code.",
+    "Do not commit. Do not push. Avoid changing tracked product code unless absolutely necessary to make the documented workflow run, and report any such changes before making them if feasible."
+  ],
+  "constraints": [
+    "Keep runtime artifacts out of Git; do not stage anything.",
+    "Prefer a lean first pass over over-tuning: a usable MP4 is the target."
+  ],
+  "inputs": {
+    "files": [
+      "docs/importing_and_exporting_assets.md",
+      "docs/running_our_example_applications.md",
+      "pipeline/generate_free_space_camera_path_videos.py",
+      "pipeline/generate_free_space_camera_path_images.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Path(s) to generated MP4 flythrough video(s).",
+    "Exact command sequence or tmux session used.",
+    "Any blockers/failures with the first failing command and relevant log path."
+  ],
+  "definition_of_done": [
+    "At least one MP4 flythrough video exists and can be played/inspected, or a precise blocker is reported with logs.",
+    "ResultPacket includes output directory, best video path, and remaining cleanup/status notes."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 3600,
+    "hard_seconds": 7200
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {}
+}

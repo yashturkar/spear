@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "b29eb465-9254-40a0-b173-9700c1146d23",
+  "trace_id": "d026a064-e9a5-4a48-96ed-2374d08e6fa9",
+  "parent_packet_id": null,
+  "created_at": "2026-06-30T14:53:28Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Prepare college_classroom Infinigen scene for SPEAR",
+  "objective": "Export the provided Infinigen college_classroom Blender scene, import it into SpearSim as a distinct Unreal map, cook/package it, and report the runnable simulator command.",
+  "instructions": [
+    "Verify the provided scene.blend and generator script exist before starting.",
+    "Use the existing Infinigen-to-SPEAR workflow and examples/flashlight/setup_infinigen_indoors.py rather than inventing a new import path unless blocked.",
+    "Export an FBX from /home/yashturkar/Workspace/infinigen/outputs/college_classroom/coarse/scene.blend into a dedicated output folder under /home/yashturkar/Workspace/infinigen/outputs/college_classroom, preferring a lighter export resolution first if appropriate based on prior one_bed_apartment experience.",
+    "Import the FBX into SpearSim under /Game/SPEAR/Scenes/college_classroom/Meshes and create/save /Game/SPEAR/Scenes/college_classroom/Maps/college_classroom.",
+    "Use replacement flags only for the college_classroom target paths; do not disturb previous infinigen_indoors_0000 or one_bed_apartment assets.",
+    "For first-pass reliability, consider disabling auto collision, material import, and texture import if the FBX is large, matching the validated one_bed_apartment approach.",
+    "Cook/package the imported college_classroom map into the local SpearSim standalone build.",
+    "If long-running steps are needed, run them in a clearly named tmux session and report the session name."
+  ],
+  "constraints": [
+    "Do not commit, push, rebase, or perform Git state changes.",
+    "Do not edit unrelated product code or docs.",
+    "Do not overwrite any non-college_classroom Unreal content target."
+  ],
+  "inputs": {
+    "files": [
+      "/home/yashturkar/Workspace/infinigen/outputs/college_classroom/coarse/scene.blend",
+      "/home/yashturkar/Workspace/infinigen/outputs/college_classroom/scripts/create_college_classroom.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Absolute paths to the exported FBX, imported map, logs, and any tmux session used.",
+    "The exact command the user should run to launch the college_classroom map through examples/flashlight/run.py.",
+    "A concise summary of asset counts, approximate size/performance risks, and whether visual/runtime validation remains pending."
+  ],
+  "definition_of_done": [
+    "FBX export completed or a clear blocker with logs is reported.",
+    "Unreal import completed for /Game/SPEAR/Scenes/college_classroom/Maps/college_classroom or a clear blocker with logs is reported.",
+    "Cook/package completed for the college_classroom map or a clear blocker with logs is reported.",
+    "No commits are created."
+  ],
+  "memory_context_refs": [
+    ".control-tower/docs/state/current-status.md"
+  ],
+  "doc_context_refs": [
+    "docs/importing_and_exporting_assets.md",
+    "docs/running_our_example_applications.md"
+  ],
+  "time_budget": {
+    "soft_seconds": 7200,
+    "hard_seconds": 14400
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

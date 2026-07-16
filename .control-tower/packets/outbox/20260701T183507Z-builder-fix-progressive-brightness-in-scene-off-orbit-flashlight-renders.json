@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "7f9ca717-b652-447e-af60-6be4071db64b",
+  "trace_id": "d65a335a-8035-4a2b-b3c4-a8ad2168f837",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T18:35:07Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Fix progressive brightness in scene-off orbit flashlight renders",
+  "objective": "Investigate why the scene_off_flashlight_on orbit render gets progressively brighter and implement a focused fix so scene-off flashlight-only renders remain stable across frames. Preserve the active-illumination trio contract, fixed exposure behavior, and existing output structure.",
+  "instructions": [
+    "Review examples/flashlight/run_orbit_collection.py, examples/flashlight/run_orbit_workflow.sh, examples/flashlight/orbit_light_settings.json, tests/test_orbit_collection_validation.py, and the flashlight README/docs sections.",
+    "Determine whether progressive brightening is likely caused by temporal renderer history, exposure, Lumen/indirect accumulation, render target persistence, scene light grouping order, or repeated flashlight/light state mutation.",
+    "Implement the smallest code/config change that stabilizes scene-off flashlight-only render brightness across orbit frames.",
+    "Favor explicit runtime/render config flags that disable temporal accumulation/history for orbit data collection if appropriate.",
+    "Add or update lightweight tests around the new behavior/config plumbing.",
+    "Do not run a full live simulator render unless it is cheap and safe; if not run, report that clearly.",
+    "Do not commit."
+  ],
+  "constraints": [
+    "Preserve the three default render conditions: scene_on_flashlight_off, scene_off_flashlight_on, scene_on_flashlight_on.",
+    "Preserve fixed exposure behavior and existing output directory/video structure."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/run_orbit_workflow.sh",
+      "examples/flashlight/orbit_light_settings.json",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Focused code/docs/tests update if needed",
+    "ResultPacket explaining root cause and validation"
+  ],
+  "definition_of_done": [
+    "Root cause is explained in the ResultPacket.",
+    "Code/docs/tests are updated if needed.",
+    "Non-live tests/checks pass.",
+    "Live render validation gap is explicitly stated if not run.",
+    "No git commit is made."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

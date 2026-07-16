@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "bb465902-a7f5-4fe7-85c1-99101777f88f",
+  "trace_id": "c32b6b26-c1e2-4fcb-a185-f1509e62b7d4",
+  "parent_packet_id": null,
+  "created_at": "2026-06-30T18:28:39Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Commit save-share README and pending SPEAR world work",
+  "objective": "Review the current dirty worktree, create proper local commit(s) for the uncommitted SPEAR world/import/docs work, and provide a GitHub URL other developers can use to follow the save/share process.",
+  "instructions": [
+    "Inspect git status, diffs, remotes, branch tracking, and large/untracked files before staging.",
+    "Commit the root README save/share guidance and other meaningful uncommitted SPEAR world/import/docs/code changes that are appropriate for Git.",
+    "Do not blindly commit generated packet/session/log churn unless it is part of the intended repository state; explicitly report anything left uncommitted and why.",
+    "Check for GitHub-hosting constraints before including large Unreal binary assets. If files exceed normal GitHub limits and Git LFS is not configured, do not create an unusable commit; report the archive/artifact alternative.",
+    "Use clear commit message(s), preferably one commit if the staged scope is coherent, multiple only if necessary.",
+    "After committing, provide a GitHub URL to the README save/share section. If producing a working URL requires publishing, push only to origin, not upstream, preferably a new non-main branch if local main is diverged. Do not force-push, do not push to upstream, and do not open a PR.",
+    "If push/auth/divergence/size constraints prevent a valid GitHub URL, report the local commit SHA and the exact URL that will become valid after pushing to the user's fork."
+  ],
+  "constraints": [
+    "Do not push to upstream or spear-sim/spear.",
+    "Do not force push.",
+    "Do not open a PR.",
+    "Do not discard or revert user changes."
+  ],
+  "inputs": {
+    "files": [
+      "README.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/scout-world-archive-guidance-result.json",
+      ".control-tower/packets/inbox/builder-college-classroom-import-result.json",
+      ".control-tower/packets/inbox/scribe-docs-followup-builder-20260630T145947Z-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Commit SHA(s), commit message(s), and staged scope summary.",
+    "List of files intentionally left uncommitted, especially generated artifacts or large assets.",
+    "GitHub URL for other developers to read the save/share process, or a precise blocker if no pushed URL exists."
+  ],
+  "definition_of_done": [
+    "Relevant changes are committed locally, or a precise blocker is reported before any unsafe commit.",
+    "No upstream push, no force push, no PR.",
+    "User receives a valid share URL if safely publishable, otherwise a precise next step."
+  ],
+  "memory_context_refs": [
+    ".control-tower/docs/state/current-status.md"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 2400
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

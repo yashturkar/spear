@@ -1,0 +1,1 @@
+Required entries verified: JapaneseOffice Demonstration map in logs/pak_entries_japanese_office_map.txt

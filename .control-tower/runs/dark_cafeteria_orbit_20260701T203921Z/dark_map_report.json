@@ -1,0 +1,49 @@
+{
+  "counts": {
+    "actors_total": 244,
+    "environment_actors_hidden": 0,
+    "hidden_actors": 15,
+    "hidden_components": 15,
+    "light_components_made_movable": 8,
+    "remaining_visible_token_matches": 0
+  },
+  "environment_actor_labels": [],
+  "hidden_actor_labels": [
+    "Infinigen_distant_exterior_brick_wall_visible_through_windows",
+    "Infinigen_exterior_concrete_walk_visible_through_windows",
+    "Infinigen_exterior_muted_shrub_0",
+    "Infinigen_exterior_muted_shrub_1",
+    "Infinigen_exterior_muted_shrub_2",
+    "Infinigen_exterior_planter_box_0",
+    "Infinigen_exterior_planter_box_1",
+    "Infinigen_exterior_planter_box_2",
+    "Infinigen_pale_sky_strip_above_exterior_wall",
+    "Infinigen_rectangular_led_panel_diffuser_0",
+    "Infinigen_rectangular_led_panel_diffuser_1",
+    "Infinigen_rectangular_led_panel_diffuser_2",
+    "Infinigen_rectangular_led_panel_diffuser_3",
+    "Infinigen_warm_wall_sconce_lens_0",
+    "Infinigen_warm_wall_sconce_lens_1"
+  ],
+  "hidden_component_labels": [],
+  "light_components_made_movable": [
+    "Setup_DirectionalLight:DirectionalLightComponent:LightComponent0",
+    "Setup_SkyLight:SkyLightComponent:SkyLightComponent0",
+    "CafeteriaV2_Ceiling_RectLight_0:RectLightComponent:LightComponent0",
+    "CafeteriaV2_Ceiling_RectLight_1:RectLightComponent:LightComponent0",
+    "CafeteriaV2_Ceiling_RectLight_2:RectLightComponent:LightComponent0",
+    "CafeteriaV2_Ceiling_RectLight_3:RectLightComponent:LightComponent0",
+    "CafeteriaV2_Wall_Sconce_RectLight_0:RectLightComponent:LightComponent0",
+    "CafeteriaV2_Wall_Sconce_RectLight_1:RectLightComponent:LightComponent0"
+  ],
+  "remaining_visible_token_matches": [],
+  "source_map_path": "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2",
+  "target_map_exists": true,
+  "target_map_file": "../../../../Workspace/spear/cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark.uasset",
+  "target_map_path": "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark",
+  "world_settings": {
+    "force_no_precomputed_lighting_readback": true,
+    "force_no_precomputed_lighting_set": true,
+    "map_build_data_cleared": false
+  }
+}

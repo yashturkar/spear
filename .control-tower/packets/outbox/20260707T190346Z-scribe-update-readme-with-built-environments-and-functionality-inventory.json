@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "c6ff1dfe-4f63-4a24-afb2-a3f945f784ce",
+  "trace_id": "a0bb1e1d-1b78-4f11-a8c4-b42198163e2a",
+  "parent_packet_id": null,
+  "created_at": "2026-07-07T19:03:46Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "docs",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Update README with built environments and functionality inventory",
+  "objective": "Update the project README/docs to list the environments and functionality built in this repository beyond upstream/base SPEAR. Include available environment/map names and Unreal content paths where known, validation status/caveats, and user-facing commands/workflows. Cover at least: cafeteria_500sqft_v2 and cafeteria_500sqft_v2_flashlight_validation_dark, infinigen_indoors_0000, one_bed_apartment, college_classroom, flashlight live teleop including realistic_live_flashlight and realistic_live_flashlight_2x, Rerun stream, orbit collection/render workflow, flythrough/video helpers, Infinigen import/export/cook workflow, fixed exposure/scene-light scaling/indirect lighting controls, profile-driven flashlight settings, dark cafeteria orbit validation. Avoid overstating visual/runtime validation: note the headless DISPLAY/WAYLAND live validation blocker and pending visual checks where applicable. Prefer updating root README.md if present plus any concise cross-reference in docs/running_our_example_applications.md if needed. Do not commit.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "README.md",
+      "docs/running_our_example_applications.md",
+      "docs/importing_and_exporting_assets.md",
+      "examples/flashlight/README.md",
+      "examples/flashlight/flashlight_profiles.json",
+      ".control-tower/docs/state/current-status.md",
+      ".control-tower/docs/state/known-risks.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "ResultPacket listing docs changed, inventory coverage, validation/checks run, and any remaining documentation gaps."
+  ],
+  "definition_of_done": [
+    "README/docs include a clear inventory of built environments and functionality, with commands/paths and validation caveats, without claiming unvalidated runtime behavior succeeded."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "3dcb4a76-4498-4237-8aad-92157864fd2a",
+  "trace_id": "86e1ba46-27c2-400c-bcb1-27845026fede",
+  "parent_packet_id": null,
+  "created_at": "2026-07-10T21:25:03Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "process",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Generate import and cook restaurant kitchen Infinigen map",
+  "objective": "Create a new Infinigen indoor restaurant kitchen scene around 1000 sqft, import it into the SpearSim Unreal project, cook/package it for Linux, and verify it is ready for spear live.",
+  "instructions": [
+    "Use alias/name restaurant_kitchen_1000sqft unless a hard conflict forces a clearly reported alternative.",
+    "Target Unreal map path: /Game/SPEAR/Scenes/restaurant_kitchen_1000sqft/Maps/restaurant_kitchen_1000sqft and mesh dir /Game/SPEAR/Scenes/restaurant_kitchen_1000sqft/Meshes.",
+    "Generate an Infinigen indoor restaurant kitchen/catering kitchen style scene of roughly 1000 sqft: commercial kitchen equipment, counters/prep surfaces, sinks, storage/shelves, appliance-like geometry, service/circulation space, doors/windows where available, and neutral usable materials if the generator supports them.",
+    "Prefer a manageable export/import profile matching successful recent generated worlds: FBX/export resolution around 256 unless there is a documented reason to change it; keep complexity low enough to cook and run interactively.",
+    "Import with materials/textures enabled if practical for visual use; use auto collision or a documented collision approach suitable for live teleop.",
+    "After import, add or validate actual Unreal light actors suitable for dim restaurant-kitchen live flashlight testing if the imported scene lacks usable fixture lights. Avoid baking in a fully bright room; the map should work with realistic live flashlight controls and dim scene-light scaling.",
+    "Cook/package the map into the active Linux Standalone-Development/Saved staged package using /home/yashturkar/Linux_Unreal_Engine_5.5.4 and verify both active archive and staged paks contain the target .umap and .uexp entries.",
+    "Do not run a display-dependent live SPEAR session unless DISPLAY/WAYLAND_DISPLAY is available; if headless, provide the exact user command to run afterward.",
+    "Capture run logs, generator/source paths, FBX path, import validation counts, cook command, pak verification, and any quality caveats under a new .control-tower/runs/restaurant_kitchen_1000sqft_* directory.",
+    "Do not commit or push."
+  ],
+  "constraints": [
+    "Long-running process execution belongs to Experimenter; keep going through generation, export, import, cook, and verification unless blocked by missing Infinigen/Unreal prerequisites.",
+    "Do not delete unrelated generated worlds, Control Tower packet backlogs, or user assets.",
+    "If generation quality is visibly/structurally unsuitable for active illumination research, report that plainly and still provide the best available runnable result or the blocker."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/setup_infinigen_indoors.py",
+      "docs/importing_and_exporting_assets.md",
+      "docs/environment_ledger.json",
+      "tools/spear-run"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/docs/state/current-status.md"
+    ]
+  },
+  "expected_outputs": [
+    "Generated Infinigen source path and FBX path",
+    "Imported Unreal map path and local asset paths",
+    "Cook/package verification that target map entries exist in active paks",
+    "A post-cook live command for the user, preferably spear live restaurant_kitchen_1000sqft --setting realistic-2x if/after the ledger can support it, otherwise the equivalent --map-path command"
+  ],
+  "definition_of_done": [
+    "Restaurant kitchen scene exists as an Unreal map under /Game/SPEAR/Scenes/restaurant_kitchen_1000sqft/Maps/restaurant_kitchen_1000sqft",
+    "Active Linux standalone paks include the target map .umap and .uexp",
+    "Tower has enough evidence to route Scribe/Builder follow-up for ledger/docs if needed"
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 7200,
+    "hard_seconds": 21600
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {}
+}

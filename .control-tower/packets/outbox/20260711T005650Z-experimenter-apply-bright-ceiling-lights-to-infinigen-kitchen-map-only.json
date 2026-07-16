@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "a82e588a-e0f7-481a-b0bc-d9f026d66e96",
+  "trace_id": "9d41a919-e6fa-4fee-94bd-19b95f0be77a",
+  "parent_packet_id": null,
+  "created_at": "2026-07-11T00:56:50Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "process",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Apply bright ceiling lights to Infinigen kitchen map only",
+  "objective": "Run an Unreal editor script that replaces the existing dim InfinigenKitchen_* lights in /Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen with bright overhead movable RectLight ceiling fixtures, saves the map, and writes a validation report. Do not cook in this packet.",
+  "instructions": [
+    "Do not perform broad repo scans. Create a run directory .control-tower/runs/infinigen_kitchen_bright_lights_<timestamp>. Write a run-local editor script and a small runner shell script. Launch it in tmux immediately and return partial if still running, success if completed.",
+    "Editor script requirements: load /Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen; destroy actors with labels starting InfinigenKitchen_; spawn 10 movable RectLight actors labeled InfinigenKitchen_BrightCeiling_RectLight_0..9, z about 315, distributed across x roughly [-450, 1000] and y roughly [-1450, 250], rotation (-90,0,0), intensity about 1400 each, attenuation_radius about 700, source_width about 160, source_height about 24, use_temperature true, temperature about 4000K, indirect_lighting_intensity about 0.25. Keep Setup_DirectionalLight very low around 0.12 and Setup_SkyLight around 0.02. Save the level and write validation_report.json with light labels, intensity, radius, dimensions, mobility, temperature, map_exists, counts, and bounds.",
+    "Run command should be: cd /home/yashturkar/Workspace/spear && source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate spear-env && python tools/run_editor_script.py --unreal-engine-dir /home/yashturkar/Linux_Unreal_Engine_5.5.4 --launch-mode full --render-offscreen --script <run_dir>/scripts/brighten_kitchen_lights.py --map-path /Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen --mesh-dir /Game/SPEAR/Scenes/infinigen_indoors_kitchen/Meshes --validation-report <run_dir>/validation_report.json"
+  ],
+  "constraints": [
+    "Do not edit product source, docs, or git. Only create .control-tower/runs artifacts and modify the target Unreal map asset through the editor."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Tmux attach command, editor log path, validation report path, and whether the map was saved with 10 bright ceiling lights."
+  ],
+  "definition_of_done": [
+    "Validation report exists and lists 10 InfinigenKitchen_BrightCeiling_RectLight_* actors, or a concrete editor error is reported."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 300,
+    "hard_seconds": 900
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

@@ -1,0 +1,4 @@
+cook_exit_status=0
+cook_finished_at=2026-07-08T18:54:32Z
+exit_status=0
+finished_at=2026-07-08T18:54:33Z

@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "101ca80b-d505-4efc-b415-a84b712befdc",
+  "trace_id": "fab4b3ec-4b69-4e4a-a1ca-1b7e73fb859d",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T18:53:10Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Fix scene-off orbit render flicker and brightness",
+  "objective": "Investigate and fix why scene_off_flashlight_on orbit renders still flicker and visually look like scene lights are on.",
+  "instructions": [
+    "Use the user's latest report as live validation feedback: scene_off_flashlight_on is still flickery and looks like scene lighting is on.",
+    "Inspect the render grouping path in examples/flashlight/run_orbit_collection.py and helper defaults in examples/flashlight/run_orbit_workflow.sh. Verify whether scene_lights_enabled false actually disables or scales all existing scene light components for the render instance before frames are captured.",
+    "Check for renderer temporal effects beyond bCameraCutThisFrame that can cause flicker/brightness accumulation in explicit scene captures, including Lumen/GI/reflections/eye adaptation/tonemapper exposure/history state. Prefer deterministic render settings for data collection over visually fancy temporal rendering.",
+    "If a code fix is warranted, implement the smallest robust fix and add focused tests where possible. Consider logging or metadata that makes scene-on/scene-off group state explicit in outputs.",
+    "Do not commit. Do not run long live simulator jobs unless necessary; if live validation is needed, report the exact command for the user to run."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/run_orbit_workflow.sh",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Root-cause diagnosis plus focused fix or clear next validation command"
+  ],
+  "definition_of_done": [
+    "Explains why scene_off_flashlight_on could still look scene-on or flicker.",
+    "Scene-off render path deterministically disables scene lighting or documents any engine limitation.",
+    "Relevant tests or static validation pass.",
+    "No commit is made."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

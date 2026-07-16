@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "ce63bfc0-cde2-4ed8-b0eb-1764bc034932",
+  "trace_id": "1f842644-8d14-4f05-ad54-4caa6860b179",
+  "parent_packet_id": "f5a1fd9a-9c5b-4c63-9446-4a2466b4423d",
+  "created_at": "2026-07-01T15:03:32Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Add flashlight indirect-light controls",
+  "objective": "Add a small, explicit runtime control for co-located flashlight indirect lighting so small interiors do not take on a room-wide tint from saturated nearby objects.",
+  "instructions": [
+    "Use Scout result .control-tower/packets/inbox/scout-cafeteria-lighting-quality-diagnosis-result.json as context.",
+    "Inspect examples/flashlight/run.py and examples/flashlight/run_orbit_collection.py for the spawned ASpotLight / USpotLightComponent setup.",
+    "Add CLI support to control the spawned spotlight's indirect lighting contribution, preferably via an --indirect-lighting-intensity float option applied to both teleop and orbit collection workflows if both spawn the co-located light.",
+    "Keep defaults conservative for active illumination: avoid room-wide indirect color bounce by default unless the existing project pattern clearly requires preserving current behavior. Document in code/README only if the file already has adjacent option docs; keep docs small.",
+    "Do not change unrelated behavior, do not commit, and do not run Unreal or long simulator jobs."
+  ],
+  "constraints": [
+    "Tower user explicitly disallows commits unless prompted.",
+    "Keep changes lean and focused."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md"
+    ],
+    "artifacts": [
+      "cafeteria_500sqft visual complaints are not import/cook failures: the generated scene uses decorative window panes without wall openings, Blender AREA lights are lost by the static-mesh import path, validation disabled all scene lights, and chair backs are placed toward table centers.",
+      "For small generated interiors, the current camera flashlight defaults of intensity 30000 and attenuation radius 1200 cm can make Lumen/dynamic indirect lighting bounce the color of the directly illuminated object across the whole room."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/scout-cafeteria-lighting-quality-diagnosis-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Changed files list and exact command(s) to test the reduced-indirect flashlight manually.",
+    "Whether the option applies to run.py, run_orbit_collection.py, or both."
+  ],
+  "definition_of_done": [
+    "The user can run the flashlight in the cafeteria with lower intensity/radius and indirect contribution disabled or controlled from CLI."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/scout-cafeteria-lighting-quality-diagnosis-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 1800
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/scout-cafeteria-lighting-quality-diagnosis-result.json",
+    "seed_result_agent": "scout",
+    "seed_result_status": "success"
+  }
+}

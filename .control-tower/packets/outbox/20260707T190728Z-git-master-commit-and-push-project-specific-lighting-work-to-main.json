@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "8b7e2e68-e6f0-4b0e-b2cd-a6554f3d44dd",
+  "trace_id": "a0bb1e1d-1b78-4f11-a8c4-b42198163e2a",
+  "parent_packet_id": "scribe-c6ff1dfe-4f63-4a24-afb2-a3f945f784ce-result",
+  "created_at": "2026-07-07T19:07:28Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Commit and push project-specific lighting work to main",
+  "objective": "Inspect the complete dirty tree, validate the current project-specific flashlight/docs changes, create clean commit slice(s), move the work onto local main, and push to origin/main if it can be done without an unsafe unapproved rewrite. User explicitly authorized commit/check-in and push to main in this session.",
+  "instructions": [
+    "Start by reading .control-tower/memory/l0.md, .control-tower/memory/l1.md, .control-tower/docs/state/current-status.md, docs/tower_operating_preferences.md if present, and the supplied Scribe result.",
+    "Inspect git status, branch graph, remotes, tracked diffs, and untracked files before staging anything.",
+    "Commit all meaningful current work related to realistic live flashlight controls, the repaired realistic_live_flashlight_2x profile, README/local environment inventory, running examples docs, tests, and durable Tower state needed for provenance.",
+    "Do not indiscriminately commit transient Control Tower runtime artifacts, imported session transcripts, packet/run logs, or generated build/runtime outputs unless they are already part of the repository's durable tracked state and clearly belong in the check-in.",
+    "If the working tree contains untracked/generated artifacts that should not be committed, leave them untracked or ignore/report them rather than deleting user data. Only remove files if they are clearly disposable artifacts produced by this workflow and removal is necessary for a clean check-in; report any such cleanup.",
+    "Run validations before commit or before final success: python -m json.tool examples/flashlight/flashlight_profiles.json >/dev/null; python -m unittest tests.test_orbit_collection_validation; git diff --check. Include results in the ResultPacket.",
+    "Target final publication is origin/main. Do not push to upstream. If local main or origin/main requires a non-fast-forward rewrite or force-with-lease, stop and return blocked with exact branch status and the command that would be needed; do not force push without another explicit approval for the rewrite.",
+    "If a normal fast-forward/merge/cherry-pick path can put the committed work on main and push to origin/main cleanly, do it.",
+    "Report final commit hashes, branch pushed, remote URL role, validation results, and final git status including any intentionally uncommitted artifacts."
+  ],
+  "constraints": [
+    "Do not use destructive git reset/checkout operations that discard user work.",
+    "Do not push to upstream.",
+    "No force push unless separately approved after reporting the need."
+  ],
+  "inputs": {
+    "files": [
+      "README.md",
+      "docs/running_our_example_applications.md",
+      "examples/flashlight/run.py",
+      "examples/flashlight/flashlight_profiles.py",
+      "examples/flashlight/flashlight_profiles.json",
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      ".control-tower/docs/state/current-status.md",
+      ".control-tower/docs/tasks/completed.md"
+    ],
+    "artifacts": [
+      "Root README now inventories local active-illumination additions beyond upstream/base SPEAR, including built maps, Unreal paths, commands/workflows, and validation caveats.",
+      "`realistic_live_flashlight_2x` is documented as the brighter realistic live profile with doubled intensity (`1600.0`) while preserving the same realistic live settings."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/scribe-c6ff1dfe-4f63-4a24-afb2-a3f945f784ce-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket with commit hashes, pushed ref or blocker details, validation output summary, and final status."
+  ],
+  "definition_of_done": [
+    "Meaningful changes are committed on main and pushed to origin/main, or the task is blocked only because a force/rewrite or unresolved artifact-retention decision is required."
+  ],
+  "memory_context_refs": [
+    ".control-tower/memory/l0.md",
+    ".control-tower/memory/l1.md",
+    ".control-tower/packets/inbox/scribe-c6ff1dfe-4f63-4a24-afb2-a3f945f784ce-result.json"
+  ],
+  "doc_context_refs": [
+    "docs/tower_operating_preferences.md"
+  ],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/scribe-c6ff1dfe-4f63-4a24-afb2-a3f945f784ce-result.json",
+    "seed_result_agent": "scribe",
+    "seed_result_status": "success"
+  }
+}

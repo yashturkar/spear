@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "769630f2-6319-4ef6-b05c-0fc26b15d8b4",
+  "trace_id": "ab24fa3b-8085-4fba-a1ad-f99d5d487edf",
+  "parent_packet_id": "7d75b1c4-c9b6-4b78-a9c4-6c69c9f4dd72",
+  "created_at": "2026-06-25T16:16:08Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "bugfix",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Repair portable SP_CORE compatibility fix after Inspector block",
+  "objective": "Address Inspector's blocker for the post-rebase SPEAR config compatibility fix: the current test depends on ignored local examples/flashlight/user_config.yaml, so make the compatibility behavior and tests portable in tracked source.",
+  "instructions": [
+    "Read the Inspector ResultPacket at .control-tower/packets/inbox/inspector-db05de6c-e7d5-4c2b-b95d-28fa7cc987fd-result.json and Builder ResultPacket at .control-tower/packets/inbox/builder-5e4f0bb8-7071-482e-89bb-a369d2b63921-result.json.",
+    "Fix the high-severity portability issue: tests/test_orbit_collection_validation.py must not depend on ignored local examples/flashlight/user_config.yaml existing in a clean checkout.",
+    "Preserve the local runtime compatibility for stale standalone binaries that still query SP_CORE *_INI_CONFIG_VALUES. Prefer a minimal tracked-code solution if appropriate, or make the test use a temporary config fixture that explicitly exercises the compatibility merge.",
+    "If you need to change run_orbit_collection.py, keep it narrowly scoped to config compatibility and avoid unrelated refactors.",
+    "Run py_compile and the orbit validation unit tests. Do not launch a long simulator render."
+  ],
+  "constraints": [
+    "Do not commit, push, reset, clean, or discard user changes."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [
+      "Post-rebase SP_CORE compatibility shim is conceptually correct for stale pre-d4cdee3e standalone binaries, but tracked tests must not depend on ignored examples/*/user_config.yaml files."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/inspector-db05de6c-e7d5-4c2b-b95d-28fa7cc987fd-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Builder ResultPacket with files changed, root cause, validation, and whether Inspector should re-review."
+  ],
+  "definition_of_done": [
+    "Inspector's portability blocker is resolved without losing the runtime compatibility fix."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-db05de6c-e7d5-4c2b-b95d-28fa7cc987fd-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-db05de6c-e7d5-4c2b-b95d-28fa7cc987fd-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "blocked"
+  }
+}

@@ -1,0 +1,9 @@
+pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+pak_size_bytes=3526962421
+map_demonstration_umap_count=1
+map_demonstration_dark_umap_count=1
+global_shader_cache_vulkan_sm6_count=1
+matching_entries:
+[2026.07.08-18.54.32:876][  0]LogPakFile: Display: "Engine/GlobalShaderCache-VULKAN_SM6.bin" offset: 298246071, size: 69203164 bytes, sha1: 7436807C7BDBCFB83C365546BC8A7BCA0F675A44, compression: Zlib.
+[2026.07.08-18.54.32:888][  0]LogPakFile: Display: "SpearSim/Content/JapaneseOffice/Maps/Demonstration.umap" offset: 583346245, size: 111529 bytes, sha1: 44BC842BE00EA49204A7AC1C4529FF023FB41B8F, compression: Zlib.
+[2026.07.08-18.54.32:888][  0]LogPakFile: Display: "SpearSim/Content/JapaneseOffice/Maps/Demonstration_Dark.umap" offset: 583542023, size: 111569 bytes, sha1: 121752DD02E37406A2BF3F1808CCC8544AA279FB, compression: Zlib.

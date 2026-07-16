@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "3a8602cc-34d5-490c-a84f-5c2b5fabd0bb",
+  "trace_id": "1d12e748-dc1e-4b88-b93d-3bdc9230146c",
+  "parent_packet_id": "f38b912c-cf52-4f62-a29b-8b6d55c9703d",
+  "created_at": "2026-06-25T15:16:15Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Review saturated orbit depth visualization fix",
+  "objective": "Review Builder's fix for saturated flashlight orbit depth PNG/video visualization: default percentile-clipped bounds, explicit depth visualization bounds, raw .npy preservation, docs, and tests.",
+  "instructions": [
+    "Do not perform any Git commit. Review only.",
+    "Confirm the root cause analysis is plausible: finite min/max can be dominated by far-plane/outlier depths, making viridis nearly single-color.",
+    "Review examples/flashlight/run_orbit_collection.py for correctness of default 1st/99th percentile visualization bounds, explicit min/max override behavior, sampling behavior, validation, and raw .npy preservation.",
+    "Review tests and docs for consistency with the new behavior and CLI options.",
+    "Run focused non-simulator validation: py_compile, unittest, helper smoke checks, and git diff --check."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [
+      "Orbit collection depth PNG/MP4 visualization defaults to per-setting 1st/99th percentile clipping while preserving raw metric depth .npy outputs unchanged."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-7d1cdf0e-180c-406c-9bad-e18df3db4794-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Approval or blocker findings.",
+    "Validation commands and results."
+  ],
+  "definition_of_done": [
+    "Inspector result explicitly says whether the change is ready for user live-render validation or needs Builder repair."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-7d1cdf0e-180c-406c-9bad-e18df3db4794-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-7d1cdf0e-180c-406c-9bad-e18df3db4794-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

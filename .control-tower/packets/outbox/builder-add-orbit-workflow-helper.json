@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "229f2cae-6cd7-4344-a505-dfc9a20bd487",
+  "trace_id": "74748718-d857-4cee-8df3-9f337744e078",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T17:25:28Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Add easy orbit collection workflow helper",
+  "objective": "Add a simple user-facing helper script and docs for the flashlight orbit workflow: teleop to save an orbit JSON, then render videos for multiple light settings while preserving scene-light intensity scale and fixed-exposure controls.",
+  "instructions": [
+    "User asked: 'how do I generate and render an orbit path... first teleop and generate an orbit json and then render with different light settings... create a script/command to run this easily... new ambient light intensity (scene) and exposure changes to work there'.",
+    "Do not commit or push.",
+    "Add a small shell helper under examples/flashlight, preferably a generic run_orbit_workflow.sh or similarly clear name, with at least teleop and render subcommands. Keep it simple and readable.",
+    "Default the helper to cafeteria_500sqft_v2 map, examples/flashlight/orbit_spec.json, a checked-in light settings JSON, and examples/flashlight/orbit_collection_output unless overridden by environment variables or flags.",
+    "Ensure helper commands pass through --scene-light-intensity-scale and fixed exposure behavior. Include --disable-auto-exposure explicitly for clarity even though it is the default. Also pass the current small-room flashlight profile: --intensity 1500, --attenuation-radius 450, --inner-cone-angle 8, --outer-cone-angle 20, --indirect-lighting-intensity 0, unless overridden cleanly.",
+    "Add or update README docs to show exact commands: teleop, render, and where videos land. Explain that scene-light intensity scale controls ambient/fixture scene lights at launch, while light settings JSON controls the co-located flashlight per rendered video.",
+    "If adding a light settings JSON, include at least three clear settings such as flashlight_off, flashlight_low, flashlight_on or comparable names.",
+    "Run lightweight validation: shell syntax check, Python parse/help checks if relevant, and existing orbit validation tests in spear-env."
+  ],
+  "constraints": [
+    "No Git operations and no commits."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "ResultPacket with files changed, exact user commands, tests run, and any limitations."
+  ],
+  "definition_of_done": [
+    "User can run one command to teleop/save orbit JSON and one command to render videos with multiple light settings using scene-light scale and fixed exposure."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

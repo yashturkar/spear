@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "2e9b49d8-1bcb-4b58-a19c-005ff17680ef",
+  "trace_id": "df571294-f445-4fbe-a9ac-fab34a044dc7",
+  "parent_packet_id": "git-master-befe0aa2-1ccd-4059-b42b-1efe6952574b-result",
+  "created_at": "2026-07-01T17:22:11Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "docs",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Record clean check-in result",
+  "objective": "Record the two local commits and the intentional uncommitted generated asset/state exclusions in operational project state.",
+  "instructions": [
+    "Do not modify product source code.",
+    "Update .control-tower docs/state and memory to record commits 94b08cc8e114cd2216e3f20701043e4075dbd8d9 and 6a6769e79e9533370110c0266da41bc03880c745.",
+    "Record that no push was performed and the branch is ahead of origin/save-share-world-import-20260630 by 2 commits.",
+    "Record that generated Unreal scene assets, Tower runtime artifacts, imported sessions/transcripts, packets, and runs were intentionally left uncommitted pending explicit asset-retention policy."
+  ],
+  "constraints": [
+    "No Git operations and no commits."
+  ],
+  "inputs": {
+    "files": [
+      ".control-tower/agents/git-master/policy.yaml",
+      ".control-tower/agents/git-master/prompt.md",
+      ".control-tower/agents/tower/prompt.md",
+      ".control-tower/docs/overview.md",
+      ".control-tower/state/agent-registry.json",
+      "docs/tower_operating_preferences.md",
+      "docs/importing_and_exporting_assets.md",
+      "docs/running_our_example_applications.md",
+      "examples/flashlight/README.md",
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      ".control-tower/agents/experimenter/policy.yaml",
+      ".control-tower/agents/experimenter/prompt.md",
+      "docs/world_ledger.md"
+    ],
+    "artifacts": [
+      "Local commit 94b08cc8e114cd2216e3f20701043e4075dbd8d9 adds Experimenter process orchestration support and explicit Git-master commit authorization policy.",
+      "Local commit 6a6769e79e9533370110c0266da41bc03880c745 adds fixed-exposure flashlight validation controls, scene-light intensity scaling, indirect-lighting control, cafeteria/world docs, and tests.",
+      "Generated Unreal scene assets and Control Tower runtime artifacts were intentionally left uncommitted after the cafeteria/flashlight check-in."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/git-master-befe0aa2-1ccd-4059-b42b-1efe6952574b-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket summarizing state/memory updates."
+  ],
+  "definition_of_done": [
+    "Future Tower sessions can see what was committed and what remains intentionally uncommitted."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/git-master-befe0aa2-1ccd-4059-b42b-1efe6952574b-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/git-master-befe0aa2-1ccd-4059-b42b-1efe6952574b-result.json",
+    "seed_result_agent": "git-master",
+    "seed_result_status": "success"
+  }
+}

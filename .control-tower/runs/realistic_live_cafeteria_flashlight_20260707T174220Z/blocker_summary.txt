@@ -1,0 +1,12 @@
+status=blocked
+blocked_at_utc=2026-07-07T17:43:22Z
+attempt=exact requested command
+tmux_session=realistic_live_flashlight_174220
+tmux_window=runtime
+attach_command=tmux attach -t realistic_live_flashlight_174220
+runner=/home/yashturkar/Workspace/spear/.control-tower/runs/realistic_live_cafeteria_flashlight_20260707T174220Z/runner.sh
+log=/home/yashturkar/Workspace/spear/.control-tower/runs/realistic_live_cafeteria_flashlight_20260707T174220Z/runtime.log
+exit_status=1
+blocker=Unreal standalone crashed during RHI initialization in the headless shell before RPC startup, map initialization, warmup, or teleop logs.
+key_log_lines=LogRHI: Warning: Could not detect DISPLAY or WAYLAND_DISPLAY environment variables; zenity cannot open display; Signal 11; Wayland_ShowMessageBox; Couldn't connect to RPC server; AssertionError.
+config_evidence=Generated SPEAR config contains local-exposure suppression, realistic Lumen GI/reflection INI retention, and GAME_DEFAULT_MAP=/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 before the crash.

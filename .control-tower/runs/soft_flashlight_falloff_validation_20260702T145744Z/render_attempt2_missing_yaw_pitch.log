@@ -1,0 +1,13 @@
+Running: /home/yashturkar/miniconda3/envs/spear-env/bin/python examples/flashlight/run_orbit_collection.py --mode render --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 --movement-speed 600 --disable-auto-exposure --scene-light-intensity-scale 0.2 --intensity 1200 --attenuation-radius 650 --inner-cone-angle 2 --outer-cone-angle 60 --source-radius 12 --soft-source-radius 80 --indirect-lighting-intensity 0 --orbit-spec-file examples/flashlight/orbit_spec.json --light-settings-file /home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/light_settings_soft_falloff_validation.json --output-dir examples/flashlight/orbit_collection_output_soft_falloff_validation
+Traceback (most recent call last):
+  File "/home/yashturkar/Workspace/spear/examples/flashlight/run_orbit_collection.py", line 2504, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/yashturkar/Workspace/spear/examples/flashlight/run_orbit_collection.py", line 2499, in main
+    return run_render(args=args)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yashturkar/Workspace/spear/examples/flashlight/run_orbit_collection.py", line 2484, in run_render
+    validate_light_settings(light_settings=light_settings)
+  File "/home/yashturkar/Workspace/spear/examples/flashlight/run_orbit_collection.py", line 1153, in validate_light_settings
+    raise ValueError(f"Light setting {index} is missing required key: {key}")
+ValueError: Light setting 0 is missing required key: yaw_offset_degrees

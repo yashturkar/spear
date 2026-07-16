@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "252ad38e-ab81-42e5-810b-c9e8a6d160b3",
+  "trace_id": "1f842644-8d14-4f05-ad54-4caa6860b179",
+  "parent_packet_id": "51b5dfb7-c768-46c6-af84-6437480d3b36",
+  "created_at": "2026-07-01T15:07:27Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "experiment",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Build revised realistic 500 sqft cafeteria",
+  "objective": "Generate, import, cook, and validate a revised small cafeteria world that fixes the user's visual complaints: real windows, real indoor lights, chair orientation, reduced cartoony style, and better active-light behavior.",
+  "instructions": [
+    "Run all long jobs in a named tmux session and preserve the tmux session/logs for user monitoring.",
+    "Use Scout result .control-tower/packets/inbox/scout-cafeteria-lighting-quality-diagnosis-result.json and Builder result .control-tower/packets/inbox/builder-flashlight-indirect-light-controls-result.json as context.",
+    "Create a new revision rather than replacing the existing map: source/provenance under /home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2 and SPEAR map /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 unless a hard technical blocker requires another name.",
+    "Scene requirements: approximately 500 sqft, actual wall openings for windows rather than glass patches on a solid wall, visible exterior or daylight context beyond windows, indoor ceiling/wall light fixtures, neutral/desaturated realistic material palette, less toy-like geometry/proportions, chairs visually facing toward tables, and no highly saturated large surfaces directly in common flashlight paths.",
+    "Because the current FBX import path does not preserve Blender area lights as Unreal lights, add or preserve real Unreal light actors during/after import. Validate they exist in the imported map and document how they interact with --disable-scene-lights.",
+    "Prefer collision enabled or add simple collision/blocking enough for teleop validation; do not import with --no-auto-generate-collision unless you explicitly record why.",
+    "Cook/package the revised map into the standalone game build if feasible.",
+    "Run a lightweight validation command or scripted check, not a long manual session: confirm import/cook success, static mesh count, map path, light actor/component count if possible, and provide a recommended user run command using the new --indirect-lighting-intensity default/control."
+  ],
+  "constraints": [
+    "Do not commit or push.",
+    "Do not modify product code unless absolutely necessary; if product code changes are needed, stop and report a Builder handoff recommendation instead.",
+    "Keep generated artifacts organized under a timestamped .control-tower/runs directory."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/setup_infinigen_indoors.py",
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [
+      "examples/flashlight/run.py and examples/flashlight/run_orbit_collection.py now expose --indirect-lighting-intensity for spawned co-located ASpotLight flashlights, defaulting to 0.0 to avoid room-wide color bounce in small saturated interiors."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/scout-cafeteria-lighting-quality-diagnosis-result.json",
+      ".control-tower/runs/cafeteria_500sqft_20260701T144420Z/manifest.yaml",
+      "/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft/scripts/create_cafeteria_500sqft.py",
+      ".control-tower/packets/inbox/builder-flashlight-indirect-light-controls-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket with tmux session name, run directory, source .blend path, generator script path, FBX path, SPEAR map path, changed/created asset directories, import/cook status, warnings, and exact user run command.",
+    "Clear note on whether real Unreal indoor lights were added and how to run with or without scene lights."
+  ],
+  "definition_of_done": [
+    "A revised cafeteria map is cooked and ready for user visual validation, or a blocked result explains the exact blocker and preserves logs."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-flashlight-indirect-light-controls-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 3600,
+    "hard_seconds": 7200
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-flashlight-indirect-light-controls-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

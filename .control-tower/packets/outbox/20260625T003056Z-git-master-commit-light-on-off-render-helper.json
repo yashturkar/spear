@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "78bd4f98-3728-42cc-88c5-49acdb3256c2",
+  "trace_id": "b269c104-0078-4166-be3b-da12de79643e",
+  "parent_packet_id": "5d8f8348-2709-4ec6-bf22-6a06c2189386",
+  "created_at": "2026-06-25T00:30:56Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Commit light on off render helper",
+  "objective": "Create a local commit for the approved flashlight orbit light_on/light_off render helper. Include the helper script, README update, and relevant Tower packets for this workflow. Do not push.",
+  "instructions": [
+    "Inspect git status and the Inspector result before committing.",
+    "Stage examples/flashlight/render_orbit_light_on_off.sh and examples/flashlight/README.md.",
+    "Stage relevant packet records for this workflow: Builder task/result, Inspector task/result. Avoid unrelated generated Tower state unless needed for consistency.",
+    "Run git diff --cached --check before committing.",
+    "Use a concise commit message and do not push."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/render_orbit_light_on_off.sh",
+      "examples/flashlight/README.md",
+      ".control-tower/packets/outbox/20260625T002656Z-builder-add-light-on-off-orbit-render-script.json",
+      ".control-tower/packets/inbox/builder-c5ff958b-ff94-4cfb-8296-197f57bde07f-result.json",
+      ".control-tower/packets/outbox/20260625T002917Z-inspector-review-light-on-off-render-helper.json",
+      ".control-tower/packets/inbox/inspector-284b13db-a58a-4a3d-8604-40d880fe7fde-result.json"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/inspector-284b13db-a58a-4a3d-8604-40d880fe7fde-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Commit hash and message.",
+    "Ahead/behind status after commit.",
+    "Remaining dirty/untracked files and what was intentionally excluded."
+  ],
+  "definition_of_done": [
+    "Approved helper is committed locally.",
+    "No push is performed."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-284b13db-a58a-4a3d-8604-40d880fe7fde-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-284b13db-a58a-4a3d-8604-40d880fe7fde-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

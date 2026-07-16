@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "38c80497-d545-465b-a248-001975da60fa",
+  "trace_id": "8ef196dd-3984-4dda-be20-04548df1c80a",
+  "parent_packet_id": null,
+  "created_at": "2026-07-02T14:46:36Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Soften co-located flashlight falloff",
+  "objective": "Adjust the flashlight/orbit workflow so scene_off_flashlight_on no longer looks like a hard circular hole, while preserving the dark scene-off baseline and existing light intensity/direction controls.",
+  "instructions": [
+    "Investigate the current spawned ASpotLight setup in examples/flashlight/run.py and examples/flashlight/run_orbit_collection.py.",
+    "The user-visible issue: scene_off_flashlight_on is clean but visually unnatural; it looks like looking through a circular hole. The co-located light should have smooth falloff, not a hard circle.",
+    "Make the default validation profile softer. Prefer a broad penumbra/floodlight profile over the current narrow circular aperture; for example consider a much smaller inner cone and wider outer cone, plus lower intensity/adjusted attenuation if needed.",
+    "Expose any useful Unreal spotlight shape controls that are available from Python, such as source radius or soft source radius, with robust best-effort setters that do not break older binaries if a property/method is missing.",
+    "Apply the same light-shape behavior in live run.py, teleop, and render/orbit modes.",
+    "Keep existing intensity, direction, scene-light scaling, fixed exposure, spawn_flashlight=false diagnostic, and no-indirect-bounce behavior intact.",
+    "Update focused tests for argument validation, light component setter behavior, and/or workflow defaults. Run the available unit test command.",
+    "Do not commit. Return a ResultPacket with exact changes, tests run, and any recommended render command for visual validation."
+  ],
+  "constraints": [
+    "No Git commits, pushes, force operations, or history rewrites.",
+    "Do not run a long Unreal render unless needed; code/tests first. If live visual validation is needed, return an Experimenter handoff recommendation."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/run_orbit_workflow.sh",
+      "examples/flashlight/orbit_light_settings.json",
+      "tests/test_orbit_collection_validation.py",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/git-master-61a487fe-bdc2-4c20-b22e-8f8958e5fffb-result.json",
+      ".control-tower/packets/inbox/inspector-34052fd1-0599-4e83-b246-766d83d7f2e7-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Implemented softer co-located flashlight falloff controls/defaults, or a clear blocked result if Unreal/SPEAR cannot support it.",
+    "Validation command(s) and test results."
+  ],
+  "definition_of_done": [
+    "Unit tests pass via the available test runner.",
+    "Defaults used by run_orbit_workflow.sh produce a softer spotlight profile than the committed hard-circle settings."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 1200,
+    "hard_seconds": 2400
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

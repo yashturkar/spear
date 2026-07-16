@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "4e37b3d2-1940-4382-88d3-e8ee6ebd391d",
+  "trace_id": "7af51940-1816-4e7e-9ccb-df88e948389a",
+  "parent_packet_id": null,
+  "created_at": "2026-07-07T18:22:42Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Fix 2x realistic flashlight profile JSON",
+  "objective": "Repair examples/flashlight/flashlight_profiles.json after the user's attempted insertion of realistic_live_flashlight_2x caused a JSON parse error: Expecting ',' delimiter line 73 column 6. Add or correct a valid realistic_live_flashlight_2x profile that doubles the realistic_live_flashlight intensity to 1600 while preserving the other realistic profile settings. Validate JSON parsing and run the focused flashlight profile/unit validation if cheap. Do not commit.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/flashlight_profiles.json",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "ResultPacket with files changed, validation commands/results, and the exact profile name/command to use."
+  ],
+  "definition_of_done": [
+    "examples/flashlight/flashlight_profiles.json is valid JSON, contains realistic_live_flashlight_2x, existing profiles are preserved, and validation confirms the profile can be loaded."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "82359c67-00d7-4528-83dd-aed82214f824",
+  "trace_id": "b7050712-7b2a-4f04-9058-a7f7d9cd258a",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T19:51:26Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Deep investigate persistent orbit scene-off flicker",
+  "objective": "Deeply investigate the fresh live render output at examples/flashlight/orbit_collection_output_validation. The user reports scene_off_flashlight_on is still flickery/bright like before after the latest stabilization. Inspect RGB PNG frames, depth NPY/viridis frames, MP4s if useful, metadata.json, frame timestamps, scene_light_state, deterministic capture metadata, and compare scene_on_flashlight_off, scene_off_flashlight_off, scene_off_flashlight_on, and scene_on_flashlight_on. Determine whether the failure is first-frame warm-up, persistent scene/environment lighting, flashlight state leakage, render history, exposure/tonemapping, output staleness, or something else. Produce concrete evidence, likely root cause, and exact Builder recommendations. Do not edit code or commit.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/orbit_collection_output_validation",
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/orbit_light_settings.json",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Findings-first investigation with numeric luma/depth evidence, representative frame paths, metadata observations, root-cause hypotheses ranked by evidence, and concrete next implementation steps."
+  ],
+  "definition_of_done": [
+    "Inspector has inspected the fresh output path directly and explained why scene_off_flashlight_on still behaves incorrectly."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

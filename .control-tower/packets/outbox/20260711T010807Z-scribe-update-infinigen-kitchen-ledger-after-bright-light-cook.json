@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "d6ae6526-a5d3-4204-888a-2a383ec24dc7",
+  "trace_id": "4d3bc60a-4bc2-409f-8fc0-dd722749f51a",
+  "parent_packet_id": null,
+  "created_at": "2026-07-11T01:08:07Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "docs",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Update Infinigen kitchen ledger after bright-light cook",
+  "objective": "Update durable docs/state for the Infinigen kitchen after bright ceiling RectLights and successful Linux cook/package verification.",
+  "instructions": [
+    "Update docs/environment_ledger.json and docs/world_ledger.md entries for infinigen_indoors_kitchen to reflect that the map now has 10 movable bright ceiling RectLights, source/saved map validation in .control-tower/runs/infinigen_kitchen_bright_lights_20260711T005715Z, and package verification in .control-tower/runs/cook_infinigen_kitchen_live_20260711T010155Z.",
+    "Record last cooked date as 2026-07-11 and package/version/hash details from Experimenter: archive/staged SpearSim-Linux.pak sha256 575de0687a6a3db446b9746413759333a863f7ded72a91f1bd0898755f18faa1, size 3588317299 bytes, both contain infinigen_indoors_kitchen.umap and .uexp.",
+    "Do not make commits. Keep the docs update narrow and factual. Note runtime visual validation remains pending unless already documented otherwise."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "ResultPacket listing docs changed and any caveats."
+  ],
+  "definition_of_done": [
+    "Docs accurately describe the updated kitchen lighting and latest cook verification without unrelated rewrites."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

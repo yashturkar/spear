@@ -1,0 +1,37 @@
+run_id=restore_cafeteria_package_20260709T191205Z
+status=success
+tmux_session=restore_cafeteria_pkg_191205
+tmux_window=cook
+attach_command=tmux attach -t restore_cafeteria_pkg_191205
+
+diagnosis=active Standalone-Development and Saved/StagedBuilds Linux paks were stale for cafeteria_500sqft_v2 before repair.
+pre_repair_archive_hits=0
+pre_repair_staged_hits=0
+pre_repair_archive_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak size=3526962421 mtime="2026-07-08 14:54:24.897771656 -0400"
+pre_repair_staged_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak size=3526962421 mtime="2026-07-08 14:54:24.897771656 -0400"
+
+verify_command=/home/yashturkar/Workspace/spear/.control-tower/runs/restore_cafeteria_package_20260709T191205Z/verify_active_package.sh
+cook_command=source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate spear-env && python tools/run_uat.py --unreal-engine-dir /home/yashturkar/Linux_Unreal_Engine_5.5.4 --clean-archive-dir --cook-maps /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark -clean -cook -stage -package -archive -pak -skipbuild
+cook_exit_status=0
+postcook_verify_exit_status=0
+
+postcook_archive_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak size=3526359585 mtime="2026-07-09 15:14:59.149990984 -0400"
+postcook_staged_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak size=3526359585 mtime="2026-07-09 15:14:59.149990984 -0400"
+postcook_archive_hits=4
+postcook_staged_hits=4
+postcook_required_entries_present=true
+
+archive_map_entries:
+SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2.uexp
+SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2.umap
+SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark.uexp
+SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark.umap
+
+staged_map_entries:
+SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2.uexp
+SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2.umap
+SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark.uexp
+SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark.umap
+
+retry_command=spear live cafeteria_500sqft_v2 --setting realistic-2x
+expanded_retry_command=VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json bash -lc 'cd /home/yashturkar/Workspace/spear && source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate spear-env && exec python examples/flashlight/run.py --map cafeteria_500sqft_v2 --live-lighting-mode realistic --flashlight-profile realistic_live_flashlight_2x --scene-light-intensity-scale 0.0005 --movement-speed 600 --disable-auto-exposure --startup-warmup-seconds 3'

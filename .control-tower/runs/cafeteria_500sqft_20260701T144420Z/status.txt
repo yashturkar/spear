@@ -1,0 +1,11 @@
+STATUS:success
+NOTE:create, export, import, and cook completed
+UPDATED_UTC:2026-07-01T14:49:30Z
+RUN_DIR:/home/yashturkar/Workspace/spear/.control-tower/runs/cafeteria_500sqft_20260701T144420Z
+SOURCE_ROOT:/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft
+COARSE_BLEND:/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft/coarse/scene.blend
+EXPORT_DIR:/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft/spear_export_r256
+FBX_FILE:/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft/spear_export_r256/export_scene.blend/export_scene.fbx
+MAP_PATH:/Game/SPEAR/Scenes/cafeteria_500sqft/Maps/cafeteria_500sqft
+MESH_DIR:/Game/SPEAR/Scenes/cafeteria_500sqft/Meshes
+FLASHLIGHT_COMMAND:cd /home/yashturkar/Workspace/spear && conda activate spear-env && python examples/flashlight/run.py --map-path /Game/SPEAR/Scenes/cafeteria_500sqft/Maps/cafeteria_500sqft --movement-speed 600 --disable-scene-lights

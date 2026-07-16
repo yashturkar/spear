@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "c259dbb6-71dd-490f-986d-7ac7fd25b4d0",
+  "trace_id": "8ef196dd-3984-4dda-be20-04548df1c80a",
+  "parent_packet_id": "experimenter-6568975d-e612-4a55-b7c8-c5e7e3678344-result",
+  "created_at": "2026-07-02T15:16:17Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "process-validation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Cook cafeteria v2 and rerun soft falloff validation",
+  "objective": "Cook/stage/package the cafeteria v2 map into the standalone SpearSim package, then rerun the preserved soft flashlight two-condition orbit validation.",
+  "instructions": [
+    "Create a new timestamped run directory under .control-tower/runs/ for cook/rerun logs and runner scripts.",
+    "First launch a tmux-managed cook/stage/package command for /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 using /home/yashturkar/miniconda3/envs/spear-env/bin/python tools/run_uat.py --unreal-engine-dir /home/yashturkar/Linux_Unreal_Engine_5.5.4 --cook-maps /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 -cook -stage -package -archive -pak -skipbuild.",
+    "Preserve the exact cook command and logs in the run directory, and report the tmux attach command while running.",
+    "If cook succeeds, rerun /home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/run_render.sh in a named tmux session/window, preserving rerun logs and status.",
+    "If the validation render succeeds, inspect metadata and basic frame/luma diagnostics for scene_off_flashlight_off and scene_off_flashlight_on, and report video/frame paths.",
+    "If either cook or render fails, preserve logs and report the key error lines and the next concrete fix."
+  ],
+  "constraints": [
+    "Do not edit product source, tests, docs, or Git state.",
+    "Every long-running/user-observable process must run in tmux.",
+    "Do not push or commit."
+  ],
+  "inputs": {
+    "files": [
+      ".control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/",
+      " .control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/light_settings_soft_falloff_validation.json",
+      ".control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/run_render.sh",
+      ".control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/render.log",
+      ".control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/status.txt",
+      ".control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/render_attempt1_base_python.log",
+      ".control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/status_attempt1_base_python.txt",
+      ".control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/render_attempt2_missing_yaw_pitch.log",
+      ".control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/status_attempt2_missing_yaw_pitch.txt"
+    ],
+    "artifacts": [
+      "Soft flashlight falloff validation run .control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z failed because the standalone SpearSim package could not load cafeteria_500sqft_v2; recook/stage/package that map before rerunning the orbit render."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/experimenter-6568975d-e612-4a55-b7c8-c5e7e3678344-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Result packet with cook status, render validation status, tmux attach commands, run dirs, logs, output paths, and next action."
+  ],
+  "definition_of_done": [
+    "Cafeteria v2 map is cooked then validation render succeeds, or the blocker is identified with logs preserved."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/experimenter-6568975d-e612-4a55-b7c8-c5e7e3678344-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/experimenter-6568975d-e612-4a55-b7c8-c5e7e3678344-result.json",
+    "seed_result_agent": "experimenter",
+    "seed_result_status": "failed"
+  }
+}

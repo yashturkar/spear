@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "aaa47ce4-4510-492f-9e11-60177d05985a",
+  "trace_id": "d65a335a-8035-4a2b-b3c4-a8ad2168f837",
+  "parent_packet_id": "builder-7f9ca717-b652-447e-af60-6be4071db64b-result",
+  "created_at": "2026-07-01T18:38:55Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Review render-history orbit brightness fix",
+  "objective": "Review Builder's fix for progressive brightness in scene_off_flashlight_on orbit renders. Verify correctness, risk, tests, and whether the camera-cut render-history reset is a reasonable focused fix.",
+  "instructions": [
+    "Review the Builder ResultPacket and changed files.",
+    "Focus on behavioral correctness: CLI default/override semantics, capture loop behavior, whether bCameraCutThisFrame is set at the right time for all capture components, and whether the workflow helper still preserves the active-illumination trio contract.",
+    "Check tests for meaningful coverage and run lightweight validation if appropriate.",
+    "Do not commit."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/run_orbit_workflow.sh",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [
+      "Flashlight orbit renders now default to --disable-render-history, which marks each explicit scene capture as bCameraCutThisFrame to avoid temporal renderer accumulation across orbit frames."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-7f9ca717-b652-447e-af60-6be4071db64b-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket with findings ordered by severity"
+  ],
+  "definition_of_done": [
+    "Review findings are clear and actionable.",
+    "Validation run status is reported.",
+    "No commit is made."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-7f9ca717-b652-447e-af60-6be4071db64b-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-7f9ca717-b652-447e-af60-6be4071db64b-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

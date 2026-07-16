@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "be43324c-2aa8-456d-8012-92a98b17dc69",
+  "trace_id": "01a32aa1-cb0a-4230-91f3-f8cfbd06ef65",
+  "parent_packet_id": "builder-7d529c86-result",
+  "created_at": "2026-07-07T17:37:43Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Review realistic live flashlight lighting stabilization",
+  "objective": "Review Builder changes for the live realistic flashlight mode. Focus on whether the implementation addresses live brightness drift while preserving realistic Lumen GI/reflections/material response, whether default behavior remains compatible, whether Unreal reflection/property fallbacks are safe against resolveProperty crashes, whether the new cafeteria teleop command is correct, and whether tests cover the change.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/flashlight_profiles.py",
+      "examples/flashlight/flashlight_profiles.json",
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [
+      "Live realistic flashlight mode now suppresses local exposure, warms up before teleop control, keeps Lumen GI/reflections/material response enabled, and uses the realistic_live_flashlight profile with inverse-square fallback support."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-7d529c86-6917-4c0a-8289-1e160e4b27e8-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Findings first with file/line references. Explicitly state whether runtime Experimenter validation is needed before user use."
+  ],
+  "definition_of_done": [
+    "Inspector has reviewed changed files and tests, identified any blocking correctness/runtime risks, and provided a pass/fail recommendation for the live cafeteria teleop command."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-7d529c86-6917-4c0a-8289-1e160e4b27e8-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-7d529c86-6917-4c0a-8289-1e160e4b27e8-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

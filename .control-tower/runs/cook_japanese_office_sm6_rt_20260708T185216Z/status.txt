@@ -1,0 +1,11 @@
+finished_at=2026-07-08T18:54:33Z
+status=success
+tmux_session=cook_jp_office_sm6_185216
+tmux_window=uat
+cook_log=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/cook_package.log
+pak_list_log=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/pak_list.log
+verification_log=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/verification_summary.txt
+runtime_environment_log=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/runtime_environment_check.log
+archive_dir=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development
+archive_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+exit_status=0

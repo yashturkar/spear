@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "9609abc7-0dc1-4f39-96d2-35738ace888b",
+  "trace_id": "2a5f8301-85ae-4391-a75c-6db7dd33e1dd",
+  "parent_packet_id": null,
+  "created_at": "2026-07-08T18:40:54Z",
+  "from_agent": "tower",
+  "to_agent": "scout",
+  "task_type": "research",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Find practical RT validation checks and RT option types",
+  "objective": "Inspect the local SPEAR flashlight/runtime code and recent SM6 cook artifacts to identify practical non-log ways to confirm hardware ray tracing is active, plus the ray tracing/Lumen options exposed or relevant for this project. Return concise commands/checks the user can run without needing to visually search giant Unreal logs.",
+  "instructions": [
+    "Read the relevant local files and result artifacts only; do not modify files.",
+    "Focus on examples/flashlight/run.py runtime readback/logging, DefaultEngine.ini SM6 config, and the 2026-07-08 cook verification artifacts.",
+    "Include exact grep/rg commands, file/artifact checks, and console/CVar readback ideas if available.",
+    "Summarize the different UE ray tracing modes/options relevant here: hardware RT enablement, Lumen hardware RT, Lumen reflections HWRT, shadow ray tracing intent, path tracing/offline distinction, and software Lumen vs hardware RT.",
+    "Keep recommendations practical for a live teleop user."
+  ],
+  "constraints": [
+    "Do not modify files."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/flashlight_profiles.py",
+      "cpp/unreal_projects/SpearSim/Config/DefaultEngine.ini"
+    ],
+    "artifacts": [
+      ".control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/verification_summary.txt",
+      ".control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/pak_list.log",
+      ".control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/shader_signatures.log"
+    ],
+    "references": []
+  },
+  "expected_outputs": [
+    "Exact practical checks and commands",
+    "Short RT option/type explanation"
+  ],
+  "definition_of_done": [
+    "Tower can answer user with specific commands and clear RT option distinctions"
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 120,
+    "hard_seconds": 300
+  },
+  "requires_review": true,
+  "allow_partial": true,
+  "metadata": {}
+}

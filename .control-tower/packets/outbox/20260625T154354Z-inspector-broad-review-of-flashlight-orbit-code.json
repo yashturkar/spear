@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "6228f1bc-59ba-4ab8-b352-f9aa330869bb",
+  "trace_id": "8014e4f2-0c9b-4cb2-b9e6-2c38f39f0053",
+  "parent_packet_id": null,
+  "created_at": "2026-06-25T15:43:54Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Broad review of flashlight/orbit code",
+  "objective": "Review the flashlight and orbit collection code across the current working tree and recent local fork commits, focusing first on correctness/regression risk and then on feature completeness, usability, and organization.",
+  "instructions": [
+    "Review current uncommitted changes plus relevant scripts/features added in recent local commits, especially examples/flashlight/run_orbit_collection.py, examples/flashlight/run_programmatic_rerun.py, examples/flashlight/render_orbit_light_on_off.sh, examples/flashlight/light_settings.example.json, tests/test_orbit_collection_validation.py, examples/flashlight/README.md, and docs/running_our_example_applications.md.",
+    "Use read-only repository inspection as needed, including git status, git diff, and recent git log/show, to understand code added before this session in the user's fork.",
+    "Prioritize correctness findings: runtime failures, simulator/API misuse, unsafe file handling, stale output contracts, control mapping mistakes, depth/RGB data bugs, validation gaps, and behavior that contradicts docs or user workflow.",
+    "Secondarily review feature and organization quality: CLI ergonomics, naming, output layout, repeated code, test coverage, and whether the scripts are maintainable for active illumination experiments.",
+    "Run focused non-simulator validation where practical, such as py_compile, unit tests, shell syntax checks, JSON validation, rg searches for stale output names, and any lightweight smoke checks that do not require SPEAR running.",
+    "Do not modify product code unless a tiny review-only probe is impossible otherwise; prefer reporting findings with file/line references."
+  ],
+  "constraints": [
+    "Do not commit, stage, reset, clean, or perform destructive Git operations.",
+    "Do not run simulator-dependent live render/teleop commands."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "ResultPacket with findings first, ordered by severity, with file/line references, validation run, residual risks, and recommendations."
+  ],
+  "definition_of_done": [
+    "Correctness risks and feature/organization issues in the flashlight/orbit scripts and docs/tests have been reviewed and reported, or scope limitations are explicit."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

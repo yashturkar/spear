@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "477dce36-b534-45f7-8d9d-fd33af1a1744",
+  "trace_id": "d65a335a-8035-4a2b-b3c4-a8ad2168f837",
+  "parent_packet_id": "inspector-aaa47ce4-render-history-review-result",
+  "created_at": "2026-07-01T18:42:05Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Repair render-history helper override",
+  "objective": "Fix the run_orbit_workflow.sh render-history override path identified by Inspector while preserving default disabled render history.",
+  "instructions": [
+    "Review Inspector finding and Builder render-history changes.",
+    "Make the helper default stable without injecting a mutually-exclusive flag that blocks --enable-render-history. Prefer omitting --disable-render-history from the helper because run_orbit_collection.py already defaults to disabled render history.",
+    "Update docs wording so they describe default disabled render history and the valid -- --enable-render-history helper override.",
+    "Add or run lightweight validation proving the helper override no longer conflicts, for example PYTHON=/bin/echo examples/flashlight/run_orbit_workflow.sh render -- --enable-render-history.",
+    "Run the relevant unittest module with spear-env.",
+    "Do not commit."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_workflow.sh",
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/inspector-aaa47ce4-4510-492f-9e11-60177d05985a-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Focused helper/docs/test repair"
+  ],
+  "definition_of_done": [
+    "Helper default render still disables render history via Python default.",
+    "Helper can opt into --enable-render-history without argparse conflict.",
+    "Relevant tests/checks pass.",
+    "No commit is made."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-aaa47ce4-4510-492f-9e11-60177d05985a-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-aaa47ce4-4510-492f-9e11-60177d05985a-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

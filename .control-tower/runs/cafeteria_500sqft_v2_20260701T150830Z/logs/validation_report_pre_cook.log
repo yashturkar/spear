@@ -1,0 +1,100 @@
+{
+    "bounds_max": {
+        "x": 605.0,
+        "y": 336.4,
+        "z": 355.0
+    },
+    "bounds_min": {
+        "x": -377.1,
+        "y": -339.5,
+        "z": -8.0
+    },
+    "disable_scene_lights_note": "--disable-scene-lights disables these imported/setup fixture lights because they are normal Unreal ULightComponentBase-derived components; omit that flag to see the cafeteria ceiling/wall fixtures, or include it for flashlight-only validation.",
+    "light_actor_count": 8,
+    "light_component_count": 7,
+    "light_details": [
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "CafeteriaV2_Ceiling_RectLight_0",
+            "location": {
+                "x": -240.0,
+                "y": -25.0,
+                "z": 276.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "CafeteriaV2_Ceiling_RectLight_1",
+            "location": {
+                "x": -80.0,
+                "y": -25.0,
+                "z": 276.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "CafeteriaV2_Ceiling_RectLight_2",
+            "location": {
+                "x": 80.0,
+                "y": -25.0,
+                "z": 276.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "CafeteriaV2_Ceiling_RectLight_3",
+            "location": {
+                "x": 240.0,
+                "y": -25.0,
+                "z": 276.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "CafeteriaV2_Wall_Sconce_RectLight_0",
+            "location": {
+                "x": -356.0,
+                "y": -200.0,
+                "z": 206.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "CafeteriaV2_Wall_Sconce_RectLight_1",
+            "location": {
+                "x": -356.0,
+                "y": 200.0,
+                "z": 206.0
+            }
+        },
+        {
+            "class": "DirectionalLight",
+            "component_class": "DirectionalLightComponent",
+            "label": "Setup_DirectionalLight",
+            "location": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 600.0
+            }
+        }
+    ],
+    "map_exists": true,
+    "map_path": "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2",
+    "mesh_asset_count": 235,
+    "mesh_dir": "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Meshes",
+    "spawned_fixture_light_labels": [
+        "CafeteriaV2_Ceiling_RectLight_0",
+        "CafeteriaV2_Ceiling_RectLight_1",
+        "CafeteriaV2_Ceiling_RectLight_2",
+        "CafeteriaV2_Ceiling_RectLight_3",
+        "CafeteriaV2_Wall_Sconce_RectLight_0",
+        "CafeteriaV2_Wall_Sconce_RectLight_1"
+    ],
+    "static_mesh_actor_count": 235
+}

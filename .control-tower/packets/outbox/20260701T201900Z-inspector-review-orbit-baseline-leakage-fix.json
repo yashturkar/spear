@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "08967e1f-961a-4121-acdc-5630986a6246",
+  "trace_id": "b7050712-7b2a-4f04-9058-a7f7d9cd258a",
+  "parent_packet_id": "builder-6ac1057e-orbit-baseline-leakage-result",
+  "created_at": "2026-07-01T20:04:34Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Review orbit baseline leakage fix",
+  "objective": "Review Builder's fix for the persistent scene_off orbit render issue. Use the Builder and Inspector result packets as context. Focus on correctness of examples/flashlight/run_orbit_collection.py, tests/test_orbit_collection_validation.py, examples/flashlight/orbit_light_settings.json, and docs/running_our_example_applications.md. Confirm render-mode setup no longer enables or warms a baseline flashlight before scene_off_flashlight_off, confirm spawn_flashlight=false is validated and propagated safely, confirm metadata is honest, and identify any remaining live-validation steps. Do not commit.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/orbit_light_settings.json",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [
+      "Orbit render setup now avoids orbit_spec light_baseline_settings during render warm-up; scene_off_flashlight_off is a spawn_flashlight=false no-flashlight-ever control with metadata diagnostics for baseline leakage versus residual scene lighting."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-6ac1057e-3a96-45d2-81d0-3b824f449b96-result.json",
+      ".control-tower/packets/inbox/inspector-82359c67-00d7-4528-83dd-aed82214f824-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Findings-first review with any correctness issues, remaining live validation gap, and exact rerender/check command."
+  ],
+  "definition_of_done": [
+    "Review confirms whether the code-level baseline leakage repair is sound and whether live SPEAR rerender is still required."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-6ac1057e-3a96-45d2-81d0-3b824f449b96-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-6ac1057e-3a96-45d2-81d0-3b824f449b96-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

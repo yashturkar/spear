@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "3d36b1f1-a154-4f02-8c54-f3531b4fc137",
+  "trace_id": "86e1ba46-27c2-400c-bcb1-27845026fede",
+  "parent_packet_id": "experimenter-restaurant-kitchen-1000sqft-20260710T213346Z-result",
+  "created_at": "2026-07-10T23:44:22Z",
+  "from_agent": "tower",
+  "to_agent": "scout",
+  "task_type": "research",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Research photorealistic Infinigen-to-SPEAR restaurant kitchen path",
+  "objective": "Determine how to get a photorealistic restaurant/commercial kitchen environment while using Infinigen where possible, and diagnose why the current restaurant_kitchen_1000sqft result appears as random primitive shapes in SPEAR",
+  "instructions": [
+    "Research the local Infinigen/Infinigen-Indoors setup and official/current Infinigen project capabilities enough to distinguish expected output quality from our current generated/exported/imported result. Use primary sources where internet research is needed.",
+    "Inspect the local generation/export/import artifacts for restaurant_kitchen_1000sqft, including source blend, export logs, import logs, validation report, and any generator scripts in the run directory, to identify likely causes of primitive/blockout-looking geometry or weak materials.",
+    "Assess whether Infinigen can generate a genuinely photorealistic restaurant/commercial kitchen directly, or whether it is better used as layout/blockout plus asset replacement/kitbash.",
+    "Propose concrete next steps, ranked by expected visual fidelity and effort, for producing a photoreal SPEAR-live-ready restaurant kitchen. Include any changes needed to Infinigen gin/config, export resolution/material baking, texture import, Unreal material/light handling, or asset sourcing.",
+    "Do not modify product code or docs and do not commit."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak, size 3541042681 bytes",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak, size 3541042681 bytes",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/restaurant_kitchen_1000sqft/",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/manifest.json",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/runner.sh",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/logs/create_scene.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/logs/export_r256.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/logs/import_unreal.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/logs/add_unreal_lights_validate.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/logs/cook_package.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/pak_verification_summary.txt",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/pak_verification_summary.json",
+      "/home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/coarse/scene.blend",
+      "/home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/spear_export_r256/export_scene.blend/export_scene.fbx",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/restaurant_kitchen_1000sqft/Maps/restaurant_kitchen_1000sqft.umap",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/restaurant_kitchen_1000sqft/Meshes/"
+    ],
+    "artifacts": [
+      ".control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z",
+      "/home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/coarse/scene.blend",
+      "/home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/spear_export_r256/export_scene.blend/export_scene.fbx",
+      "restaurant_kitchen_1000sqft generated/imported/cooked on 2026-07-10; source /home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/coarse, FBX /home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/spear_export_r256/export_scene.blend/export_scene.fbx, map /Game/SPEAR/Scenes/restaurant_kitchen_1000sqft/Maps/restaurant_kitchen_1000sqft, active archive and staged paks verified with .umap/.uexp entries."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/experimenter-3dcb4a76-4498-4237-8aad-92157864fd2a-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Research findings explaining the quality gap, plus a concrete recommended plan for a photoreal Infinigen-first or hybrid restaurant kitchen workflow."
+  ],
+  "definition_of_done": [
+    "Tower has enough evidence to choose the next Builder/Experimenter packet for producing a better restaurant kitchen, with risks and validation checks called out."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/experimenter-3dcb4a76-4498-4237-8aad-92157864fd2a-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/experimenter-3dcb4a76-4498-4237-8aad-92157864fd2a-result.json",
+    "seed_result_agent": "experimenter",
+    "seed_result_status": "success"
+  }
+}

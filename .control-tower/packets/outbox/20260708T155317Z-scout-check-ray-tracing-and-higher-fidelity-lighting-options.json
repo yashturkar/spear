@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "63b476db-9744-4726-8f03-968ca6f8cbdb",
+  "trace_id": "271cc3d4-ef50-4cfc-95cd-f93aefa90eaa",
+  "parent_packet_id": null,
+  "created_at": "2026-07-08T15:53:17Z",
+  "from_agent": "tower",
+  "to_agent": "scout",
+  "task_type": "research",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Check ray tracing and higher-fidelity lighting options",
+  "objective": "Determine whether this SPEAR checkout currently enables hardware ray tracing for the flashlight/cafeteria workflows, and identify practical options to improve lighting/render fidelity for realistic active-illumination testing without changing code.",
+  "instructions": [
+    "Inspect repo project/config files, example scripts, docs, and recent Tower state for ray tracing, Lumen, reflection, exposure, shadow, and rendering-quality settings.",
+    "Focus on current behavior for examples/flashlight/run.py with --live-lighting-mode realistic and cafeteria_500sqft_v2.",
+    "Clearly distinguish what is currently enabled by code/config from what is only a possible Unreal setting.",
+    "If you need external Unreal Engine facts, use only stable/official Unreal documentation or local engine docs if available; avoid broad web speculation.",
+    "Return a concise answer suitable for the user: do we have ray tracing on, what likely renderer path are we using, what fidelity improvements are most valuable, and which ones require GPU/project/plugin/package support."
+  ],
+  "constraints": [
+    "Do not edit files.",
+    "Do not run Unreal or long processes."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/flashlight_profiles.json",
+      "examples/flashlight/flashlight_profiles.py",
+      "docs/running_our_example_applications.md",
+      "README.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "ResultPacket with findings and recommended fidelity options/commands/settings."
+  ],
+  "definition_of_done": [
+    "Tower can answer whether ray tracing is on and provide prioritized fidelity improvements."
+  ],
+  "memory_context_refs": [
+    ".control-tower/memory/l0.md",
+    ".control-tower/memory/l1.md"
+  ],
+  "doc_context_refs": [
+    ".control-tower/docs/state/current-status.md"
+  ],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

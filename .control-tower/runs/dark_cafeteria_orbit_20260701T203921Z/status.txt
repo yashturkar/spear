@@ -1,0 +1,12 @@
+STATUS:success
+NOTE:dark map creation, cook/package, orbit render, and luma summary completed
+UPDATED_UTC:2026-07-01T20:46:16Z
+RUN_DIR:/home/yashturkar/Workspace/spear/.control-tower/runs/dark_cafeteria_orbit_20260701T203921Z
+TMUX_SESSION:spear_dark_cafeteria_orbit_20260701T203921Z
+TMUX_WINDOW:run
+ATTACH_COMMAND:tmux attach -t spear_dark_cafeteria_orbit_20260701T203921Z
+SOURCE_MAP:/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2
+TARGET_MAP:/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark
+OUTPUT_DIR:/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_validation_dark_map
+DARK_MAP_REPORT:/home/yashturkar/Workspace/spear/.control-tower/runs/dark_cafeteria_orbit_20260701T203921Z/dark_map_report.json
+LUMA_SUMMARY:/home/yashturkar/Workspace/spear/.control-tower/runs/dark_cafeteria_orbit_20260701T203921Z/luma_summary.json

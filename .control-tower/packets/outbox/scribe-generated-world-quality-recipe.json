@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "d0ab4c18-bd18-4733-91f1-45448618d495",
+  "trace_id": "942b954e-22e8-4025-a576-3d524ee26223",
+  "parent_packet_id": "9eb6dd18-bde1-4b37-b0db-0c824c0ea50a",
+  "created_at": "2026-07-01T15:48:02Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "docs-memory-curation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Document reusable Infinigen world quality recipe",
+  "objective": "Document the reusable recipe we should follow for future generated worlds, based on the cafeteria v1 failure modes and cafeteria v2 improvements, including the new scene light dimming launch control.",
+  "instructions": [
+    "Add a concise reusable recipe/checklist to docs/importing_and_exporting_assets.md for generated Infinigen worlds intended for active illumination research.",
+    "Recipe must cover: real wall openings/windows with exterior context, actual Unreal light actors added post-import rather than relying on Blender lights, neutral/desaturated material palette with texture/material import enabled, correct furniture orientation, auto-generated collision or explicit collision plan, manageable scene complexity/export resolution, validation report with mesh/light counts and bounds, cook/package validation, and live flashlight validation.",
+    "Record launch-time lighting balance: use --scene-light-intensity-scale to dim existing scene lights without disabling them, use --indirect-lighting-intensity 0 for the co-located flashlight in small scenes, and tune flashlight intensity/radius/cones per world.",
+    "Update .control-tower/docs/state/current-status.md with the new scene-light scale control and the fact that a reusable generated-world recipe now exists. Do not create commits."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "docs/importing_and_exporting_assets.md",
+      "docs/world_ledger.md",
+      ".control-tower/docs/state/current-status.md",
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [
+      "examples/flashlight/run.py and examples/flashlight/run_orbit_collection.py now expose --scene-light-intensity-scale, defaulting to 1.0, to scale existing scene light intensities at launch before spawning the co-located flashlight. Use finite non-negative values; 0.0 dims scene lights to off without using --disable-scene-lights."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/scout-cafeteria-lighting-quality-diagnosis-result.json",
+      ".control-tower/packets/inbox/experimenter-build-cafeteria-500sqft-v2-result.json",
+      ".control-tower/packets/inbox/scribe-4c61e37c-9372-4e30-b191-ef735c30d2c6-result.json",
+      ".control-tower/packets/inbox/builder-667733d3-b1cf-4b3a-b307-745053ced0f3-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Files changed and summary of recipe additions."
+  ],
+  "definition_of_done": [
+    "Future Tower/Experimenter runs have a durable recipe to follow for generated worlds and current status references it."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-667733d3-b1cf-4b3a-b307-745053ced0f3-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-667733d3-b1cf-4b3a-b307-745053ced0f3-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

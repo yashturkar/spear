@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "2288a598-9653-480c-845c-e874e8ef0832",
+  "trace_id": "b7050712-7b2a-4f04-9058-a7f7d9cd258a",
+  "parent_packet_id": "inspector-af3900a6-residual-scene-off-illumination-validation-result",
+  "created_at": "2026-07-01T20:32:12Z",
+  "from_agent": "tower",
+  "to_agent": "scout",
+  "task_type": "research",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Find exact repair path for bright scene-off orbit renders",
+  "objective": "Investigate the exact technical path to make orbit render scene_off_flashlight_off near black for /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2. Use the Inspector result as evidence: the no-flashlight control remains bright at median mean luma 136.208 after Python-side light disabling and attempted show-flag isolation. Determine whether the fastest correct repair is a no-baked/no-emissive flashlight-validation map variant, a lower-level SPEAR/Unreal capture API change, additional runtime console/CVar commands, or some combination. Inspect repo scripts/C++/Unreal config/assets references as needed, but do not modify code or run long cooks. Produce concrete Builder/Experimenter handoff steps and acceptance checks.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "cpp",
+      "examples"
+    ],
+    "artifacts": [
+      "examples/flashlight/orbit_collection_output_validation_console_fix",
+      "Direct validation of orbit_collection_output_validation_console_fix confirms scene_off_flashlight_off is no-flashlight-ever but remains bright at median mean luma 136.208; likely root cause is baked/static/precomputed or emissive/material map lighting, with failed capture show-flag control as the lower-level blocker."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/inspector-af3900a6-a92c-4169-986d-8b2d64964acd-result.json",
+      ".control-tower/packets/inbox/builder-5f4f4412-90e8-4f4b-b1c9-fab000e3ea01-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "A ranked repair plan with exact files/assets/scripts/APIs to touch, commands to validate, and how to tell if the fix worked.",
+    "Specific guidance on whether to delegate next to Builder, Experimenter, or both."
+  ],
+  "definition_of_done": [
+    "The recommendation directly addresses scene_off_flashlight_off residual light, failed capture show flags, and the user's live viewport brightening observation."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-af3900a6-a92c-4169-986d-8b2d64964acd-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 1200,
+    "hard_seconds": 2400
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-af3900a6-a92c-4169-986d-8b2d64964acd-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "partial"
+  }
+}

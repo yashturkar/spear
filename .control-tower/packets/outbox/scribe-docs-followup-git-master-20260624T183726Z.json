@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "7551ab6c-d66b-4b1c-89bc-3f40b1a107b9",
+  "trace_id": "7e87b58c-9712-4fdb-82b0-d3b91a429216",
+  "parent_packet_id": null,
+  "created_at": "2026-06-24T18:37:26Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "documentation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Update repo docs after Git-Master work",
+  "objective": "Inspect the latest agent result and update the impacted durable repo docs under the configured docs harness.",
+  "instructions": [
+    "Review the referenced ResultPacket and the changed files before editing docs.",
+    "Update existing relevant docs under the configured repo docs roots when possible.",
+    "Create a new repo doc only if no suitable existing page covers the change.",
+    "Refresh docs indices if you add a new page.",
+    "Report doc drift or unresolved ambiguity explicitly instead of inventing facts."
+  ],
+  "constraints": [
+    "Treat repo docs under `docs/` as the durable docs harness.",
+    "Treat `.control-tower/docs/state` and `.control-tower/memory` as operational memory, not durable product docs.",
+    "Do not modify product source code unless the task packet explicitly requires a small doc-adjacent fix."
+  ],
+  "inputs": {
+    "files": [
+      ".control-tower/docs/state/current-status.md",
+      ".control-tower/docs/state/decisions.md",
+      ".control-tower/docs/tasks/completed.md",
+      ".control-tower/logs/black-box.jsonl",
+      ".control-tower/memory/l0.md",
+      ".control-tower/memory/l1.md",
+      ".control-tower/state/decision-graph/edges.json",
+      ".control-tower/state/decision-graph/events.jsonl",
+      ".control-tower/state/decision-graph/indexes.json",
+      ".control-tower/state/decision-graph/nodes.json",
+      ".control-tower/state/runtime.json",
+      ".control-tower/state/session-index.json",
+      ".control-tower/memory/l2/sessions/019efae4-d45d-70b1-bf84-5c791f8f8c26.jsonl",
+      ".control-tower/memory/l2/sessions/019efae7-be2c-77f1-894d-74f4c3771410.jsonl",
+      ".control-tower/memory/l2/transcripts/019efae4-d45d-70b1-bf84-5c791f8f8c26.md",
+      ".control-tower/memory/l2/transcripts/019efae7-be2c-77f1-894d-74f4c3771410.md",
+      ".control-tower/packets/inbox/git-master-2e497ca4-5a09-4097-8c57-200b340cfb01-result.json",
+      ".control-tower/packets/inbox/scribe-ecf8d9f5-ccb8-4f89-afe4-55cfcfa30a33-result.json",
+      ".control-tower/packets/outbox/20260624T-git-master-commit-scribe-cleanup-curation.json",
+      ".control-tower/packets/outbox/scribe-docs-followup-git-master-20260624T183211Z.json"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/git-master-5ffc7a7f-b67e-4af3-9983-922efb41bc7b-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Updated repo docs if needed",
+    "A ResultPacket summarizing doc updates, drift, and follow-up gaps"
+  ],
+  "definition_of_done": [
+    "Durable repo docs reflect the changed behavior or workflow",
+    "Relevant indices are refreshed if new docs were added",
+    "Open doc drift or ambiguity is called out explicitly"
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/git-master-5ffc7a7f-b67e-4af3-9983-922efb41bc7b-result.json"
+  ],
+  "doc_context_refs": [
+    ".control-tower/docs/state/current-status.md"
+  ],
+  "time_budget": {
+    "soft_seconds": 300,
+    "hard_seconds": 900
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {
+    "generated_by": "tower delegate follow-up",
+    "seed_result_packet": ".control-tower/packets/inbox/git-master-5ffc7a7f-b67e-4af3-9983-922efb41bc7b-result.json",
+    "seed_result_agent": "git-master"
+  }
+}

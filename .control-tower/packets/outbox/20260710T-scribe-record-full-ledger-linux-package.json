@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "5b5af92e-e3d8-4762-a491-1a76baeebbca",
+  "trace_id": "356f9cdd-5add-417f-baa8-913798f91e3f",
+  "parent_packet_id": "experimenter-fe03b43c-full-ledger-linux-package-result",
+  "created_at": "2026-07-10T18:02:34Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "documentation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Record full ledger Linux package cook",
+  "objective": "Update operational state and durable environment ledger documentation to record that the 2026-07-10 full Linux package cook included all runnable docs/environment_ledger.json maps and verified both active paks.",
+  "instructions": [
+    "Record that the full cook succeeded for all 18 non-null ledger map paths on 2026-07-10 with UAT exit 0 and verify exit 0.",
+    "Update docs/environment_ledger.json cook metadata where appropriate so historical stale package claims are corrected for the active 2026-07-10 package. Preserve statuses and validation caveats; do not falsely mark visually unvalidated maps as validated.",
+    "Update operational current status and memory with the new active pak sha256, size, timestamp, and coverage summary.",
+    "Do not modify product code or Git state."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "docs/environment_ledger.json",
+      ".control-tower/docs/state/current-status.md",
+      ".control-tower/docs/state/known-risks.md",
+      ".control-tower/memory/l0.md",
+      ".control-tower/memory/l1.md",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/manifest.json",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/runner.sh",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/verify_paks.py",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/status.txt",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/exit_status.txt",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/cook_package.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/verify_paks.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.json",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/coverage_table.md",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/archive_pak_list.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/staged_pak_list.log"
+    ],
+    "artifacts": [
+      "As of 2026-07-10T17:59:58Z, a clean Linux UAT package in .control-tower/runs/full_ledger_linux_package_20260710T175718Z cooked all 18 non-null docs/environment_ledger.json map paths into both active archive and staged paks. Both paks have sha256 71439ddc9c3be4993d9c6cabb96ae090aa5dec27b6b16ba2df68571f153faebd."
+    ],
+    "references": [
+      ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt",
+      ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/coverage_table.md",
+      ".control-tower/packets/inbox/experimenter-fe03b43c-4517-48ba-89b5-ce17760152dc-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "List of docs/memory files updated and a concise summary of the new package state."
+  ],
+  "definition_of_done": [
+    "Future Tower sessions and user-facing ledger inspection can see that all runnable ledger maps are cooked into the active 2026-07-10 Linux package, while visual-validation caveats remain intact."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/experimenter-fe03b43c-4517-48ba-89b5-ce17760152dc-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/experimenter-fe03b43c-4517-48ba-89b5-ce17760152dc-result.json",
+    "seed_result_agent": "experimenter",
+    "seed_result_status": "success"
+  }
+}

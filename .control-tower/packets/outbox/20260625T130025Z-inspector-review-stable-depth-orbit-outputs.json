@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "71bc0b29-4914-4aee-9287-83929ac9e2ad",
+  "trace_id": "670cccf2-f2ee-403f-b392-a31de7916c12",
+  "parent_packet_id": "7e2b2fd4-07d7-42db-b81e-0f782bb0c073",
+  "created_at": "2026-06-25T13:00:25Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Review stable depth orbit outputs",
+  "objective": "Review Builder changes that stabilize orbit depth visualization, add raw metric depth .npy frames, add viridis PNG frames, and update depth videos/docs/tests. Confirm root-cause fix, output paths, backwards compatibility, and focused validation.",
+  "instructions": [
+    "Review examples/flashlight/run_orbit_collection.py, examples/flashlight/README.md, tests/test_orbit_collection_validation.py, and docs/running_our_example_applications.md for consistency.",
+    "Confirm raw depth .npy frames are written per frame under frames/depth_meters_npy and viridis PNGs under frames/depth_meters_viridis.",
+    "Confirm depth_meters_visualization.mp4 and depth_meters_viridis.mp4 are encoded from stable viridis frames, RGB output remains unchanged, and naming/backwards compatibility is acceptable.",
+    "Assess whether per-setting finite min/max normalization resolves flicker/all-black behavior and whether invalid/degenerate depth handling is reasonable.",
+    "Run focused non-simulator validation, including unit tests, py_compile, and any smoke checks useful for viridis/depth helpers.",
+    "Flag any durable docs drift, especially docs/running_our_example_applications.md if it still lists old depth output paths."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md",
+      "tests/test_orbit_collection_validation.py",
+      "docs/running_our_example_applications.md",
+      "Runtime output path: examples/flashlight/orbit_collection_output/<name>/frames/depth_meters_npy/frame_####.npy",
+      "Runtime output path: examples/flashlight/orbit_collection_output/<name>/frames/depth_meters_viridis/frame_####.png",
+      "Runtime output path: examples/flashlight/orbit_collection_output/<name>/depth_meters_viridis.mp4"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-c4134bfe-fdc9-48af-b35f-411b42eea9eb-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Approval or blocker findings.",
+    "Validation commands and results.",
+    "Any doc follow-up needed."
+  ],
+  "definition_of_done": [
+    "Inspector result clearly says whether Git-master can commit or Builder must repair."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-c4134bfe-fdc9-48af-b35f-411b42eea9eb-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-c4134bfe-fdc9-48af-b35f-411b42eea9eb-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "5f4f4412-90e8-4f4b-b1c9-fab000e3ea01",
+  "trace_id": "b7050712-7b2a-4f04-9058-a7f7d9cd258a",
+  "parent_packet_id": "inspector-23ce057c-live-orbit-baseline-fix-validation-result",
+  "created_at": "2026-07-01T20:15:05Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Fix residual scene-off illumination in orbit renders",
+  "objective": "Fix the remaining orbit render brightness problem found by live validation. Use /home/yashturkar/Workspace/spear/.control-tower/packets/inbox/inspector-23ce057c-428a-4da5-b579-7283aa721ecd-result.json as primary evidence. The baseline flashlight warm-up leak is fixed, and scene_off_flashlight_off is now a true no-flashlight-ever control, but it still renders bright with median mean luma about 136. Investigate and repair why scene-off renders remain lit when no flashlight has ever been spawned. Focus on examples/flashlight/run_orbit_collection.py and adjacent flashlight example helpers. Likely areas: skylight/environment properties not actually zeroed, static/precomputed lighting, emissive materials, post-process ambient/exposure, scene capture mode, and render-history readback. Implement the narrowest practical code-level repair and add tests/metadata so future validation can distinguish residual environment/static/material illumination from flashlight contribution. Do not commit.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/run_orbit_workflow.sh",
+      "examples/flashlight/orbit_light_settings.json",
+      "examples/flashlight/orbit_collection_output_validation_after_fix"
+    ],
+    "artifacts": [
+      "Live validation after the orbit baseline leakage fix shows scene_off_flashlight_off is now a true no-flashlight-ever control in metadata, but it remains bright at median mean luma about 136, so the remaining scene-off brightness is environment/static/material lighting or renderer state rather than baseline flashlight warm-up leakage."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/inspector-23ce057c-428a-4da5-b579-7283aa721ecd-result.json",
+      ".control-tower/packets/inbox/inspector-82359c67-00d7-4528-83dd-aed82214f824-result.json",
+      ".control-tower/packets/inbox/builder-6ac1057e-3a96-45d2-81d0-3b824f449b96-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Narrow code/test repair or a precise blocked finding explaining what scene/map asset change is required; include exact live validation command."
+  ],
+  "definition_of_done": [
+    "scene_off_flashlight_off no-flashlight-ever path has a credible repair path and tests/metadata updated; if live validation is not run, report exact remaining validation gap. No commit."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-23ce057c-428a-4da5-b579-7283aa721ecd-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-23ce057c-428a-4da5-b579-7283aa721ecd-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

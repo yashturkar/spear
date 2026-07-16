@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "6ac1057e-3a96-45d2-81d0-3b824f449b96",
+  "trace_id": "b7050712-7b2a-4f04-9058-a7f7d9cd258a",
+  "parent_packet_id": "inspector-82359c67-orbit-persistent-flicker-investigation-result",
+  "created_at": "2026-07-01T19:59:00Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Fix scene-off orbit baseline leakage",
+  "objective": "Fix the persistent scene_off orbit render failure found by Inspector. Use /home/yashturkar/Workspace/spear/.control-tower/packets/inbox/inspector-82359c67-00d7-4528-83dd-aed82214f824-result.json as the primary evidence. Implement a narrow repair in examples/flashlight/run_orbit_collection.py and tests so render-mode setup never warms/captures with orbit_spec light_baseline_settings before per-setting commands, especially for scene-off groups. Add a no-flashlight-ever or equivalent diagnostic/control path if needed to distinguish baseline flashlight leakage from true environment/static/material lighting. Make deterministic capture metadata honest and, if render-history disable cannot be verified via the live proxy API, do not overclaim it; add useful diagnostics/metadata. Add focused tests. Do not commit.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/orbit_light_settings.json",
+      "examples/flashlight/run_orbit_workflow.sh",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [
+      "Latest orbit_collection_output_validation on 2026-07-01 shows first-frame warm-up flash is fixed, but scene_off_flashlight_off is still bright, scene_off_flashlight_on is bright throughout, deterministic capture readback is false, and run_render_group warms with the baseline flashlight enabled before per-setting scene-off captures."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/inspector-82359c67-00d7-4528-83dd-aed82214f824-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Focused code/test/doc fix addressing baseline flashlight warm-up leakage and adding diagnostics for true scene-off darkness; include exact rerender command and any remaining live-validation gaps."
+  ],
+  "definition_of_done": [
+    "Scene-off render setup no longer enables or warms with baseline flashlight before scene_off_flashlight_off, metadata is truthful, tests pass, and no commit is made."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-82359c67-00d7-4528-83dd-aed82214f824-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-82359c67-00d7-4528-83dd-aed82214f824-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

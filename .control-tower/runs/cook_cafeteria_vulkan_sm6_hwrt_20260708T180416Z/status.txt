@@ -1,0 +1,8 @@
+finished_at=2026-07-08T18:17:54Z
+status=success
+tmux_session=cook_cafeteria_sm6_180416
+tmux_window=uat
+log=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/cook_package.log
+archive_dir=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development
+staged_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+archive_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak

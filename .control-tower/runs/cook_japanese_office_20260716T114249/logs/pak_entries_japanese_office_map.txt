@@ -1,0 +1,2 @@
+[2026.07.16-15.44.57:892][  0]LogPakFile: Display: "SpearSim/Content/JapaneseOffice/Maps/Demonstration.uexp" offset: 583048715, size: 83705 bytes, sha1: 326135575812B31EF0C07ED853F323FAC8EA981C, compression: Zlib.
+[2026.07.16-15.44.57:892][  0]LogPakFile: Display: "SpearSim/Content/JapaneseOffice/Maps/Demonstration.umap" offset: 583132589, size: 111528 bytes, sha1: A3981CFA34F518AADC0BDC5A4FE2A08471D77AB6, compression: Zlib.

@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "befe0aa2-1ccd-4059-b42b-1efe6952574b",
+  "trace_id": "df571294-f445-4fbe-a9ac-fab34a044dc7",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T17:19:06Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Clean local check-in for cafeteria and flashlight validation work",
+  "objective": "Inspect the current working tree, identify the intended changes from the recent cafeteria v2 / flashlight lighting / fixed-exposure work, and create a clean local commit or small coherent commits if needed. Do not push.",
+  "instructions": [
+    "User explicitly approved check-in with: 'Lets do it cleanly'.",
+    "Inspect status and diffs before committing. Separate intentional source/docs/config changes from generated outputs, logs, caches, temporary files, and bulky artifacts.",
+    "Commit only intended repo changes related to the current batch: experimenter/Tower support if present, world ledger/state/docs, cafeteria v2 import/recipe docs, flashlight indirect-lighting controls, scene-light intensity scaling, fixed exposure defaults, README/examples, and tests.",
+    "Do not push, do not open a PR, and do not rewrite history.",
+    "If there are ambiguous or risky untracked/binary/large files, leave them uncommitted and report them clearly instead of guessing.",
+    "Use concise commit message(s) that accurately describe the committed scope."
+  ],
+  "constraints": [
+    "No remote push.",
+    "No PR creation.",
+    "Do not discard user changes."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "ResultPacket with commit hash(es), committed files summary, intentionally uncommitted files, and any risks."
+  ],
+  "definition_of_done": [
+    "A clean local check-in exists for intended changes, or Git-master reports a blocker with exact ambiguous files."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

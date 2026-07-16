@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "c4617eb3-04b9-480f-9926-f77e856fd3b9",
+  "trace_id": "01a32aa1-cb0a-4230-91f3-f8cfbd06ef65",
+  "parent_packet_id": null,
+  "created_at": "2026-07-07T17:27:37Z",
+  "from_agent": "tower",
+  "to_agent": "scout",
+  "task_type": "research",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Diagnose realistic flashlight lighting drift",
+  "objective": "Diagnose why live flashlight teleop in cafeteria v2 starts dim and then keeps getting brighter, and produce an implementation-ready plan for realistic dim environment lighting plus physically plausible flashlight behavior with inverse-square falloff, shadows, Lumen indirect bounce, and reflections.",
+  "instructions": [
+    "Inspect the current flashlight scripts, profile resolver, Unreal config, and docs. Focus on live examples/flashlight/run.py behavior, not orbit validation unless it explains shared state.",
+    "Identify likely causes for progressive brightening after map start: auto exposure, local exposure, Lumen/skylight temporal accumulation, forced skylight updates, scene-light scaling timing, static/baked lighting, reflection captures, post-process volumes, or our spawned light/profile choices.",
+    "Clarify what is physically correct: direct flashlight should cast primary shadows; indirect diffuse bounce should be occluded and affect shadowed areas, but does not create crisp primary shadows; reflections should come from Lumen/reflection settings and material roughness/metalness.",
+    "Produce a concrete Builder-ready change plan for a 'realistic live flashlight' mode/profile that prioritizes stable fixed camera exposure, dim but stable scene lighting, inverse-square attenuation if supported, direct shadows/contact shadows, Lumen GI/reflections, and sufficient warmup before user control.",
+    "Call out any live commands the user can run immediately to reduce the brightening while code is being fixed."
+  ],
+  "constraints": [
+    "Do not edit files.",
+    "Do not run long Unreal processes.",
+    "Do not perform Git operations."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/flashlight_profiles.py",
+      "examples/flashlight/flashlight_profiles.json",
+      "examples/flashlight/run_orbit_workflow.sh",
+      "cpp/unreal_projects/SpearSim/Config/DefaultEngine.ini",
+      "docs/running_our_example_applications.md",
+      "examples/flashlight/README.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Scout ResultPacket with root-cause analysis, immediate workaround command(s), and a Builder-ready implementation plan."
+  ],
+  "definition_of_done": [
+    "Tower can explain the likely issue to the user and hand Builder a concrete plan without additional discovery."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 2400
+  },
+  "requires_review": true,
+  "allow_partial": true,
+  "metadata": {}
+}

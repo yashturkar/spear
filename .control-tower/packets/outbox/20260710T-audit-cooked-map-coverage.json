@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "ed86089d-3487-417f-b6e7-94debb3e3334",
+  "trace_id": "4c234f9f-47d0-4e46-99d7-861febea0f2d",
+  "parent_packet_id": null,
+  "created_at": "2026-07-10T17:03:13Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "verification",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Audit cooked map coverage",
+  "objective": "Determine whether every environment listed in docs/environment_ledger.json is currently cooked into the active Linux packaged build, and identify any missing map assets or stale package risks.",
+  "instructions": [
+    "Inspect the active packaged Linux artifacts, especially Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak and Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak.",
+    "Compare the pak contents against all runnable environments and map paths in docs/environment_ledger.json, not only the cafeteria maps.",
+    "Also check whether corresponding source .umap files exist under cpp/unreal_projects/SpearSim/Content when practical.",
+    "Do not modify product code, docs, Git state, or packaged assets."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "docs/environment_ledger.json",
+      "tools/spear-run",
+      ".control-tower/docs/state/current-status.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/runs/restore_cafeteria_package_20260709T191205Z/verification_summary.txt"
+    ]
+  },
+  "expected_outputs": [
+    "A concise table or structured list of each environment alias/map path with cooked status in archive pak and staged pak.",
+    "Clear yes/no answer to: are all ledger maps cooked right now?",
+    "Any commands or evidence files used for verification."
+  ],
+  "definition_of_done": [
+    "All environments in docs/environment_ledger.json have been checked against active paks, and missing/stale entries are explicitly called out."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

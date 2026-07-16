@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "4c61e37c-9372-4e30-b191-ef735c30d2c6",
+  "trace_id": "1f842644-8d14-4f05-ad54-4caa6860b179",
+  "parent_packet_id": "4bd02b3c-69a2-4175-afb5-32e51d6cdcc3",
+  "created_at": "2026-07-01T15:19:02Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "docs-memory-curation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Record cafeteria v2 and flashlight lighting controls",
+  "objective": "Update durable project docs and operational status after cafeteria_500sqft_v2 build and flashlight indirect-lighting control changes.",
+  "instructions": [
+    "Update docs/world_ledger.md to add cafeteria_500sqft_v2 as the preferred replacement for cafeteria_500sqft, including map path, source paths, run logs, validation summary, and note that v1 was visually rejected for no real windows, no indoor lights, reversed chairs, cartoonish materials, and flashlight color-bounce artifacts.",
+    "Update .control-tower/docs/state/current-status.md with concise current state: Builder added --indirect-lighting-intensity default 0.0 to flashlight scripts; Experimenter built/cooked cafeteria_500sqft_v2; recommended validation command uses lower flashlight intensity/radius/cones and indirect lighting 0; no commit has been made.",
+    "Only update durable docs/state. Do not create commits. Keep edits concise and factual."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "docs/world_ledger.md",
+      ".control-tower/docs/state/current-status.md",
+      "examples/flashlight/README.md",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z/run_cafeteria_500sqft_v2.sh",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z/manifest.yaml",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z/validation_report.json",
+      "/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/scripts/create_cafeteria_500sqft_v2.py",
+      "/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/scripts/add_unreal_lights_and_validate.py",
+      "/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/coarse/scene.blend",
+      "/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/spear_export_r256/export_scene.blend/export_scene.fbx"
+    ],
+    "artifacts": [
+      "cafeteria_500sqft_v2 was generated under /home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2 and imported/cooked as /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 with 235 static mesh assets, auto-generated collision, and six post-import Unreal RectLight fixture actors.",
+      "For cafeteria_500sqft_v2, omit --disable-scene-lights to see real ceiling/wall fixture lights; include --disable-scene-lights for flashlight-only validation. Recommended flashlight settings use --intensity 1500 --attenuation-radius 450 --inner-cone-angle 8 --outer-cone-angle 20 --indirect-lighting-intensity 0."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-flashlight-indirect-light-controls-result.json",
+      ".control-tower/packets/inbox/scout-cafeteria-lighting-quality-diagnosis-result.json",
+      ".control-tower/packets/inbox/experimenter-build-cafeteria-500sqft-v2-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "List of files changed and key notes added."
+  ],
+  "definition_of_done": [
+    "World ledger and current status capture the v2 cafeteria map, the rejected v1 limitations, and the flashlight indirect-lighting control."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/experimenter-build-cafeteria-500sqft-v2-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/experimenter-build-cafeteria-500sqft-v2-result.json",
+    "seed_result_agent": "experimenter",
+    "seed_result_status": "success"
+  }
+}

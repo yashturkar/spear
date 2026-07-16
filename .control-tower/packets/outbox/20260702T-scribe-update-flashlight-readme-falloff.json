@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "5517f4b2-a38c-4be5-b9dd-9c37d9edfe3a",
+  "trace_id": "8ef196dd-3984-4dda-be20-04548df1c80a",
+  "parent_packet_id": "inspector-b624b37e-8951-476d-8bcc-551492b0d91f-result",
+  "created_at": "2026-07-02T14:54:45Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "documentation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Update flashlight README falloff profile",
+  "objective": "Update the flashlight example README so it matches the new soft orbit flashlight workflow defaults and source-radius controls.",
+  "instructions": [
+    "Edit examples/flashlight/README.md to replace the old workflow helper profile values 1500/450/8/20 with the current soft floodlight profile: intensity 1200, attenuation radius 650, inner cone 2, outer cone 60, source radius 12, soft source radius 80, indirect lighting intensity 0.",
+    "Mention the matching helper flags and environment overrides for source radius and soft source radius alongside the existing override guidance.",
+    "Do not change product source code."
+  ],
+  "constraints": [
+    "This packet explicitly permits editing examples/flashlight/README.md even though it is outside the docs/ durable docs harness.",
+    "Do not commit or push."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/inspector-b624b37e-8951-476d-8bcc-551492b0d91f-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Result packet listing README updates and any remaining docs drift."
+  ],
+  "definition_of_done": [
+    "examples/flashlight/README.md no longer documents the stale hard-circle workflow defaults."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-b624b37e-8951-476d-8bcc-551492b0d91f-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-b624b37e-8951-476d-8bcc-551492b0d91f-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

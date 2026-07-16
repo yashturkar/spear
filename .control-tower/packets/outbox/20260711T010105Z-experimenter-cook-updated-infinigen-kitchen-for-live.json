@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "fecda0d8-3926-4fd0-a8ad-18c81b7f2ea9",
+  "trace_id": "36c48362-0322-4c49-ac2c-5b75811eb145",
+  "parent_packet_id": null,
+  "created_at": "2026-07-11T01:01:05Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "cook",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Cook updated Infinigen kitchen for live",
+  "objective": "Cook/package the updated infinigen_indoors_kitchen scene for standalone spear live after bright ceiling light edits.",
+  "instructions": [
+    "Use the repository's existing cook/package workflow. Verify the staged/active Linux pak contains /Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen.umap and .uexp after the cook. Run dry-run launch command checks for direct examples/flashlight/run.py and tools/spear-run/spear wrapper if available. Report exact commands used, package/archive paths, timestamps, and whether the wrapper/direct live commands resolve. Do not make commits.",
+    "Native Infinigen libs were already built with: cd /home/yashturkar/Workspace/infinigen && source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate infinigen && make terrain.",
+    "Editor lighting pass succeeded in .control-tower/runs/infinigen_kitchen_bright_lights_20260711T005715Z and saved /Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen with 10 InfinigenKitchen_BrightCeiling_RectLight_* actors at intensity 1400."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "ResultPacket with exact commands, validation outputs, artifact paths, and any failures/blockers."
+  ],
+  "definition_of_done": [
+    "Cook/package completes successfully, active standalone content includes the updated kitchen map, and dry-run launch commands resolve."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

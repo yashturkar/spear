@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "a23f9fe6-d876-4641-bd71-192cb9bc4418",
+  "trace_id": "0d6ee34e-f1be-4d44-9985-ac10f6280837",
+  "parent_packet_id": null,
+  "created_at": "2026-06-30T17:56:20Z",
+  "from_agent": "tower",
+  "to_agent": "scout",
+  "task_type": "research",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Explain SPEAR world packaging and archive paths",
+  "objective": "Investigate whether SPEAR imported worlds are self-contained and identify exactly what paths should be archived or shared for source-level Unreal content, cooked runnable builds, and Infinigen regeneration sources.",
+  "instructions": [
+    "Inspect the local Unreal project content layout for imported scenes under cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes and identify map/asset directory structure.",
+    "Inspect packaged/staged output locations for standalone runnable builds and clarify whether a single world can be archived separately from a cooked package.",
+    "Inspect the Infinigen output folders for college_classroom and one_bed_apartment to distinguish source .blend/FBX/log artifacts from SPEAR runtime assets.",
+    "Answer in operational terms: what to archive to share with another SPEAR developer, what to archive to share a runnable sim, and what to archive to regenerate/reimport later.",
+    "Do not edit files, do not run long jobs, do not perform Git operations."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Concise explanation of self-contained versus dependent assets.",
+    "Exact local paths and recommended archive groupings.",
+    "Caveats about cooked PAKs, project dependencies, and disabled material/texture/collision imports."
+  ],
+  "definition_of_done": [
+    "Scout returns a ResultPacket with actionable archive/share guidance."
+  ],
+  "memory_context_refs": [
+    ".control-tower/docs/state/current-status.md"
+  ],
+  "doc_context_refs": [
+    "docs/importing_and_exporting_assets.md",
+    "docs/running_our_example_applications.md"
+  ],
+  "time_budget": {
+    "soft_seconds": 180,
+    "hard_seconds": 600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

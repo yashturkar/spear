@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "57d05de4-2155-439c-b972-6eabb7107d22",
+  "trace_id": "54f4b43b-bfe5-4059-9844-f0a887f31902",
+  "parent_packet_id": null,
+  "created_at": "2026-06-26T18:52:41Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Create lighter one-bed Infinigen SPEAR import",
+  "objective": "Implement the approved recovery plan for importing the one_bed_apartment Infinigen scene into SPEAR by regenerating a lighter scene, exporting it, importing it into Unreal/SPEAR, and reporting exact commands/logs/artifacts. Do not commit.",
+  "instructions": [
+    "Use the same floorplan at /home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment/one_bed_floorplan.json and seed 21.",
+    "Create a SPEAR-targeted lighter generation output, preferably /home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment_spear_light/coarse or a timestamped sibling if the path already exists.",
+    "Regenerate with Infinigen using fast_solve.gin, terrain disabled, invisible room ceilings enabled, and compose_indoors.solve_small_enabled=False. Keep large and medium objects enabled for the first pass, with moderately reduced solve steps compared to the original heavy run.",
+    "Export r256 first. Before Unreal import, inspect polycounts.txt and FBX size. If the scene remains clearly too large for the current machine, stop and report; if it is still high-risk, regenerate fallback with compose_indoors.solve_medium_enabled=False as well.",
+    "Import into SPEAR using examples/flashlight/setup_infinigen_indoors.py with --no-auto-generate-collision --no-import-materials --no-import-textures, replacing the one_bed_apartment assets/map only for the selected light export.",
+    "Run long generation/export/import steps in tmux with timestamped logs so the user can attach and monitor. Include the tmux session name in the result.",
+    "If import succeeds, run the existing cook/build step needed for SPEAR to launch the map, using the established project workflow from docs/importing_and_exporting_assets.md.",
+    "Do not perform Git commits, pushes, rebases, or branch changes.",
+    "If you need to modify scripts to make this workflow robust, keep edits minimal and report them, but prefer using existing scripts/commands."
+  ],
+  "constraints": [
+    "Tower is orchestrating; return a ResultPacket only.",
+    "No commits or pushes.",
+    "Avoid retrying the known 3 GB r256 FBX import; the failure is already understood as geometry/static-mesh compile memory pressure."
+  ],
+  "inputs": {
+    "files": [
+      "/home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment/run_generate_one_bed.sh",
+      "/home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment/coarse/polycounts.txt",
+      "examples/flashlight/setup_infinigen_indoors.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Status of generation/export/import/cook, including success/failure.",
+    "Exact output directories, log files, FBX path, map path, and tmux session name.",
+    "If blocked, provide the smallest next fallback and the evidence for why."
+  ],
+  "definition_of_done": [
+    "Either the lighter one-bed map imports and cooks successfully, or a clear evidence-backed fallback is ready for the next Builder handoff."
+  ],
+  "memory_context_refs": [
+    ".control-tower/docs/state/current-status.md"
+  ],
+  "doc_context_refs": [
+    "docs/importing_and_exporting_assets.md"
+  ],
+  "time_budget": {
+    "soft_seconds": 1800,
+    "hard_seconds": 7200
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {}
+}

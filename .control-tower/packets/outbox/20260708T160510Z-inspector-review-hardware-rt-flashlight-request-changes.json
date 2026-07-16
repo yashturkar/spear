@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "9c28c9d9-25c1-4ca2-9277-67b68ed03941",
+  "trace_id": "892b71ae-3a6b-485d-9249-68a744340f9b",
+  "parent_packet_id": "builder-42945478-hardware-rt-result",
+  "created_at": "2026-07-08T16:05:10Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Review hardware RT flashlight request changes",
+  "objective": "Review Builder's hardware ray tracing changes for examples/flashlight live realistic mode, focusing on correctness, regressions, Unreal/CVar/property probing risks, and test adequacy before the user reruns the simulator.",
+  "instructions": [
+    "Read the Builder result and inspect the diffs for examples/flashlight/run.py, examples/flashlight/flashlight_profiles.py, and tests/test_orbit_collection_validation.py.",
+    "Review whether realistic mode requests hardware RT by default while non-realistic behavior remains unchanged.",
+    "Review the chosen hardware RT/Lumen CVars for obvious mistakes or unsupported assumptions, using local project/engine config context where possible.",
+    "Review the runtime console variable readback logic and the spotlight ray-traced shadow method/property probing for false positives, bad argument types, or possible crashes.",
+    "Review tests for meaningful coverage and any brittle assumptions.",
+    "Do not edit files."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/flashlight_profiles.py",
+      "tests/test_orbit_collection_validation.py",
+      ".control-tower/packets/inbox/builder-42945478-167e-4f31-b79d-e6c21bae79f0-result.json"
+    ],
+    "artifacts": [
+      "Realistic live flashlight mode now requests hardware ray tracing by default via launch INI and runtime console commands, with --disable-hardware-ray-tracing as an opt-out.",
+      "Flashlight live mode now logs hardware RT requested settings separately from runtime command/readback state and attempts ray-traced spotlight shadow intent when hardware RT is requested."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-42945478-167e-4f31-b79d-e6c21bae79f0-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket with findings ordered by severity, approval/blocker status, and any exact remediation recommendations."
+  ],
+  "definition_of_done": [
+    "Tower can tell the user whether the RT changes are safe enough for manual runtime testing or need Builder fixes first."
+  ],
+  "memory_context_refs": [
+    ".control-tower/memory/l0.md",
+    ".control-tower/memory/l1.md",
+    ".control-tower/packets/inbox/builder-42945478-167e-4f31-b79d-e6c21bae79f0-result.json"
+  ],
+  "doc_context_refs": [
+    ".control-tower/docs/state/current-status.md"
+  ],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-42945478-167e-4f31-b79d-e6c21bae79f0-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

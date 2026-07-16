@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "8d6f3e64-2bcc-478b-aaee-3cc8c799b51f",
+  "trace_id": "e95afac8-2e53-4376-ae57-502b3390969b",
+  "parent_packet_id": null,
+  "created_at": "2026-06-25T19:06:01Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "documentation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Record Infinigen import live validation",
+  "objective": "Update operational memory/status to record that the user ran the Infinigen FBX export/import workflow and the Unreal editor import completed cleanly, validating assets under /Game/SPEAR/Scenes/infinigen_indoors_0000.",
+  "instructions": [
+    "Update only operational Tower state/docs as needed; durable product docs already describe the workflow.",
+    "Record that the user ran both export and import commands and the import log showed AssetCheck validation for imported meshes and /Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000 followed by QUIT_EDITOR and run_editor_script.py Done.",
+    "Record next best action as visual inspection/opening or cooking the new map; do not mark standalone runtime/cook validation complete."
+  ],
+  "constraints": [
+    "Do not modify product source code.",
+    "Do not perform Git commits or Git operations."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Updated operational status/memory if needed."
+  ],
+  "definition_of_done": [
+    "Current status clearly distinguishes editor import success from pending visual/cook/runtime validation."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

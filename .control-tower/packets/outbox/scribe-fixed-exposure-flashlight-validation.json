@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "ab450bac-24f2-4073-99e1-4f623abdb629",
+  "trace_id": "b9c5745b-8dc5-4f80-9b69-dbcda3110430",
+  "parent_packet_id": "53b76346-d919-4eb0-94fb-1a2035883c30",
+  "created_at": "2026-07-01T16:21:01Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "docs",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Document fixed exposure flashlight validation",
+  "objective": "Record the new fixed-exposure flashlight validation behavior and current next action in project docs/state memory.",
+  "instructions": [
+    "Do not modify product source code.",
+    "Update operational state to note that flashlight run.py and run_orbit_collection.py now disable auto exposure by default via renderer INI overrides, with --enable-auto-exposure as the opt-out.",
+    "If durable docs need a small alignment edit, keep it focused on the active illumination validation workflow and the reason scene-light scaling can look unchanged under eye adaptation.",
+    "Record the next live validation action: compare cafeteria_500sqft_v2 with --scene-light-intensity-scale 0.2, 0.1, and 0.0 at fixed exposure."
+  ],
+  "constraints": [
+    "No Git operations and no commits."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/README.md",
+      "docs/importing_and_exporting_assets.md",
+      ".control-tower/docs/state/current-status.md",
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [
+      "Flashlight validation entry points now default to fixed exposure with --disable-auto-exposure, implemented through renderer INI launch overrides r.DefaultFeature.AutoExposure=False and r.EyeAdaptationQuality=0. Use --enable-auto-exposure to restore adaptive exposure."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-d80516e0-7260-4007-afc8-aac1250c8341-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket summarizing docs/state updates and any changed files."
+  ],
+  "definition_of_done": [
+    "Current status accurately reflects the fixed-exposure behavior and validation commands."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-d80516e0-7260-4007-afc8-aac1250c8341-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-d80516e0-7260-4007-afc8-aac1250c8341-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

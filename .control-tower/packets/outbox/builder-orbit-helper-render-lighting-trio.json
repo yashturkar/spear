@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "073aae52-6920-4bb0-b0bb-143e18dedb82",
+  "trace_id": "fedcc8ec-0024-417e-85ed-7dc3ff68cb02",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T17:50:47Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Make orbit helper render active illumination trio",
+  "objective": "Update the orbit workflow helper so one render command produces exactly the three requested lighting conditions: scene lighting with no co-located light, no scene lighting with co-located light, and scene lighting with co-located light.",
+  "instructions": [
+    "User requested: 'At each render I want - scene lighting with no co-located, no scene lighting with co-located and scene-lighting with co-located.'",
+    "Do not commit or push.",
+    "Preserve the existing teleop helper behavior.",
+    "Update examples/flashlight/run_orbit_workflow.sh so the default render workflow produces three clearly named output directories/videos: scene_on_flashlight_off, scene_off_flashlight_on, and scene_on_flashlight_on, or equivalent unambiguous names.",
+    "Because scene-light intensity scale is launch-time state, implement render as two run_orbit_collection.py render invocations if needed: one with scene-light scale set to the configured value for scene-on outputs, and one with scene-light scale 0.0 or --disable-scene-lights for scene-off/co-located output.",
+    "Keep fixed exposure explicit with --disable-auto-exposure for all render invocations.",
+    "Keep user override for scene-on scale via --scene-light-intensity-scale or SPEAR_SCENE_LIGHT_INTENSITY_SCALE; scene-off should remain fully off independent of that configured scene-on scale.",
+    "Use temporary light-settings JSON files if simpler, but keep checked-in JSON/docs aligned. Avoid requiring users to hand-write JSON.",
+    "Update examples/flashlight/README.md and docs/running_our_example_applications.md to explain the three-condition render output and commands.",
+    "Add/update tests where lightweight and relevant, especially validation of checked-in JSON if changed. Run shell syntax checks, helper --help checks in spear-env, JSON validation, and existing orbit validation tests."
+  ],
+  "constraints": [
+    "No Git operations and no commits."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "ResultPacket with changed files, exact commands, output paths, tests run, and any limitations."
+  ],
+  "definition_of_done": [
+    "After saving an orbit JSON, Running: python examples/flashlight/run_orbit_collection.py --mode render --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 --movement-speed 600 --disable-auto-exposure --scene-light-intensity-scale 0.2 --intensity 1500 --attenuation-radius 450 --inner-cone-angle 8 --outer-cone-angle 20 --indirect-lighting-intensity 0 --orbit-spec-file examples/flashlight/orbit_spec.json --light-settings-file examples/flashlight/orbit_light_settings.json --output-dir examples/flashlight/orbit_collection_output produces the three requested lighting-condition videos without manual JSON editing."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "6d1950ef-32b6-470c-80c2-8427e53efe28",
+  "trace_id": "d62b6ccc-9d62-4155-a685-44233f58ab9f",
+  "parent_packet_id": null,
+  "created_at": "2026-07-08T17:49:04Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Review RT unsupported crash repair",
+  "objective": "Review Builder's repair for the user-reported realistic live cafeteria crash on Linux Vulkan SM5. Confirm the run.py live path only applies ray-traced spotlight shadow intent when hardware RT runtime readback is confirmed true, so unsupported/mismatched RT readback skips safely. Confirm flashlight_profiles.py no longer sends string/enum candidates such as Enabled through SPEAR reflected method/property calls. Check tests added for unsupported RT, false readback, confirmed readback, and bool-only candidate strategy. Rerun python -m unittest tests.test_orbit_collection_validation and py_compile for changed files. Return whether user can rerun the same command and what to expect about hardware RT on VULKAN_SM5.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/flashlight_profiles.py",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-2a10db17-7c8c-4460-84c0-48317ce6afea-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Pass/block review result for rerunning realistic live cafeteria after RT unsupported crash."
+  ],
+  "definition_of_done": [
+    "No blocker remains for retrying the user command, or any blocker is explicitly reported with file/line evidence."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

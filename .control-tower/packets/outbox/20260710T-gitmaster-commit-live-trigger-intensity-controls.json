@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "75794954-5389-49ce-b414-5fbe067cec1f",
+  "trace_id": "356f9cdd-5add-417f-baa8-913798f91e3f",
+  "parent_packet_id": "6d064b56-fa6b-44b7-a544-06ed5887cd25",
+  "created_at": "2026-07-10T19:23:04Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git-commit",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Commit live trigger flashlight intensity controls",
+  "objective": "Commit the inspected live flashlight trigger intensity feature changes cleanly, without staging unrelated Control Tower operational artifacts or generated scene/session files.",
+  "instructions": [
+    "Inspect git status and diffs before staging.",
+    "Stage and commit only the live trigger flashlight intensity feature files: examples/flashlight/run.py, tests/test_orbit_collection_validation.py, docs/running_our_example_applications.md, plus the Inspector/Builder result packets only if project convention requires them and they are already present.",
+    "Use a concise commit message such as 'Add live flashlight trigger intensity controls'.",
+    "Do not push.",
+    "Leave Control Tower transient runtime/log/decision-graph files, imported sessions/transcripts/packet backlogs, run logs, and untracked Unreal scene asset directories unstaged."
+  ],
+  "constraints": [
+    "Do not rewrite history or use destructive git commands.",
+    "Do not include generated binaries or oversized package artifacts."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "tests/test_orbit_collection_validation.py",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [
+      "Inspector approved live flashlight trigger intensity controls; no blocking issues found. Non-blocking gap: parser/deadzone boundary tests for new CLI controls are still missing."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-61d80a1d-9cfd-465f-8b16-d4e89083c792-result.json",
+      ".control-tower/packets/inbox/inspector-80c506c6-2027-4d78-a2b7-7f8cebf25ae2-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Commit hash and summary of committed files.",
+    "Remaining git status after commit, with unrelated leftovers reported."
+  ],
+  "definition_of_done": [
+    "Feature changes are committed and no product/docs/test diffs for this feature remain unstaged."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-80c506c6-2027-4d78-a2b7-7f8cebf25ae2-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-80c506c6-2027-4d78-a2b7-7f8cebf25ae2-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "80c506c6-2027-4d78-a2b7-7f8cebf25ae2",
+  "trace_id": "356f9cdd-5add-417f-baa8-913798f91e3f",
+  "parent_packet_id": "b4d85b43-a6ab-4d84-80a8-963d6d97e95a",
+  "created_at": "2026-07-10T18:39:36Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Review live trigger flashlight intensity controls",
+  "objective": "Review Builder's live flashlight trigger intensity controls for runtime correctness, bounds behavior, test coverage, and regression risk.",
+  "instructions": [
+    "Review the new gamepad analog trigger handling and verify left trigger decreases and right trigger increases intensity.",
+    "Check the runtime SetIntensity call shape against existing SPEAR/Unreal usage patterns; flag if it may fail against the real component API.",
+    "Check parsing/default bounds/rate/deadzone behavior for realistic/default profiles.",
+    "Run python -m unittest tests.test_orbit_collection_validation and any cheap syntax/import checks needed."
+  ],
+  "constraints": [
+    "Do not modify files unless a small review fix is clearly needed and in scope.",
+    "Do not perform Git commits or pushes."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "tests/test_orbit_collection_validation.py",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [
+      "Live flashlight teleop now supports bounded analog trigger intensity adjustment on the existing SpotLightComponent via --intensity-adjust-rate, --intensity-min, --intensity-max, and trigger/deadzone flags."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-61d80a1d-9cfd-465f-8b16-d4e89083c792-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Findings first, with file/line references for any issue.",
+    "Verification command summary."
+  ],
+  "definition_of_done": [
+    "Feature is approved or concrete blocking issues are reported."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-61d80a1d-9cfd-465f-8b16-d4e89083c792-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-61d80a1d-9cfd-465f-8b16-d4e89083c792-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

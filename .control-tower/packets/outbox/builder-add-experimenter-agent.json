@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "fbd946fd-80c7-4338-83e3-13cff0124d9a",
+  "trace_id": "560316ac-d3f9-46d6-8ff3-84db35ab7fac",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T14:05:09Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "control-tower-infra",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Add Experimenter Tower subagent",
+  "objective": "Create a new Control Tower subagent named Experimenter for running and monitoring long external processes such as Infinigen generation, SPEAR imports/cooks, and flythrough/video jobs.",
+  "instructions": [
+    "Add an enabled agent id experimenter to .control-tower/state/agent-registry.json with name Experimenter, role process-orchestration, backend codex, workspace-write sandbox, search false, and dangerous bypass enabled if consistent with long-running local process work.",
+    "Create .control-tower/agents/experimenter/prompt.md and policy.yaml following the style of existing agents.",
+    "Experimenter responsibilities: start, run, monitor, and summarize long-running local processes such as Infinigen scripts, Blender/FBX export, Unreal editor imports, SPEAR cooking/packaging, flythrough/image/video generation, and simulator runtime validation helpers.",
+    "Experimenter hard rule: every long-running or user-observable process must be launched in a named tmux session/window that the user can attach to; report the exact tmux attach command.",
+    "Experimenter must monitor status/logs, preserve generated runner scripts/logs under a clearly named run directory, clean up orphaned processes only when they belong to its run, and return a ResultPacket when the process is ready, complete, failed, or blocked.",
+    "Experimenter must not edit product code by default; if a script/config fix is needed, report back to Tower or request Builder unless the packet explicitly authorizes small generated runtime config/runner files.",
+    "Update Tower prompt/default routing so process execution and monitoring requests route to Experimenter, while Builder remains product code/tests/refactors and Scribe remains docs/memory.",
+    "Mention that Tower can delegate to Experimenter exactly like built-in agents using tower-run create-packet experimenter and tower-run delegate experimenter."
+  ],
+  "constraints": [
+    "Do not perform Git commits or pushes.",
+    "Keep changes scoped to .control-tower agent config/prompts/policies and concise docs/preferences if needed; no product source edits."
+  ],
+  "inputs": {
+    "files": [
+      ".control-tower/state/agent-registry.json",
+      ".control-tower/agents/tower/prompt.md",
+      ".control-tower/agents/builder/prompt.md",
+      ".control-tower/agents/scribe/prompt.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "New Experimenter agent files and registry entry.",
+    "Tower routing updated to include Experimenter.",
+    "ResultPacket listing exact files changed and any follow-up docs/memory needs."
+  ],
+  "definition_of_done": [
+    "tower-run can create a packet for experimenter without registry errors.",
+    "Experimenter prompt clearly enforces tmux for long-running processes and ResultPacket handoff semantics."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 600,
+    "hard_seconds": 1200
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {}
+}

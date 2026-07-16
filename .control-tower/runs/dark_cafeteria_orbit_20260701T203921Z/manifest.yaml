@@ -1,0 +1,11 @@
+schema_version: 1.0.0
+run_dir: /home/yashturkar/Workspace/spear/.control-tower/runs/dark_cafeteria_orbit_20260701T203921Z
+started_utc: 2026-07-01T20:42:48Z
+spear_repo: /home/yashturkar/Workspace/spear
+unreal_engine_dir: /home/yashturkar/Linux_Unreal_Engine_5.5.4
+source_map_path: /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2
+target_map_path: /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark
+validation_output_dir: /home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_validation_dark_map
+tmux_session: spear_dark_cafeteria_orbit_20260701T203921Z
+tmux_window: run
+attach_command: tmux attach -t spear_dark_cafeteria_orbit_20260701T203921Z

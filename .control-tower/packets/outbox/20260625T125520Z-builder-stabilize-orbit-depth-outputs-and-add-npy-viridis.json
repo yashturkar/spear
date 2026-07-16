@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "c4134bfe-fdc9-48af-b35f-411b42eea9eb",
+  "trace_id": "670cccf2-f2ee-403f-b392-a31de7916c12",
+  "parent_packet_id": null,
+  "created_at": "2026-06-25T12:55:20Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Stabilize orbit depth outputs and add npy viridis",
+  "objective": "Investigate inconsistent/flickering depth output in examples/flashlight orbit render frames/videos, then update the render workflow to save raw depth .npy files and stable viridis depth PNGs. The current depth visualization sometimes becomes all black because per-frame visualization appears inconsistent; fix the visualization path so depth frames/videos are stable across an orbit.",
+  "instructions": [
+    "Inspect examples/flashlight/run_orbit_collection.py and any existing depth visualization patterns in examples/flashlight or nearby examples.",
+    "Investigate why rendered depth PNG/video flickers or becomes black. Focus on per-frame depth normalization, invalid/non-finite depth handling, channel shape/dtype assumptions, and OpenCV write/video expectations.",
+    "Add raw metric depth .npy output for every frame under each setting output, using a clear directory name such as frames/depth_meters_npy or frames/depth_meters.",
+    "Add viridis-colored depth PNG output for every frame under each setting output, using a clear directory name such as frames/depth_meters_viridis. Prefer a stable normalization across the whole rendered sequence for each light setting, or another defensible non-flickering normalization; document the chosen behavior in the result.",
+    "Update MP4 output so the depth visualization video uses the stable viridis PNGs, or add a separate viridis MP4 if preserving the old name is safer. Keep RGB output unchanged.",
+    "Update README/docs only where needed for user-facing output paths.",
+    "Add or update focused non-simulator tests for depth visualization behavior and output directory/video file naming if practical.",
+    "Run focused non-simulator validation. Do not require live SPEAR simulator."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Root cause analysis for flicker/all-black depth output.",
+    "Files changed and new output paths.",
+    "Validation commands and results."
+  ],
+  "definition_of_done": [
+    "Render workflow writes raw depth .npy frames and stable viridis depth PNG frames for each light setting.",
+    "Depth video output uses stable depth visualization frames or a new clearly named viridis video.",
+    "Focused non-simulator validation passes."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "2a10db17-7c8c-4460-84c0-48317ce6afea",
+  "trace_id": "974de65b-6628-4d23-ba83-961ccefd16ed",
+  "parent_packet_id": null,
+  "created_at": "2026-07-08T17:45:06Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Fix realistic live RT unsupported crash",
+  "objective": "Fix the crash shown in the user log from running examples/flashlight/run.py realistic live cafeteria with hardware RT requested on Linux Vulkan SM5. The log shows Unreal starts with Platform=VULKAN_SM5, 'Ray tracing is disabled. Reason: not supported by current RHI', then later accepts the RT console commands textually but crashes after 'Scaled scene light components' with Assertion 'success' failed in UnrealUtils::setPropertyValueFromString during UnrealService callFunction. Root cause is likely apply_spot_light_ray_traced_shadow_intent probing reflected SetCastRaytracedShadow(s) or properties with string/enum candidates when RT is unsupported or when SPEAR cannot parse the candidate type. Repair run.py/flashlight_profiles.py so the live path never calls ray-traced shadow intent unless hardware RT runtime readback confirms r.RayTracing.Enable and related CVars are active, and make the shadow intent helper fail-safe against SPEAR reflected parsing crashes by avoiding string enum candidates through reflected method calls unless exact local Unreal API evidence supports them. Prefer a conservative no-op with clear logged state over risky probing. Add regression tests for RT readback unsupported/confirmed false causing no ray-traced shadow intent call, and for the helper not attempting string values on a bool/reflected fake that would represent the crashing path. Preserve the --disable-hardware-ray-tracing fallback and realistic Lumen/non-RT behavior. Rerun unit tests and py_compile.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/flashlight_profiles.py",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Crash-safe realistic live RT behavior on unsupported Vulkan SM5 and tests."
+  ],
+  "definition_of_done": [
+    "The user can rerun the same command without the ray-traced shadow intent crash; RT unsupported is logged as unsupported/mismatched instead of crashing; unit tests and py_compile pass."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

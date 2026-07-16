@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "7bca30ed-2f42-42c1-b891-2f5d9d963363",
+  "trace_id": "97ef4b54-dcbb-41eb-b25d-9c95f5949be6",
+  "parent_packet_id": "30da224c-50b9-4d46-aff4-7db2264ffb80",
+  "created_at": "2026-07-01T19:32:35Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Fix orbit scene-off flicker from inspected frames",
+  "objective": "Fix the verified PNG-level flicker and scene-off brightness in orbit collection renders",
+  "instructions": [
+    "Inspector directly inspected examples/flashlight/orbit_collection_output_validation and found: (1) scene_off_flashlight_on frame_0000 mean luma 20.95, frame_0001 127.07, frame_0002 134.47, so the MP4 flicker is present in PNG frames; (2) raw depth .npy and depth viridis are exactly equal across all three lighting conditions, ruling out camera/path jitter; (3) after warm-up, scene_off_flashlight_on remains broadly lit, likely from baked/static/environment lighting or another source not covered by ULightComponentBase disabling; (4) metadata reports always_persist_rendering_state_disabled=false for rgb/depth components in all outputs, so that setter did not take effect. Implement a focused repair in examples/flashlight/run_orbit_collection.py and tests: add no-write warmup/discard captures after camera sensor setup and after light/scene state changes so unstable initial captures are not written as frame_0000; make deterministic capture state setting robust and truthful, trying Unreal Python property names/methods needed for bAlwaysPersistRenderingState and verifying/readback in metadata; add a scene_off_flashlight_off diagnostic/control path or validation helper so we can tell if scene-off still has baked/environment illumination with flashlight disabled; strengthen scene-off disabling for available non-ULight/environment contributors if feasible through existing SPEAR/Unreal APIs without broad architecture changes. Keep user-facing workflow simple. Do not commit."
+  ],
+  "constraints": [
+    "Do not commit. Do not push. Keep changes scoped to orbit collection/render QA and tests/docs if needed. Do not modify generated frame outputs except optional new diagnostic artifacts under ignored output paths if needed for validation."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/orbit_light_settings.json",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md",
+      "/tmp/orbit_inspection/stats.json",
+      "/tmp/orbit_inspection/rgb_contact_sheet.png",
+      "/tmp/orbit_inspection/scene_off_top_jumps.png"
+    ],
+    "artifacts": [
+      "scene_off_flashlight_on orbit validation on 2026-07-01 showed PNG-level flicker from initial unstable frames plus residual broad scene illumination likely caused by baked/static/environment lighting not disabled by runtime ULightComponentBase zeroing."
+    ],
+    "references": [
+      "/tmp/orbit_inspection/stats.json",
+      "/tmp/orbit_inspection/rgb_contact_sheet.png",
+      "/tmp/orbit_inspection/scene_off_top_jumps.png",
+      ".control-tower/packets/inbox/inspector-56a1f8c9-d4c5-4993-a655-3deb67c56b35-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Builder ResultPacket with changed files, test/validation results, and exact command for user to rerun the fixed render."
+  ],
+  "definition_of_done": [
+    "Frame_0000 should no longer be an unstable first capture after render group setup; metadata should no longer falsely claim persistent render state was disabled when it was not; scene-off diagnostics should distinguish runtime light leakage from baked/environment illumination; tests cover the new behavior."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-56a1f8c9-d4c5-4993-a655-3deb67c56b35-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-56a1f8c9-d4c5-4993-a655-3deb67c56b35-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

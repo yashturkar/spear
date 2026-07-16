@@ -1,0 +1,13 @@
+{
+  "run_id": "full_ledger_linux_package_20260710T175718Z",
+  "task_packet_id": "fe03b43c-4517-48ba-89b5-ce17760152dc",
+  "trace_id": "356f9cdd-5add-417f-baa8-913798f91e3f",
+  "tmux_session": "full_ledger_pkg_175718",
+  "tmux_window": "cook",
+  "attach_command": "tmux attach -t full_ledger_pkg_175718",
+  "repo": "/home/yashturkar/Workspace/spear",
+  "run_dir": "/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z",
+  "unreal_engine_dir": "/home/yashturkar/Linux_Unreal_Engine_5.5.4",
+  "archive_pak": "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+  "staged_pak": "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak"
+}

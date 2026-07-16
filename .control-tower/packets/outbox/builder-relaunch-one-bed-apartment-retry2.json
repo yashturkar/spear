@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "34f4ed12-223c-475f-baaf-360086e5899a",
+  "trace_id": "52d794c8-af96-4aff-8e35-6f63ac8de97c",
+  "parent_packet_id": null,
+  "created_at": "2026-06-26T16:41:20Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Relaunch one_bed_apartment import retry using script file",
+  "objective": "Relaunch the one_bed_apartment Infinigen-to-SpearSim retry workflow in tmux after the prior retry runner exited before export due to shell/heredoc quoting errors. Use a simple temporary script file and verify export actually starts.",
+  "instructions": [
+    "Do not edit product code and do not perform Git operations.",
+    "The existing tmux session spear_one_bed_apartment_import_retry contains failed logs. Start a fresh detached tmux session named spear_one_bed_apartment_import_retry2.",
+    "Write a temporary runner script outside the repo, e.g. under /tmp or the Infinigen outputs run directory, then run that script inside tmux. Avoid complex nested heredocs and avoid using read-only shell variable names such as status.",
+    "Runner must start at FBX export resolution 512 from /home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment/coarse/scene.blend, import to /Game/SPEAR/Scenes/one_bed_apartment/Meshes and /Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment with replacement flags, then cook the target map if import succeeds.",
+    "If the 512 import fails with exit 137, killed, OOM, or SIGKILL symptoms, retry once with a fresh 256 export directory and import that. Keep logs per step under /home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment_import_retry2_<timestamp>/logs.",
+    "Use direct conda env python paths where possible: /home/yashturkar/miniconda3/envs/infinigen/bin/python for Infinigen export and /home/yashturkar/miniconda3/envs/spear-env/bin/python for SPEAR wrapper scripts.",
+    "After dispatch, verify tmux capture-pane shows the export step started or the first command is actively running; include attach command, run root, and status in the ResultPacket."
+  ],
+  "constraints": [
+    "No commits, no pushes, no PRs.",
+    "Do not ask the user to run commands; run them in tmux."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "tmux session spear_one_bed_apartment_import_retry2 running a real retry workflow, not stuck in heredoc or exited before export.",
+    "ResultPacket with attach command, target map, run root/log directory, and current state."
+  ],
+  "definition_of_done": [
+    "tmux session exists and pane is active or completed with clear final status; if active, pane/logs show export/import/cook started."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

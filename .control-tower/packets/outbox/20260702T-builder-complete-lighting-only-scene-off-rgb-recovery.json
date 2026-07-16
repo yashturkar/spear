@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "9c9b9feb-82e8-49d1-a326-269734eb560f",
+  "trace_id": "43b97d9b-05e6-4fb4-bae4-5c7055665f79",
+  "parent_packet_id": null,
+  "created_at": "2026-07-02T19:19:28Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Complete lighting-only scene-off RGB recovery patch",
+  "objective": "Recover from the abrupt/stalled prior session by completing the narrow scene-off orbit RGB fix: scene-off render groups must use DefaultSceneRoot.lighting_only_post_process_input_2_ for rgb output, scene-on groups must keep DefaultSceneRoot.final_tone_curve_hdr_, RGB visualization and metadata must be correct, and focused tests must pass. No Git commit.",
+  "instructions": [
+    "Start by inspecting the current worktree for partial changes left by the killed Builder/Scout chain; preserve valid partial work and complete only the missing pieces.",
+    "In examples/flashlight/run_orbit_collection.py, ensure scene-on capture descriptors use DefaultSceneRoot.final_tone_curve_hdr_ with capture_profile final_tone_curve_hdr, and scene-off/disable-scene-lights descriptors use DefaultSceneRoot.lighting_only_post_process_input_2_ with capture_profile lighting_only_post_process_input_2.",
+    "Use the existing BP_CameraSensor evidence from examples/render_image_hypersim/run.py and editor/create_asset_bp_camera_sensor.py: lighting_only_post_process_input_2_ is FLOAT16 RGBA using PPM_PostProcessInput2 and lighting_only show flags; hypersim visualization clips channels [0,1,2] to 0..1.",
+    "Make visualize_rgb handle both profiles explicitly: preserve current final_tone_curve_hdr BGRA uint8 behavior, and for lighting_only float/HDR data clip channels [0,1,2] to 0..1 then scale to uint8/BGR as needed for cv2.imwrite/video. Do not change scene-on output behavior.",
+    "Record metadata per setting for the rgb capture descriptor: component long_name, capture_profile, and whether scene_off_lighting_only_rgb_requested was true. The metadata should make clear when the scene-off lighting-only RGB path was requested/used.",
+    "Update focused tests in tests/test_orbit_collection_validation.py for descriptor selection, setup_camera_sensor component lookup, visualize_rgb conversion for lighting-only floats, final_tone_curve behavior preservation, and metadata fields. Use the existing fake classes.",
+    "Run /home/yashturkar/miniconda3/envs/spear-env/bin/python -m unittest tests.test_orbit_collection_validation -v. No commit, no push.",
+    "If the current BP camera sensor cannot provide the lighting-only component at runtime, return blocked with the exact component/path and required asset/plugin change."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "examples/render_image_hypersim/run.py",
+      "editor/create_asset_bp_camera_sensor.py"
+    ],
+    "artifacts": [
+      "Stalled Scout delegation 019f242c-cf88-7da1-8933-9b185dc8074f was interrupted with no ResultPacket after confirming relevant code evidence."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/experimenter-3a1b6244-2dc4-43b1-a870-bbb99325d510-result.json",
+      ".control-tower/packets/outbox/20260702T-scout-minimal-lighting-only-rgb-recipe.json"
+    ]
+  },
+  "expected_outputs": [
+    "Code/test changes or precise blocked ResultPacket."
+  ],
+  "definition_of_done": [
+    "Scene-off metadata and setup use lighting_only_post_process_input_2_ for rgb; scene-on uses final_tone_curve_hdr_.",
+    "Focused unittest target passes.",
+    "No Git commit or push."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 2400
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "d37fca7e-42c4-4174-b1be-39c66b9590d2",
+  "trace_id": "fab4b3ec-4b69-4e4a-a1ca-1b7e73fb859d",
+  "parent_packet_id": "8f482da7-9a80-45c4-9ff7-3836a217204d",
+  "created_at": "2026-07-01T19:03:35Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Review scene-off orbit deterministic render fix",
+  "objective": "Review Builder's fix for scene_off_flashlight_on flicker/scene-on appearance, focusing on correctness of scene-light disabling, deterministic render config, capture component changes, docs, and tests.",
+  "instructions": [
+    "Review the Builder result and changed files for correctness and regression risk.",
+    "Check that scene-off renders still use a separate render group, now zero scene light direct/indirect intensity as intended, and do not accidentally disable the spawned co-located flashlight.",
+    "Check deterministic render config is only applied for render mode when render history is disabled, and --enable-render-history remains a valid opt-out.",
+    "Check capture component post-process override handling is plausible for Unreal proxy objects and does not break dict/test use.",
+    "Run lightweight validation available in the environment; do not run long live simulator jobs.",
+    "Do not modify files and do not commit."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [
+      "For flashlight orbit collection, default render-history-disabled renders should disable temporal/Lumen capture paths and scene-off should zero light intensities, not only hide components."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-101ca80b-d505-4efc-b415-a84b712befdc-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Focused review result with findings or approval"
+  ],
+  "definition_of_done": [
+    "Reports any correctness/regression issues with file/line references.",
+    "Confirms whether the user should run the live validation command."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-101ca80b-d505-4efc-b415-a84b712befdc-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-101ca80b-d505-4efc-b415-a84b712befdc-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

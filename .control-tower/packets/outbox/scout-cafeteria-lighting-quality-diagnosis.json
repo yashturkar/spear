@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "84ee304f-3fcf-4de1-bf11-1448b2ec8061",
+  "trace_id": "1f842644-8d14-4f05-ad54-4caa6860b179",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T15:00:12Z",
+  "from_agent": "tower",
+  "to_agent": "scout",
+  "task_type": "research",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Diagnose cafeteria scene and co-located light quality issues",
+  "objective": "Investigate the reported cafeteria quality failures and produce a concrete remediation plan for a revised SPEAR-ready world and flashlight lighting behavior.",
+  "instructions": [
+    "User feedback: current 500 sqft cafeteria has no windows, no indoor lights, chairs face the wrong way, looks too cartoony, and the co-located light causes the entire room to take on the tint of the object directly in front of the camera.",
+    "Inspect the current cafeteria provenance, generator/import artifacts, and relevant flashlight/light control code or docs enough to separate scene-generation issues from renderer/light-transport issues.",
+    "Identify likely causes for the room-wide color tint from the co-located light, including Unreal GI/Lumen/indirect light behavior, material albedo/saturation, and flashlight component settings. Recommend the smallest reliable fix or experiment.",
+    "Recommend a concrete next build plan for a better cafeteria: windows, indoor fixtures/lights, more realistic materials, correct chair orientation, less cartoony proportions/colors, and validation steps."
+  ],
+  "constraints": [
+    "Do not modify files.",
+    "Do not run long-running Blender/Unreal/Infinigen jobs; this is investigation and planning only."
+  ],
+  "inputs": {
+    "files": [
+      "docs/world_ledger.md",
+      ".control-tower/packets/inbox/experimenter-build-cafeteria-500sqft-result.json"
+    ],
+    "artifacts": [],
+    "references": [
+      "/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft/scripts/create_cafeteria_500sqft.py",
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py"
+    ]
+  },
+  "expected_outputs": [
+    "Root-cause analysis separating scene design/import issues from runtime lighting issues.",
+    "Specific build/validation plan with commands or files for Experimenter/Builder to use next."
+  ],
+  "definition_of_done": [
+    "Tower can hand off a precise implementation packet to Experimenter and/or Builder without further ambiguity."
+  ],
+  "memory_context_refs": [
+    ".control-tower/docs/state/current-status.md"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 600,
+    "hard_seconds": 1200
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

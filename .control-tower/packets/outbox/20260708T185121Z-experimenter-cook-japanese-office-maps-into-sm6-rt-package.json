@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "333857e3-87a4-4b34-9cf0-219a5f2dea42",
+  "trace_id": "6aa85be2-55a3-4a3e-83f8-deef02a472dd",
+  "parent_packet_id": null,
+  "created_at": "2026-07-08T18:51:21Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "process",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Cook Japanese office maps into SM6 RT package",
+  "objective": "Cook/package the Japanese office and Japanese office dark maps into the current Linux Standalone-Development package using the existing Vulkan SM6/hardware RT project configuration, so examples/flashlight/run.py --map japanese_office and --map japanese_office_dark can load without map-not-found errors.",
+  "instructions": [
+    "Use the existing Unreal Engine path /home/yashturkar/Linux_Unreal_Engine_5.5.4 and conda environment spear-env, matching the recent successful cafeteria cook workflow.",
+    "Cook both /Game/JapaneseOffice/Maps/Demonstration and /Game/JapaneseOffice/Maps/Demonstration_Dark.",
+    "Use clean archive/stage/package/pak output so Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak is refreshed.",
+    "After cooking, verify the pak listing contains both Japanese office map entries and the VULKAN_SM6 global shader cache.",
+    "Do not run live runtime validation unless a display-capable session is available; report if DISPLAY/WAYLAND_DISPLAY are absent."
+  ],
+  "constraints": [
+    "Do not modify product source code."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Cook/package status and exact user run commands for both Japanese office aliases.",
+    "Pak verification for Demonstration, Demonstration_Dark, and GlobalShaderCache-VULKAN_SM6.bin."
+  ],
+  "definition_of_done": [
+    "Both Japanese office maps are present in the refreshed standalone package or a clear blocker is reported."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 2400
+  },
+  "requires_review": true,
+  "allow_partial": true,
+  "metadata": {}
+}

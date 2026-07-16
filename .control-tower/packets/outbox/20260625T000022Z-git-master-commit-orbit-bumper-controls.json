@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "fa173907-e597-45fd-ad35-d6e343640374",
+  "trace_id": "f3047e18-9f30-4c38-9357-122fd4d938e7",
+  "parent_packet_id": "fe97f0b6-8f50-4da6-98fb-8e8109080f8a",
+  "created_at": "2026-06-25T00:00:22Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Commit orbit bumper controls",
+  "objective": "Commit the approved change that switches flashlight orbit collection target selection and orbit preview from face top/bottom buttons to right/left bumpers. Include the minimal Builder policy correction that unblocked examples/docs work, plus relevant Task/Result packets for this workflow. Do not push.",
+  "instructions": [
+    "Inspect git status and the Inspector result before committing.",
+    "Stage the scoped product/docs/test files: examples/flashlight/run_orbit_collection.py, examples/flashlight/README.md, docs/running_our_example_applications.md, tests/test_orbit_collection_validation.py.",
+    "Stage .control-tower/agents/builder/policy.yaml because Scribe corrected Builder policy to allow examples/docs work and this change was required to route the implementation.",
+    "Stage relevant packet records for this workflow only: the blocked Builder result, Scribe policy packet/result, successful Builder packet/result, Inspector packet/result. Avoid unrelated older generated Tower state unless needed for consistency.",
+    "Run git diff --check on the staged scope before committing.",
+    "Use a concise commit message, do not push, and report remaining dirty files separately."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md",
+      "tests/test_orbit_collection_validation.py",
+      ".control-tower/agents/builder/policy.yaml",
+      ".control-tower/packets/outbox/20260624T235447Z-builder-switch-orbit-controls-to-bumpers.json",
+      ".control-tower/packets/inbox/builder-4684c352-2217-43a5-898d-a4bd3138ea7a-result.json",
+      ".control-tower/packets/outbox/20260624T235552Z-scribe-correct-builder-example-path-policy.json",
+      ".control-tower/packets/inbox/scribe-eb5a77ae-bbf3-420c-9144-03e77be9bc80-result.json",
+      ".control-tower/packets/outbox/20260624T235642Z-builder-switch-orbit-controls-to-bumpers.json",
+      ".control-tower/packets/inbox/builder-8985f939-2278-4cb9-b820-6093cb20bb3c-result.json",
+      ".control-tower/packets/outbox/20260624T235838Z-inspector-review-orbit-bumper-control-change.json",
+      ".control-tower/packets/inbox/inspector-da385496-35e0-41af-9fda-b81acc4618b7-result.json"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/inspector-da385496-35e0-41af-9fda-b81acc4618b7-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Commit hash and message.",
+    "Ahead/behind status after commit.",
+    "Remaining dirty/untracked files and what was intentionally excluded."
+  ],
+  "definition_of_done": [
+    "Approved bumper binding change is committed locally.",
+    "No push is performed."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-da385496-35e0-41af-9fda-b81acc4618b7-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-da385496-35e0-41af-9fda-b81acc4618b7-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

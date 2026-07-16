@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "d80516e0-7260-4007-afc8-aac1250c8341",
+  "trace_id": "b9c5745b-8dc5-4f80-9b69-dbcda3110430",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T16:15:00Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Lock exposure for scene-light dimming validation",
+  "objective": "Investigate and fix why the environment looks similarly bright across --scene-light-intensity-scale values by adding launch-time exposure/eye-adaptation control to the flashlight entry points.",
+  "instructions": [
+    "Investigate the likely cause that Unreal auto exposure / eye adaptation keeps perceived brightness similar even when existing scene lights are scaled.",
+    "Add a launch-time CLI control to disable or lock auto exposure for both examples/flashlight/run.py and examples/flashlight/run_orbit_collection.py, using existing config patterns where possible. Prefer conservative names such as --disable-auto-exposure defaulting on for flashlight validation only if safe; otherwise expose explicit --disable-auto-exposure / --enable-auto-exposure flags with a clear default.",
+    "Ensure the scene-light scaling still happens before spawning the co-located flashlight and that the flashlight intensity is not scaled.",
+    "If feasible without launching Unreal, add validation tests for new argument defaults/invalid values and update README with commands comparing --scene-light-intensity-scale under fixed exposure.",
+    "Do not create commits or perform Git operations. Return exact verification commands/results and exact user validation commands."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-667733d3-b1cf-4b3a-b307-745053ced0f3-result.json",
+      ".control-tower/packets/inbox/experimenter-build-cafeteria-500sqft-v2-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Diagnosis, changed files, tests/verification, and commands to validate brightness changes at scene-light scales 0.2, 0.1, and 0.0."
+  ],
+  "definition_of_done": [
+    "The flashlight entry points expose a documented way to prevent exposure adaptation from masking scene-light scale changes, with tests/docs updated and no commit created."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

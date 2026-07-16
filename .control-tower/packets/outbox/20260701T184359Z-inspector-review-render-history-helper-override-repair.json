@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "4e35ecf8-8b90-44f6-bff1-4eba70984991",
+  "trace_id": "d65a335a-8035-4a2b-b3c4-a8ad2168f837",
+  "parent_packet_id": "builder-477dce36-render-history-helper-override-result",
+  "created_at": "2026-07-01T18:43:59Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Review render-history helper override repair",
+  "objective": "Verify the helper/docs/test repair resolves the render-history override conflict without weakening the default progressive-brightness fix.",
+  "instructions": [
+    "Review the Builder result and changed files only for render-history behavior, wrapper command behavior, and tests/docs accuracy.",
+    "Confirm default render history remains disabled through run_orbit_collection.py, and that run_orbit_workflow.sh render -- --enable-render-history no longer conflicts.",
+    "Run or inspect the relevant lightweight validation and unittest if needed.",
+    "Do not modify files and do not commit."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_workflow.sh",
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-477dce36-b534-45f7-8d9d-fd33af1a1744-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Focused review result"
+  ],
+  "definition_of_done": [
+    "Any remaining correctness issues are reported with file/line references.",
+    "If no issues remain, say so clearly and note validation performed."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-477dce36-b534-45f7-8d9d-fd33af1a1744-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-477dce36-b534-45f7-8d9d-fd33af1a1744-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

@@ -1,0 +1,13 @@
+schema_version: "1.0"
+run_id: realistic_live_cafeteria_flashlight_20260707T174220Z
+created_at_utc: "2026-07-07T17:42:20Z"
+objective: "Runtime validate realistic live cafeteria flashlight through startup warmup and initial teleop logs."
+run_dir: "/home/yashturkar/Workspace/spear/.control-tower/runs/realistic_live_cafeteria_flashlight_20260707T174220Z"
+tmux_session: "realistic_live_flashlight_174220"
+tmux_window: "runtime"
+attach_command: "tmux attach -t realistic_live_flashlight_174220"
+runner: "/home/yashturkar/Workspace/spear/.control-tower/runs/realistic_live_cafeteria_flashlight_20260707T174220Z/runner.sh"
+log: "/home/yashturkar/Workspace/spear/.control-tower/runs/realistic_live_cafeteria_flashlight_20260707T174220Z/runtime.log"
+status_file: "/home/yashturkar/Workspace/spear/.control-tower/runs/realistic_live_cafeteria_flashlight_20260707T174220Z/status.txt"
+exit_file: "/home/yashturkar/Workspace/spear/.control-tower/runs/realistic_live_cafeteria_flashlight_20260707T174220Z/exit_status.txt"
+command: "cd /home/yashturkar/Workspace/spear && conda activate spear-env && python examples/flashlight/run.py --map cafeteria_500sqft_v2 --live-lighting-mode realistic --flashlight-profile realistic_live_flashlight --scene-light-intensity-scale 0.0005 --movement-speed 600 --disable-auto-exposure --startup-warmup-seconds 3"

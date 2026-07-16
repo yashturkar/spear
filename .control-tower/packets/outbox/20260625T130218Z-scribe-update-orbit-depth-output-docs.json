@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "06b32012-97ba-4740-a2ed-37b6d225cf17",
+  "trace_id": "670cccf2-f2ee-403f-b392-a31de7916c12",
+  "parent_packet_id": "b1d9e97a-0d90-4b4f-bfcb-053bb80ce87f",
+  "created_at": "2026-06-25T13:02:18Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "docs",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Update orbit depth output docs",
+  "objective": "Repair durable docs drift from the orbit depth stabilization work by updating docs/running_our_example_applications.md to match the new raw .npy, viridis PNG, and depth video outputs.",
+  "instructions": [
+    "Update only docs/running_our_example_applications.md unless a directly related docs reference in the same file requires nearby wording consistency.",
+    "Replace the stale frames/depth_meters_visualization/ folder documentation for orbit render output with frames/rgb/, frames/depth_meters_npy/, and frames/depth_meters_viridis/.",
+    "Document that each setting also writes rgb.mp4, legacy depth_meters_visualization.mp4, and depth_meters_viridis.mp4.",
+    "Mention that .npy depth frames store raw metric depth and viridis PNG/video output uses one finite depth range per light setting for stable colors through the orbit.",
+    "Keep the edit concise and consistent with the existing guide style."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/inspector-71bc0b29-4914-4aee-9287-83929ac9e2ad-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Files changed and concise summary.",
+    "Whether Inspector can re-review after the docs repair."
+  ],
+  "definition_of_done": [
+    "docs/running_our_example_applications.md no longer advertises the removed depth_meters_visualization frame folder for orbit collection output and lists the new outputs accurately."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-71bc0b29-4914-4aee-9287-83929ac9e2ad-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-71bc0b29-4914-4aee-9287-83929ac9e2ad-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "blocked"
+  }
+}

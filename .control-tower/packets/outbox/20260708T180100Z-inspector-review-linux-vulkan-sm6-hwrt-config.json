@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "78aa0108-2945-45ba-9de0-532dbda0c1c5",
+  "trace_id": "9a9aa27a-5a06-4dfb-8ede-425d044ff6a6",
+  "parent_packet_id": "builder-b754fde7-linux-vulkan-sm6-hwrt-result",
+  "created_at": "2026-07-08T18:01:30Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Review Linux Vulkan SM6 hardware RT config change",
+  "objective": "Review Builder's DefaultEngine.ini change for enabling Linux Vulkan SM6 hardware ray tracing. Confirm the LinuxTargetPlatform settings are syntactically and semantically correct for UE 5.5 Linux BuildCookRun, that they should override BaseEngine.ini's SF_VULKAN_SM5 default, and that no unrelated changes or risks were introduced.",
+  "instructions": [
+    "Review as a blocker-focused code/config review. Prioritize whether UE config array syntax with -TargetedRHIs=SF_VULKAN_SM5 and +TargetedRHIs=SF_VULKAN_SM6 is correct in a project DefaultEngine.ini and whether bEnableRayTracing=True belongs in this section.",
+    "Check for accidental placement under another section, duplicate/conflicting Linux target sections, unrelated diffs, or missing newline/format issues.",
+    "Do not recook/package/run Unreal here; Tower will route Experimenter after review."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "cpp/unreal_projects/SpearSim/Config/DefaultEngine.ini"
+    ],
+    "artifacts": [
+      "Linux SPEAR hardware RT validation now requires cpp/unreal_projects/SpearSim/Config/DefaultEngine.ini to override /Script/LinuxTargetPlatform.LinuxTargetSettings with -TargetedRHIs=SF_VULKAN_SM5, +TargetedRHIs=SF_VULKAN_SM6, and bEnableRayTracing=True."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/scout-1de6b0d1-bca7-43e1-b0e9-09dbf9656681-result.json",
+      ".control-tower/packets/inbox/builder-b754fde7-ece2-4611-b333-fd716c32ba74-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Approval or blocker findings with file/line references.",
+    "Recommended Experimenter validation command/signatures if approved."
+  ],
+  "definition_of_done": [
+    "Inspector states whether the config change is approved for clean cook/package validation."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-b754fde7-ece2-4611-b333-fd716c32ba74-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-b754fde7-ece2-4611-b333-fd716c32ba74-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

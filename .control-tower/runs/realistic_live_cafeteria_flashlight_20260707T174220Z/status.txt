@@ -1,0 +1,10 @@
+started_at_utc=2026-07-07T17:43:19Z
+working_dir=/home/yashturkar/Workspace/spear
+tmux_session=realistic_live_flashlight_174220
+tmux_window=runtime
+attach_command=tmux attach -t realistic_live_flashlight_174220
+command=cd /home/yashturkar/Workspace/spear && conda activate spear-env && python examples/flashlight/run.py --map cafeteria_500sqft_v2 --live-lighting-mode realistic --flashlight-profile realistic_live_flashlight --scene-light-intensity-scale 0.0005 --movement-speed 600 --disable-auto-exposure --startup-warmup-seconds 3
+finished_at_utc=2026-07-07T17:43:22Z
+exit_code=1
+status=blocked
+blocker=Unreal standalone crashed during RHI initialization before RPC startup, map initialization, startup warmup, or teleop logs.

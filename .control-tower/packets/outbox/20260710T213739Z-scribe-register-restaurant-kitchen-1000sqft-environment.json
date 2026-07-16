@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "8ab42ce3-4092-4e59-9081-3bd745690d97",
+  "trace_id": "86e1ba46-27c2-400c-bcb1-27845026fede",
+  "parent_packet_id": "experimenter-restaurant-kitchen-1000sqft-20260710T213346Z-result",
+  "created_at": "2026-07-10T21:37:39Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "docs",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Register restaurant_kitchen_1000sqft environment",
+  "objective": "Register the new restaurant_kitchen_1000sqft environment in project ledgers/docs and verify spear-run alias readiness",
+  "instructions": [
+    "Update docs/environment_ledger.json with a restaurant_kitchen_1000sqft entry using existing schema/status conventions. Include cook date/version/path/source/cook artifact details where the ledger supports them.",
+    "Update the relevant environment/world docs so the user can see the new environment among our built environments.",
+    "Verify whether tools/spear-run can launch this ledger-backed alias through map-path fallback. Run: tools/spear-run live restaurant_kitchen_1000sqft --setting realistic-2x --dry-run and report the exact resolved command.",
+    "Do not commit."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak, size 3541042681 bytes",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak, size 3541042681 bytes",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/restaurant_kitchen_1000sqft/",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/manifest.json",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/runner.sh",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/logs/create_scene.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/logs/export_r256.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/logs/import_unreal.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/logs/add_unreal_lights_validate.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/logs/cook_package.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/pak_verification_summary.txt",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/pak_verification_summary.json",
+      "/home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/coarse/scene.blend",
+      "/home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/spear_export_r256/export_scene.blend/export_scene.fbx",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/restaurant_kitchen_1000sqft/Maps/restaurant_kitchen_1000sqft.umap",
+      "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/restaurant_kitchen_1000sqft/Meshes/"
+    ],
+    "artifacts": [
+      "/home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/coarse/scene.blend",
+      "/home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/spear_export_r256/export_scene.blend/export_scene.fbx",
+      ".control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z",
+      "restaurant_kitchen_1000sqft generated/imported/cooked on 2026-07-10; source /home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/coarse, FBX /home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/spear_export_r256/export_scene.blend/export_scene.fbx, map /Game/SPEAR/Scenes/restaurant_kitchen_1000sqft/Maps/restaurant_kitchen_1000sqft, active archive and staged paks verified with .umap/.uexp entries."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/experimenter-3dcb4a76-4498-4237-8aad-92157864fd2a-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Updated docs/ledger entries, dry-run verification result, and any follow-up needed if launcher code changes are required."
+  ],
+  "definition_of_done": [
+    "restaurant_kitchen_1000sqft appears in environment ledger/docs, dry-run command resolves or a clear Builder follow-up is reported, and no commit is created."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/experimenter-3dcb4a76-4498-4237-8aad-92157864fd2a-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/experimenter-3dcb4a76-4498-4237-8aad-92157864fd2a-result.json",
+    "seed_result_agent": "experimenter",
+    "seed_result_status": "success"
+  }
+}

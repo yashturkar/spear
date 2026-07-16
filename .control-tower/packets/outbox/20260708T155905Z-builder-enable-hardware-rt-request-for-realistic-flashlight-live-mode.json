@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "42945478-167e-4f31-b79d-e6c21bae79f0",
+  "trace_id": "892b71ae-3a6b-485d-9249-68a744340f9b",
+  "parent_packet_id": null,
+  "created_at": "2026-07-08T15:59:05Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Enable hardware RT request for realistic flashlight live mode",
+  "objective": "Update the flashlight live teleop workflow so --live-lighting-mode realistic actively requests hardware ray tracing / Lumen hardware ray tracing where the package/RHI supports it, applies ray-traced shadow intent to the spawned spotlight when possible, and logs enough runtime/readback state for the user to verify whether RT actually took during their next simulator run.",
+  "instructions": [
+    "Read the Scout result .control-tower/packets/inbox/scout-63b476db-9744-4726-8f03-968ca6f8cbdb-result.json before editing.",
+    "Inspect examples/flashlight/run.py, examples/flashlight/flashlight_profiles.py, examples/flashlight/flashlight_profiles.json, and tests/test_orbit_collection_validation.py for existing profile/runtime-render patterns.",
+    "In realistic live mode, request hardware ray tracing explicitly in both launch INI/config and runtime console-command application. At minimum this should include r.RayTracing.Enable=1 alongside the existing Lumen GI/reflection settings; add the relevant Lumen hardware tracing CVars only after verifying names from local engine/project context or stable Unreal docs/comments.",
+    "Add a CLI escape hatch such as --disable-hardware-ray-tracing or equivalent so the user can fall back if their package/RHI rejects RT. Keep realistic mode defaulting to hardware RT requested.",
+    "Attempt to set ray-traced shadow intent on the spawned ASpotLight component when hardware RT is requested, using robust reflected-property/method probing in the existing helper style. Do not assume one API name; report applied/failed state in logs.",
+    "Add startup/runtime logging that clearly distinguishes requested RT settings from confirmed/applied readback. The logs should help the user identify cases like Vulkan SM5 / RT unavailable even if commands were requested.",
+    "Keep default non-realistic mode behavior unchanged.",
+    "Update or add focused unit tests for CLI defaults/overrides, config string composition, and profile/runtime state where feasible without launching Unreal.",
+    "Do not run Unreal, cook, package, or any long process. User will run the simulator manually.",
+    "Return the exact command the user should run after the change, including the hardware RT default and how to disable it if needed."
+  ],
+  "constraints": [
+    "No commits or git operations.",
+    "Do not edit docs unless a tiny README/running-example note is necessary to keep the user command accurate; prefer reporting the command in the ResultPacket."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/flashlight_profiles.py",
+      "examples/flashlight/flashlight_profiles.json",
+      "tests/test_orbit_collection_validation.py",
+      ".control-tower/packets/inbox/scout-63b476db-9744-4726-8f03-968ca6f8cbdb-result.json"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "ResultPacket summarizing code/tests changed, validation commands run, and the exact user test command."
+  ],
+  "definition_of_done": [
+    "Realistic live mode requests hardware RT by default with a disable flag, spotlight RT shadow intent is attempted/logged, tests pass, and user has a command to run."
+  ],
+  "memory_context_refs": [
+    ".control-tower/memory/l0.md",
+    ".control-tower/memory/l1.md"
+  ],
+  "doc_context_refs": [
+    ".control-tower/docs/state/current-status.md"
+  ],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

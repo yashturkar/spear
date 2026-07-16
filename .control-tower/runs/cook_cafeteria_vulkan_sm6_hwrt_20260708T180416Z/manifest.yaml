@@ -1,0 +1,23 @@
+schema_version: "1.0.0"
+run_id: cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z
+created_at: "2026-07-08T18:04:16Z"
+task_packet_id: "448cdce5-4854-4abe-b410-30a33a6f48ec"
+trace_id: "9a9aa27a-5a06-4dfb-8ede-425d044ff6a6"
+parent_packet_id: "inspector-78aa0108-linux-vulkan-sm6-hwrt-result"
+agent: experimenter
+objective: "Clean cook/package cafeteria SPEAR Linux package with Vulkan SM6 hardware ray tracing config and verify shader platform artifacts."
+tmux_session: cook_cafeteria_sm6_180416
+tmux_window: uat
+attach_command: "tmux attach -t cook_cafeteria_sm6_180416"
+runner: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/runner.sh"
+log: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/cook_package.log"
+status_file: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/status.txt"
+exit_file: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/exit_status.txt"
+pak_list_log: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/pak_list.log"
+shader_signature_log: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/shader_signatures.log"
+runtime_log: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/runtime_validation.log"
+maps:
+  - "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2"
+  - "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark"
+command: "source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate spear-env && python tools/run_uat.py --unreal-engine-dir /home/yashturkar/Linux_Unreal_Engine_5.5.4 --clean-archive-dir --cook-maps /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark -clean -cook -stage -package -archive -pak -skipbuild"
+runtime_command: "VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json python examples/flashlight/run.py --map cafeteria_500sqft_v2 --live-lighting-mode realistic --flashlight-profile realistic_live_flashlight --scene-light-intensity-scale 0.0005 --movement-speed 600 --disable-auto-exposure --startup-warmup-seconds 3"

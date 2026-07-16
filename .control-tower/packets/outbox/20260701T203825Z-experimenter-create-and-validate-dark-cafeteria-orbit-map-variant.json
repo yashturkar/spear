@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "678df951-1a92-4719-a188-bd53be9420b1",
+  "trace_id": "b7050712-7b2a-4f04-9058-a7f7d9cd258a",
+  "parent_packet_id": "scout-2288a598-bright-scene-off-repair-path-result",
+  "created_at": "2026-07-01T20:38:25Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "process-orchestration",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Create and validate dark cafeteria orbit map variant",
+  "objective": "Create a flashlight-validation dark map variant for cafeteria_500sqft_v2 and validate whether it fixes scene_off_flashlight_off brightness. Use Scout's recommendation as the plan. Do not modify product source, tests, docs, or git. You may create run-directory scripts/config/logs under .control-tower/runs only. All Unreal/editor/cook/render processes must run in a named tmux session. Target map path: /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark. Preserve the original cafeteria_500sqft_v2 map/assets. Build the variant by duplicating or reusing the v2 map geometry, then remove/darken non-ULight residual contributors: visible exterior_daylight_context meshes/materials, pale_sky_strip_above_exterior_wall, exterior visible-through-window actors/assets, warm_diffused_led_lens emission, rectangular_led_panel_diffuser_0..3, and warm_wall_sconce_lens_0..1. Set world/precomputed lighting settings where available so the variant has no baked/precomputed lighting. Keep fixture lights movable/dynamic so runtime scene-off disabling can make the map dark. Then cook/package if needed and run orbit validation against the new map using examples/flashlight/run_orbit_workflow.sh render with --map-path pointing at the dark map and output-dir examples/flashlight/orbit_collection_output_validation_dark_map. Compute and report scene_off_flashlight_off median mean luma and key metadata fields. Stop and return blocked if Unreal editor APIs cannot create/save the variant without product-code changes.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [],
+    "artifacts": [
+      "examples/flashlight/orbit_collection_output_validation_console_fix",
+      "For bright scene-off orbit renders on cafeteria_500sqft_v2, repair the asset first: create a no-baked/no-emissive/no-daylight flashlight-validation map variant and require scene_off_flashlight_off median mean luma below 20 before treating scene_off_flashlight_on as flashlight-only. Lower-level USpSceneCaptureComponent2D show-flag/readback support is the fallback if the dark map cannot satisfy that acceptance check."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/scout-2288a598-9653-480c-845c-e874e8ef0832-result.json",
+      ".control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z/manifest.yaml",
+      ".control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z/run_cafeteria_500sqft_v2.sh",
+      ".control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z/scripts/add_unreal_lights_and_validate.py"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket with run_dir, tmux attach command, exact scripts/commands/logs, dark map path, validation output path, luma metrics, metadata verdict, and whether acceptance passed."
+  ],
+  "definition_of_done": [
+    "Either a saved/cooked dark validation map has been created and orbit validation shows scene_off_flashlight_off median mean luma below 20.0, or the packet explains the exact blocker and next Builder handoff. No product source/docs/test changes and no git actions."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/scout-2288a598-9653-480c-845c-e874e8ef0832-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 1800,
+    "hard_seconds": 7200
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/scout-2288a598-9653-480c-845c-e874e8ef0832-result.json",
+    "seed_result_agent": "scout",
+    "seed_result_status": "success"
+  }
+}

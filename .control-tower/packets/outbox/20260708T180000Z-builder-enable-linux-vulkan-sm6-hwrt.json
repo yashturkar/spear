@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "b754fde7-ece2-4611-b333-fd716c32ba74",
+  "trace_id": "9a9aa27a-5a06-4dfb-8ede-425d044ff6a6",
+  "parent_packet_id": "scout-1de6b0d1-linux-vulkan-sm6-hwrt-result",
+  "created_at": "2026-07-08T17:58:52Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Enable Linux Vulkan SM6 target for hardware ray tracing",
+  "objective": "Implement the project configuration change required for hardware ray tracing on Linux SPEAR packages. Current packages are VULKAN_SM5 because DefaultEngine.ini lacks a LinuxTargetPlatform override, so UE disables Vulkan ray tracing before runtime CVars matter. Add the Linux target settings needed to cook and run as SF_VULKAN_SM6.",
+  "instructions": [
+    "Prefer SM6-only for this hardware RT validation path so the package cannot silently fall back to VULKAN_SM5.",
+    "Add the Linux target settings section near the existing WindowsTargetSettings section. Expected setting is TargetedRHIs=SF_VULKAN_SM6; include bEnableRayTracing=True only if the UE 5.5 Linux target settings supports it as config.",
+    "Do not recook, package, run long Unreal jobs, or make Git commits; Tower will route those to Experimenter/Git-master.",
+    "Preserve existing flashlight runtime RT controls and crash-safe unsupported-RT guards unless there is a direct conflict."
+  ],
+  "constraints": [
+    "No engine source/config edits under /home/yashturkar/Linux_Unreal_Engine_5.5.4."
+  ],
+  "inputs": {
+    "files": [
+      "cpp/unreal_projects/SpearSim/Config/DefaultEngine.ini"
+    ],
+    "artifacts": [
+      "Linux SPEAR hardware RT requires the project to target SF_VULKAN_SM6 under /Script/LinuxTargetPlatform.LinuxTargetSettings; current packages were VULKAN_SM5 because DefaultEngine.ini lacked a Linux override and UE BaseEngine.ini defaults Linux to SF_VULKAN_SM5."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/scout-1de6b0d1-bca7-43e1-b0e9-09dbf9656681-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Exact files changed and a concise explanation of why this makes Linux packages target VULKAN_SM6.",
+    "Verification commands/results for static config validation."
+  ],
+  "definition_of_done": [
+    "DefaultEngine.ini has LinuxTargetPlatform settings that target SF_VULKAN_SM6 for Linux packages.",
+    "No unrelated product code, docs, or Git changes are made."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/scout-1de6b0d1-bca7-43e1-b0e9-09dbf9656681-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/scout-1de6b0d1-bca7-43e1-b0e9-09dbf9656681-result.json",
+    "seed_result_agent": "scout",
+    "seed_result_status": "success"
+  }
+}

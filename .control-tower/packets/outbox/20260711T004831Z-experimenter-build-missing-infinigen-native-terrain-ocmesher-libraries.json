@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "14f6c780-5da6-46fd-9c8e-9270312ae549",
+  "trace_id": "232f6ec0-a07e-41c0-b179-90aae9c10ac2",
+  "parent_packet_id": null,
+  "created_at": "2026-07-11T00:48:31Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "process",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Build missing Infinigen native terrain OcMesher libraries",
+  "objective": "Build and verify the missing native Infinigen libraries required for real_geometry.gin: terrain/lib/cpu/sdf_from_mesh/sdf_from_mesh.so and OcMesher/ocmesher/lib/core.so.",
+  "instructions": [
+    "Create a run directory under .control-tower/runs and launch a named tmux session/window immediately. Return attach command, exact command, log paths, and verification results.",
+    "Primary command to run inside tmux, teeing to logs: cd /home/yashturkar/Workspace/infinigen && source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate infinigen && make terrain.",
+    "After make terrain, run: test -s /home/yashturkar/Workspace/infinigen/infinigen/terrain/lib/cpu/sdf_from_mesh/sdf_from_mesh.so && test -s /home/yashturkar/Workspace/infinigen/infinigen/OcMesher/ocmesher/lib/core.so && conda run -n infinigen python -c \"from ctypes import CDLL; CDLL('/home/yashturkar/Workspace/infinigen/infinigen/terrain/lib/cpu/sdf_from_mesh/sdf_from_mesh.so'); CDLL('/home/yashturkar/Workspace/infinigen/infinigen/OcMesher/ocmesher/lib/core.so'); print('native ocmesher libs load')\".",
+    "If make terrain fails, preserve the full log. If the two required libs are still missing, run the Scout fallback to build only those two libs: cd /home/yashturkar/Workspace/infinigen/infinigen/terrain && mkdir -p lib/cpu/sdf_from_mesh && g++ -O3 -c -fpic -fopenmp -o lib/cpu/sdf_from_mesh/sdf_from_mesh.o source/cpu/sdf_from_mesh/sdf_from_mesh.cpp && g++ -O3 -shared -fopenmp -o lib/cpu/sdf_from_mesh/sdf_from_mesh.so lib/cpu/sdf_from_mesh/sdf_from_mesh.o && cd /home/yashturkar/Workspace/infinigen/infinigen/OcMesher && bash install.sh. Then rerun the ctypes verification."
+  ],
+  "constraints": [
+    "Do not edit product code, docs, or git."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [
+      ".control-tower/packets/inbox/scout-c3eb64de-253f-4562-aa96-684865935bc1-result.json"
+    ],
+    "references": []
+  },
+  "expected_outputs": [
+    "Required native libraries exist and ctypes-load, or a concrete compiler/dependency blocker with logs is reported."
+  ],
+  "definition_of_done": [
+    "Result packet includes exact build command, attach command, whether full make terrain succeeded, whether fallback was needed, and ctypes verification output."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

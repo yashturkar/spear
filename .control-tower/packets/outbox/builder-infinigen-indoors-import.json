@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "8d4598b1-e7c8-4aa3-95a7-3d31bad4d6a5",
+  "trace_id": "8e3376a7-9b42-4af0-999d-045df3bafd0d",
+  "parent_packet_id": null,
+  "created_at": "2026-06-25T18:40:38Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Add Infinigen indoor world import script",
+  "objective": "Implement the first milestone for bringing the generated Infinigen indoor world into SpearSim: export-target-aware Unreal editor import script that creates /Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000 from the exported FBX assets.",
+  "instructions": [
+    "Create examples/flashlight/setup_infinigen_indoors.py as an Unreal editor Python setup script modeled on the existing abandoned-room setup script where appropriate.",
+    "Default world name and content root must be infinigen_indoors_0000 under /Game/SPEAR/Scenes/infinigen_indoors_0000.",
+    "Default FBX file must be /home/yashturkar/Workspace/infinigen/outputs/spear_export/export_scene.blend/export_scene.fbx.",
+    "Default mesh dir must be /Game/SPEAR/Scenes/infinigen_indoors_0000/Meshes and default map path must be /Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000.",
+    "Expose CLI flags --fbx-file, --mesh-dir, --map-path, --replace-existing-assets, --replace-existing-map, player-start position/yaw options, and actor scale. Safe defaults: no replacement unless flags are present; player start x=-250 y=0 z=120 yaw=0; actor scale=1.0.",
+    "Script should import FBX static mesh assets with unreal.AssetImportTask, save imported assets, create/open a new level at the map path, spawn all imported StaticMesh assets at the origin with the configured scale, add PlayerStart, DirectionalLight, and SkyLight, save the level, and print useful counts plus approximate bounds for verification.",
+    "If the target map or asset directory exists and the corresponding replace flag is not supplied, fail clearly rather than overwriting silently.",
+    "Do not modify runtime flashlight/orbit scripts for this milestone; the map can be referenced later by --map-path after cooking/validation.",
+    "Run lightweight verification that does not require launching the full simulator if practical, at minimum py_compile for the new script. If Unreal editor import is feasible in this environment, run it; otherwise report exact command for the user to run."
+  ],
+  "constraints": [
+    "Do not perform Git commits, pushes, branch changes, or other Git actions.",
+    "Do not edit durable docs in this Builder task; Tower will route Scribe separately if needed.",
+    "Keep implementation lean and aligned with existing examples; avoid broad refactors."
+  ],
+  "inputs": {
+    "files": [
+      "/tmp/infinigen_spear_handoff.md",
+      "examples/flashlight/setup_abandoned_room.py",
+      "tools/run_editor_script.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Changed files list.",
+    "Verification commands run and results.",
+    "Exact export and Unreal import commands the user can run if full import was not executed."
+  ],
+  "definition_of_done": [
+    "New setup script exists with the requested defaults and safe replacement behavior.",
+    "Script compiles with Python.",
+    "Result packet clearly states whether Unreal import was run or deferred."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {}
+}

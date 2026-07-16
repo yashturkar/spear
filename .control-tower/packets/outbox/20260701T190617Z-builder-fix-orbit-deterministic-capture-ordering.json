@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "6da98e74-9b95-4feb-a431-9c50113f742d",
+  "trace_id": "e0f65f15-f424-4bd5-8f6c-003a5f1c11b6",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T19:06:17Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Fix orbit deterministic capture ordering",
+  "objective": "Fix deterministic orbit capture setup order after Inspector finding",
+  "instructions": [
+    "Inspector found a high-severity issue in the current orbit render flicker fix: examples/flashlight/run_orbit_collection.py configures bAlwaysPersistRenderingState before component.Initialize(), but cpp/unreal_plugins/SpUnrealTypes/Source/SpUnrealTypes/SpSceneCaptureComponent2D.cpp Initialize() unconditionally sets bAlwaysPersistRenderingState=true. Move deterministic capture configuration so it is applied after Initialize()/initialize_sp_funcs where needed, preserve camera-cut behavior, update tests to cover the ordering, and keep docs accurate if wording changes."
+  ],
+  "constraints": [
+    "Do not commit. Do not revert unrelated dirty worktree changes. Keep changes scoped to orbit render determinism and tests/docs if necessary."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "cpp/unreal_plugins/SpUnrealTypes/Source/SpUnrealTypes/SpSceneCaptureComponent2D.cpp"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Builder ResultPacket with changed files, validation commands/results, and any live-render caveats."
+  ],
+  "definition_of_done": [
+    "scene_off_flashlight_on render setup disables scene light direct/indirect contribution, deterministic capture config survives component initialization, tests or targeted smoke checks cover the order, and no commit is made."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

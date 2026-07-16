@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "54a0644d-9be2-491c-96ec-156fe412447d",
+  "trace_id": "0ea7e942-8c76-4495-9791-263756055f22",
+  "parent_packet_id": null,
+  "created_at": "2026-06-26T18:04:42Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Add lighter Infinigen import path and retry one_bed_apartment",
+  "objective": "Implement a lighter Unreal import path for the one_bed_apartment Infinigen scene after repeated import OOM kills, then run the lighter retry in tmux so the user can monitor it.",
+  "instructions": [
+    "Do not perform Git operations or commits.",
+    "Inspect examples/flashlight/setup_infinigen_indoors.py and the retry2 logs under /home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment_import_retry2_20260626T164341Z/logs to confirm the failure mode.",
+    "Add narrowly scoped CLI flags to examples/flashlight/setup_infinigen_indoors.py for lighter import options. Keep existing default behavior unchanged. At minimum support disabling static mesh auto collision generation, e.g. --no-auto-generate-collision. If local Unreal import APIs support it safely, also add optional flags to skip importing materials/textures or other expensive static mesh import data, but keep defaults backward-compatible.",
+    "Use the new lighter flag(s) to retry importing the existing r256 FBX: /home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment_import_retry2_20260626T164341Z/export_r256/export_scene.blend/export_scene.fbx.",
+    "Run the retry in a fresh detached tmux session named spear_one_bed_apartment_import_light. The retry should use --replace-existing-assets and --replace-existing-map for /Game/SPEAR/Scenes/one_bed_apartment/Meshes and /Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment.",
+    "If the lighter import succeeds, run the cook/package/archive step for /Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment. If it fails, leave tmux open and report the exact failing command, exit code, and relevant memory log lines.",
+    "Verify the tmux session exists and capture-pane shows the lighter import or cook actually started before returning."
+  ],
+  "constraints": [
+    "No commits, no pushes, no PRs.",
+    "Keep product code changes minimal and backward-compatible."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Updated import script with lighter CLI option(s).",
+    "Detached tmux session spear_one_bed_apartment_import_light running or completed the lighter import/cook workflow.",
+    "ResultPacket with changed files, tmux attach command, run root/log location, status, and next run command if successful."
+  ],
+  "definition_of_done": [
+    "Code supports a lighter import flag without changing default behavior.",
+    "Lighter one_bed_apartment import/cook retry is dispatched in tmux and status is clear."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

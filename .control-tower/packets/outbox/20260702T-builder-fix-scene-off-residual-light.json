@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "d5e7e715-af2f-4dd5-b642-edf3a39f0895",
+  "trace_id": "29f258a3-3cdb-43e4-a0ff-a4dc10368b33",
+  "parent_packet_id": null,
+  "created_at": "2026-07-02T16:18:47Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Fix residual light in scene-off flashlight renders",
+  "objective": "Make orbit render mode with scene lighting disabled produce near-black frames when the co-located flashlight is not spawned, while preserving softened co-located flashlight falloff when it is spawned.",
+  "instructions": [
+    "Start from the completed validation output at examples/flashlight/orbit_collection_output_soft_falloff_validation: scene_off_flashlight_off is visibly lit even though spawn_flashlight=false, so residual environment/renderer light remains.",
+    "Investigate why scene-off isolation leaves residual light. The render log shows scene light components disabled but scene_light_isolation console commands had applied=false. Check whether ExecuteConsoleCommand invocation/targeting is wrong, whether exposure/tonemapper/postprocess/unlit fallback is contributing, or whether baked/static lighting/emissive materials need to be suppressed.",
+    "Implement the smallest robust fix in the flashlight orbit code path so scene_off_flashlight_off renders near-black and scene_off_flashlight_on is lit primarily by the co-located light with smooth falloff, not a hard circular mask.",
+    "Preserve the current softened flashlight controls: intensity 1200, attenuation 650, inner cone 2, outer cone 60, source radius 12, soft source radius 80, indirect lighting intensity 0 unless you find a better default and document why.",
+    "Add/update unit tests or script-level tests for any helper behavior changed, especially console command application reporting or scene-off isolation metadata.",
+    "Do not commit. Do not push. Leave visual validation to Tower/Experimenter after code tests pass."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_workflow.sh",
+      "examples/flashlight/orbit_light_settings.json",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/orbit_collection_output_soft_falloff_validation/scene_off_flashlight_off/metadata.json",
+      "examples/flashlight/orbit_collection_output_soft_falloff_validation/scene_off_flashlight_on/metadata.json"
+    ],
+    "artifacts": [
+      ".control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/render.log"
+    ],
+    "references": []
+  },
+  "expected_outputs": [
+    "Code changes that make scene-off isolation actually disable residual scene/environment lighting.",
+    "Focused tests pass in spear-env."
+  ],
+  "definition_of_done": [
+    "scene_off_flashlight_off should be expected to render near-black under validation, not the currently bright cafeteria.",
+    "scene_off_flashlight_on should keep softened co-located light behavior without hard circular aperture appearance.",
+    "No Git commit is created."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

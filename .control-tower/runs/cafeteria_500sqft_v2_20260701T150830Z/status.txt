@@ -1,0 +1,15 @@
+STATUS:success
+NOTE:create, export, import, fixture-light injection, validation, and cook/package completed
+UPDATED_UTC:2026-07-01T15:16:01Z
+RUN_DIR:/home/yashturkar/Workspace/spear/.control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z
+SOURCE_ROOT:/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2
+GENERATOR_SCRIPT:/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/scripts/create_cafeteria_500sqft_v2.py
+LIGHT_VALIDATION_SCRIPT:/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/scripts/add_unreal_lights_and_validate.py
+COARSE_BLEND:/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/coarse/scene.blend
+EXPORT_DIR:/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/spear_export_r256
+FBX_FILE:/home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2/spear_export_r256/export_scene.blend/export_scene.fbx
+MAP_PATH:/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2
+MESH_DIR:/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Meshes
+VALIDATION_REPORT:/home/yashturkar/Workspace/spear/.control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z/validation_report.json
+FLASHLIGHT_SCENE_LIGHTS_COMMAND:cd /home/yashturkar/Workspace/spear && conda activate spear-env && python examples/flashlight/run.py --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 --movement-speed 600 --intensity 1500 --attenuation-radius 450 --inner-cone-angle 8 --outer-cone-angle 20 --indirect-lighting-intensity 0
+FLASHLIGHT_ONLY_COMMAND:cd /home/yashturkar/Workspace/spear && conda activate spear-env && python examples/flashlight/run.py --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 --movement-speed 600 --disable-scene-lights --intensity 1500 --attenuation-radius 450 --inner-cone-angle 8 --outer-cone-angle 20 --indirect-lighting-intensity 0

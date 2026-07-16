@@ -1,0 +1,21 @@
+schema_version: "1.0.0"
+run_id: cook_cafeteria_v2_maps_20260707T171735Z
+created_at: "2026-07-07T17:17:35Z"
+task_packet_id: "7367225e-46a9-44b0-a0ef-122780aff370"
+trace_id: "b2477ab1-c2a0-49d5-8649-2893b086d32b"
+agent: experimenter
+objective: "Cook/package cafeteria_500sqft_v2 and cafeteria_500sqft_v2_flashlight_validation_dark for local SPEAR runtime."
+tmux_session: cook_cafeteria_v2_171735
+tmux_window: uat
+attach_command: "tmux attach -t cook_cafeteria_v2_171735"
+runner: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_v2_maps_20260707T171735Z/runner.sh"
+log: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_v2_maps_20260707T171735Z/cook_package.log"
+pak_list_log: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_v2_maps_20260707T171735Z/pak_list.log"
+availability_check: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_v2_maps_20260707T171735Z/availability_check.txt"
+status_file: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_v2_maps_20260707T171735Z/status.txt"
+exit_file: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_v2_maps_20260707T171735Z/exit_status.txt"
+maps:
+  - "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2"
+  - "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark"
+command: "source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate spear-env && python tools/run_uat.py --unreal-engine-dir /home/yashturkar/Linux_Unreal_Engine_5.5.4 --cook-maps /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark -cook -stage -package -archive -pak -skipbuild"
+availability_command: "/home/yashturkar/Linux_Unreal_Engine_5.5.4/Engine/Binaries/Linux/UnrealPak /home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak -List | tee .control-tower/runs/cook_cafeteria_v2_maps_20260707T171735Z/pak_list.log | rg 'cafeteria_500sqft_v2(_flashlight_validation_dark)?\\.(umap|uexp)|cafeteria_500sqft_v2_flashlight_validation_dark'"

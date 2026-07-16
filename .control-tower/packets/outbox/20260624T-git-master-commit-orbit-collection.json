@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "d68b03c4-37ef-4039-bd0b-0edab3c15ba6",
+  "trace_id": "f05f0a15-9f1b-4f4b-9ab4-8e41d40e73a0",
+  "parent_packet_id": "d8d1a7f2-5c61-4c35-80d5-90b6cb8a5df2",
+  "created_at": "2026-06-24T19:29:21Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Commit orbit collection flashlight workflow",
+  "objective": "Review the approved orbit collection implementation diff and create an appropriate local commit without pushing.",
+  "instructions": [
+    "Inspect git status and diff before committing. Do not push.",
+    "Create a local commit for the approved orbit collection feature and repairs if the diff is coherent. Suggested message: Add flashlight orbit collection workflow.",
+    "Include the implementation, README, example light settings, validation tests, and .gitignore changes. Avoid mixing unrelated pre-existing generated Control Tower artifacts into the product-code commit unless project convention requires them; report what was included/excluded.",
+    "Run or report already-run non-simulator validation from Inspector; do not run simulator-dependent commands.",
+    "If the worktree contains unrelated dirty files, leave them untouched and report them."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/light_settings.example.json",
+      "examples/flashlight/README.md",
+      "tests/test_orbit_collection_validation.py",
+      ".gitignore"
+    ],
+    "artifacts": [
+      "Orbit collection repair verified: setting output deletion is now guarded by reserved/hidden/path-like name rejection and realpath/commonpath containment before shutil.rmtree."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-0bb7b726-ed97-4004-b30f-c3377e1847db-result.json",
+      ".control-tower/packets/inbox/inspector-5e31075d-a6e3-44dc-a8ac-0ecd3440e412-result.json",
+      ".control-tower/packets/inbox/builder-86f0955f-a49f-41d2-9ff9-c959cff1e5b5-result.json",
+      ".control-tower/packets/inbox/inspector-233aea6f-8ec1-416b-b35b-a22e09d2be41-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket with commit hash if created, files included, tests/validation status, remaining dirty worktree items, branch/ahead status, and whether push was intentionally skipped."
+  ],
+  "definition_of_done": [
+    "Git status and diff are inspected.",
+    "Approved feature changes are committed locally or a clear blocker is reported.",
+    "No push is performed."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-233aea6f-8ec1-416b-b35b-a22e09d2be41-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-233aea6f-8ec1-416b-b35b-a22e09d2be41-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

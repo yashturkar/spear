@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "c3eb64de-253f-4562-aa96-684865935bc1",
+  "trace_id": "4bd31ae9-1590-4843-8fc2-e93629ebac75",
+  "parent_packet_id": null,
+  "created_at": "2026-07-11T00:18:25Z",
+  "from_agent": "tower",
+  "to_agent": "scout",
+  "task_type": "research",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Find build path for missing Infinigen ocmesher native library",
+  "objective": "Determine how to build or restore /home/yashturkar/Workspace/infinigen/infinigen/terrain/lib/cpu/sdf_from_mesh/sdf_from_mesh.so and any related native dependencies needed for official Infinigen-Indoors generation",
+  "instructions": [
+    "Inspect the local Infinigen repository, docs, build scripts, Makefiles/CMake files, setup instructions, and prior run logs. Do not modify files.",
+    "Focus on the missing library: /home/yashturkar/Workspace/infinigen/infinigen/terrain/lib/cpu/sdf_from_mesh/sdf_from_mesh.so, loaded from infinigen/terrain/utils/ctype_util.py during ocmesher_utils.run_ocmesher.",
+    "Find the exact command sequence to compile or restore this library in the current local environment, including conda env, working directory, prerequisites, and expected output path.",
+    "If there are multiple native libraries expected by Infinigen, identify them and whether they are missing too."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [],
+    "artifacts": [
+      ".control-tower/runs/infinigen_indoors_kitchen_20260710T235251Z",
+      "/home/yashturkar/Workspace/infinigen"
+    ],
+    "references": [
+      ".control-tower/runs/infinigen_indoors_kitchen_20260710T235251Z/logs/generate_restricted_counter_sink_real_geometry.log",
+      ".control-tower/runs/infinigen_indoors_kitchen_20260710T235251Z/logs/generate_restricted_counter_real_geometry_large_only.log"
+    ]
+  },
+  "expected_outputs": [
+    "A concise diagnosis and exact recommended build command(s) for the missing Infinigen native ocmesher dependency."
+  ],
+  "definition_of_done": [
+    "Tower can hand the result directly to Experimenter to build the dependency and rerun official Infinigen-Indoors generation."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 300,
+    "hard_seconds": 900
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {}
+}

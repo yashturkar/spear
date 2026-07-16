@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "ec3f4149-4e1b-4455-94ea-35d187065f8f",
+  "trace_id": "e7bc0181-9dfa-4274-997a-6d26e2d34d2c",
+  "parent_packet_id": null,
+  "created_at": "2026-06-25T19:16:10Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "documentation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Document Infinigen to SpearSim scene workflow",
+  "objective": "Create or update durable repo documentation with the complete validated workflow for generating an Infinigen indoor scene, exporting it, importing it into SpearSim, cooking the map, and running it through the flashlight example.",
+  "instructions": [
+    "Document the full end-to-end workflow the user validated: Infinigen environment/setup assumptions, indoor scene generation command, optional render command, FBX export command, SpearSim editor import command, cook command, and run command using --map-path /Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000.",
+    "Use the exact local paths and envs from /tmp/infinigen_spear_handoff.md where useful, but make clear which values are local examples: /home/yashturkar/Workspace/infinigen, /home/yashturkar/Workspace/spear, /home/yashturkar/Linux_Unreal_Engine_5.5.4, conda envs infinigen and spear-env.",
+    "Record that the validated workflow succeeded on 2026-06-25: FBX export completed, Unreal editor import validated mesh assets and /Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000, cook/build succeeded, and the user confirmed the cooked map runs with examples/flashlight/run.py.",
+    "Keep the documentation practical and command-oriented. Include replacement/rerun flags, fallback export resolution -r 512, and the note that visual quality/scale should still be inspected per scene.",
+    "Prefer expanding docs/importing_and_exporting_assets.md if that is still the best durable location; add a small cross-reference from docs/running_our_example_applications.md if helpful. Do not create a new page unless the existing import/export guide becomes too cluttered.",
+    "Update operational Tower status/memory to record that the cooked map run is now user-confirmed, while leaving no-commit policy intact."
+  ],
+  "constraints": [
+    "Do not modify product source code.",
+    "Do not perform Git commits, pushes, branch changes, or any Git operation beyond status/diff inspection if needed."
+  ],
+  "inputs": {
+    "files": [
+      "docs/importing_and_exporting_assets.md",
+      "docs/running_our_example_applications.md",
+      "examples/flashlight/setup_infinigen_indoors.py",
+      "/tmp/infinigen_spear_handoff.md"
+    ],
+    "artifacts": [],
+    "references": [
+      "/home/yashturkar/Workspace/infinigen/README.md",
+      "/home/yashturkar/Workspace/infinigen/docs/Installation.md",
+      "/home/yashturkar/Workspace/infinigen/docs/HelloRoom.md",
+      "/home/yashturkar/Workspace/infinigen/docs/ExportingToExternalFileFormats.md"
+    ]
+  },
+  "expected_outputs": [
+    "Durable docs updated with the complete Infinigen to SpearSim workflow.",
+    "Operational status/memory updated with user-confirmed cook/run success.",
+    "ResultPacket lists changed docs and any remaining caveats."
+  ],
+  "definition_of_done": [
+    "A future user can follow the documented commands from scene generation through running the cooked SpearSim map.",
+    "Docs distinguish local paths from general workflow and note rerun/fallback options.",
+    "No source code or Git commit is made."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

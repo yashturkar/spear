@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "cc4a1e21-4e37-4b9f-b42a-b9e6d24b7f7f",
+  "trace_id": "29f258a3-3cdb-43e4-a0ff-a4dc10368b33",
+  "parent_packet_id": "builder-d5e7e715-result",
+  "created_at": "2026-07-02T16:25:31Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Review scene-off lighting isolation repair",
+  "objective": "Review Builder's fix for residual light in scene-off flashlight orbit renders, focusing on correctness of show-flag selection, console command fallback, capture component configuration, tests, and risk of breaking natural co-located flashlight appearance.",
+  "instructions": [
+    "Review the changed files only: examples/flashlight/run_orbit_collection.py and tests/test_orbit_collection_validation.py.",
+    "Pay special attention to whether disabling Materials while enabling LightingOnlyOverride is likely to make scene_off_flashlight_on unusably artificial or whether it is acceptable for a flashlight-only diagnostic render.",
+    "Check that try_execute_console_command uses correct Unreal reflected argument names and cannot accidentally report success on a failed command.",
+    "Check that the show-flag property assignment fallback is plausible for SPEAR's JSON/property bridge and does not mask a runtime failure.",
+    "Do not modify files. Return findings with file/line references and a clear go/no-go for visual validation."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [
+      ".control-tower/packets/inbox/builder-d5e7e715-af2f-4dd5-b642-edf3a39f0895-result.json"
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-d5e7e715-af2f-4dd5-b642-edf3a39f0895-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Review findings and visual-validation go/no-go."
+  ],
+  "definition_of_done": [
+    "No product files are modified.",
+    "Major correctness risks are identified before another Unreal validation run."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-d5e7e715-af2f-4dd5-b642-edf3a39f0895-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-d5e7e715-af2f-4dd5-b642-edf3a39f0895-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

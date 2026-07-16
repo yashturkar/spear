@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "f7240aaa-894c-443f-a03d-a953e8ad28a6",
+  "trace_id": "17c22424-0d8b-4c18-b54e-1370d6940209",
+  "parent_packet_id": null,
+  "created_at": "2026-06-25T15:26:48Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "cleanup",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Remove duplicate orbit depth MP4",
+  "objective": "Stop writing two duplicate flashlight orbit depth MP4 files. Keep one depth video output and update docs/tests accordingly.",
+  "instructions": [
+    "Do not perform any Git commit or Git operation beyond reading status/diffs if needed; commits require explicit user authorization.",
+    "In examples/flashlight/run_orbit_collection.py, remove the duplicate depth MP4 encode. Keep a single depth video output. Prefer the explicit viridis output name depth_meters_viridis.mp4 unless local code/docs strongly suggest otherwise.",
+    "Ensure RGB video output and raw depth .npy / viridis PNG frame outputs remain unchanged.",
+    "Update tests/test_orbit_collection_validation.py for the single depth video behavior.",
+    "Update examples/flashlight/README.md and docs/running_our_example_applications.md so they no longer advertise two depth MP4s.",
+    "Run focused non-simulator validation: py_compile, unittest, and git diff --check."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Which depth MP4 name remains and why.",
+    "Files changed and validation results."
+  ],
+  "definition_of_done": [
+    "Orbit render mode writes only one depth MP4, docs/tests match, and no commit is created."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

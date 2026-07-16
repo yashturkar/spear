@@ -1,0 +1,6 @@
+started_at=2026-07-02T15:58:05Z
+repo_root=/home/yashturkar/Workspace/spear
+run_dir=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_500sqft_v2_20260702T153100Z
+command=/home/yashturkar/miniconda3/envs/spear-env/bin/python tools/run_uat.py --unreal-engine-dir /home/yashturkar/Linux_Unreal_Engine_5.5.4 --cook-maps /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 -cook -stage -package -archive -pak -skipbuild
+finished_at=2026-07-02T15:59:16Z
+exit_status=0

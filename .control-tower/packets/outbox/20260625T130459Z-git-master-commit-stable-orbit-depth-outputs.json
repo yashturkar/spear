@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "7c68aedc-2881-4edb-80ee-6149b72751e0",
+  "trace_id": "670cccf2-f2ee-403f-b392-a31de7916c12",
+  "parent_packet_id": "5f3f0a44-583f-43e8-94a0-92fc7d8f21a1",
+  "created_at": "2026-06-25T13:04:59Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Commit stable orbit depth outputs",
+  "objective": "Create a scoped local commit for the approved orbit depth stabilization work: stable viridis depth visualization, raw depth .npy outputs, docs, and tests.",
+  "instructions": [
+    "Inspect status and commit only the intended tracked files: examples/flashlight/run_orbit_collection.py, examples/flashlight/README.md, docs/running_our_example_applications.md, and tests/test_orbit_collection_validation.py.",
+    "Do not include unrelated generated .control-tower state, packet files, memory imports, logs, or other untracked/modified files unless already required by this exact task.",
+    "Use an imperative concise commit message such as 'Stabilize orbit depth outputs'.",
+    "Report the commit hash, included files, and any remaining dirty/untracked state left intentionally untouched."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md",
+      "docs/running_our_example_applications.md",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [
+      "Inspector approved stable orbit depth outputs after docs repair; Git-master can commit."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/inspector-3de2eb28-e31e-46b4-86b6-f6a2782223ef-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Local commit hash and commit subject.",
+    "Committed file list.",
+    "Remaining dirty/untracked state summary."
+  ],
+  "definition_of_done": [
+    "Approved changes are committed locally without unrelated generated Tower state."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-3de2eb28-e31e-46b4-86b6-f6a2782223ef-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-3de2eb28-e31e-46b4-86b6-f6a2782223ef-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

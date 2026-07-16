@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "b624b37e-8951-476d-8bcc-551492b0d91f",
+  "trace_id": "8ef196dd-3984-4dda-be20-04548df1c80a",
+  "parent_packet_id": "builder-38c80497-d545-465b-a248-001975da60fa-result",
+  "created_at": "2026-07-02T14:51:51Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Review soft flashlight falloff changes",
+  "objective": "Review Builder's soft co-located flashlight falloff changes for correctness, robustness, and workflow fit before we treat them as ready.",
+  "instructions": [
+    "Focus on the current uncommitted changes in examples/flashlight/run.py, examples/flashlight/run_orbit_collection.py, examples/flashlight/run_orbit_workflow.sh, examples/flashlight/orbit_light_settings.json, docs/running_our_example_applications.md, and tests/test_orbit_collection_validation.py.",
+    "Assess whether the defaults and new source-radius/soft-source-radius controls are likely to soften the hard circular spotlight edge in the scene_off_flashlight_on render while preserving scene_off_flashlight_off darkness and the existing intensity/direction/scene-light/exposure controls.",
+    "Check for API robustness against SPEAR/Unreal proxy limitations, argument validation errors, test adequacy, docs drift, and any regression risk in live teleop and render modes."
+  ],
+  "constraints": [
+    "Do not edit product code unless a small test-only or review-support change is absolutely necessary; this is primarily review/QA.",
+    "Do not commit or push."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/run_orbit_workflow.sh",
+      "examples/flashlight/orbit_light_settings.json",
+      "tests/test_orbit_collection_validation.py",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-38c80497-d545-465b-a248-001975da60fa-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Findings first, with file/line references for any issues.",
+    "Verification commands run and results.",
+    "Recommendation: ready, needs Builder follow-up, or needs visual validation."
+  ],
+  "definition_of_done": [
+    "Review result packet clearly identifies blockers or says no blockers found.",
+    "Any suggested follow-up is concrete and scoped."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-38c80497-d545-465b-a248-001975da60fa-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-38c80497-d545-465b-a248-001975da60fa-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

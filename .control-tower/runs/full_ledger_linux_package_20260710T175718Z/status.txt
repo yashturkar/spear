@@ -1,0 +1,17 @@
+run_id=full_ledger_linux_package_20260710T175718Z
+status=success
+tmux_session=full_ledger_pkg_175718
+tmux_window=cook
+attach_command=tmux attach -t full_ledger_pkg_175718
+uat_exit_status=0
+verify_exit_status=0
+exit_status=0
+finished_at=2026-07-10T17:59:58Z
+cook_log=/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/cook_package.log
+failure_excerpt=/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/failure_excerpt.log
+verify_log=/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/verify_paks.log
+verification_summary=/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt
+verification_summary_json=/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.json
+coverage_table=/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/coverage_table.md
+archive_pak_list=/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/archive_pak_list.log
+staged_pak_list=/home/yashturkar/Workspace/spear/.control-tower/runs/full_ledger_linux_package_20260710T175718Z/staged_pak_list.log

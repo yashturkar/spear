@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "56a1f8c9-d4c5-4993-a655-3deb67c56b35",
+  "trace_id": "97ef4b54-dcbb-41eb-b25d-9c95f5949be6",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T19:21:43Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "qa",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Inspect flickery orbit render frames",
+  "objective": "Inspect the generated orbit collection frames/videos directly and diagnose why scene_off_flashlight_on is still flickery / looks scene-on",
+  "instructions": [
+    "User reports the latest orbit render is still super flickery and looks like scene-on. Inspect generated outputs directly, especially examples/flashlight/orbit_collection_output_validation/{scene_on_flashlight_off,scene_off_flashlight_on,scene_on_flashlight_on}. Review RGB PNG frames, depth viridis PNGs, raw metadata.json, and videos if useful. Quantify brightness/flicker across consecutive frames and compare the three lighting conditions. Determine whether the failure appears to be scene lights leaking, auto exposure/tonemapping, temporal/GI accumulation, camera/pose changes, video encoding, stale outputs, or capture/readback instability. Do not edit product code. Return concrete findings with frame paths, metadata evidence, stats, and recommended next Builder action."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/orbit_collection_output_validation",
+      "examples/flashlight/orbit_collection_output_validation/scene_off_flashlight_on/metadata.json",
+      "examples/flashlight/orbit_collection_output_validation/scene_on_flashlight_off/metadata.json",
+      "examples/flashlight/orbit_collection_output_validation/scene_on_flashlight_on/metadata.json",
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/run_orbit_workflow.sh"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Inspector ResultPacket with visual/statistical diagnosis, representative frame paths or generated inspection artifacts if any, and recommended fix direction."
+  ],
+  "definition_of_done": [
+    "The actual rendered frame outputs have been inspected and the most likely source of flicker / scene-on appearance is identified, or blockers are clearly stated."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

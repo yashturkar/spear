@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "6568975d-e612-4a55-b7c8-c5e7e3678344",
+  "trace_id": "8ef196dd-3984-4dda-be20-04548df1c80a",
+  "parent_packet_id": "scribe-5517f4b2-a38c-4be5-b9dd-9c37d9edfe3a-result",
+  "created_at": "2026-07-02T14:57:10Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "process-validation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Visual validate soft flashlight falloff",
+  "objective": "Run a tmux-managed short orbit render validation for the soft co-located flashlight profile, focusing on scene-off flashlight-off versus scene-off flashlight-on output.",
+  "instructions": [
+    "Create a timestamped run directory under .control-tower/runs/ for logs, runner script, and a two-setting light JSON containing only scene_off_flashlight_off with spawn_flashlight=false/enabled=false/intensity=0 and scene_off_flashlight_on with scene_lights_enabled=false/enabled=true/intensity=1200.",
+    "Launch the render in a named tmux session/window and report the exact tmux attach command.",
+    "Use examples/flashlight/run_orbit_workflow.sh render with the existing examples/flashlight/orbit_spec.json, the two-setting light JSON from the run directory, and output directory examples/flashlight/orbit_collection_output_soft_falloff_validation.",
+    "Use the current soft defaults unless the workflow requires explicit flags; include source radius 12, soft source radius 80, inner cone 2, outer cone 60, attenuation radius 650, indirect lighting intensity 0, scene light intensity scale 0.2.",
+    "Monitor until complete, failed, or clearly blocked; preserve logs with tee/redirection in the run directory.",
+    "After completion, inspect output metadata and basic frame/luma diagnostics for both settings. Report whether scene_off_flashlight_off stays dark/no-flashlight and whether scene_off_flashlight_on appears less like a hard circular hole based on available diagnostics; if visual judgment needs human inspection, say that and provide exact video/frame paths."
+  ],
+  "constraints": [
+    "Do not edit product source, tests, docs, or Git state.",
+    "Every long-running/user-observable process must run in tmux.",
+    "Do not push or commit."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/README.md"
+    ],
+    "artifacts": [
+      "examples/flashlight/README.md now documents the soft orbit flashlight profile: intensity 1200, attenuation radius 650, inner cone 2, outer cone 60, source radius 12, soft source radius 80, and indirect lighting intensity 0."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/scribe-5517f4b2-a38c-4be5-b9dd-9c37d9edfe3a-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Result packet with tmux attach command, run directory, log path, output video/frame paths, pass/fail status, and concrete next action if the render still looks wrong."
+  ],
+  "definition_of_done": [
+    "Render completed or failed with preserved logs and actionable diagnosis."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/scribe-5517f4b2-a38c-4be5-b9dd-9c37d9edfe3a-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/scribe-5517f4b2-a38c-4be5-b9dd-9c37d9edfe3a-result.json",
+    "seed_result_agent": "scribe",
+    "seed_result_status": "success"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "41b8b3b9-b909-40b2-804b-d3626c1b4536",
+  "trace_id": "356f9cdd-5add-417f-baa8-913798f91e3f",
+  "parent_packet_id": "scribe-5b5af92e-full-ledger-linux-package-doc-result",
+  "created_at": "2026-07-10T18:08:13Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "test-maintenance",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Align launcher tests with full ledger package",
+  "objective": "Update launcher/environment-ledger tests to match the 2026-07-10 full ledger Linux package metadata recorded by Scribe, without changing launcher behavior unless a test exposes an actual bug.",
+  "instructions": [
+    "Inspect tests/test_spear_launcher.py for stale assumptions about the previous sm6_rt_2026-07-08 package version.",
+    "Update tests so they assert the current full_ledger_linux_2026-07-10 package metadata and, where useful, the top-level active_package shape added to docs/environment_ledger.json.",
+    "Keep changes narrowly scoped to tests unless the launcher has a real incompatibility with the updated ledger.",
+    "Run python -m unittest tests.test_spear_launcher and report results."
+  ],
+  "constraints": [
+    "Do not modify product/runtime behavior unless required by a real failing test.",
+    "Do not perform Git commits or pushes."
+  ],
+  "inputs": {
+    "files": [
+      "tests/test_spear_launcher.py",
+      "docs/environment_ledger.json",
+      "tools/spear-run",
+      ".control-tower/docs/state/current-status.md",
+      ".control-tower/docs/state/known-risks.md",
+      ".control-tower/memory/l0.md",
+      ".control-tower/memory/l1.md"
+    ],
+    "artifacts": [
+      ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt",
+      ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/coverage_table.md",
+      "As of 2026-07-10T17:59:58Z, the active Linux package full_ledger_linux_2026-07-10 covers all 18 docs/environment_ledger.json environments with non-null unreal_map_path in both archive and staged paks; UAT exit 0, verify exit 0, sha256 71439ddc9c3be4993d9c6cabb96ae090aa5dec27b6b16ba2df68571f153faebd, size 3527193245 bytes."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/scribe-5b5af92e-e3d8-4762-a491-1a76baeebbca-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Updated tests or a clear explanation that no test update was needed.",
+    "Test command output summary."
+  ],
+  "definition_of_done": [
+    "python -m unittest tests.test_spear_launcher passes."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/scribe-5b5af92e-e3d8-4762-a491-1a76baeebbca-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/scribe-5b5af92e-e3d8-4762-a491-1a76baeebbca-result.json",
+    "seed_result_agent": "scribe",
+    "seed_result_status": "success"
+  }
+}

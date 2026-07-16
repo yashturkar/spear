@@ -1,0 +1,24 @@
+run_id=restore_cafeteria_package_20260709T191205Z
+started_at=2026-07-09T19:12:51Z
+unreal_pak=/home/yashturkar/Linux_Unreal_Engine_5.5.4/Engine/Binaries/Linux/UnrealPak
+archive_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+staged_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+
+== archive ==
+pak_stat path=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak size=3526962421 mtime=2026-07-08 14:54:24.897771656 -0400
+unrealpak_list_exit=0
+pak_list_log=/home/yashturkar/Workspace/spear/.control-tower/runs/restore_cafeteria_package_20260709T191205Z/archive_pak_list.log
+cafeteria_map_hits_log=/home/yashturkar/Workspace/spear/.control-tower/runs/restore_cafeteria_package_20260709T191205Z/archive_cafeteria_map_hits.log
+cafeteria_map_hit_count=0
+
+== staged ==
+pak_stat path=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak size=3526962421 mtime=2026-07-08 14:54:24.897771656 -0400
+unrealpak_list_exit=0
+pak_list_log=/home/yashturkar/Workspace/spear/.control-tower/runs/restore_cafeteria_package_20260709T191205Z/staged_pak_list.log
+cafeteria_map_hits_log=/home/yashturkar/Workspace/spear/.control-tower/runs/restore_cafeteria_package_20260709T191205Z/staged_cafeteria_map_hits.log
+cafeteria_map_hit_count=0
+
+local_source_maps:
+-rw-rw-r-- 1 yashturkar yashturkar 378538 Jul  1 16:43 /home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark.umap
+-rw-rw-r-- 1 yashturkar yashturkar 363576 Jul  1 16:43 /home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2.umap
+finished_at=2026-07-09T19:12:53Z

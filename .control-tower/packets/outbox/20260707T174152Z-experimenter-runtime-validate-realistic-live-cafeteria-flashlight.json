@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "db22a707-c509-41bd-831e-15ba6f75f333",
+  "trace_id": "01a32aa1-cb0a-4230-91f3-f8cfbd06ef65",
+  "parent_packet_id": "inspector-be43324c-realistic-live-flashlight-review-result",
+  "created_at": "2026-07-07T17:41:52Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "validation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Runtime validate realistic live cafeteria flashlight",
+  "objective": "Run a short live runtime validation for the realistic cafeteria flashlight command. Launch the local SPEAR runtime with: cd /home/yashturkar/Workspace/spear && conda activate spear-env && python examples/flashlight/run.py --map cafeteria_500sqft_v2 --live-lighting-mode realistic --flashlight-profile realistic_live_flashlight --scene-light-intensity-scale 0.0005 --movement-speed 600 --disable-auto-exposure --startup-warmup-seconds 3. Keep it running only long enough to get through startup warmup and initial teleop logs, then stop it cleanly. Confirm whether the map loads, no startup crash occurs, logs show local exposure suppression, realistic Lumen/reflection/material retention commands, inverse-square/shadow states, and warmup completion. If display/runtime constraints prevent validation, return blocked with exact logs.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [],
+    "artifacts": [
+      "Static review approved the realistic live flashlight implementation and cafeteria command, but live Experimenter validation is required before user-facing use to confirm Unreal/Lumen brightness stability."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-7d529c86-6917-4c0a-8289-1e160e4b27e8-result.json",
+      ".control-tower/packets/inbox/experimenter-7367225e-46a9-44b0-a0ef-122780aff370-result.json",
+      ".control-tower/packets/inbox/inspector-be43324c-2aa8-456d-8012-92a98b17dc69-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket with pass/fail/block status, command used, run log path, whether startup warmup completed, whether local exposure suppression and Lumen/reflection commands were applied, and any crash or map load errors."
+  ],
+  "definition_of_done": [
+    "The live command has been exercised through startup warmup or a concrete runtime blocker has been captured with logs."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-be43324c-2aa8-456d-8012-92a98b17dc69-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-be43324c-2aa8-456d-8012-92a98b17dc69-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

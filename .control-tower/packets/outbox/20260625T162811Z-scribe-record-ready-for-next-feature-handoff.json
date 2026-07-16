@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "cb950ada-2222-439b-8813-598c6c813b93",
+  "trace_id": "f10732ef-cecf-463f-a13c-fc22b12e761d",
+  "parent_packet_id": null,
+  "created_at": "2026-06-25T16:28:11Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "documentation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Record ready-for-next-feature handoff",
+  "objective": "Update operational memory/current status with the user's note that the post-rebase startup fix is complete and the project should be ready for building new features next.",
+  "instructions": [
+    "Record that the SP_CORE stale-binary compatibility fix for flashlight orbit render startup was implemented, Inspector-approved, documented, and not committed.",
+    "Record that the orphaned SpearSim process from the failed launch was terminated.",
+    "Record the current next-best action as preparing/building the next requested feature, with no commits unless the user explicitly asks."
+  ],
+  "constraints": [
+    "Do not modify product code.",
+    "Do not create commits or Git operations."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Scribe ResultPacket summarizing memory/status updates."
+  ],
+  "definition_of_done": [
+    "Operational memory/current status reflects the handoff point for future feature work."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {}
+}

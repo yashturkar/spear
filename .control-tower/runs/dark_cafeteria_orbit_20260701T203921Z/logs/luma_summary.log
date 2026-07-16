@@ -1,0 +1,75 @@
+{
+  "acceptance": {
+    "passed": true,
+    "scene_off_flashlight_off_median_mean_luma": 0.0,
+    "threshold_scene_off_flashlight_off_median_mean_luma": 20.0
+  },
+  "output_dir": "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_validation_dark_map",
+  "schema_version": "1.0.0",
+  "settings": {
+    "scene_off_flashlight_off": {
+      "capture_show_flags_configured": false,
+      "engine_ini_applied": true,
+      "flashlight_ever_enabled_after_setting_setup": false,
+      "flashlight_ever_spawned_after_setting_setup": false,
+      "mean_luma_max": 0.0,
+      "mean_luma_median": 0.0,
+      "mean_luma_min": 0.0,
+      "metadata_file": "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_validation_dark_map/scene_off_flashlight_off/metadata.json",
+      "no_flashlight_ever_control": true,
+      "p99_luma_median": 0.0,
+      "residual_likely": false,
+      "residual_threshold_mean_luma": 20.0,
+      "scene_off_lighting_isolation_requested": true,
+      "spawn_flashlight": false
+    },
+    "scene_off_flashlight_on": {
+      "capture_show_flags_configured": false,
+      "engine_ini_applied": true,
+      "flashlight_ever_enabled_after_setting_setup": true,
+      "flashlight_ever_spawned_after_setting_setup": true,
+      "mean_luma_max": 21.021236419677734,
+      "mean_luma_median": 19.63730812072754,
+      "mean_luma_min": 18.139066696166992,
+      "metadata_file": "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_validation_dark_map/scene_off_flashlight_on/metadata.json",
+      "no_flashlight_ever_control": false,
+      "p99_luma_median": 229.2551040649414,
+      "residual_likely": false,
+      "residual_threshold_mean_luma": 20.0,
+      "scene_off_lighting_isolation_requested": true,
+      "spawn_flashlight": null
+    },
+    "scene_on_flashlight_off": {
+      "capture_show_flags_configured": false,
+      "engine_ini_applied": false,
+      "flashlight_ever_enabled_after_setting_setup": false,
+      "flashlight_ever_spawned_after_setting_setup": true,
+      "mean_luma_max": 148.19960021972656,
+      "mean_luma_median": 132.1898193359375,
+      "mean_luma_min": 92.73103332519531,
+      "metadata_file": "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_validation_dark_map/scene_on_flashlight_off/metadata.json",
+      "no_flashlight_ever_control": false,
+      "p99_luma_median": 241.7863006591797,
+      "residual_likely": false,
+      "residual_threshold_mean_luma": 20.0,
+      "scene_off_lighting_isolation_requested": false,
+      "spawn_flashlight": null
+    },
+    "scene_on_flashlight_on": {
+      "capture_show_flags_configured": false,
+      "engine_ini_applied": false,
+      "flashlight_ever_enabled_after_setting_setup": true,
+      "flashlight_ever_spawned_after_setting_setup": true,
+      "mean_luma_max": 148.27371215820312,
+      "mean_luma_median": 133.47454833984375,
+      "mean_luma_min": 97.01209259033203,
+      "metadata_file": "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_validation_dark_map/scene_on_flashlight_on/metadata.json",
+      "no_flashlight_ever_control": false,
+      "p99_luma_median": 241.8584976196289,
+      "residual_likely": false,
+      "residual_threshold_mean_luma": 20.0,
+      "scene_off_lighting_isolation_requested": false,
+      "spawn_flashlight": null
+    }
+  }
+}

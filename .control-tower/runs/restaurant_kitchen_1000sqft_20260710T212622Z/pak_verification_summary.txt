@@ -1,0 +1,6 @@
+status=success
+target_map=/Game/SPEAR/Scenes/restaurant_kitchen_1000sqft/Maps/restaurant_kitchen_1000sqft
+required_umap=SpearSim/Content/SPEAR/Scenes/restaurant_kitchen_1000sqft/Maps/restaurant_kitchen_1000sqft.umap
+required_uexp=SpearSim/Content/SPEAR/Scenes/restaurant_kitchen_1000sqft/Maps/restaurant_kitchen_1000sqft.uexp
+archive_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak exists=True size_bytes=3541042681 list_exit=0 has_umap=true has_uexp=true ok=true
+staged_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak exists=True size_bytes=3541042681 list_exit=0 has_umap=true has_uexp=true ok=true

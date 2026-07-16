@@ -1,0 +1,17 @@
+run_id=restaurant_kitchen_1000sqft_20260710T212622Z
+status=success
+note=generated, exported, imported, lit, cooked, and pak-verified
+updated_utc=2026-07-10T21:33:46Z
+tmux_session=spear_restaurant_kitchen_1000sqft_212622
+tmux_window=build
+attach_command=tmux attach -t spear_restaurant_kitchen_1000sqft_212622
+run_dir=/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z
+source_root=/home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft
+coarse_blend=/home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/coarse/scene.blend
+fbx_file=/home/yashturkar/Workspace/infinigen/outputs/restaurant_kitchen_1000sqft/spear_export_r256/export_scene.blend/export_scene.fbx
+map_path=/Game/SPEAR/Scenes/restaurant_kitchen_1000sqft/Maps/restaurant_kitchen_1000sqft
+mesh_dir=/Game/SPEAR/Scenes/restaurant_kitchen_1000sqft/Meshes
+validation_report=/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/validation_report.json
+cook_log=/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/logs/cook_package.log
+pak_verification=/home/yashturkar/Workspace/spear/.control-tower/runs/restaurant_kitchen_1000sqft_20260710T212622Z/pak_verification_summary.txt
+post_cook_live_command=cd /home/yashturkar/Workspace/spear && source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate spear-env && python examples/flashlight/run.py --map-path /Game/SPEAR/Scenes/restaurant_kitchen_1000sqft/Maps/restaurant_kitchen_1000sqft --live-lighting-mode realistic --flashlight-profile realistic_live_flashlight_2x --scene-light-intensity-scale 0.0005 --movement-speed 600 --disable-auto-exposure --startup-warmup-seconds 3

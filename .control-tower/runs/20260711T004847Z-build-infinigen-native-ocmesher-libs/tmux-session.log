@@ -1,0 +1,81 @@
+2026-07-11T00:49:29Z run started
+2026-07-11T00:49:29Z primary command: cd /home/yashturkar/Workspace/infinigen && source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate infinigen && make terrain
+rm -rf infinigen/terrain/*.egg-info
+rm -rf infinigen/terrain/__pycache__
+rm -rf infinigen/terrain/build
+bash scripts/install/compile_terrain.sh
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/utils/FastNoiseLite.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/elements/voronoi_rocks.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/elements/upsidedown_mountains.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/elements/ground.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/elements/warped_rocks.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/elements/mountains.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/elements/landtiles.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/elements/atmosphere.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/elements/waterbody.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/surfaces/chunkyrock.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/surfaces/cobble_stone.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/surfaces/cracked_ground.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/surfaces/dirt.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/surfaces/ice.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/surfaces/mountain.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/surfaces/mud.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/surfaces/sand.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/surfaces/sandstone.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/surfaces/snow.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/surfaces/soil.so
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+compiled lib/cuda/surfaces/stone.so
+compiled lib/cpu/utils/FastNoiseLite.so
+compiled lib/cpu/elements/voronoi_rocks.so
+compiled lib/cpu/elements/upsidedown_mountains.so
+compiled lib/cpu/elements/ground.so
+compiled lib/cpu/elements/warped_rocks.so
+compiled lib/cpu/elements/mountains.so
+compiled lib/cpu/elements/landtiles.so
+compiled lib/cpu/elements/atmosphere.so
+compiled lib/cpu/elements/waterbody.so
+compiled lib/cpu/surfaces/chunkyrock.so
+compiled lib/cpu/surfaces/cobble_stone.so
+compiled lib/cpu/surfaces/cracked_ground.so
+compiled lib/cpu/surfaces/dirt.so
+compiled lib/cpu/surfaces/ice.so
+compiled lib/cpu/surfaces/mountain.so
+compiled lib/cpu/surfaces/mud.so
+compiled lib/cpu/surfaces/sand.so
+compiled lib/cpu/surfaces/sandstone.so
+compiled lib/cpu/surfaces/snow.so
+compiled lib/cpu/surfaces/soil.so
+compiled lib/cpu/surfaces/stone.so
+compiled lib/cpu/meshing/cube_spherical_mesher.so
+compiled lib/cpu/meshing/frontview_spherical_mesher.so
+compiled lib/cpu/meshing/uniform_mesher.so
+compiled lib/cpu/meshing/utils.so
+compiled lib/cpu/sdf_from_mesh/sdf_from_mesh.so
+compiled lib/cpu/soil_machine/SoilMachine.so
+/home/yashturkar/Workspace/infinigen
+/home/yashturkar/Workspace/infinigen
+2026-07-11T00:50:51Z make terrain exit status: 0
+native ocmesher libs load
+2026-07-11T00:50:52Z ctypes verification succeeded after make terrain
+2026-07-11T00:50:52Z run completed successfully

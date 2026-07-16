@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "9d53dd62-b0c7-4f2b-a914-b86cdcef23b3",
+  "trace_id": "5acb117e-842c-43df-afe2-1e8c576499c2",
+  "parent_packet_id": null,
+  "created_at": "2026-06-25T23:56:10Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Import one_bed_apartment Infinigen scene into SpearSim",
+  "objective": "Run the documented Infinigen-to-SpearSim workflow for /home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment, using a tmux session the user can attach to and targeting /Game/SPEAR/Scenes/one_bed_apartment.",
+  "instructions": [
+    "Do not generate a new Infinigen scene; input already exists at /home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment/coarse.",
+    "Start a detached tmux session named spear_one_bed_apartment_import and run the workflow there so the user can attach with: tmux attach -t spear_one_bed_apartment_import.",
+    "Use direct Python executables instead of relying on conda shell activation: /home/yashturkar/miniconda3/envs/infinigen/bin/python and /home/yashturkar/miniconda3/envs/spear-env/bin/python.",
+    "Export FBX from /home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment/coarse to /home/yashturkar/Workspace/infinigen/outputs/spear_export_one_bed_apartment with -f fbx -r 1024. If that fails, retry once with -r 512.",
+    "Import the FBX with examples/flashlight/setup_infinigen_indoors.py using --mesh-dir /Game/SPEAR/Scenes/one_bed_apartment/Meshes and --map-path /Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment. Use --replace-existing-assets and --replace-existing-map for intentional reruns of this target.",
+    "Cook the imported map with tools/run_uat.py --cook-maps /Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment -cook -stage -package -archive -pak -skipbuild.",
+    "Log clear step headers in the tmux session and keep the session open at the end with the final status and suggested run command.",
+    "After starting the tmux session, report the session name, attach command, target map path, and whether the tmux command is running."
+  ],
+  "constraints": [
+    "Do not perform Git commits, pushes, branch changes, or source code edits.",
+    "Only mutate generated/exported Infinigen outputs and SpearSim Unreal content/build artifacts required by the import/cook workflow."
+  ],
+  "inputs": {
+    "files": [
+      "docs/importing_and_exporting_assets.md",
+      "examples/flashlight/setup_infinigen_indoors.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "tmux session name and attach command.",
+    "Exact target content/map path.",
+    "Whether workflow was started successfully or why it could not be started."
+  ],
+  "definition_of_done": [
+    "A tmux session is running or has completed the documented export/import/cook workflow for one_bed_apartment.",
+    "No Git commit or source code edit is made."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

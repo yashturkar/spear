@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "667733d3-b1cf-4b3a-b307-745053ced0f3",
+  "trace_id": "942b954e-22e8-4025-a576-3d524ee26223",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T15:43:48Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Add launch-time scene light intensity scaling",
+  "objective": "Add a programmatic launch-time control for existing scene light intensity so generated worlds can keep indoor fixtures but dim them enough for the co-located flashlight to be visible.",
+  "instructions": [
+    "Add a CLI option such as --scene-light-intensity-scale with default 1.0 to both examples/flashlight/run.py and examples/flashlight/run_orbit_collection.py.",
+    "Apply the scale programmatically at launch to existing scene light components before or independently of spawning the co-located flashlight. The co-located flashlight intensity must not be scaled by this option.",
+    "Keep --disable-scene-lights behavior intact; scale is for dimming real scene lights when they remain enabled. Validate finite non-negative values, allowing 0.0 as a dim-to-off option.",
+    "Update tests for argument defaults and invalid values. Update flashlight README with concise cafeteria v2 examples showing scene lights dimmed rather than disabled.",
+    "Do not create commits or perform Git operations."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/README.md",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-flashlight-indirect-light-controls-result.json",
+      ".control-tower/packets/inbox/experimenter-build-cafeteria-500sqft-v2-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Changed files, verification commands/results, and example commands for scene-light dimming."
+  ],
+  "definition_of_done": [
+    "Both flashlight entry points can dim existing scene lights at launch without changing the co-located flashlight intensity; tests/docs are updated; no commit is created."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

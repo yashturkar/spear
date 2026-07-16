@@ -1,0 +1,125 @@
+{
+    "bounds_max": {
+        "x": 705.0,
+        "y": 490.0,
+        "z": 324.0
+    },
+    "bounds_min": {
+        "x": -492.75,
+        "y": -500.2,
+        "z": -8.0
+    },
+    "light_actor_count": 9,
+    "light_component_count": 9,
+    "light_details": [
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "RestaurantKitchen_DimLinearPrep_RectLight_0",
+            "location": {
+                "x": -310.0,
+                "y": -55.0,
+                "z": 300.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "RestaurantKitchen_DimLinearPrep_RectLight_1",
+            "location": {
+                "x": -105.0,
+                "y": -55.0,
+                "z": 300.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "RestaurantKitchen_DimLinearPrep_RectLight_2",
+            "location": {
+                "x": 105.0,
+                "y": -55.0,
+                "z": 300.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "RestaurantKitchen_DimLinearPrep_RectLight_3",
+            "location": {
+                "x": 310.0,
+                "y": -55.0,
+                "z": 300.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "RestaurantKitchen_DimService_RectLight_0",
+            "location": {
+                "x": 0.0,
+                "y": -340.0,
+                "z": 300.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "RestaurantKitchen_DimService_RectLight_1",
+            "location": {
+                "x": 0.0,
+                "y": 340.0,
+                "z": 300.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "RestaurantKitchen_WarmPassHeatLamp_RectLight",
+            "location": {
+                "x": 95.0,
+                "y": -438.0,
+                "z": 182.0
+            }
+        },
+        {
+            "class": "DirectionalLight",
+            "component_class": "DirectionalLightComponent",
+            "label": "Setup_DirectionalLight",
+            "location": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 600.0
+            }
+        },
+        {
+            "class": "SkyLight",
+            "component_class": "SkyLightComponent",
+            "label": "Setup_SkyLight",
+            "location": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 300.0
+            }
+        }
+    ],
+    "lighting_note": "Added low-intensity movable RectLight fixtures and reduced setup directional/skylight for dim live flashlight validation. Use scene-light-intensity-scale to tune lower at runtime.",
+    "map_exists": true,
+    "map_path": "/Game/SPEAR/Scenes/restaurant_kitchen_1000sqft/Maps/restaurant_kitchen_1000sqft",
+    "mesh_asset_count": 235,
+    "mesh_dir": "/Game/SPEAR/Scenes/restaurant_kitchen_1000sqft/Meshes",
+    "spawned_fixture_light_labels": [
+        "RestaurantKitchen_DimLinearPrep_RectLight_0",
+        "RestaurantKitchen_DimLinearPrep_RectLight_1",
+        "RestaurantKitchen_DimLinearPrep_RectLight_2",
+        "RestaurantKitchen_DimLinearPrep_RectLight_3",
+        "RestaurantKitchen_DimService_RectLight_0",
+        "RestaurantKitchen_DimService_RectLight_1",
+        "RestaurantKitchen_WarmPassHeatLamp_RectLight"
+    ],
+    "static_mesh_actor_count": 235,
+    "tuned_setup_light_labels": [
+        "Setup_DirectionalLight",
+        "Setup_SkyLight"
+    ]
+}

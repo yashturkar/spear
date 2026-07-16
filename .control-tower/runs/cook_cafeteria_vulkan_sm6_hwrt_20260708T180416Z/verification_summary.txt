@@ -1,0 +1,31 @@
+run_id=cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z
+status=success
+tmux_session=cook_cafeteria_sm6_180416
+tmux_window=uat
+attach_command=tmux attach -t cook_cafeteria_sm6_180416
+note=tmux session exited after successful completion
+
+cook_command=source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate spear-env && python tools/run_uat.py --unreal-engine-dir /home/yashturkar/Linux_Unreal_Engine_5.5.4 --clean-archive-dir --cook-maps /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark -clean -cook -stage -package -archive -pak -skipbuild
+exit_status=0
+started_at=2026-07-08T18:05:05Z
+finished_at=2026-07-08T18:17:54Z
+build_cook_run_time=766.33s
+
+log=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/cook_package.log
+pak_list_log=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/pak_list.log
+shader_signature_log=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/shader_signatures.log
+filesystem_shader_artifacts_log=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/filesystem_shader_artifacts.log
+runtime_environment_check=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/runtime_environment_check.log
+
+staged_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+archive_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+cooked_global_shader_cache=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/Cooked/Linux/Engine/GlobalShaderCache-VULKAN_SM6.bin
+
+positive_signatures=VULKAN_SM6 shader autogen, SF_VULKAN_SM6 shader compile jobs, Engine/GlobalShaderCache-VULKAN_SM6.bin in archive pak
+negative_signatures_absent=No VULKAN_SM5 or GlobalShaderCache-VULKAN_SM5 signatures found in cook log, filtered pak listing, or filesystem shader artifact scan
+pak_global_shader_cache_entry="Engine/GlobalShaderCache-VULKAN_SM6.bin" offset: 298246071, size: 69214164 bytes, sha1: C0B2DFC089931F7932AFD846D16937C56A94E11A, compression: Zlib
+
+runtime_validation=not_attempted
+runtime_blocker=DISPLAY and WAYLAND_DISPLAY are empty in the current shell; prior exact live validation on this host failed before RPC startup with no display, Signal 11, and zombie Unreal process.
+user_runtime_command=VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json python examples/flashlight/run.py --map cafeteria_500sqft_v2 --live-lighting-mode realistic --flashlight-profile realistic_live_flashlight --scene-light-intensity-scale 0.0005 --movement-speed 600 --disable-auto-exposure --startup-warmup-seconds 3
+runtime_expected_signatures=Platform=VULKAN_SM6; ray tracing enabled dynamically; ray tracing shaders enabled; hardware RT readback confirmed=true

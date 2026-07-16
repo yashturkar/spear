@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "bcd7df76-a6cb-4d59-9696-82d3bc94a8b6",
+  "trace_id": "e6afcea1-b488-4cc0-b4c1-b61374272d49",
+  "parent_packet_id": null,
+  "created_at": "2026-06-26T16:38:23Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Retry one_bed_apartment Infinigen import with lower memory path",
+  "objective": "Retry setting up /home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment in SpearSim after the first Unreal import was killed with exit 137/OOM while building static meshes. Run the retry in tmux so the user can attach and monitor.",
+  "instructions": [
+    "Do not edit product code and do not perform Git operations.",
+    "Create or reuse a detached tmux session named spear_one_bed_apartment_import_retry for the retry, leaving it open at the end for inspection.",
+    "Use the documented Infinigen-to-SPEAR flow from docs/importing_and_exporting_assets.md and the existing setup script examples/flashlight/setup_infinigen_indoors.py.",
+    "Input scene is /home/yashturkar/Workspace/infinigen/outputs/one_bed_apartment/coarse/scene.blend. Target map path is /Game/SPEAR/Scenes/one_bed_apartment/Maps/one_bed_apartment and mesh dir is /Game/SPEAR/Scenes/one_bed_apartment/Meshes.",
+    "Because the previous import failed with exit 137/OOM during static mesh build, retry with a lighter FBX export: prefer resolution 512, and if import still fails from memory pressure, retry once at 256. Use a distinct export output dir per resolution under /home/yashturkar/Workspace/infinigen/outputs so logs/artifacts remain inspectable.",
+    "Run import with --replace-existing-assets and --replace-existing-map so partial assets from the failed attempt are replaced.",
+    "If import succeeds, run the cook/package/archive step for the target map. If any step fails, keep tmux open and report the failing command, exit status, and likely cause.",
+    "Verify tmux session is running after dispatch and include the attach command plus any suggested final run command in the ResultPacket."
+  ],
+  "constraints": [
+    "No commits, no pushes, no PRs.",
+    "Do not ask the user to run the commands; run them in tmux."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Detached tmux retry session with export/import/cook commands dispatched.",
+    "Clear ResultPacket stating whether the workflow is running, completed, or failed to start, with attach command and target map path."
+  ],
+  "definition_of_done": [
+    "tmux session spear_one_bed_apartment_import_retry exists and is either actively running the retry workflow or has completed with visible final status.",
+    "ResultPacket summarizes the retry configuration and next command to run the map after success."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

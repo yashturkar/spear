@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "7367225e-46a9-44b0-a0ef-122780aff370",
+  "trace_id": "b2477ab1-c2a0-49d5-8649-2893b086d32b",
+  "parent_packet_id": null,
+  "created_at": "2026-07-07T17:16:43Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "process",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Cook cafeteria v2 maps for live flashlight teleop",
+  "objective": "Cook/package the local SPEAR build so live examples/flashlight/run.py can load the cafeteria_500sqft_v2 maps, especially /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark.",
+  "instructions": [
+    "Use existing repository scripts/docs to cook/package cafeteria_500sqft_v2 content for the local SPEAR runtime; do not edit product source.",
+    "Include both map paths if supported: /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 and /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark.",
+    "Launch any long-running Unreal/SPEAR process in a named tmux session and write durable command/log/status files under a clearly named .control-tower/runs/ directory.",
+    "Monitor until the cook/package process completes, fails, or reaches a clear blocker; return exact commands, tmux attach command, log paths, exit status, and produced package/build location.",
+    "After cooking, perform a lightweight availability check if feasible without starting an extended live teleop session; otherwise report the exact teleop command the user should rerun."
+  ],
+  "constraints": [
+    "Do not perform Git operations.",
+    "Do not modify product source, tests, or docs.",
+    "Do not delete unrelated generated assets or runtime state."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Experimenter ResultPacket with cook/package status, logs, tmux session, output location, and next command for live teleop."
+  ],
+  "definition_of_done": [
+    "The cafeteria_500sqft_v2 dark validation map is cooked/packaged into the local SPEAR runtime, or a concrete blocker with log evidence is reported."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [
+    ".control-tower/docs/state/current-status.md",
+    "docs/importing_and_exporting_assets.md",
+    "docs/running_our_example_applications.md"
+  ],
+  "time_budget": {
+    "soft_seconds": 1200,
+    "hard_seconds": 7200
+  },
+  "requires_review": true,
+  "allow_partial": true,
+  "metadata": {}
+}

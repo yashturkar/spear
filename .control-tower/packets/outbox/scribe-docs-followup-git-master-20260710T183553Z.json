@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "4b51905f-ffa4-4f6d-8c09-5fd09f2d69ef",
+  "trace_id": "356f9cdd-5add-417f-baa8-913798f91e3f",
+  "parent_packet_id": null,
+  "created_at": "2026-07-10T18:35:53Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "documentation",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Update repo docs after Git-Master work",
+  "objective": "Inspect the latest agent result and update the impacted durable repo docs under the configured docs harness.",
+  "instructions": [
+    "Review the referenced ResultPacket and the changed files before editing docs.",
+    "Update existing relevant docs under the configured repo docs roots when possible.",
+    "Create a new repo doc only if no suitable existing page covers the change.",
+    "Refresh docs indices if you add a new page.",
+    "Report doc drift or unresolved ambiguity explicitly instead of inventing facts."
+  ],
+  "constraints": [
+    "Treat repo docs under `docs/` as the durable docs harness.",
+    "Treat `.control-tower/docs/state` and `.control-tower/memory` as operational memory, not durable product docs.",
+    "Do not modify product source code unless the task packet explicitly requires a small doc-adjacent fix."
+  ],
+  "inputs": {
+    "files": [
+      "cpp/unreal_projects/SpearSim/Config/DefaultEngine.ini",
+      "docs/running_our_example_applications.md",
+      "examples/flashlight/flashlight_profiles.py",
+      "examples/flashlight/run.py",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/git-master-501db67d-3524-4d5d-b444-583fc10b7d2a-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Updated repo docs if needed",
+    "A ResultPacket summarizing doc updates, drift, and follow-up gaps"
+  ],
+  "definition_of_done": [
+    "Durable repo docs reflect the changed behavior or workflow",
+    "Relevant indices are refreshed if new docs were added",
+    "Open doc drift or ambiguity is called out explicitly"
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/git-master-501db67d-3524-4d5d-b444-583fc10b7d2a-result.json"
+  ],
+  "doc_context_refs": [
+    ".control-tower/docs/state/current-status.md"
+  ],
+  "time_budget": {
+    "soft_seconds": 300,
+    "hard_seconds": 900
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {
+    "generated_by": "tower delegate follow-up",
+    "seed_result_packet": ".control-tower/packets/inbox/git-master-501db67d-3524-4d5d-b444-583fc10b7d2a-result.json",
+    "seed_result_agent": "git-master"
+  }
+}

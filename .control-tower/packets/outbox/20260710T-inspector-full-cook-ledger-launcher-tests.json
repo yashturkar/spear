@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "a8e087f1-da9e-4ca6-b46e-e9467571a714",
+  "trace_id": "356f9cdd-5add-417f-baa8-913798f91e3f",
+  "parent_packet_id": "builder-41b8b3b9-launcher-tests-result",
+  "created_at": "2026-07-10T18:10:12Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review-verification",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Verify full cook ledger and launcher test alignment",
+  "objective": "Review the full-cook ledger/doc updates plus Builder's launcher test alignment for regressions, then run the focused launcher test suite and any cheap ledger validation needed.",
+  "instructions": [
+    "Check whether docs/environment_ledger.json accurately reflects the Experimenter full-cook result at package metadata level.",
+    "Review tests/test_spear_launcher.py for brittle or incorrect assertions introduced by the package-version update.",
+    "Run python -m unittest tests.test_spear_launcher and python -m json.tool docs/environment_ledger.json."
+  ],
+  "constraints": [
+    "Do not modify files unless a small review fix is needed and clearly within scope.",
+    "Do not perform Git commits or pushes."
+  ],
+  "inputs": {
+    "files": [
+      "docs/environment_ledger.json",
+      "tests/test_spear_launcher.py",
+      "tools/spear-run",
+      ".control-tower/docs/state/current-status.md"
+    ],
+    "artifacts": [
+      ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt",
+      ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/coverage_table.md"
+    ],
+    "references": [
+      ".control-tower/packets/inbox/experimenter-fe03b43c-4517-48ba-89b5-ce17760152dc-result.json",
+      ".control-tower/packets/inbox/scribe-5b5af92e-e3d8-4762-a491-1a76baeebbca-result.json",
+      ".control-tower/packets/inbox/builder-41b8b3b9-b909-40b2-804b-d3626c1b4536-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Findings first, with file/line references if issues are found.",
+    "Verification command summary."
+  ],
+  "definition_of_done": [
+    "Focused launcher tests and ledger JSON validation pass, or issues are reported clearly."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-41b8b3b9-b909-40b2-804b-d3626c1b4536-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-41b8b3b9-b909-40b2-804b-d3626c1b4536-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

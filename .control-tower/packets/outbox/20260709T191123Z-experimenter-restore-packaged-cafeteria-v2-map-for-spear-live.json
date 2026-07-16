@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "20cb7450-8319-4fe9-aadc-160f6ed473dd",
+  "trace_id": "13195a50-9aea-4feb-bfa0-bd8499688b1a",
+  "parent_packet_id": null,
+  "created_at": "2026-07-09T19:11:23Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "runtime-validation",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Restore packaged cafeteria v2 map for spear live",
+  "objective": "Diagnose and repair the packaged Standalone-Development content failure where spear live cafeteria_500sqft_v2 exits with MapNotFound. Inspect the active Standalone/Saved staged pak contents for cafeteria_500sqft_v2 and cafeteria_500sqft_v2_flashlight_validation_dark, verify the cook/package artifact state, and if the active package is stale or missing those maps, run the appropriate cook/package workflow to restore them. Return exact commands run, package evidence, and the next user command to retry.",
+  "instructions": [
+    "Start by confirming whether the active packaged runtime contains /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 and the dark validation map.",
+    "If missing, cook/package cafeteria_500sqft_v2 and cafeteria_500sqft_v2_flashlight_validation_dark for the current Linux Standalone-Development runtime using the project-standard UAT/run_uat workflow.",
+    "Do not change product code unless absolutely required; this is primarily a package/cook repair.",
+    "Do not commit or push.",
+    "After cook/package, verify the pak or staged content includes the target map assets and report the exact retry command for spear live cafeteria_500sqft_v2 --setting realistic-2x."
+  ],
+  "constraints": [
+    "Long-running Unreal/UAT commands are allowed for Experimenter.",
+    "Preserve logs under .control-tower/runs with a timestamped directory."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": [
+      "docs/environment_ledger.json",
+      "tools/spear-run",
+      "tools/run_uat.py",
+      ".control-tower/runs/cook_cafeteria_vulkan_sm6_hwrt_20260708T180416Z/verification_summary.txt"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket with diagnosis, package evidence, commands run, and retry command."
+  ],
+  "definition_of_done": [
+    "Either the active package contains both cafeteria target maps or the packet clearly explains the blocking failure and next manual step."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "7d529c86-6917-4c0a-8289-1e160e4b27e8",
+  "trace_id": "01a32aa1-cb0a-4230-91f3-f8cfbd06ef65",
+  "parent_packet_id": "scout-c4617eb3-result",
+  "created_at": "2026-07-07T17:31:26Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Add stable realistic live flashlight mode",
+  "objective": "Implement a live teleop lighting path for examples/flashlight/run.py that produces stable, realistic dim environment lighting plus physically plausible flashlight behavior: fixed exposure including local-exposure suppression, startup warmup before user control, Lumen GI/reflections retained, inverse-square spotlight support where available, and explicit direct/contact shadow controls.",
+  "instructions": [
+    "Start by directly inspecting the current examples/flashlight/run.py, flashlight_profiles.py/json, run_orbit_collection.py for shared helpers, tests/test_orbit_collection_validation.py, and cpp/unreal_projects/SpearSim/Config/DefaultEngine.ini. Scout could not read these due to policy, so verify all assumptions in code before editing.",
+    "Focus implementation on live examples/flashlight/run.py and shared flashlight profile/helpers. Do not redesign orbit collection unless needed for shared profile/test consistency.",
+    "Extend fixed exposure for live realistic mode to also suppress local exposure: include r.DefaultFeature.LocalExposure.HighlightContrastScale=0 and r.DefaultFeature.LocalExposure.ShadowContrastScale=0 in launch/runtime config when auto exposure is disabled or realistic live mode is active.",
+    "Add startup warmup/gating for live teleop: after map load, scene-light scaling, and flashlight setup, wait out the skylight/Lumen/reflection startup period before entering the user control loop. Make the duration configurable, default around 3 seconds for realistic live mode, and log when live control begins.",
+    "Keep Lumen GI/reflections and material response enabled for realistic live mode. Do not reuse validation render settings that disable GI/reflections/SSR/material response.",
+    "Add inverse-square spotlight support with robust reflected setters if Unreal exposes UseInverseSquaredFalloff/use_inverse_squared_falloff or equivalent. Preserve safe fallbacks and avoid unsafe property probing that can trigger SPEAR resolveProperty assertions.",
+    "Ensure direct flashlight shadow controls remain explicit and safe: cast shadows, dynamic shadows, contact shadow length when supported, and keep --disable-flashlight-contact-shadows as a fallback.",
+    "Add or update a profile such as realistic_live_flashlight if it fits the existing profile model. Prefer normal cafeteria v2 as the realistic target; keep dark validation map as diagnostic only.",
+    "Add diagnostics/logging for exposure/local exposure config, scene-light scale results, flashlight profile, inverse-square status, shadow/contact-shadow status, and warmup duration.",
+    "Add focused unit tests for config construction, profile resolution/overrides, inverse-square setter fallback behavior, and startup warmup sequencing. Run the targeted unittest suite."
+  ],
+  "constraints": [
+    "Do not run long Unreal processes; runtime validation will go to Experimenter or the user after Builder.",
+    "Do not perform Git operations or commits.",
+    "Avoid broad refactors outside the flashlight live/profile path."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/flashlight_profiles.py",
+      "examples/flashlight/flashlight_profiles.json",
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/run_orbit_workflow.sh",
+      "tests/test_orbit_collection_validation.py",
+      "cpp/unreal_projects/SpearSim/Config/DefaultEngine.ini"
+    ],
+    "artifacts": [
+      "Live flashlight brightening in cafeteria v2 is most likely a startup temporal-state issue: local exposure remains active, SPEAR forces skylight updates for about 1 second after map load, and Lumen/reflection histories converge while live teleop is already visible. Realistic mode should disable local exposure, warm up before user control, and keep Lumen GI/reflections enabled."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/scout-c4617eb3-04b9-480f-9926-f77e856fd3b9-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Builder ResultPacket with changed files, tests run, and the exact live command to validate the realistic stable-lighting mode."
+  ],
+  "definition_of_done": [
+    "Live flashlight entry point has a stable realistic startup path with local exposure suppressed, warmup before teleop, Lumen/reflections retained, inverse-square attempt/fallback, direct shadows configured, and focused tests passing."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/scout-c4617eb3-04b9-480f-9926-f77e856fd3b9-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 1800,
+    "hard_seconds": 5400
+  },
+  "requires_review": true,
+  "allow_partial": true,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/scout-c4617eb3-04b9-480f-9926-f77e856fd3b9-result.json",
+    "seed_result_agent": "scout",
+    "seed_result_status": "partial"
+  }
+}

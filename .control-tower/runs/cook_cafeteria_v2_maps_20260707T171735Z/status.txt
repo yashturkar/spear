@@ -1,0 +1,10 @@
+finished_at=2026-07-07T17:19:49Z
+status=success
+tmux_session=cook_cafeteria_v2_171735
+tmux_window=uat
+log=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_v2_maps_20260707T171735Z/cook_package.log
+archive_dir=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development
+staged_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+archive_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+availability_check=success
+availability_check_log=/home/yashturkar/Workspace/spear/.control-tower/runs/cook_cafeteria_v2_maps_20260707T171735Z/availability_check.txt

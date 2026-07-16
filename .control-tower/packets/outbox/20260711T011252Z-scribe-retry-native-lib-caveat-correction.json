@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "8fdf2c6a-9d31-4c1f-bdf0-d4953de5a7fe",
+  "trace_id": "db924798-8f1b-4d3d-94d3-ac3d9cf6cec1",
+  "parent_packet_id": null,
+  "created_at": "2026-07-11T01:12:52Z",
+  "from_agent": "tower",
+  "to_agent": "scribe",
+  "task_type": "docs",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Retry native-lib caveat correction",
+  "objective": "Correct stale native Infinigen terrain/OcMesher missing-library wording for infinigen_indoors_kitchen.",
+  "instructions": [
+    "Actually inspect and edit docs/environment_ledger.json and docs/world_ledger.md. Update only the infinigen_indoors_kitchen text that says native Infinigen terrain/OcMesher libraries are missing or that a higher-fidelity rerun needs make terrain. Replace with: current imported kitchen is not a real_geometry.gin rerun, but make terrain completed on 2026-07-11 and the terrain/OcMesher shared libraries were verified loadable, so a future higher-fidelity real_geometry.gin rerun can use those native libraries. Keep runtime visual validation pending. Validate docs/environment_ledger.json with python -m json.tool. Do not make commits."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "ResultPacket listing changed files and validation command."
+  ],
+  "definition_of_done": [
+    "The targeted stale wording is gone from the infinigen_indoors_kitchen docs entries and JSON validation passes."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

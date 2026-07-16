@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "1de6b0d1-bca7-43e1-b0e9-09dbf9656681",
+  "trace_id": "9a9aa27a-5a06-4dfb-8ede-425d044ff6a6",
+  "parent_packet_id": null,
+  "created_at": "2026-07-08T17:54:02Z",
+  "from_agent": "tower",
+  "to_agent": "scout",
+  "task_type": "research",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Find exact hardware RT enablement path for Linux SPEAR package",
+  "objective": "Determine the concrete repository changes needed to make hardware ray tracing actually active for the user's cafeteria live run. The latest user log shows Unreal starts with Platform=VULKAN_SM5 and 'Ray tracing is disabled. Reason: not supported by current RHI.' Investigate UE 5.5/SPEAR local config and official Unreal guidance for Linux Vulkan hardware RT, Vulkan SM6 targeted shader formats, required project settings/CVars/RHI flags, cook/package implications, and whether an alternate RHI is viable on this machine. Inspect local project config, run/cook scripts, and relevant UE target/platform config files. Return a Builder-ready plan with exact files/settings/commands, including how to verify logs should change away from VULKAN_SM5 and confirm hardware RT. Do not edit files.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "cpp/unreal_projects/SpearSim/Config/DefaultEngine.ini",
+      "tools/run_uat.py",
+      "examples/flashlight/run.py"
+    ],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "Exact implementation plan for real hardware RT enablement, not just crash avoidance."
+  ],
+  "definition_of_done": [
+    "Plan identifies why current package is VULKAN_SM5, exact config/build changes to get SM6/HWRT if supported, and validation commands/log signatures."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

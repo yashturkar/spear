@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "327c84eb-2f71-4848-b84c-5b774fe9e406",
+  "trace_id": "356f9cdd-5add-417f-baa8-913798f91e3f",
+  "parent_packet_id": "inspector-a8e087f1-launcher-ledger-review-result",
+  "created_at": "2026-07-10T18:31:13Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git-commit",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Commit current full-cook ledger state",
+  "objective": "Inspect the current worktree and create a clean commit for all current meaningful local changes from the completed full-cook/ledger/test work before new feature development starts.",
+  "instructions": [
+    "Inspect git status and diffs before committing.",
+    "Commit all meaningful local changes from the completed full-cook ledger/test/doc/state work so the subsequent feature starts from a clean baseline.",
+    "Use a clear commit message such as 'Record full ledger Linux package cook' unless the inspected diff suggests a better concise message.",
+    "Do not push.",
+    "If there are unrelated local changes that should not be included, report them and leave them uncommitted rather than guessing."
+  ],
+  "constraints": [
+    "Do not rewrite history or use destructive git commands.",
+    "Do not include generated binaries or oversized package artifacts unless they are already intentionally tracked and modified."
+  ],
+  "inputs": {
+    "files": [
+      "docs/environment_ledger.json",
+      "tests/test_spear_launcher.py",
+      ".control-tower/docs/state/current-status.md",
+      ".control-tower/docs/state/known-risks.md",
+      ".control-tower/memory/l0.md",
+      ".control-tower/memory/l1.md"
+    ],
+    "artifacts": [
+      ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/verification_summary.txt",
+      ".control-tower/runs/full_ledger_linux_package_20260710T175718Z/coverage_table.md"
+    ],
+    "references": [
+      ".control-tower/packets/inbox/inspector-a8e087f1-da9e-4ca6-b46e-e9467571a714-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Commit hash and summary of committed files.",
+    "Remaining git status after commit, including any intentionally uncommitted files."
+  ],
+  "definition_of_done": [
+    "Meaningful current local changes are committed and the worktree is clean except for intentionally uncommitted artifacts, or blockers are reported."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-a8e087f1-da9e-4ca6-b46e-e9467571a714-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-a8e087f1-da9e-4ca6-b46e-e9467571a714-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

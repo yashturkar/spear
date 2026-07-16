@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "4a7b555c-2d2d-4469-9883-99888e1a6901",
+  "trace_id": "b5e2ecfe-2cf1-4123-a3c0-eec90c28c4b1",
+  "parent_packet_id": null,
+  "created_at": "2026-07-11T00:43:57Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "process",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Build Infinigen native libs and brighten kitchen ceiling lights",
+  "objective": "Build the missing native Infinigen terrain/OcMesher libraries needed by real_geometry.gin, then update the imported infinigen_indoors_kitchen Unreal map to use bright ceiling lights that remain reducible/disableable via the existing --scene-light-intensity-scale runtime parameter, and recook/package/verify the map.",
+  "instructions": [
+    "Create a run directory under .control-tower/runs named for this task and launch all long-running work in a named tmux session/window. Return the tmux attach command, exact commands run, log paths, status files, and verification outputs.",
+    "First build native Infinigen libs from /home/yashturkar/Workspace/infinigen using: cd /home/yashturkar/Workspace/infinigen && source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate infinigen && make terrain. Tee full output to the run log. Verify these files exist and load with ctypes: /home/yashturkar/Workspace/infinigen/infinigen/terrain/lib/cpu/sdf_from_mesh/sdf_from_mesh.so and /home/yashturkar/Workspace/infinigen/infinigen/OcMesher/ocmesher/lib/core.so. If make terrain fails after partially building, preserve logs and try the Scout-recommended direct fallback only for those two critical libs, then report whether full terrain build or minimal real_geometry unblock succeeded.",
+    "Then update /Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen with bright, overhead, movable ceiling RectLight fixtures. Use an editor script stored in the run directory, not product source. Destroy/replace the previous InfinigenKitchen_* fixtures. Use realistic warm-white commercial ceiling lighting at base scale 1.0, with multiple rectangular area fixtures across the kitchen ceiling, and keep setup skylight/directional low enough not to wash out flashlight testing. The existing runtime --scene-light-intensity-scale must be able to reduce these scene lights; do not change product code unless a blocker is discovered.",
+    "After lighting edits, validate and record map_exists, mesh asset/static mesh actor counts, light actor/component counts, labels, intensities, mobility, bounds, and the intended launch command. Recook/package the active Linux build including all non-null docs/environment_ledger.json map paths, verify both archive and staged paks contain infinigen_indoors_kitchen .umap and .uexp, and dry-run tools/spear-run live infinigen_indoors_kitchen --setting realistic-2x.",
+    "Include exact user-facing commands in the result: the native lib build command, the direct live command for bright ceiling lights at scale 1.0, a reduced/dim command, and a scene-off command using --scene-light-intensity-scale 0.0 or --disable-scene-lights."
+  ],
+  "constraints": [
+    "Do not commit or push.",
+    "Do not edit tracked product code unless you hit a clear blocker; report to Tower instead."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [
+      ".control-tower/packets/inbox/scout-c3eb64de-253f-4562-aa96-684865935bc1-result.json",
+      ".control-tower/runs/infinigen_indoors_kitchen_20260710T235251Z/validation_report.json",
+      ".control-tower/runs/infinigen_indoors_kitchen_20260710T235251Z/pak_verification_summary.json"
+    ],
+    "references": [
+      "docs/environment_ledger.json",
+      "docs/world_ledger.md"
+    ]
+  },
+  "expected_outputs": [
+    "Native library build status is verified; kitchen map has bright base ceiling lights; Linux package is recooked and pak-verified; spear-run dry-run resolves; result includes exact commands."
+  ],
+  "definition_of_done": [
+    "ctypes load verification succeeds for required native libs or a concrete compiler/dependency blocker is reported; paks verify the kitchen map after lighting changes; exact commands are included."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

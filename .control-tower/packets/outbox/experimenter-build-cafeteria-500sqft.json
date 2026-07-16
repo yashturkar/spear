@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "32fb8617-902f-412b-8dd3-2a1d66630b13",
+  "trace_id": "c543a3e5-9d65-4ac8-9af1-49699471f1c8",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T14:43:05Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "process-orchestration",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Build small 500 sqft cafeteria world",
+  "objective": "Generate, export, import, cook, and prepare a small approximately 500 sqft cafeteria world for SPEAR simulation, preserving materials/colors/textures for active-illumination visual inspection.",
+  "instructions": [
+    "Use the new Experimenter workflow: every long-running or user-observable process must run in a named tmux session/window, and the ResultPacket must include the exact tmux attach command.",
+    "Create a clearly named run directory under .control-tower/runs/ for runner scripts, logs, manifests, and status notes.",
+    "Target world name cafeteria_500sqft, target Unreal map /Game/SPEAR/Scenes/cafeteria_500sqft/Maps/cafeteria_500sqft, target mesh/content root /Game/SPEAR/Scenes/cafeteria_500sqft.",
+    "Use /home/yashturkar/Workspace/infinigen as the Infinigen repo and /home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft as the primary source/provenance output folder unless a better timestamped child folder is needed.",
+    "Aim for a compact cafeteria of about 500 sqft / 46.5 square meters with visible tables, chairs, counter/service area, food or drink props if feasible, wall/floor/ceiling variation, and meaningful colors/materials/textures.",
+    "Do not repeat the one_bed_apartment failure mode: preserve useful colors/materials/textures. Do not use --no-import-materials or --no-import-textures unless you stop and report it as a blocker or explicitly justify why the output remains visually useful.",
+    "Use existing Infinigen/SPEAR import documentation and the college_classroom generator/import logs as references. Prefer a lightweight path that can complete on this machine over a large unconstrained solve.",
+    "If generating through Infinigen is not practical, create generated runtime/provenance scripts only under the Infinigen output folder or .control-tower/runs and report the fallback clearly; do not edit SPEAR product source.",
+    "Run export to FBX, import into the SPEAR Unreal project with examples/flashlight/setup_infinigen_indoors.py or an equivalent existing import path, then cook/package the target map if import succeeds.",
+    "After import/cook, provide the exact command to run the map through examples/flashlight/run.py and note any visual validation still required."
+  ],
+  "constraints": [
+    "Do not perform Git commits, pushes, or branch operations.",
+    "Do not edit product code. Generated runner scripts, generated scene scripts, generated configs, and logs are allowed only under .control-tower/runs/ or /home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft.",
+    "Do not terminate unrelated tmux sessions or processes."
+  ],
+  "inputs": {
+    "files": [
+      "docs/world_ledger.md",
+      "docs/importing_and_exporting_assets.md",
+      "examples/flashlight/setup_infinigen_indoors.py"
+    ],
+    "artifacts": [],
+    "references": [
+      "/home/yashturkar/Workspace/infinigen/outputs/college_classroom/scripts/create_college_classroom.py",
+      "/home/yashturkar/Workspace/infinigen/outputs/college_classroom/logs"
+    ]
+  },
+  "expected_outputs": [
+    "Run directory path, tmux session/window name, and exact attach command.",
+    "Generated scene/provenance paths and key logs.",
+    "Imported Unreal map path and cook/package status, or clear failure/blocker with log excerpts.",
+    "Run command for flashlight example if ready."
+  ],
+  "definition_of_done": [
+    "A cafeteria map exists at /Game/SPEAR/Scenes/cafeteria_500sqft/Maps/cafeteria_500sqft and has been cooked/package-ready, or Experimenter returns a blocked/failed ResultPacket with preserved logs and concrete next step.",
+    "The output is not knowingly textureless/colorless; visual material status is explicitly reported."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 7200
+  },
+  "requires_review": false,
+  "allow_partial": true,
+  "metadata": {}
+}

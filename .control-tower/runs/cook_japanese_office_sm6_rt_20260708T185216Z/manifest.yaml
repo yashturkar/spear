@@ -1,0 +1,26 @@
+schema_version: "1.0.0"
+run_id: cook_japanese_office_sm6_rt_20260708T185216Z
+created_at: "2026-07-08T18:52:16Z"
+task_packet_id: "333857e3-87a4-4b34-9cf0-219a5f2dea42"
+trace_id: "6aa85be2-55a3-4a3e-83f8-deef02a472dd"
+parent_packet_id: null
+agent: experimenter
+objective: "Cook/package Japanese office maps into Linux Standalone-Development using existing Vulkan SM6 hardware RT project configuration."
+tmux_session: cook_jp_office_sm6_185216
+tmux_window: uat
+attach_command: "tmux attach -t cook_jp_office_sm6_185216"
+runner: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/runner.sh"
+cook_log: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/cook_package.log"
+pak_list_log: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/pak_list.log"
+verification_log: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/verification_summary.txt"
+runtime_environment_log: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/runtime_environment_check.log"
+status_file: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/status.txt"
+exit_file: "/home/yashturkar/Workspace/spear/.control-tower/runs/cook_japanese_office_sm6_rt_20260708T185216Z/exit_status.txt"
+archive_pak: "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak"
+maps:
+  - "/Game/JapaneseOffice/Maps/Demonstration"
+  - "/Game/JapaneseOffice/Maps/Demonstration_Dark"
+command: "source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate spear-env && python tools/run_uat.py --unreal-engine-dir /home/yashturkar/Linux_Unreal_Engine_5.5.4 --clean-archive-dir --cook-maps /Game/JapaneseOffice/Maps/Demonstration /Game/JapaneseOffice/Maps/Demonstration_Dark -clean -cook -stage -package -archive -pak -skipbuild"
+user_run_commands:
+  - "python examples/flashlight/run.py --map japanese_office"
+  - "python examples/flashlight/run.py --map japanese_office_dark"

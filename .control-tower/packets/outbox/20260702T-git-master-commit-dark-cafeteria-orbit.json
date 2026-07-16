@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "61a487fe-bdc2-4c20-b22e-8f8958e5fffb",
+  "trace_id": "be49d1be-181a-4068-8535-6147e74af7b8",
+  "parent_packet_id": null,
+  "created_at": "2026-07-02T14:39:53Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git-commit",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Commit accepted dark cafeteria orbit validation state",
+  "objective": "Create a local commit for the currently accepted dark cafeteria orbit validation/code/docs state, with no push.",
+  "instructions": [
+    "User explicitly authorized a local commit: 'Ok good, lets do a local commit.'",
+    "Inspect git status and diffs before staging.",
+    "Commit meaningful tracked/project changes for the accepted flashlight orbit validation state: source/tests/docs/configs and required Unreal content assets such as the dark cafeteria validation map if present and appropriate.",
+    "Do not commit transient generated render outputs, Tower run logs, session imports, packet inbox/outbox churn, build products, or simulator output unless they are already tracked and required for the project state.",
+    "Use a concise commit message that reflects the accepted dark cafeteria/orbit validation work.",
+    "After committing, report commit hash, commit subject, files included, files intentionally left uncommitted, and any Git risks."
+  ],
+  "constraints": [
+    "No push.",
+    "No force operations or history rewrites.",
+    "Do not modify product code."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/experimenter-678df951-1a92-4719-a188-bd53be9420b1-result.json",
+      ".control-tower/packets/inbox/inspector-34052fd1-0599-4e83-b246-766d83d7f2e7-result.json",
+      ".control-tower/packets/inbox/scribe-27143589-b81c-4fb5-84fd-079085f30435-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "A local commit exists for the accepted work, or a blocked ResultPacket explaining exactly why not.",
+    "Clear list of committed vs intentionally uncommitted changes."
+  ],
+  "definition_of_done": [
+    "A local commit is created without pushing.",
+    "Working tree status after commit is summarized."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 600,
+    "hard_seconds": 1200
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

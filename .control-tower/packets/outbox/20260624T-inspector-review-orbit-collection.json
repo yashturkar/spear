@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "5e31075d-a6e3-44dc-a8ac-0ecd3440e412",
+  "trace_id": "f05f0a15-9f1b-4f4b-9ab4-8e41d40e73a0",
+  "parent_packet_id": "5f522dc5-ffdb-4d0d-8f3f-05522b5e7c44",
+  "created_at": "2026-06-24T19:18:08Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Review orbit collection flashlight script",
+  "objective": "Review Builder's orbit collection implementation before commit; identify correctness bugs, simulator API risks, validation gaps, and any required Builder fixes.",
+  "instructions": [
+    "Take a code-review/QA stance. Findings first, ordered by severity, with file and line references.",
+    "Focus on the new run_orbit_collection.py teleop/render behavior: gamepad polling, ray target selection and fallback, orbit pose math, pose restoration, co-located light controls, RGB/depth capture, MP4 output, and JSON validation.",
+    "Check whether the script avoids unwanted generated files in the repo and whether the README instructions match actual behavior.",
+    "Run non-simulator checks that are safe locally, including syntax/import validation and JSON validation. Do not run simulator-dependent commands.",
+    "Do not modify product code. If fixes are needed, describe exact required changes for Builder."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/light_settings.example.json",
+      "examples/flashlight/README.md"
+    ],
+    "artifacts": [],
+    "references": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_programmatic_rerun.py",
+      "examples/flashlight/render_flythrough.py",
+      "docs/agents.mcp_usage.md",
+      ".control-tower/packets/inbox/builder-0bb7b726-ed97-4004-b30f-c3377e1847db-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "ResultPacket with clear pass/fail summary, findings, tests run, residual live-sim validation requirements, and recommendation: send back to Builder, proceed to Git-master, or stop."
+  ],
+  "definition_of_done": [
+    "All changed/created files from Builder are reviewed.",
+    "Non-simulator checks are run or explicitly blocked with reason.",
+    "Any blocking issues include exact file/line references and proposed fix direction."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-0bb7b726-ed97-4004-b30f-c3377e1847db-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-0bb7b726-ed97-4004-b30f-c3377e1847db-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

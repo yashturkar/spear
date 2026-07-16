@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "3a1b6244-2dc4-43b1-a870-bbb99325d510",
+  "trace_id": "29f258a3-3cdb-43e4-a0ff-a4dc10368b33",
+  "parent_packet_id": "inspector-cc4a1e21-result",
+  "created_at": "2026-07-02T16:28:49Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "validation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Rerun soft flashlight scene-off visual validation",
+  "objective": "Run the existing soft flashlight orbit validation after the scene-off isolation repair, in tmux, and report whether the render completed plus key output paths for Tower inspection.",
+  "instructions": [
+    "Run in a tmux session so the user can attach. Do not run directly in the foreground.",
+    "Use /home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/run_render.sh as the render command, but first archive the current render.log/status.txt with a timestamp and remove examples/flashlight/orbit_collection_output_soft_falloff_validation so the output is fresh.",
+    "Use the existing spear-env python already embedded in run_render.sh. Do not commit. Do not push.",
+    "Monitor until the process completes or fails. Return the tmux session name, run log path, status file path, exit status, and output directory.",
+    "If it fails, include the first concrete error. If it succeeds, do not do detailed visual judgment; Tower will inspect frames."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      ".control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/run_render.sh"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/inspector-cc4a1e21-4e37-4b9f-b42a-b9e6d24b7f7f-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "tmux-backed validation run result with log/status/output paths."
+  ],
+  "definition_of_done": [
+    "Render process has completed or failed, not left ambiguous.",
+    "No Git commit is created."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-cc4a1e21-4e37-4b9f-b42a-b9e6d24b7f7f-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-cc4a1e21-4e37-4b9f-b42a-b9e6d24b7f7f-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

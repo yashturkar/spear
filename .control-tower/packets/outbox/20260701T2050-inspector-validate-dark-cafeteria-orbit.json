@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "34052fd1-0599-4e83-b246-766d83d7f2e7",
+  "trace_id": "5356a1f3-06fb-4dcf-9da5-0a6d03c1ace4",
+  "parent_packet_id": null,
+  "created_at": "2026-07-01T20:49:04Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "qa-validation",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Validate dark cafeteria flashlight orbit isolation",
+  "objective": "Review the completed dark-map orbit validation run and determine whether it resolves the residual scene-off brightness/flicker issue for the four orbit render conditions.",
+  "instructions": [
+    "Inspect the rendered artifacts, metadata, luma summary, and dark-map creation report for examples/flashlight/orbit_collection_output_validation_dark_map.",
+    "Compare against the prior failure mode: scene_off_flashlight_off was bright/residual, scene_off_flashlight_on appeared scene-lit/flickery/accumulating, and saved outputs disagreed with expected scene-off semantics.",
+    "Verify all four settings have rgb.mp4, depth_meters_viridis.mp4, metadata.json, and coherent luma diagnostics.",
+    "Check whether scene_off_flashlight_off is truly dark, whether scene_off_flashlight_on has only localized flashlight contribution, whether scene-on settings remain lit, and whether any output still shows progressive exposure/brightness accumulation.",
+    "Do not change product code. This is validation only."
+  ],
+  "constraints": [
+    "No commits or git operations.",
+    "Do not launch a long rerender unless absolutely necessary; prefer inspecting existing output files and metadata."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/run_orbit_workflow.sh"
+    ],
+    "artifacts": [
+      "examples/flashlight/orbit_collection_output_validation_dark_map",
+      ".control-tower/runs/dark_cafeteria_orbit_20260701T203921Z/luma_summary.json",
+      ".control-tower/runs/dark_cafeteria_orbit_20260701T203921Z/dark_map_report.json",
+      ".control-tower/runs/dark_cafeteria_orbit_20260701T203921Z/logs/orbit_render_validation.log",
+      ".control-tower/runs/dark_cafeteria_orbit_20260701T203921Z/status.txt"
+    ],
+    "references": [
+      ".control-tower/packets/inbox/inspector-af3900a6-a92c-4169-986d-8b2d64964acd-result.json",
+      ".control-tower/packets/inbox/scout-2288a598-9653-480c-845c-e874e8ef0832-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "A concise verdict: pass/fail/partial, with concrete evidence and any remaining risk.",
+    "If failing or partial, identify the next best handoff: Builder, Experimenter, or Scout, and why."
+  ],
+  "definition_of_done": [
+    "Validated artifact completeness and luma/visual behavior for all four render settings.",
+    "Reported specific file paths and metrics used as evidence."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 1800
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

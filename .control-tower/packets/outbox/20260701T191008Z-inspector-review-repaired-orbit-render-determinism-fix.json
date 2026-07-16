@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "ade4e288-dad0-452a-8169-33a2543e0285",
+  "trace_id": "e0f65f15-f424-4bd5-8f6c-003a5f1c11b6",
+  "parent_packet_id": "builder-6da98e74-ordering-result",
+  "created_at": "2026-07-01T19:10:08Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Review repaired orbit render determinism fix",
+  "objective": "Review the current repaired orbit render determinism changes after Builder moved deterministic capture configuration after Initialize",
+  "instructions": [
+    "Review current worktree state for the orbit render flicker/scene-off fix. The prior Inspector blocked because configure_deterministic_capture_component ran before USpSceneCaptureComponent2D.Initialize(), but Builder has since moved it after Initialize()/initialize_sp_funcs(). Verify that the current code actually applies deterministic capture state after Initialize, scene_off grouping still disables/zeroes existing scene lights before spawning the flashlight, render-history opt-out still works, metadata remains truthful, and tests cover the native reset ordering. Do not commit or modify product code."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "examples/flashlight/orbit_light_settings.json",
+      "examples/flashlight/run_orbit_workflow.sh",
+      "docs/running_our_example_applications.md",
+      "examples/flashlight/README.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-6da98e74-9b95-4feb-a431-9c50113f742d-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Inspector ResultPacket with approval or actionable findings, and validation commands/results."
+  ],
+  "definition_of_done": [
+    "No high-severity correctness issues remain in the current repaired orbit render determinism fix, or any blocker is clearly reported with exact file/line references."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-6da98e74-9b95-4feb-a431-9c50113f742d-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-6da98e74-9b95-4feb-a431-9c50113f742d-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

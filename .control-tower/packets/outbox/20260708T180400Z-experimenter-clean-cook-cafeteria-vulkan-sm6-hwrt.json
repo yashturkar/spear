@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "448cdce5-4854-4abe-b410-30a33a6f48ec",
+  "trace_id": "9a9aa27a-5a06-4dfb-8ede-425d044ff6a6",
+  "parent_packet_id": "inspector-78aa0108-linux-vulkan-sm6-hwrt-result",
+  "created_at": "2026-07-08T18:03:45Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "experiment",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Clean cook cafeteria Linux package with Vulkan SM6 hardware RT",
+  "objective": "Run the long-running clean Linux cook/package needed to apply the approved Vulkan SM6 hardware ray tracing config to the cafeteria SPEAR package, then verify the produced artifacts/logs show VULKAN_SM6 instead of VULKAN_SM5. This is the validation step for the user's requested hardware RT path.",
+  "instructions": [
+    "Use /home/yashturkar/Linux_Unreal_Engine_5.5.4 as the Unreal engine directory.",
+    "Run a clean cook/stage/package/archive/pak for /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 and /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark. Suggested command: python tools/run_uat.py --unreal-engine-dir /home/yashturkar/Linux_Unreal_Engine_5.5.4 --clean-archive-dir --cook-maps /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2 /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark -clean -cook -stage -package -archive -pak -skipbuild",
+    "Activate the project conda environment if needed, matching prior cook workflows: source /home/yashturkar/miniconda3/etc/profile.d/conda.sh && conda activate spear-env.",
+    "Capture logs under .control-tower/runs with a clear timestamped run directory if tools/run_uat.py does not already do so.",
+    "After cook/package, verify logs and the staged pak/listing for VULKAN_SM6. Positive signatures: VULKAN_SM6 shader autogen or GlobalShaderCache-VULKAN_SM6.bin. Negative signatures: only VULKAN_SM5, GlobalShaderCache-VULKAN_SM5.bin only, or shader platform still SM5.",
+    "If practical in the current environment, also run a short startup/live validation with VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json python examples/flashlight/run.py --map cafeteria_500sqft_v2 --live-lighting-mode realistic --flashlight-profile realistic_live_flashlight --scene-light-intensity-scale 0.0005 --movement-speed 600 --disable-auto-exposure --startup-warmup-seconds 3 and check for Platform=VULKAN_SM6, ray tracing enabled dynamically, ray tracing shaders enabled, and hardware RT readback confirmed=true. If display/runtime validation is not possible, report why and provide the exact command/signatures for the user."
+  ],
+  "constraints": [
+    "Do not modify product code or Git state."
+  ],
+  "inputs": {
+    "files": [
+      "cpp/unreal_projects/SpearSim/Config/DefaultEngine.ini"
+    ],
+    "artifacts": [
+      "Inspector approved the Linux Vulkan SM6 hardware RT config change in cpp/unreal_projects/SpearSim/Config/DefaultEngine.ini: project LinuxTargetSettings now removes SF_VULKAN_SM5, adds SF_VULKAN_SM6, and sets bEnableRayTracing=True; clean cook/package validation is still required."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/scout-1de6b0d1-bca7-43e1-b0e9-09dbf9656681-result.json",
+      ".control-tower/packets/inbox/builder-b754fde7-ece2-4611-b333-fd716c32ba74-result.json",
+      ".control-tower/packets/inbox/inspector-78aa0108-2945-45ba-9de0-532dbda0c1c5-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Cook/package command, run directory, exit status, and key log excerpts/signatures.",
+    "Whether VULKAN_SM6 artifacts were produced and whether VULKAN_SM5-only artifacts remain.",
+    "If runtime validation was attempted, the runtime RT log verdict; if not, the exact user test command."
+  ],
+  "definition_of_done": [
+    "Cafeteria Linux package is recooked/staged/package with VULKAN_SM6 artifacts verified, or a concrete blocker is reported with logs."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/inspector-78aa0108-2945-45ba-9de0-532dbda0c1c5-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 7200
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/inspector-78aa0108-2945-45ba-9de0-532dbda0c1c5-result.json",
+    "seed_result_agent": "inspector",
+    "seed_result_status": "success"
+  }
+}

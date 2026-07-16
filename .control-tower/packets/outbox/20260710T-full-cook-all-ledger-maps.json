@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "fe03b43c-4517-48ba-89b5-ce17760152dc",
+  "trace_id": "356f9cdd-5add-417f-baa8-913798f91e3f",
+  "parent_packet_id": null,
+  "created_at": "2026-07-10T17:56:31Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "process-execution",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Full cook all ledger maps into active Linux package",
+  "objective": "Run a clean Linux UAT cook/stage/package/archive for every docs/environment_ledger.json environment with a non-null unreal_map_path, then verify archive and staged paks contain .umap and .uexp entries for every cooked ledger map.",
+  "instructions": [
+    "Use docs/environment_ledger.json as the source of truth for map paths. Include every environment with a non-null unreal_map_path; skip only source-only entries whose unreal_map_path is null.",
+    "Run the cook through tools/run_uat.py with the configured Unreal engine directory /home/yashturkar/Linux_Unreal_Engine_5.5.4, using a clean archive/stage/package/pak flow equivalent to prior successful cooks.",
+    "This is a long-running local process; run it in tmux or an equivalent monitorable shell, capture logs under .control-tower/runs with a timestamped directory, and report the attach command if still running.",
+    "After UAT completes, verify both active paks: cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak and cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak.",
+    "Use UnrealPak -List or equivalent to confirm each target map has both .umap and .uexp entries in both paks.",
+    "Do not modify product code or Git state. If the cook fails, preserve logs and identify the first failing map or asset error."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "docs/environment_ledger.json",
+      "tools/spear-run"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/inspector-ed86089d-3487-417f-b6e7-94debb3e3334-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "UAT command executed, run directory, log paths, tmux/session info if applicable, and final UAT exit status.",
+    "A per-map coverage table for archive and staged paks after the cook.",
+    "Clear retry guidance for user-facing spear commands once the package is complete."
+  ],
+  "definition_of_done": [
+    "All non-null ledger map paths have either been successfully cooked into both active paks or the failure is clearly diagnosed with logs and first failing cause."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

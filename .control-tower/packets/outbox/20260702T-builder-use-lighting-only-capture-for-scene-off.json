@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "f1de36d8-7fa5-43a0-bb0b-10e189cf5df5",
+  "trace_id": "29f258a3-3cdb-43e4-a0ff-a4dc10368b33",
+  "parent_packet_id": "experimenter-c98e7214-9784-424b-80ff-ed03d519ec1f",
+  "created_at": "2026-07-02T17:21:01Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "implementation",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Use lighting-only capture buffer for scene-off RGB",
+  "objective": "Make scene-off orbit RGB renders use an actual lighting-only camera sensor buffer instead of final_tone_curve_hdr_ when scene lighting is disabled, if that buffer exists in BP_CameraSensor.",
+  "instructions": [
+    "Previous broad Builder delegation hung after finding the key evidence. Focus only on this path: examples/render_image_hypersim/run.py and editor/create_asset_bp_camera_sensor.py show BP_CameraSensor has lighting_only_post_process_input_2_ and lighting_only_diffuse_color_ components. The current orbit script uses DefaultSceneRoot.final_tone_curve_hdr_ for rgb, which stays bright in scene_off_flashlight_off despite light/show-flag isolation.",
+    "Implement a small script-side fix in examples/flashlight/run_orbit_collection.py: for scene-off render groups, capture RGB from DefaultSceneRoot.lighting_only_post_process_input_2_ or another existing lighting-only buffer if more correct. Keep scene-on groups using final_tone_curve_hdr_.",
+    "Make visualization handle the lighting-only buffer data type/range correctly. If it is float RGB in 0..1, convert to uint8 for PNG/video; preserve existing final_tone_curve_hdr_ behavior for scene-on.",
+    "Update metadata to record which RGB capture component was used per setting and why. Do not claim scene-off show flags alone fixed the frame; record lighting_only buffer use.",
+    "If the lighting-only buffer cannot be used with the current BP camera sensor at runtime, return blocked with the exact missing component/path and the required asset/plugin change. Do not spend time on broad architecture.",
+    "Update focused unit tests for capture component selection, visualization conversion, and metadata. Run unittest in spear-env. No commit/push."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py",
+      "examples/render_image_hypersim/run.py",
+      "editor/create_asset_bp_camera_sensor.py",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/render.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/status.txt",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/render_20260702T162928Z_pre_rerun.log",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/status_20260702T162928Z_pre_rerun.txt",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/rerun_prepare_20260702T162928Z.txt",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/tmux_runner_20260702T162928Z.status",
+      "/home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/tmux_runner_20260702T162928Z.log",
+      "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_soft_falloff_validation/scene_off_flashlight_off/metadata.json",
+      "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_soft_falloff_validation/scene_off_flashlight_off/rgb.mp4",
+      "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_soft_falloff_validation/scene_off_flashlight_off/depth_meters_viridis.mp4",
+      "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_soft_falloff_validation/scene_off_flashlight_on/metadata.json",
+      "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_soft_falloff_validation/scene_off_flashlight_on/rgb.mp4",
+      "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_soft_falloff_validation/scene_off_flashlight_on/depth_meters_viridis.mp4",
+      "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_soft_falloff_validation/scene_off_flashlight_off/frames",
+      "/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_soft_falloff_validation/scene_off_flashlight_on/frames"
+    ],
+    "artifacts": [
+      "examples/flashlight/orbit_collection_output_soft_falloff_validation/scene_off_flashlight_off/metadata.json",
+      "examples/flashlight/orbit_collection_output_soft_falloff_validation/scene_off_flashlight_off/frames/rgb/frame_0000.png",
+      "Soft flashlight scene-off rerun completed successfully on 2026-07-02T16:31:00Z with exit_status=0; output directory is /home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_soft_falloff_validation."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/experimenter-3a1b6244-2dc4-43b1-a870-bbb99325d510-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Code/test changes or a precise blocked result for missing lighting-only capture support."
+  ],
+  "definition_of_done": [
+    "Future scene_off_flashlight_off frames should be near-black when no flashlight is spawned if lighting-only buffer is available.",
+    "No Git commit is created."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/experimenter-3a1b6244-2dc4-43b1-a870-bbb99325d510-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/experimenter-3a1b6244-2dc4-43b1-a870-bbb99325d510-result.json",
+    "seed_result_agent": "experimenter",
+    "seed_result_status": "success"
+  }
+}

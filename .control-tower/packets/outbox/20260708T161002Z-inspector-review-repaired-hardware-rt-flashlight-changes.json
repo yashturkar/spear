@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "dd85b354-9e8e-4b6d-b227-481ecacb3c6b",
+  "trace_id": "4e812a2b-0afa-47ed-959c-da298829516d",
+  "parent_packet_id": null,
+  "created_at": "2026-07-08T16:10:02Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Review repaired hardware RT flashlight changes",
+  "objective": "Review the repaired hardware ray tracing flashlight implementation before user runtime testing. Confirm Inspector's previous high-severity CVar null-handle crash is fixed, confirm ray-traced spotlight shadow probing no longer prefers bool over explicit enabled enum/string/integer values, and check for regressions in examples/flashlight/run.py, examples/flashlight/flashlight_profiles.py, and tests/test_orbit_collection_validation.py. Use Builder result .control-tower/packets/inbox/builder-fa188808-b9a5-4343-8a24-4bc6a8b3ea84-result.json and the current git diff. Run or verify python -m unittest tests.test_orbit_collection_validation and py_compile for changed files if appropriate. Return findings first and explicitly state whether the user can rerun the realistic cafeteria teleop command.",
+  "instructions": [],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/flashlight_profiles.py",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-fa188808-b9a5-4343-8a24-4bc6a8b3ea84-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Review result with pass/block status for user runtime testing."
+  ],
+  "definition_of_done": [
+    "No high-severity blockers remain or any blocker is clearly reported."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

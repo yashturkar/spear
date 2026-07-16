@@ -1,0 +1,5 @@
+prepared_at=2026-07-02T16:29:28Z
+archive_log=/home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/render_20260702T162928Z_pre_rerun.log
+archive_status=/home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/status_20260702T162928Z_pre_rerun.txt
+removed_output_dir=/home/yashturkar/Workspace/spear/examples/flashlight/orbit_collection_output_soft_falloff_validation
+runner=/home/yashturkar/Workspace/spear/.control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/run_render.sh

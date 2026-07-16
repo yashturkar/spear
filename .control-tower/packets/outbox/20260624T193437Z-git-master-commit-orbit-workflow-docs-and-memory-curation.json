@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "7562684a-76fd-44ce-9805-9dfdbf4ad836",
+  "trace_id": "f05f0a15-9f1b-4f4b-9ab4-8e41d40e73a0",
+  "parent_packet_id": "9c75d2c6-f6f5-43a9-a2c4-d7041e78b0f3",
+  "created_at": "2026-06-24T19:34:37Z",
+  "from_agent": "tower",
+  "to_agent": "git-master",
+  "task_type": "git",
+  "priority": "normal",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Commit orbit workflow docs and memory curation",
+  "objective": "Commit the Scribe documentation and Tower memory/state updates that document the flashlight orbit collection workflow after product commit 2df1204fe29175ba0771570cc7fb080d6847f45a. Do not push.",
+  "instructions": [
+    "Inspect git status and the Scribe result before committing.",
+    "Scope the commit to docs/running_our_example_applications.md and relevant .control-tower docs/memory/packet artifacts from this orchestration.",
+    "Do not include product code changes unless status shows an already-committed feature file somehow changed again; report any such anomaly instead of silently committing it.",
+    "Use a concise commit message that reflects orbit workflow documentation and memory curation.",
+    "Do not push."
+  ],
+  "constraints": [],
+  "inputs": {
+    "files": [
+      "docs/running_our_example_applications.md",
+      ".control-tower/docs/state/current-status.md",
+      ".control-tower/memory/l0.md",
+      ".control-tower/memory/l1.md",
+      ".control-tower/packets/inbox/scribe-0b9e7b9e-1eea-4dff-8f68-e588f5850f8c-result.json"
+    ],
+    "artifacts": [
+      "Commit 2df1204fe29175ba0771570cc7fb080d6847f45a added the flashlight orbit collection workflow and is now documented in docs/running_our_example_applications.md; live simulator validation is still pending."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/scribe-0b9e7b9e-1eea-4dff-8f68-e588f5850f8c-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Commit hash and commit message, or clear reason no commit was made.",
+    "Ahead/behind status after the commit.",
+    "Remaining dirty files, with intentional exclusions called out."
+  ],
+  "definition_of_done": [
+    "Docs/memory curation changes are committed locally or a blocker is reported.",
+    "No push is performed."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/scribe-0b9e7b9e-1eea-4dff-8f68-e588f5850f8c-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/scribe-0b9e7b9e-1eea-4dff-8f68-e588f5850f8c-result.json",
+    "seed_result_agent": "scribe",
+    "seed_result_status": "success"
+  }
+}

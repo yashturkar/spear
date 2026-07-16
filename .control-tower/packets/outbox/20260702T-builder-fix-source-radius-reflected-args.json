@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "f44e7046-9d4a-4477-a1f9-4c099386727f",
+  "trace_id": "8ef196dd-3984-4dda-be20-04548df1c80a",
+  "parent_packet_id": "builder-38c80497-d545-465b-a248-001975da60fa-result",
+  "created_at": "2026-07-02T16:12:10Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "bugfix",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Fix spotlight source radius reflected args",
+  "objective": "Fix the new spotlight source-radius controls so they do not trigger Unreal reflected function argument assertions during orbit render.",
+  "instructions": [
+    "Investigate the render failure in .control-tower/runs/soft_flashlight_falloff_validation_20260702T145744Z/render.log: after recooking cafeteria v2, render reaches scene setup then Unreal asserts in UnrealUtils::callFunction because args are not a subset of reflected property_descs.",
+    "Likely cause: apply_spot_light_shape_controls calls SetSourceRadius and SetSoftSourceRadius with NewValue=..., but UE 5.5 UPointLightComponent.h declares these BlueprintCallable methods as SetSourceRadius(float bNewValue) and SetSoftSourceRadius(float bNewValue).",
+    "Update examples/flashlight/run.py and examples/flashlight/run_orbit_collection.py so source radius and soft source radius setters use reflected argument names that will not assert. Prefer the local helper pattern and preserve robust fallback behavior.",
+    "Make sure the helper does not first call a known-wrong reflected argument name that can pause/assert the simulator before fallback.",
+    "Update tests to catch the bNewValue argument name for source-radius methods and prevent regression.",
+    "Run the focused unit test suite: /home/yashturkar/miniconda3/envs/spear-env/bin/python -m unittest tests.test_orbit_collection_validation"
+  ],
+  "constraints": [
+    "Do not commit or push.",
+    "Do not run long Unreal renders; Tower/Experimenter will rerun visual validation after the code fix."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py",
+      "examples/flashlight/run_orbit_workflow.sh",
+      "examples/flashlight/orbit_light_settings.json",
+      "tests/test_orbit_collection_validation.py",
+      "docs/running_our_example_applications.md"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-38c80497-d545-465b-a248-001975da60fa-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Result packet listing changed files, tests run, and whether Inspector should review."
+  ],
+  "definition_of_done": [
+    "Unit tests pass and code no longer calls SetSourceRadius/SetSoftSourceRadius with the reflected arg name that caused the assertion."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-38c80497-d545-465b-a248-001975da60fa-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-38c80497-d545-465b-a248-001975da60fa-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "0bd3f730-aeb2-4e56-b7ef-e9321b12a26d",
+  "trace_id": "dad5e97a-9824-4964-9fd1-0129dee6fc3b",
+  "parent_packet_id": null,
+  "created_at": "2026-07-11T00:53:17Z",
+  "from_agent": "tower",
+  "to_agent": "experimenter",
+  "task_type": "process",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019f3d8f-2a2c-77f2-8dcc-a470aa31594e",
+  "title": "Brighten Infinigen kitchen ceiling lights and recook",
+  "objective": "Update the existing /Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen Unreal map with bright overhead ceiling lights that can be reduced/disabled by existing runtime scene-light controls, then recook/package/verify the active Linux paks.",
+  "instructions": [
+    "Create a new run directory under .control-tower/runs and run all Unreal editor/cook work through a named tmux session/window. Return attach command, exact commands, log paths, validation outputs, and dry-run commands.",
+    "Use an editor Python script stored only in the run directory. Load map /Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen, destroy prior actors whose labels start with InfinigenKitchen_, then create bright warm-white overhead RectLight fixtures with labels like InfinigenKitchen_BrightCeiling_RectLight_*. Use movable RectLight actors, multiple ceiling panels distributed across the map bounds, commercial kitchen style color temperature around 3800-4200K, and base intensities high enough to be visibly bright at --scene-light-intensity-scale 1.0. Keep Setup_DirectionalLight and Setup_SkyLight low/non-dominant so the ceiling lights are the controllable scene illumination.",
+    "Recommended starting fixture plan: 8-10 rectangular ceiling panels at z around 300-330, width about 130-180, height 18-30, attenuation radius around 550-750, intensity around 900-1800 per fixture. Use judgement from existing map bounds; record actual values in validation_report.json. Include a small optional counter/pass accent only if it will not dominate.",
+    "Validate and save a JSON report with map_exists, mesh asset/static mesh actor counts, light actor/component counts, all generated light labels, locations, intensities, attenuation, mobility, temperature/use_temperature, source width/height where available, and bounds. The report should explicitly state that runtime scaling uses examples/flashlight/run.py --scene-light-intensity-scale to multiply scene light component intensity and --disable-scene-lights to hide light components.",
+    "Recook/package active Linux build including every non-null docs/environment_ledger.json unreal_map_path, then verify both archive and staged paks contain every ledger map and specifically infinigen_indoors_kitchen .umap and .uexp. Use tools/run_uat.py with --clean-archive-dir --skip-cook-default-maps --cook-maps ... -clean -cook -stage -package -archive -pak -skipbuild. Tee logs.",
+    "Run dry-run commands and capture output: tools/spear-run live infinigen_indoors_kitchen --setting realistic-2x --dry-run, plus exact direct commands for bright ceiling lights at scale 1.0, dim/reduced lights at scale 0.1 or 0.02, and scene-off at scale 0.0 or --disable-scene-lights."
+  ],
+  "constraints": [
+    "Do not edit tracked product source or docs. Do not commit or push."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [
+      ".control-tower/runs/infinigen_indoors_kitchen_20260710T235251Z/validation_report.json",
+      ".control-tower/packets/inbox/experimenter-14f6c780-5da6-46fd-9c8e-9270312ae549-result.json"
+    ],
+    "references": [
+      "docs/environment_ledger.json",
+      "tools/spear-run"
+    ]
+  },
+  "expected_outputs": [
+    "Map lighting updated, validation report written, Linux package recooked and pak-verified, dry-run commands captured."
+  ],
+  "definition_of_done": [
+    "Both active paks contain infinigen_indoors_kitchen .umap/.uexp after lighting changes; validation report lists bright ceiling light actors/intensities; user-facing commands are included."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

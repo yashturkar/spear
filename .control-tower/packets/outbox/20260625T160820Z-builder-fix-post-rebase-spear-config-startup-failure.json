@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "5e4f0bb8-7071-482e-89bb-a369d2b63921",
+  "trace_id": "ab24fa3b-8085-4fba-a1ad-f99d5d487edf",
+  "parent_packet_id": null,
+  "created_at": "2026-06-25T16:08:20Z",
+  "from_agent": "tower",
+  "to_agent": "builder",
+  "task_type": "bugfix",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Fix post-rebase SPEAR config startup failure",
+  "objective": "Investigate and fix the post-upstream-rebase startup failure where run_orbit_collection.py/render helper launches Unreal but SpCore rejects the generated config key EDITOR_INI_CONFIG_VALUES under SP_CORE.",
+  "instructions": [
+    "Use the user's observed failure as the primary repro: /tmp/spear_render_light_on_off.sh launches examples/flashlight/run_orbit_collection.py render mode, then Unreal logs: Yaml.h invalid key, keys == [\"SP_CORE\", \"EDITOR_INI_CONFIG_VALUES\"], key \"EDITOR_INI_CONFIG_VALUES\" is invalid.",
+    "Determine whether upstream changed SPEAR config field names/schema after the rebase, and whether our scripts/user_config.yaml or generated config handling need updating.",
+    "Inspect current config defaults, examples/flashlight/user_config.yaml, python/spear config code, and any upstream config examples. Keep edits minimal and aligned with the upstream schema.",
+    "Fix the startup compatibility issue for examples/flashlight/run_orbit_collection.py and the light-on/off render helper path. If the shared user_config.yaml is stale, update it carefully.",
+    "Run focused validation that does not require a full successful long render unless practical: py_compile, config construction smoke checks, and if possible a short startup-only or help-level check. Do not leave Unreal processes running.",
+    "Do not commit."
+  ],
+  "constraints": [
+    "Do not push, commit, reset, clean, or discard user changes.",
+    "Avoid long simulator renders; if launching SPEAR is needed, keep it minimal and terminate cleanly."
+  ],
+  "inputs": {
+    "files": [],
+    "artifacts": [],
+    "references": []
+  },
+  "expected_outputs": [
+    "ResultPacket with root cause, files changed, validation run, and any remaining user-run check."
+  ],
+  "definition_of_done": [
+    "The config key mismatch is fixed or blocked with exact upstream schema conflict details and next action."
+  ],
+  "memory_context_refs": [],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {}
+}

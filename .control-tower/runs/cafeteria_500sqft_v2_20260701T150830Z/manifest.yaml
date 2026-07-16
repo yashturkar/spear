@@ -1,0 +1,15 @@
+schema_version: 1.0.0
+world_name: cafeteria_500sqft_v2
+started_utc: 2026-07-01T15:13:07Z
+run_dir: /home/yashturkar/Workspace/spear/.control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z
+source_root: /home/yashturkar/Workspace/infinigen/outputs/cafeteria_500sqft_v2
+target_map_path: /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2
+target_mesh_dir: /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Meshes
+infinigen_repo: /home/yashturkar/Workspace/infinigen
+spear_repo: /home/yashturkar/Workspace/spear
+unreal_engine_dir: /home/yashturkar/Linux_Unreal_Engine_5.5.4
+material_policy: import_materials_and_textures_enabled
+collision_policy: auto_generate_collision_enabled
+unreal_fixture_light_policy: post_import_rect_lights_added_by_generated_editor_script
+run_create_script: /home/yashturkar/Workspace/spear/.control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z/scripts/create_cafeteria_500sqft_v2.py
+run_light_script: /home/yashturkar/Workspace/spear/.control-tower/runs/cafeteria_500sqft_v2_20260701T150830Z/scripts/add_unreal_lights_and_validate.py

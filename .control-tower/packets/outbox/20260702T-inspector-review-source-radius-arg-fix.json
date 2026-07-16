@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "1c232d0c-5feb-4a69-8081-b4a0163c46e1",
+  "trace_id": "8ef196dd-3984-4dda-be20-04548df1c80a",
+  "parent_packet_id": "builder-f44e7046-9d4a-4477-a1f9-4c099386727f-result",
+  "created_at": "2026-07-02T16:14:18Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "high",
+  "project_id": "spear",
+  "session_id": "019efade-9a9f-7c12-9ede-5b7a384d83cc",
+  "title": "Review source radius reflected arg fix",
+  "objective": "Review the fix for SetSourceRadius/SetSoftSourceRadius reflected argument names before rerunning the orbit validation.",
+  "instructions": [
+    "Review examples/flashlight/run.py, examples/flashlight/run_orbit_collection.py, and tests/test_orbit_collection_validation.py.",
+    "Confirm source-radius methods no longer call SetSourceRadius or SetSoftSourceRadius with NewValue before fallback, and that the bNewValue regression test is meaningful.",
+    "Check that fallback behavior remains intact and no unrelated behavior changed."
+  ],
+  "constraints": [
+    "Do not edit product code; review only unless a tiny test-only correction is absolutely necessary.",
+    "Do not commit or push."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/run.py",
+      "examples/flashlight/run_orbit_collection.py",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [],
+    "references": [
+      ".control-tower/packets/inbox/builder-f44e7046-9d4a-4477-a1f9-4c099386727f-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Findings first with file/line references for issues, verification commands run, and ready/needs-follow-up recommendation."
+  ],
+  "definition_of_done": [
+    "Result packet says whether the fix is ready for Unreal visual rerun."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-f44e7046-9d4a-4477-a1f9-4c099386727f-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": true,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-f44e7046-9d4a-4477-a1f9-4c099386727f-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}

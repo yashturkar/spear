@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "packet_type": "task",
+  "packet_id": "db05de6c-e7d5-4c2b-b95d-28fa7cc987fd",
+  "trace_id": "ab24fa3b-8085-4fba-a1ad-f99d5d487edf",
+  "parent_packet_id": "1b8d50c4-c64c-499d-bbeb-c3052cc784ed",
+  "created_at": "2026-06-25T16:13:38Z",
+  "from_agent": "tower",
+  "to_agent": "inspector",
+  "task_type": "review",
+  "priority": "critical",
+  "project_id": "spear",
+  "session_id": "tower-session",
+  "title": "Review post-rebase SPEAR config startup compatibility fix",
+  "objective": "Review Builder's fix for the post-rebase SPEAR startup config mismatch affecting examples/flashlight render helpers. Verify the compatibility approach is correct, minimal, and does not mask a better required schema update.",
+  "instructions": [
+    "Review the Builder ResultPacket and changed files examples/flashlight/user_config.yaml and tests/test_orbit_collection_validation.py.",
+    "Confirm whether adding empty legacy SP_CORE *_INI_CONFIG_VALUES maps is the right minimal compatibility fix for a stale standalone binary while source uses the newer upstream schema.",
+    "Check YAML merge/config behavior, test quality, and whether the helper script /tmp/spear_render_light_on_off.sh argument behavior should block this fix.",
+    "Run focused non-destructive validation as needed."
+  ],
+  "constraints": [
+    "Do not commit, push, reset, clean, or discard user changes."
+  ],
+  "inputs": {
+    "files": [
+      "examples/flashlight/user_config.yaml",
+      "tests/test_orbit_collection_validation.py"
+    ],
+    "artifacts": [
+      "After upstream commit d4cdee3e, SP_CORE INI overrides use OVERRIDE_CONFIG_*_INI and CONFIG_*_INI_STRING; stale standalone Unreal binaries may still query legacy *_INI_CONFIG_VALUES keys, so flashlight user_config.yaml now includes empty legacy maps for startup compatibility."
+    ],
+    "references": [
+      ".control-tower/packets/inbox/builder-5e4f0bb8-7071-482e-89bb-a369d2b63921-result.json"
+    ]
+  },
+  "expected_outputs": [
+    "Inspector ResultPacket with approval status, findings, validation run, and any follow-up recommendations."
+  ],
+  "definition_of_done": [
+    "Inspector either approves the fix or blocks it with concrete changes required."
+  ],
+  "memory_context_refs": [
+    ".control-tower/packets/inbox/builder-5e4f0bb8-7071-482e-89bb-a369d2b63921-result.json"
+  ],
+  "doc_context_refs": [],
+  "time_budget": {
+    "soft_seconds": 900,
+    "hard_seconds": 3600
+  },
+  "requires_review": false,
+  "allow_partial": false,
+  "metadata": {
+    "seed_result_packet": ".control-tower/packets/inbox/builder-5e4f0bb8-7071-482e-89bb-a369d2b63921-result.json",
+    "seed_result_agent": "builder",
+    "seed_result_status": "success"
+  }
+}
