@@ -1,0 +1,13 @@
+{
+  "command": "python examples/flashlight/run.py --map-path /Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen --live-lighting-mode realistic --flashlight-profile realistic_live_flashlight_2x --scene-light-intensity-scale 0.0005 --movement-speed 600 --disable-auto-exposure --startup-warmup-seconds 3",
+  "disable_auto_exposure": true,
+  "expected_map": "/Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen",
+  "flashlight_profile": "realistic_live_flashlight_2x",
+  "live_lighting_mode": "realistic",
+  "movement_speed": 600.0,
+  "override_game_default_map": true,
+  "resolved_map": "/Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen",
+  "scene_light_intensity_scale": 0.0005,
+  "startup_warmup_seconds": 3.0,
+  "status": "success"
+}

@@ -1,0 +1,31 @@
+{
+  "archive_pak": "cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+  "finished_at": "2026-07-16T15:23:46Z",
+  "lookdev_report": ".control-tower/runs/infinigen_189cc130_realistic_lampfix_20260716T112140/realistic_lampfix_report.json",
+  "lookdev_run_id": "infinigen_189cc130_realistic_lampfix_20260716T112140",
+  "missing_entries": [],
+  "mtime": "2026-07-16T11:23:45.612420-04:00",
+  "notes": [
+    "Corrected lamp pass after runtime screenshot showed one-sided lamp illumination and an underexposed room.",
+    "Moved lamp point light to shade center, disabled lamp mesh self-shadowing, added a no-shadow lampshade glow light, raised lamp/fill/exposure targets.",
+    "Focused cook covers apartment_0000 plus infinigen_189cc130_realistic and run_uat.py template/default maps; it is not a full-ledger recook."
+  ],
+  "package_version": "infinigen_189cc130_realistic_lampfix_linux_2026-07-16",
+  "pak_entries_artifact": ".control-tower/runs/cook_infinigen_189cc130_realistic_lampfix_20260716T1122/logs/pak_entries_realistic.txt",
+  "pak_sha256_artifact": ".control-tower/runs/cook_infinigen_189cc130_realistic_lampfix_20260716T1122/logs/pak_sha256.txt",
+  "pak_stats_artifact": ".control-tower/runs/cook_infinigen_189cc130_realistic_lampfix_20260716T1122/logs/pak_stats.txt",
+  "required_entries": [
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic.umap",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic.uexp",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Neutral_Plaster.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Muted_Floor.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_NonEmissive_Black_OffScreen.uasset"
+  ],
+  "run_id": "cook_infinigen_189cc130_realistic_lampfix_20260716T1122",
+  "sha256": "d36ad75400ff19f0ff7d40634dbd15127bca1505550ef371606d9c841193af3a",
+  "size_bytes": 4040511343,
+  "staged_pak": "cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+  "uat_exit_status": 0,
+  "verify_exit_status": 0
+}

@@ -1,0 +1,11 @@
+{
+  "failures": {},
+  "passed": true,
+  "thresholds": {
+    "file_size_bytes": 5000000,
+    "material_count": 20,
+    "mesh_object_count": 20,
+    "polygons": 20000,
+    "vertices": 20000
+  }
+}

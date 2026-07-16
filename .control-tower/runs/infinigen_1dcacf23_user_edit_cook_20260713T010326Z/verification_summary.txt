@@ -1,0 +1,29 @@
+Infinigen 1dcacf23 user-edit recook verification
+
+Source map:
+- Unreal map: /Game/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23
+- Local map: cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23.umap
+- Local map mtime before cook: 2026-07-12T21:02:22.807190734-04:00
+
+User edit intent:
+- User opened the map in Unreal.
+- User disabled the ceiling lights.
+- User moved one table lamp.
+- This run recooked the saved on-disk map only; it did not rerun FBX import, cleanup, or generated-light setup scripts.
+
+Cook/package:
+- UAT exit status: 0
+- Package verification: target map .umap/.uexp present in active Linux pak
+- Archive pak: cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+- Staged pak: cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+- sha256: 36993fe8d33fd9af317986bc6bdfed2abe2b09c005465acb87f6454173b99c9f
+- size_bytes: 4183760151
+- mtime: 2026-07-12T21:05:02.192772790-04:00
+- UTC mtime: 2026-07-13T01:05:02Z
+- infinigen_6192b2 was not present in the verified pak listing
+
+Launch command:
+spear live infinigen_1dcacf23 --setting realistic-2x
+
+Lights-on inspection command:
+spear live infinigen_1dcacf23 --setting realistic-2x -- --scene-light-intensity-scale 1.0 --enable-auto-exposure

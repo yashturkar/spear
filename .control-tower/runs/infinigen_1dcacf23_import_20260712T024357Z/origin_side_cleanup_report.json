@@ -1,0 +1,1049 @@
+{
+  "kept_static_mesh_count_after_removal": 51,
+  "map_path": "/Game/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23",
+  "max_y_threshold": -500.0,
+  "removed": [
+    {
+      "bounds": {
+        "extent": {
+          "x": 9.306,
+          "y": 3.401,
+          "z": 3.891
+        },
+        "max": {
+          "x": 14.692,
+          "y": -5.424,
+          "z": 3.891
+        },
+        "min": {
+          "x": -3.919,
+          "y": -12.226,
+          "z": -3.891
+        },
+        "origin": {
+          "x": 5.387,
+          "y": -8.825,
+          "z": -0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_B\u00e9zierCurve"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 9.306,
+          "y": 3.401,
+          "z": 3.891
+        },
+        "max": {
+          "x": 14.692,
+          "y": -5.424,
+          "z": 3.891
+        },
+        "min": {
+          "x": -3.919,
+          "y": -12.226,
+          "z": -3.891
+        },
+        "origin": {
+          "x": 5.387,
+          "y": -8.825,
+          "z": -0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_B\u00e9zierCurve_001"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 41.406,
+          "y": 5.865,
+          "z": 108.42
+        },
+        "max": {
+          "x": 0.0,
+          "y": 5.865,
+          "z": 108.42
+        },
+        "min": {
+          "x": -82.812,
+          "y": -5.865,
+          "z": -108.42
+        },
+        "origin": {
+          "x": -41.406,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Cube"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 0.05,
+          "y": 0.05,
+          "z": 0.05
+        },
+        "max": {
+          "x": -41.356,
+          "y": 0.05,
+          "z": 0.05
+        },
+        "min": {
+          "x": -41.456,
+          "y": -0.05,
+          "z": -0.05
+        },
+        "origin": {
+          "x": -41.406,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Cube_001"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 41.406,
+          "y": 5.865,
+          "z": 108.42
+        },
+        "max": {
+          "x": 0.0,
+          "y": 5.865,
+          "z": 108.42
+        },
+        "min": {
+          "x": -82.812,
+          "y": -5.865,
+          "z": -108.42
+        },
+        "origin": {
+          "x": -41.406,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Cube_002"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 0.05,
+          "y": 0.05,
+          "z": 0.05
+        },
+        "max": {
+          "x": -41.356,
+          "y": 0.05,
+          "z": 0.05
+        },
+        "min": {
+          "x": -41.456,
+          "y": -0.05,
+          "z": -0.05
+        },
+        "origin": {
+          "x": -41.406,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Cube_003"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 41.406,
+          "y": 5.651,
+          "z": 108.42
+        },
+        "max": {
+          "x": 0.0,
+          "y": 5.651,
+          "z": 108.42
+        },
+        "min": {
+          "x": -82.812,
+          "y": -5.651,
+          "z": -108.42
+        },
+        "origin": {
+          "x": -41.406,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Cube_004"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 0.05,
+          "y": 0.05,
+          "z": 0.05
+        },
+        "max": {
+          "x": -41.356,
+          "y": 0.05,
+          "z": 0.05
+        },
+        "min": {
+          "x": -41.456,
+          "y": -0.05,
+          "z": -0.05
+        },
+        "origin": {
+          "x": -41.406,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Cube_005"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 41.406,
+          "y": 4.297,
+          "z": 108.42
+        },
+        "max": {
+          "x": 0.0,
+          "y": 4.297,
+          "z": 108.42
+        },
+        "min": {
+          "x": -82.812,
+          "y": -4.297,
+          "z": -108.42
+        },
+        "origin": {
+          "x": -41.406,
+          "y": -0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Cube_006"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 0.05,
+          "y": 0.05,
+          "z": 0.05
+        },
+        "max": {
+          "x": -41.356,
+          "y": 0.05,
+          "z": 0.05
+        },
+        "min": {
+          "x": -41.456,
+          "y": -0.05,
+          "z": -0.05
+        },
+        "origin": {
+          "x": -41.406,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Cube_007"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 41.406,
+          "y": 4.297,
+          "z": 108.42
+        },
+        "max": {
+          "x": 0.0,
+          "y": 4.297,
+          "z": 108.42
+        },
+        "min": {
+          "x": -82.812,
+          "y": -4.297,
+          "z": -108.42
+        },
+        "origin": {
+          "x": -41.406,
+          "y": -0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Cube_008"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 0.05,
+          "y": 0.05,
+          "z": 0.05
+        },
+        "max": {
+          "x": -41.356,
+          "y": 0.05,
+          "z": 0.05
+        },
+        "min": {
+          "x": -41.456,
+          "y": -0.05,
+          "z": -0.05
+        },
+        "origin": {
+          "x": -41.406,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Cube_009"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 12.581,
+          "y": 42.46,
+          "z": 108.42
+        },
+        "max": {
+          "x": 12.581,
+          "y": 78.596,
+          "z": 216.84
+        },
+        "min": {
+          "x": -12.581,
+          "y": -6.324,
+          "z": -0.0
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 36.136,
+          "z": 108.42
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_LiteDoorFactory_7231941__spawn_asset_1_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 1.626,
+          "y": 4.325,
+          "z": 13.879
+        },
+        "max": {
+          "x": -75.42,
+          "y": -3.932,
+          "z": 13.879
+        },
+        "min": {
+          "x": -78.672,
+          "y": -12.581,
+          "z": -13.879
+        },
+        "origin": {
+          "x": -77.046,
+          "y": -8.256,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Mesh_006"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 1.626,
+          "y": 4.325,
+          "z": 13.879
+        },
+        "max": {
+          "x": -75.42,
+          "y": -3.932,
+          "z": 13.879
+        },
+        "min": {
+          "x": -78.672,
+          "y": -12.581,
+          "z": -13.879
+        },
+        "origin": {
+          "x": -77.046,
+          "y": -8.256,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Mesh_009"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 12.226,
+          "y": 88.376,
+          "z": 113.985
+        },
+        "max": {
+          "x": 12.226,
+          "y": 168.406,
+          "z": 227.969
+        },
+        "min": {
+          "x": -12.225,
+          "y": -8.347,
+          "z": -0.0
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 80.029,
+          "z": 113.985
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_PanelDoorFactory_6116542__spawn_asset_0_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 12.226,
+          "y": 88.376,
+          "z": 113.985
+        },
+        "max": {
+          "x": 12.226,
+          "y": 168.406,
+          "z": 227.969
+        },
+        "min": {
+          "x": -12.225,
+          "y": -8.347,
+          "z": -0.0
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 80.029,
+          "z": 113.985
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_PanelDoorFactory_6116542__spawn_asset_4_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 88.376,
+          "y": 5.424,
+          "z": 113.985
+        },
+        "max": {
+          "x": 8.347,
+          "y": 5.424,
+          "z": 219.622
+        },
+        "min": {
+          "x": -168.406,
+          "y": -5.424,
+          "z": -8.347
+        },
+        "origin": {
+          "x": -80.029,
+          "y": -0.0,
+          "z": 105.638
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Plane"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 88.376,
+          "y": 5.424,
+          "z": 113.985
+        },
+        "max": {
+          "x": 8.347,
+          "y": 5.424,
+          "z": 219.622
+        },
+        "min": {
+          "x": -168.406,
+          "y": -5.424,
+          "z": -8.347
+        },
+        "origin": {
+          "x": -80.029,
+          "y": -0.0,
+          "z": 105.638
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Plane_001"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 85.381,
+          "y": 5.225,
+          "z": 110.989
+        },
+        "max": {
+          "x": 3.854,
+          "y": 5.225,
+          "z": 218.125
+        },
+        "min": {
+          "x": -166.908,
+          "y": -5.225,
+          "z": -3.854
+        },
+        "origin": {
+          "x": -81.527,
+          "y": -0.0,
+          "z": 107.135
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Plane_002"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 2.108,
+          "y": 3.932,
+          "z": 108.42
+        },
+        "max": {
+          "x": 6.324,
+          "y": 3.932,
+          "z": 212.624
+        },
+        "min": {
+          "x": 2.108,
+          "y": -3.932,
+          "z": -4.216
+        },
+        "origin": {
+          "x": 4.216,
+          "y": -0.0,
+          "z": 104.204
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Plane_003"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 2.108,
+          "y": 3.932,
+          "z": 108.42
+        },
+        "max": {
+          "x": 6.324,
+          "y": 3.932,
+          "z": 212.624
+        },
+        "min": {
+          "x": 2.108,
+          "y": -3.932,
+          "z": -4.216
+        },
+        "origin": {
+          "x": 4.216,
+          "y": -0.0,
+          "z": 104.204
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_Plane_004"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 52.87,
+          "y": 9.382,
+          "z": 54.867
+        },
+        "max": {
+          "x": 52.87,
+          "y": 15.715,
+          "z": 54.867
+        },
+        "min": {
+          "x": -52.87,
+          "y": -3.049,
+          "z": -54.867
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 6.333,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_WindowFactory_37858__spawn_asset_10_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 58.402,
+          "y": 3.923,
+          "z": 54.842
+        },
+        "max": {
+          "x": 58.402,
+          "y": 3.923,
+          "z": 54.842
+        },
+        "min": {
+          "x": -58.402,
+          "y": -3.923,
+          "z": -54.842
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_WindowFactory_37858__spawn_asset_11_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 45.105,
+          "y": 3.492,
+          "z": 54.963
+        },
+        "max": {
+          "x": 45.105,
+          "y": 3.492,
+          "z": 54.963
+        },
+        "min": {
+          "x": -45.105,
+          "y": -3.492,
+          "z": -54.963
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_WindowFactory_37858__spawn_asset_12_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 55.66,
+          "y": 5.07,
+          "z": 54.998
+        },
+        "max": {
+          "x": 55.66,
+          "y": 5.07,
+          "z": 54.998
+        },
+        "min": {
+          "x": -55.66,
+          "y": -5.07,
+          "z": -54.998
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_WindowFactory_37858__spawn_asset_13_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 61.818,
+          "y": 5.695,
+          "z": 54.554
+        },
+        "max": {
+          "x": 61.818,
+          "y": 5.695,
+          "z": 54.554
+        },
+        "min": {
+          "x": -61.818,
+          "y": -5.695,
+          "z": -54.554
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_WindowFactory_37858__spawn_asset_14_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 49.991,
+          "y": 12.585,
+          "z": 55.517
+        },
+        "max": {
+          "x": 49.991,
+          "y": 20.294,
+          "z": 55.517
+        },
+        "min": {
+          "x": -49.991,
+          "y": -4.877,
+          "z": -55.517
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 7.708,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_WindowFactory_37858__spawn_asset_2_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 120.457,
+          "y": 4.888,
+          "z": 54.736
+        },
+        "max": {
+          "x": 120.457,
+          "y": 4.888,
+          "z": 54.736
+        },
+        "min": {
+          "x": -120.457,
+          "y": -4.888,
+          "z": -54.736
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_WindowFactory_37858__spawn_asset_3_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 59.376,
+          "y": 5.093,
+          "z": 55.796
+        },
+        "max": {
+          "x": 59.376,
+          "y": 5.093,
+          "z": 55.796
+        },
+        "min": {
+          "x": -59.376,
+          "y": -5.093,
+          "z": -55.796
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_WindowFactory_70074__spawn_asset_0_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 64.265,
+          "y": 3.243,
+          "z": 54.847
+        },
+        "max": {
+          "x": 64.265,
+          "y": 3.243,
+          "z": 54.847
+        },
+        "min": {
+          "x": -64.265,
+          "y": -3.243,
+          "z": -54.847
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_WindowFactory_70074__spawn_asset_1_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 158.022,
+          "y": 11.094,
+          "z": 55.052
+        },
+        "max": {
+          "x": 158.022,
+          "y": 16.565,
+          "z": 55.052
+        },
+        "min": {
+          "x": -158.022,
+          "y": -5.623,
+          "z": -55.052
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 5.471,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_WindowFactory_70074__spawn_asset_4_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 122.049,
+          "y": 3.882,
+          "z": 55.109
+        },
+        "max": {
+          "x": 122.049,
+          "y": 3.882,
+          "z": 55.109
+        },
+        "min": {
+          "x": -122.049,
+          "y": -3.882,
+          "z": -55.109
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_WindowFactory_70074__spawn_asset_5_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 109.184,
+          "y": 8.318,
+          "z": 54.872
+        },
+        "max": {
+          "x": 109.184,
+          "y": 12.62,
+          "z": 54.872
+        },
+        "min": {
+          "x": -109.184,
+          "y": -4.017,
+          "z": -54.872
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 4.301,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_WindowFactory_70074__spawn_asset_6_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 325.0,
+          "y": 275.0,
+          "z": 145.962
+        },
+        "max": {
+          "x": 274.049,
+          "y": 320.577,
+          "z": 147.639
+        },
+        "min": {
+          "x": -375.951,
+          "y": -229.423,
+          "z": -144.285
+        },
+        "origin": {
+          "x": -50.951,
+          "y": 45.577,
+          "z": 1.677
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_dining-room_0_0_exterior"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "max": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "min": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_hoof_parent_temp"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "max": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "min": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_hoof_parent_temp_001"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "max": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "min": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_hoof_parent_temp_002"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "max": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "min": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_hoof_parent_temp_003"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "max": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "min": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "origin": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_place_cam_overhead"
+    }
+  ],
+  "removed_count": 40,
+  "saved": true
+}

@@ -1,0 +1,36 @@
+{
+  "archive_pak": "cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+  "archive_sha256": "81b65fbe2630aab2a94235460c22a1829260e58def6cb0eb44c5980cef7ac1ea",
+  "archive_size_bytes": 4040510947,
+  "cook_log": ".control-tower/runs/cook_infinigen_189cc130_realistic_brightened_20260716T1429/logs/cook_package.log",
+  "finished_at": "2026-07-16T14:30:06Z",
+  "lookdev_report": ".control-tower/runs/infinigen_189cc130_realistic_brightened_20260716T142752Z/realistic_brightened_report.json",
+  "missing_required_entries": [],
+  "notes": [
+    "Brightened map recook after runtime screenshot was too dark.",
+    "Authored table lamp is 950 lm, window fill is 420 lm, skylight real-time capture is disabled to avoid the missing sky warning.",
+    "This package is not a full ledger recook."
+  ],
+  "pak_entries_artifact": ".control-tower/runs/cook_infinigen_189cc130_realistic_brightened_20260716T1429/logs/pak_entries_realistic.txt",
+  "present_required_entries": [
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic.umap",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic.uexp",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Neutral_Plaster.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Muted_Floor.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_NonEmissive_Black_OffScreen.uasset"
+  ],
+  "required_entries": [
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic.umap",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic.uexp",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Neutral_Plaster.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Muted_Floor.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_NonEmissive_Black_OffScreen.uasset"
+  ],
+  "run_id": "cook_infinigen_189cc130_realistic_brightened_20260716T1429",
+  "staged_pak": "cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+  "staged_sha256": "81b65fbe2630aab2a94235460c22a1829260e58def6cb0eb44c5980cef7ac1ea",
+  "staged_size_bytes": 4040510947,
+  "uat_exit_status": 0
+}

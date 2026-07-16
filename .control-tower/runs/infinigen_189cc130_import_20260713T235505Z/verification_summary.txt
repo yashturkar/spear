@@ -1,0 +1,53 @@
+Infinigen 189cc130 SPEAR import and package verification
+
+Run id: infinigen_189cc130_import_20260713T235505Z
+Environment alias: infinigen_189cc130
+Runtime map path: /Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130
+Local map: cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130.umap
+
+Source:
+- Requested source was /home/yashturkar/Workspace/infinigen/outputs/189cc130/fine, not coarse.
+- /home/yashturkar/Workspace/infinigen/outputs/189cc130/fine/scene.blend was not readable by Blender.
+- The valid fine backup /home/yashturkar/Workspace/infinigen/outputs/189cc130/fine/scene.blend1 was used through a run-local symlink.
+
+Export:
+- Command used Infinigen export with -f fbx -r 1024.
+- FBX: /home/yashturkar/Workspace/infinigen/outputs/189cc130/spear_export_r1024/export_scene.blend/export_scene.fbx
+- Export log: .control-tower/runs/infinigen_189cc130_import_20260713T235505Z/logs/export_r1024_from_fine_blend1.log
+
+Unreal import:
+- Import script: examples/flashlight/setup_infinigen_indoors.py
+- Imported mesh directory: /Game/SPEAR/Scenes/infinigen_189cc130/Meshes
+- Imported map path: /Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130
+- Import log: .control-tower/runs/infinigen_189cc130_import_20260713T235505Z/logs/import_unreal.log
+- Import reported 110 static mesh assets and 110 spawned static mesh actors.
+
+Bounds/runtime caveat:
+- Bounds report: .control-tower/runs/infinigen_189cc130_import_20260713T235505Z/actor_bounds_report.json
+- Bounds report contains 113 total actors and 110 static mesh actors.
+- Scene is multi-room: living room, dining room, kitchen, bedroom, and bathroom content is present.
+- PlayerStart was created at (0, 0, 120) yaw 0, in the main living/dining/kitchen cluster by bounds.
+- Runtime visual validation is still pending.
+- The bounds dump wrote its report successfully, then Unreal crashed during shutdown with free(): invalid size.
+
+Cook/package:
+- Cook maps file: .control-tower/runs/infinigen_189cc130_import_20260713T235505Z/cook_maps.txt
+- Cook/package log: .control-tower/runs/infinigen_189cc130_import_20260713T235505Z/logs/cook_package.log
+- UAT exit status: 0
+- Active package version: full_ledger_plus_infinigen_189cc130_fine_linux_2026-07-13
+- Ledger target count: 22 runnable environments
+
+Pak verification:
+- Archive pak: cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+- Staged pak: cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+- Size: 5259356193 bytes
+- SHA256: 77d564dc11676dcc3225a2cc7fbe668253ac4f0c41c103e013e0166439bab856
+- Matching infinigen_189cc130 pak entries: 1709
+- Verified entries include:
+  - SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130.umap
+  - SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130.uexp
+
+Launcher:
+- Recommended command:
+  spear live infinigen_189cc130 --setting realistic-2x
+- The launcher uses --map-path for this alias because examples/flashlight/run.py does not expose infinigen_189cc130 through its --map choices.

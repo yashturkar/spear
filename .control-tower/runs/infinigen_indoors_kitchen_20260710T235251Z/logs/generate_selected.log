@@ -1,0 +1,382 @@
+[20:17:59.049] [init] [INFO] | Addon antlandscape already in blender local addons, attempt to enable it.
+[20:17:59.209] [init] [INFO] | Addon extra_mesh_objects already in blender local addons, attempt to enable it.
+[20:17:59.321] [smb_client] [WARNING] | SMB_AUTH envvar is not set, smb_client upload will not work. Ignore this message if not using upload
+/home/yashturkar/Workspace/infinigen/infinigen/tools/export.py:27: UserWarning: coacd could not be imported. Some features may be unavailable.
+  warnings.warn("coacd could not be imported. Some features may be unavailable.")
+[20:17:59.422] [init] [INFO] | Addon real_snow already in blender local addons, attempt to enable it.
+[20:17:59.424] [init] [INFO] | Converted seed='17' to scene_seed=23, parsed as hexadecimal
+[20:17:59.432] [execute_tasks] [INFO] | infinigen version 1.19.1
+[20:17:59.432] [execute_tasks] [INFO] | CUDA_VISIBLE_DEVICES=None
+[20:17:59.432] [logging] [INFO] | [MAIN TOTAL]
+[20:17:59.432] [execute_tasks] [INFO] | Processing frames 1 through 1 inclusive
+[20:17:59.593] [init] [INFO] | Available devices have types=['OPTIX', 'CUDA', 'CPU']
+[20:17:59.593] [init] [INFO] | Cycles will use use_device_type='OPTIX', len(use_devices)=1
+[20:17:59.595] [logging] [INFO] | [sky_lighting]
+[20:17:59.595] [logging] [INFO] | [sky_lighting] finished in 0:00:00.000617
+home_furniture_constraints params - furniture_fullness_pct: 0.7551893651539767
+home_furniture_constraints params - obj_interior_obj_pct: 0.9734813019074071
+home_furniture_constraints params - obj_on_storage_pct: 0.8827298796984535
+home_furniture_constraints params - obj_on_nonstorage_pct: 0.4259166751736902
+home_furniture_constraints params - painting_area_per_room_area: 1.331568044892479
+home_furniture_constraints params - has_tv: False
+home_furniture_constraints params - has_aquarium_tank: False
+home_furniture_constraints params - has_birthday_balloons: False
+home_furniture_constraints params - has_cocktail_tables: False
+home_furniture_constraints params - has_kitchen_barstools: False
+Checking greedy stages coverage:   0%|          | 0/63 [00:00<?, ?it/s]Checking greedy stages coverage: 100%|██████████| 63/63 [00:00<00:00, 979.25it/s]
+[20:17:59.728] [generate_indoors_util] [INFO] | apply_greedy_restriction restricting k='rooms' to filter_tags={Semantics.Kitchen} for var=Variable(room)
+[20:17:59.729] [generate_indoors_util] [INFO] | apply_greedy_restriction restricting k='on_floor_and_wall' to filter_tags={Semantics.Kitchen} for var=Variable(room)
+[20:17:59.729] [generate_indoors_util] [INFO] | apply_greedy_restriction restricting k='on_floor_freestanding' to filter_tags={Semantics.Kitchen} for var=Variable(room)
+[20:17:59.729] [generate_indoors_util] [INFO] | apply_greedy_restriction restricting k='on_wall' to filter_tags={Semantics.Kitchen} for var=Variable(room)
+[20:17:59.729] [generate_indoors_util] [INFO] | apply_greedy_restriction restricting k='on_ceiling' to filter_tags={Semantics.Kitchen} for var=Variable(room)
+[20:17:59.729] [generate_indoors_util] [INFO] | apply_greedy_restriction restricting k='side_obj' to filter_tags={Semantics.Kitchen} for var=Variable(room)
+[20:17:59.730] [generate_indoors_util] [INFO] | apply_greedy_restriction restricting k='obj_ontop_obj' to filter_tags={Semantics.Kitchen} for var=Variable(room)
+[20:17:59.730] [generate_indoors_util] [INFO] | apply_greedy_restriction restricting k='obj_on_support' to filter_tags={Semantics.Kitchen} for var=Variable(room)
+[20:17:59.730] [generate_indoors_util] [INFO] | restrict_solving applying restrict_child_primary, limiting on_floor_and_wall to objects satisfying {Semantics.KitchenCounter}
+[20:17:59.730] [generate_indoors_util] [INFO] | restrict_solving applying restrict_child_primary, limiting on_floor_freestanding to objects satisfying {Semantics.KitchenCounter}
+[20:17:59.730] [generate_indoors_util] [INFO] | restrict_solving applying restrict_child_primary, limiting on_wall to objects satisfying {Semantics.KitchenCounter}
+[20:17:59.730] [generate_indoors_util] [INFO] | restrict_solving applying restrict_child_primary, limiting on_ceiling to objects satisfying {Semantics.KitchenCounter}
+[20:17:59.731] [generate_indoors_util] [INFO] | restrict_solving applying restrict_child_secondary, limiting side_obj to objects satisfying {Semantics.KitchenCounter}
+[20:17:59.731] [generate_indoors_util] [INFO] | restrict_solving applying restrict_child_secondary, limiting obj_ontop_obj to objects satisfying {Semantics.KitchenCounter}
+[20:17:59.731] [generate_indoors_util] [INFO] | restrict_solving applying restrict_child_secondary, limiting obj_on_support to objects satisfying {Semantics.KitchenCounter}
+[20:17:59.731] [generate_indoors_util] [INFO] | restrict_solving filtered consgraph from old_counts=(26, 30) new_counts=(2, 1) using consgraph_filters=['counter', 'sink']
+[20:17:59.731] [logging] [INFO] | [solve_rooms]
+Computing typical areas:   0%|          | 0/11 [00:00<?, ?it/s]Computing typical areas:  45%|████▌     | 5/11 [00:00<00:00, 47.07it/s]Computing typical areas:  91%|█████████ | 10/11 [00:00<00:00, 47.43it/s]Computing typical areas: 100%|██████████| 11/11 [00:00<00:00, 47.48it/s]
+Generating graphs for 0:   0%|          | 0/40 [00:00<?, ?it/s]Generating graphs for 0:  18%|█▊        | 7/40 [00:00<00:00, 95.62it/s]
+Dividing segments for 0:   0%|          | 0/25 [00:00<?, ?it/s]Dividing segments for 0:   4%|▍         | 1/25 [00:00<00:00, 25.60it/s]
+Sampling solutions:   0%|          | 0/125 [00:00<?, ?it/s]Sampling solutions:   1%|          | 1/125 [00:00<00:00, 140.48it/s, score=1e+6]Sampling solutions:   2%|▏         | 2/125 [00:00<00:00, 132.88it/s, score=8.01e+5]Sampling solutions:   2%|▏         | 3/125 [00:00<00:00, 129.18it/s, score=8.01e+5]Sampling solutions:   3%|▎         | 4/125 [00:00<00:01, 120.68it/s, score=8.01e+5]Sampling solutions:   4%|▍         | 5/125 [00:00<00:00, 128.43it/s, score=8.01e+5]Sampling solutions:   5%|▍         | 6/125 [00:00<00:00, 130.35it/s, score=8.01e+5]Sampling solutions:   6%|▌         | 7/125 [00:00<00:00, 129.20it/s, score=8.01e+5]Sampling solutions:   6%|▋         | 8/125 [00:00<00:00, 128.77it/s, score=8.01e+5]Sampling solutions:   7%|▋         | 9/125 [00:00<00:00, 120.76it/s, score=8.01e+5]Sampling solutions:   8%|▊         | 10/125 [00:00<00:00, 122.24it/s, score=8.01e+5]Sampling solutions:   9%|▉         | 11/125 [00:00<00:00, 122.55it/s, score=8.01e+5]Sampling solutions:  10%|▉         | 12/125 [00:00<00:00, 123.55it/s, score=8.01e+5]Sampling solutions:  10%|█         | 13/125 [00:00<00:00, 120.66it/s, score=8.01e+5]Sampling solutions:  10%|█         | 13/125 [00:00<00:00, 120.66it/s, score=8.01e+5]Sampling solutions:  11%|█         | 14/125 [00:00<00:00, 120.66it/s, score=8.01e+5]Sampling solutions:  12%|█▏        | 15/125 [00:00<00:00, 120.66it/s, score=8.01e+5]Sampling solutions:  13%|█▎        | 16/125 [00:00<00:00, 120.66it/s, score=8.01e+5]Sampling solutions:  14%|█▎        | 17/125 [00:00<00:00, 120.66it/s, score=8.01e+5]Sampling solutions:  14%|█▍        | 18/125 [00:00<00:00, 120.66it/s, score=4.01e+5]Sampling solutions:  15%|█▌        | 19/125 [00:00<00:00, 120.66it/s, score=4.01e+5]Sampling solutions:  16%|█▌        | 20/125 [00:00<00:00, 120.66it/s, score=4.01e+5]Sampling solutions:  17%|█▋        | 21/125 [00:00<00:00, 120.66it/s, score=4e+5]   Sampling solutions:  18%|█▊        | 22/125 [00:00<00:00, 120.66it/s, score=4e+5]Sampling solutions:  18%|█▊        | 23/125 [00:00<00:00, 120.66it/s, score=4e+5]Sampling solutions:  19%|█▉        | 24/125 [00:00<00:00, 120.66it/s, score=4e+5]Sampling solutions:  20%|██        | 25/125 [00:00<00:00, 120.66it/s, score=2e+5]Sampling solutions:  21%|██        | 26/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  21%|██        | 26/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  22%|██▏       | 27/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  22%|██▏       | 28/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  23%|██▎       | 29/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  24%|██▍       | 30/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  25%|██▍       | 31/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  26%|██▌       | 32/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  26%|██▋       | 33/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  27%|██▋       | 34/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  28%|██▊       | 35/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  29%|██▉       | 36/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  30%|██▉       | 37/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  30%|███       | 38/125 [00:00<00:00, 122.71it/s, score=2e+5]Sampling solutions:  31%|███       | 39/125 [00:00<00:00, 124.69it/s, score=2e+5]Sampling solutions:  31%|███       | 39/125 [00:00<00:00, 124.69it/s, score=2e+5]Sampling solutions:  32%|███▏      | 40/125 [00:00<00:00, 124.69it/s, score=275] Sampling solutions:  33%|███▎      | 41/125 [00:00<00:00, 124.69it/s, score=266]Sampling solutions:  34%|███▎      | 42/125 [00:00<00:00, 124.69it/s, score=266]Sampling solutions:  34%|███▍      | 43/125 [00:00<00:00, 124.69it/s, score=266]Sampling solutions:  35%|███▌      | 44/125 [00:00<00:00, 124.69it/s, score=266]Sampling solutions:  36%|███▌      | 45/125 [00:00<00:00, 124.69it/s, score=266]Sampling solutions:  37%|███▋      | 46/125 [00:00<00:00, 124.69it/s, score=266]Sampling solutions:  38%|███▊      | 47/125 [00:00<00:00, 124.69it/s, score=266]Sampling solutions:  38%|███▊      | 48/125 [00:00<00:00, 124.69it/s, score=266]Sampling solutions:  39%|███▉      | 49/125 [00:00<00:00, 124.69it/s, score=266]Sampling solutions:  40%|████      | 50/125 [00:00<00:00, 124.69it/s, score=266]Sampling solutions:  41%|████      | 51/125 [00:00<00:00, 124.69it/s, score=248]Sampling solutions:  42%|████▏     | 52/125 [00:00<00:00, 125.09it/s, score=248]Sampling solutions:  42%|████▏     | 52/125 [00:00<00:00, 125.09it/s, score=248]Sampling solutions:  42%|████▏     | 53/125 [00:00<00:00, 125.09it/s, score=245]Sampling solutions:  43%|████▎     | 54/125 [00:00<00:00, 125.09it/s, score=245]Sampling solutions:  44%|████▍     | 55/125 [00:00<00:00, 125.09it/s, score=245]Sampling solutions:  45%|████▍     | 56/125 [00:00<00:00, 125.09it/s, score=245]Sampling solutions:  46%|████▌     | 57/125 [00:00<00:00, 125.09it/s, score=245]Sampling solutions:  46%|████▋     | 58/125 [00:00<00:00, 125.09it/s, score=245]Sampling solutions:  47%|████▋     | 59/125 [00:00<00:00, 125.09it/s, score=245]Sampling solutions:  48%|████▊     | 60/125 [00:00<00:00, 125.09it/s, score=245]Sampling solutions:  49%|████▉     | 61/125 [00:00<00:00, 125.09it/s, score=245]Sampling solutions:  50%|████▉     | 62/125 [00:00<00:00, 125.09it/s, score=245]Sampling solutions:  50%|█████     | 63/125 [00:00<00:00, 125.09it/s, score=245]Sampling solutions:  51%|█████     | 64/125 [00:00<00:00, 125.09it/s, score=245]Sampling solutions:  52%|█████▏    | 65/125 [00:00<00:00, 125.42it/s, score=245]Sampling solutions:  52%|█████▏    | 65/125 [00:00<00:00, 125.42it/s, score=245]Sampling solutions:  53%|█████▎    | 66/125 [00:00<00:00, 125.42it/s, score=245]Sampling solutions:  54%|█████▎    | 67/125 [00:00<00:00, 125.42it/s, score=245]Sampling solutions:  54%|█████▍    | 68/125 [00:00<00:00, 125.42it/s, score=245]Sampling solutions:  55%|█████▌    | 69/125 [00:00<00:00, 125.42it/s, score=245]Sampling solutions:  56%|█████▌    | 70/125 [00:00<00:00, 125.42it/s, score=245]Sampling solutions:  57%|█████▋    | 71/125 [00:00<00:00, 125.42it/s, score=245]Sampling solutions:  58%|█████▊    | 72/125 [00:00<00:00, 125.42it/s, score=245]Sampling solutions:  58%|█████▊    | 73/125 [00:00<00:00, 125.42it/s, score=242]Sampling solutions:  59%|█████▉    | 74/125 [00:00<00:00, 125.42it/s, score=242]Sampling solutions:  60%|██████    | 75/125 [00:00<00:00, 125.42it/s, score=242]Sampling solutions:  61%|██████    | 76/125 [00:00<00:00, 125.42it/s, score=242]Sampling solutions:  62%|██████▏   | 77/125 [00:00<00:00, 125.42it/s, score=238]Sampling solutions:  62%|██████▏   | 78/125 [00:00<00:00, 125.42it/s, score=238]Sampling solutions:  63%|██████▎   | 79/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  63%|██████▎   | 79/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  64%|██████▍   | 80/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  65%|██████▍   | 81/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  66%|██████▌   | 82/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  66%|██████▋   | 83/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  67%|██████▋   | 84/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  68%|██████▊   | 85/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  69%|██████▉   | 86/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  70%|██████▉   | 87/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  70%|███████   | 88/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  71%|███████   | 89/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  72%|███████▏  | 90/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  73%|███████▎  | 91/125 [00:00<00:00, 127.83it/s, score=238]Sampling solutions:  74%|███████▎  | 92/125 [00:00<00:00, 127.83it/s, score=222]Sampling solutions:  74%|███████▍  | 93/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  74%|███████▍  | 93/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  75%|███████▌  | 94/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  76%|███████▌  | 95/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  77%|███████▋  | 96/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  78%|███████▊  | 97/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  78%|███████▊  | 98/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  79%|███████▉  | 99/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  80%|████████  | 100/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  81%|████████  | 101/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  82%|████████▏ | 102/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  82%|████████▏ | 103/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  83%|████████▎ | 104/125 [00:00<00:00, 130.40it/s, score=222]Sampling solutions:  84%|████████▍ | 105/125 [00:00<00:00, 130.40it/s, score=221]Sampling solutions:  85%|████████▍ | 106/125 [00:00<00:00, 130.40it/s, score=221]Sampling solutions:  86%|████████▌ | 107/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  86%|████████▌ | 107/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  86%|████████▋ | 108/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  87%|████████▋ | 109/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  88%|████████▊ | 110/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  89%|████████▉ | 111/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  90%|████████▉ | 112/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  90%|█████████ | 113/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  91%|█████████ | 114/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  92%|█████████▏| 115/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  93%|█████████▎| 116/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  94%|█████████▎| 117/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  94%|█████████▍| 118/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  95%|█████████▌| 119/125 [00:00<00:00, 127.86it/s, score=221]Sampling solutions:  96%|█████████▌| 120/125 [00:00<00:00, 127.98it/s, score=221]Sampling solutions:  96%|█████████▌| 120/125 [00:00<00:00, 127.98it/s, score=221]Sampling solutions:  97%|█████████▋| 121/125 [00:00<00:00, 127.98it/s, score=221]Sampling solutions:  98%|█████████▊| 122/125 [00:00<00:00, 127.98it/s, score=221]Sampling solutions:  98%|█████████▊| 123/125 [00:00<00:00, 127.98it/s, score=200]Sampling solutions:  99%|█████████▉| 124/125 [00:00<00:00, 127.98it/s, score=196]Sampling solutions: 100%|██████████| 125/125 [00:00<00:00, 127.98it/s, score=195]Sampling solutions: 100%|██████████| 125/125 [00:00<00:00, 127.04it/s, score=195]
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+[20:18:03.110] [logging] [INFO] | [solve_rooms] finished in 0:00:03.379085
+[20:18:03.111] [logging] [INFO] | [solve_large]
+[20:18:03.117] [solve] [INFO] | Greedily solve ('on_floor_and_wall_0', 'kitchen_0/0') - stage has 1/4 bounds, active_count=4/27 objs
+[20:18:03.298] [annealing] [INFO] | it=0/30 dt=0.178 n=28 loss=1.175e+00 viol=0.0 temp=3.00e+00 diff=-2.83 viol_diff=-1.0 prob=2.56 accept=True Addition(KitchenSpaceFactory, 2 relations)
+[20:18:03.696] [annealing] [INFO] | it=1/30 dt=0.398 n=28 loss=1.175e+00 viol=0.0 temp=2.19e+00 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:04.064] [annealing] [INFO] | it=2/30 dt=0.368 n=28 loss=1.175e+00 viol=0.0 temp=1.60e+00 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:04.404] [annealing] [INFO] | it=3/30 dt=0.339 n=28 loss=1.175e+00 viol=0.0 temp=1.17e+00 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:04.768] [annealing] [INFO] | it=4/30 dt=0.364 n=28 loss=1.175e+00 viol=0.0 temp=8.54e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:05.118] [annealing] [INFO] | it=5/30 dt=0.349 n=28 loss=1.175e+00 viol=0.0 temp=6.24e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:05.137] [annealing] [INFO] | it=6/30 dt=0.020 n=28 loss=1.175e+00 viol=0.0 temp=4.56e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Resample(names=['971474_KitchenSpaceFactory'], align_corner=None)
+[20:18:05.518] [annealing] [INFO] | it=7/30 dt=0.380 n=28 loss=1.175e+00 viol=0.0 temp=3.33e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:05.544] [annealing] [INFO] | it=8/30 dt=0.026 n=28 loss=1.175e+00 viol=0.0 temp=2.43e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=True RelationPlaneChange(names=['971474_KitchenSpaceFactory'], relation_idx=1, plane_idx=2)
+[20:18:05.903] [annealing] [INFO] | it=9/30 dt=0.358 n=28 loss=1.175e+00 viol=0.0 temp=1.78e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:06.259] [annealing] [INFO] | it=10/30 dt=0.356 n=28 loss=1.175e+00 viol=0.0 temp=1.30e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:06.606] [annealing] [INFO] | it=11/30 dt=0.347 n=28 loss=1.175e+00 viol=0.0 temp=9.49e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:06.606] [annealing] [INFO] | it=12/30 dt=0.000 n=28 loss=1.175e+00 viol=0.0 temp=6.93e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_rotate
+[20:18:06.963] [annealing] [INFO] | it=13/30 dt=0.357 n=28 loss=1.175e+00 viol=0.0 temp=5.06e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:07.319] [annealing] [INFO] | it=14/30 dt=0.355 n=28 loss=1.175e+00 viol=0.0 temp=3.70e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:07.682] [annealing] [INFO] | it=15/30 dt=0.363 n=28 loss=1.175e+00 viol=0.0 temp=2.70e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:08.036] [annealing] [INFO] | it=16/30 dt=0.354 n=28 loss=1.175e+00 viol=0.0 temp=1.97e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:08.419] [annealing] [INFO] | it=17/30 dt=0.383 n=28 loss=1.175e+00 viol=0.0 temp=1.44e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:08.784] [annealing] [INFO] | it=18/30 dt=0.365 n=28 loss=1.175e+00 viol=0.0 temp=1.05e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:09.156] [annealing] [INFO] | it=19/30 dt=0.372 n=28 loss=1.175e+00 viol=0.0 temp=7.70e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:09.166] [annealing] [INFO] | it=20/30 dt=0.010 n=28 loss=1.175e+00 viol=0.0 temp=5.62e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=True TranslateMove(['971474_KitchenSpaceFactory'], 6.01e-02)
+[20:18:09.187] [annealing] [INFO] | it=21/30 dt=0.010 n=28 loss=1.175e+00 viol=0.0 temp=4.11e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=True TranslateMove(['971474_KitchenSpaceFactory'], 4.85e-03)
+[20:18:09.575] [annealing] [INFO] | it=22/30 dt=0.388 n=28 loss=1.175e+00 viol=0.0 temp=3.00e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:09.931] [annealing] [INFO] | it=23/30 dt=0.356 n=28 loss=1.175e+00 viol=0.0 temp=2.19e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:09.946] [annealing] [INFO] | it=24/30 dt=0.015 n=28 loss=1.175e+00 viol=0.0 temp=1.60e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=True ReinitPoseMove(['971474_KitchenSpaceFactory'])
+[20:18:10.290] [annealing] [INFO] | it=25/30 dt=0.343 n=28 loss=1.175e+00 viol=0.0 temp=1.17e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:10.300] [annealing] [INFO] | it=26/30 dt=0.010 n=28 loss=1.175e+00 viol=0.0 temp=1.00e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=True TranslateMove(['971474_KitchenSpaceFactory'], 8.70e-03)
+[20:18:10.692] [annealing] [INFO] | it=27/30 dt=0.392 n=28 loss=1.175e+00 viol=0.0 temp=1.00e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenSpaceFactory, 2 relations)
+[20:18:10.905] [annealing] [INFO] | it=28/30 dt=0.212 n=28 loss=1.175e+00 viol=0.0 temp=1.00e-03 diff=0.52 viol_diff=0.0 prob=0.00 accept=False Addition(KitchenSpaceFactory, 2 relations)
+[20:18:10.928] [annealing] [INFO] | it=29/30 dt=0.023 n=28 loss=1.175e+00 viol=0.0 temp=1.00e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Resample(names=['971474_KitchenSpaceFactory'], align_corner=None)
+[20:18:10.928] [solve] [INFO] | Finished solving ('on_floor_and_wall_0', 'kitchen_0/0'), added 1 objects, loss=1.1750 viol=0
+[20:18:10.928] [solve] [INFO] |             kitchen_counters  kitchen_sink
+loss                1.174981           NaN
+viol_count          0.000000           0.0
+[20:18:10.937] [solve] [INFO] | Greedily solve ('on_floor_freestanding_0', 'kitchen_0/0') - stage has 1/4 bounds, active_count=5/28 objs
+Warning: No mesh data to join
+[20:18:12.324] [annealing] [INFO] | it=0/30 dt=1.384 n=28 loss=1.175e+00 viol=0.0 temp=3.00e+00 diff=0.54 viol_diff=0.0 prob=0.83 accept=False Addition(KitchenIslandFactory, 1 relations)
+Warning: No mesh data to join
+[20:18:13.853] [annealing] [INFO] | it=1/30 dt=1.514 n=28 loss=1.175e+00 viol=0.0 temp=2.19e+00 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenIslandFactory, 1 relations)
+[20:18:13.853] [annealing] [INFO] | it=2/30 dt=0.000 n=28 loss=1.175e+00 viol=0.0 temp=1.60e+00 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_relation_plane_change
+[20:18:13.854] [annealing] [INFO] | it=3/30 dt=0.000 n=28 loss=1.175e+00 viol=0.0 temp=1.17e+00 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_relation_plane_change
+[20:18:13.858] [annealing] [INFO] | it=4/30 dt=0.005 n=28 loss=1.175e+00 viol=0.0 temp=8.54e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_deletion
+Warning: No mesh data to join
+[20:18:14.912] [annealing] [INFO] | it=5/30 dt=1.054 n=28 loss=1.175e+00 viol=0.0 temp=6.24e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenIslandFactory, 1 relations)
+Warning: No mesh data to join
+[20:18:15.849] [annealing] [INFO] | it=6/30 dt=0.936 n=29 loss=4.938e-02 viol=0.0 temp=4.56e-01 diff=-1.13 viol_diff=0.0 prob=11.80 accept=True Addition(KitchenIslandFactory, 1 relations)
+[20:18:15.869] [annealing] [INFO] | it=7/30 dt=0.020 n=29 loss=4.938e-02 viol=0.0 temp=3.33e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None RotateMove(['609708_KitchenIslandFactory'], 1.57e+00)
+Warning: No mesh data to join
+[20:18:16.796] [annealing] [INFO] | it=8/30 dt=0.927 n=29 loss=4.938e-02 viol=0.0 temp=2.43e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenIslandFactory, 1 relations)
+[20:18:16.815] [annealing] [INFO] | it=9/30 dt=0.020 n=29 loss=4.938e-02 viol=0.0 temp=1.78e-01 diff=0.20 viol_diff=0.0 prob=0.33 accept=False TranslateMove(['609708_KitchenIslandFactory'], 1.26e+00)
+Warning: No mesh data to join
+[20:18:18.633] [annealing] [INFO] | it=10/30 dt=1.818 n=29 loss=4.938e-02 viol=0.0 temp=1.30e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenIslandFactory, 1 relations)
+Warning: No mesh data to join
+[20:18:19.938] [annealing] [INFO] | it=11/30 dt=1.305 n=29 loss=4.938e-02 viol=0.0 temp=9.49e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenIslandFactory, 1 relations)
+[20:18:19.955] [annealing] [INFO] | it=12/30 dt=0.017 n=29 loss=4.938e-02 viol=0.0 temp=6.93e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None TranslateMove(['609708_KitchenIslandFactory'], 6.64e-01)
+[20:18:19.973] [annealing] [INFO] | it=13/30 dt=0.017 n=29 loss=4.938e-02 viol=0.0 temp=5.06e-02 diff=0.51 viol_diff=0.0 prob=0.00 accept=False TranslateMove(['609708_KitchenIslandFactory'], 4.38e-01)
+Warning: No mesh data to join
+[20:18:20.947] [annealing] [INFO] | it=14/30 dt=0.974 n=29 loss=4.938e-02 viol=0.0 temp=3.70e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenIslandFactory, 1 relations)
+[20:18:20.947] [annealing] [INFO] | it=15/30 dt=0.000 n=29 loss=4.938e-02 viol=0.0 temp=2.70e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_relation_plane_change
+Warning: No mesh data to join
+[20:18:21.923] [annealing] [INFO] | it=16/30 dt=0.976 n=29 loss=4.938e-02 viol=0.0 temp=1.97e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenIslandFactory, 1 relations)
+Warning: No mesh data to join
+[20:18:23.404] [annealing] [INFO] | it=17/30 dt=1.481 n=29 loss=4.938e-02 viol=0.0 temp=1.44e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenIslandFactory, 1 relations)
+Warning: No mesh data to join
+[20:18:25.363] [annealing] [INFO] | it=18/30 dt=1.959 n=29 loss=4.938e-02 viol=0.0 temp=1.05e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenIslandFactory, 1 relations)
+[20:18:25.364] [annealing] [INFO] | it=19/30 dt=0.000 n=29 loss=4.938e-02 viol=0.0 temp=7.70e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_relation_plane_change
+Warning: No mesh data to join
+[20:18:26.356] [annealing] [INFO] | it=20/30 dt=0.992 n=29 loss=4.938e-02 viol=0.0 temp=5.62e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenIslandFactory, 1 relations)
+[20:18:26.649] [annealing] [INFO] | it=21/30 dt=0.076 n=29 loss=4.938e-02 viol=0.0 temp=4.11e-03 diff=0.21 viol_diff=0.0 prob=0.00 accept=False ReinitPoseMove(['609708_KitchenIslandFactory'])
+[20:18:26.665] [annealing] [INFO] | it=22/30 dt=0.016 n=29 loss=4.938e-02 viol=0.0 temp=3.00e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None RotateMove(['609708_KitchenIslandFactory'], 7.85e-01)
+[20:18:26.665] [annealing] [INFO] | it=23/30 dt=0.000 n=29 loss=4.938e-02 viol=0.0 temp=2.19e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_relation_plane_change
+Warning: No mesh data to join
+[20:18:28.058] [annealing] [INFO] | it=24/30 dt=1.393 n=29 loss=4.938e-02 viol=0.0 temp=1.60e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(KitchenIslandFactory, 1 relations)
+[20:18:28.068] [annealing] [INFO] | it=25/30 dt=0.009 n=29 loss=4.791e-02 viol=0.0 temp=1.17e-03 diff=-0.00 viol_diff=0.0 prob=3.53 accept=True TranslateMove(['609708_KitchenIslandFactory'], 1.27e-03)
+[20:18:28.075] [annealing] [INFO] | it=26/30 dt=0.007 n=29 loss=4.791e-02 viol=0.0 temp=1.00e-03 diff=0.00 viol_diff=0.0 prob=0.02 accept=False TranslateMove(['609708_KitchenIslandFactory'], 1.34e-02)
+[20:18:28.118] [annealing] [INFO] | it=27/30 dt=0.043 n=29 loss=4.791e-02 viol=0.0 temp=1.00e-03 diff=1.96 viol_diff=0.0 prob=0.00 accept=False ReinitPoseMove(['609708_KitchenIslandFactory'])
+[20:18:28.124] [annealing] [INFO] | it=28/30 dt=0.007 n=29 loss=4.168e-02 viol=0.0 temp=1.00e-03 diff=-0.01 viol_diff=0.0 prob=507.69 accept=True TranslateMove(['609708_KitchenIslandFactory'], 5.81e-03)
+[20:18:28.131] [annealing] [INFO] | it=29/30 dt=0.007 n=29 loss=3.967e-02 viol=0.0 temp=1.00e-03 diff=-0.00 viol_diff=0.0 prob=7.43 accept=True TranslateMove(['609708_KitchenIslandFactory'], 2.26e-03)
+[20:18:28.131] [solve] [INFO] | Finished solving ('on_floor_freestanding_0', 'kitchen_0/0'), added 1 objects, loss=0.0397 viol=0
+[20:18:28.132] [solve] [INFO] |             kitchen_counters  kitchen_sink
+loss                0.039674           NaN
+viol_count          0.000000           0.0
+[20:18:28.158] [logging] [INFO] | [solve_large] finished in 0:00:25.046953
+[20:18:28.164] [logging] [INFO] | [pose_cameras]
+[20:18:28.164] [logging] [INFO] | [Building placeholders KDTree]
+[20:18:28.164] [camera] [INFO] | Building placeholder kd for 32 objects
+[20:18:28.165] [logging] [INFO] | [Building placeholders KDTree] finished in 0:00:00.001172
+Warning: No mesh data to join
+Searching for camera viewpoints:   0%|          | 0/50 [00:00<?, ?it/s]Searching for camera viewpoints:   4%|▍         | 2/50 [00:00<00:16,  2.89it/s]Searching for camera viewpoints:   6%|▌         | 3/50 [00:00<00:11,  4.09it/s]Searching for camera viewpoints:   8%|▊         | 4/50 [00:00<00:10,  4.39it/s]Searching for camera viewpoints:  12%|█▏        | 6/50 [00:01<00:06,  6.65it/s]Searching for camera viewpoints:  14%|█▍        | 7/50 [00:01<00:05,  7.25it/s]Searching for camera viewpoints:  16%|█▌        | 8/50 [00:01<00:06,  6.45it/s]Searching for camera viewpoints:  18%|█▊        | 9/50 [00:01<00:09,  4.49it/s]Searching for camera viewpoints:  20%|██        | 10/50 [00:02<00:09,  4.36it/s]Searching for camera viewpoints:  24%|██▍       | 12/50 [00:02<00:05,  6.65it/s]Searching for camera viewpoints:  26%|██▌       | 13/50 [00:02<00:06,  5.35it/s]Searching for camera viewpoints:  28%|██▊       | 14/50 [00:02<00:06,  5.92it/s]Searching for camera viewpoints:  30%|███       | 15/50 [00:03<00:09,  3.82it/s]Searching for camera viewpoints:  32%|███▏      | 16/50 [00:03<00:09,  3.52it/s]Searching for camera viewpoints:  34%|███▍      | 17/50 [00:03<00:08,  3.83it/s]Searching for camera viewpoints:  38%|███▊      | 19/50 [00:03<00:05,  5.25it/s]Searching for camera viewpoints:  40%|████      | 20/50 [00:03<00:05,  5.91it/s]Searching for camera viewpoints:  42%|████▏     | 21/50 [00:04<00:06,  4.70it/s]Searching for camera viewpoints:  46%|████▌     | 23/50 [00:04<00:04,  6.44it/s]Searching for camera viewpoints:  48%|████▊     | 24/50 [00:04<00:04,  6.07it/s]Searching for camera viewpoints:  52%|█████▏    | 26/50 [00:05<00:05,  4.79it/s]Searching for camera viewpoints:  54%|█████▍    | 27/50 [00:05<00:05,  4.01it/s]Searching for camera viewpoints:  56%|█████▌    | 28/50 [00:05<00:05,  4.02it/s]Searching for camera viewpoints:  58%|█████▊    | 29/50 [00:05<00:04,  4.73it/s]Searching for camera viewpoints:  60%|██████    | 30/50 [00:06<00:03,  5.13it/s]Searching for camera viewpoints:  62%|██████▏   | 31/50 [00:06<00:03,  4.77it/s]Searching for camera viewpoints:  64%|██████▍   | 32/50 [00:06<00:03,  4.53it/s]Searching for camera viewpoints:  68%|██████▊   | 34/50 [00:07<00:04,  3.60it/s]Searching for camera viewpoints:  72%|███████▏  | 36/50 [00:07<00:03,  4.20it/s]Searching for camera viewpoints:  74%|███████▍  | 37/50 [00:07<00:02,  4.57it/s]Searching for camera viewpoints:  76%|███████▌  | 38/50 [00:08<00:02,  4.66it/s]Searching for camera viewpoints:  78%|███████▊  | 39/50 [00:08<00:02,  5.36it/s]Searching for camera viewpoints:  80%|████████  | 40/50 [00:08<00:01,  5.64it/s]Searching for camera viewpoints:  82%|████████▏ | 41/50 [00:08<00:02,  3.43it/s]Searching for camera viewpoints:  84%|████████▍ | 42/50 [00:09<00:02,  2.86it/s]Searching for camera viewpoints:  86%|████████▌ | 43/50 [00:09<00:01,  3.59it/s]Searching for camera viewpoints:  90%|█████████ | 45/50 [00:09<00:00,  5.31it/s]Searching for camera viewpoints:  92%|█████████▏| 46/50 [00:09<00:00,  5.55it/s]Searching for camera viewpoints:  94%|█████████▍| 47/50 [00:10<00:00,  3.06it/s]Searching for camera viewpoints:  96%|█████████▌| 48/50 [00:10<00:00,  3.75it/s]Searching for camera viewpoints:  98%|█████████▊| 49/50 [00:10<00:00,  4.26it/s]Searching for camera viewpoints: 100%|██████████| 50/50 [00:10<00:00,  4.62it/s]
+[20:18:39.182] [logging] [INFO] | [pose_cameras] finished in 0:00:11.018280
+[20:18:39.184] [logging] [INFO] | [populate_intermediate_pholders]
+[20:18:39.184] [populate] [INFO] | Populating placeholders final=False filter=Semantics.AssetPlaceholderForChildren
+Updating trimesh with populated objects: 0it [00:00, ?it/s]Updating trimesh with populated objects: 0it [00:00, ?it/s]
+[20:18:39.186] [logging] [INFO] | [populate_intermediate_pholders] finished in 0:00:00.001560
+[20:18:39.186] [logging] [INFO] | [solve_small]
+[20:18:39.193] [solve] [INFO] | No objects to be added for desc_full=('obj_ontop_obj_0', 'kitchen_0/0', '609708_KitchenIslandFactory'), skipping
+[20:18:39.198] [solve] [INFO] | No objects to be added for desc_full=('obj_ontop_obj_1', 'kitchen_0/0', '971474_KitchenSpaceFactory'), skipping
+[20:18:39.199] [solve] [INFO] | Restricting Solver moves to ['addition']
+[20:18:39.205] [solve] [INFO] | Greedily solve ('obj_on_support_0', 'kitchen_0/0', '609708_KitchenIslandFactory') - stage has 1/4 bounds, active_count=6/29 objs
+[20:18:39.214] [planes] [WARNING] | Attempted to get_tagged_planes obj.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)' tags={Subpart.SupportSurface} but mask was empty, obj_tags={'front', 'bottom', 'top', 'back'}
+[20:18:39.214] [annealing] [INFO] | it=0/12 dt=0.006 n=29 loss=3.967e-02 viol=0.0 temp=3.00e+00 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_addition
+[20:18:39.220] [planes] [WARNING] | Attempted to get_tagged_planes obj.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)' tags={Subpart.SupportSurface} but mask was empty, obj_tags={'front', 'bottom', 'top', 'back'}
+[20:18:39.221] [annealing] [INFO] | it=1/12 dt=0.006 n=29 loss=3.967e-02 viol=0.0 temp=1.37e+00 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_addition
+[20:18:39.227] [planes] [WARNING] | Attempted to get_tagged_planes obj.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)' tags={Subpart.SupportSurface} but mask was empty, obj_tags={'front', 'bottom', 'top', 'back'}
+[20:18:39.227] [annealing] [INFO] | it=2/12 dt=0.006 n=29 loss=3.967e-02 viol=0.0 temp=6.24e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_addition
+[20:18:39.233] [planes] [WARNING] | Attempted to get_tagged_planes obj.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)' tags={Subpart.SupportSurface} but mask was empty, obj_tags={'front', 'bottom', 'top', 'back'}
+[20:18:39.233] [annealing] [INFO] | it=3/12 dt=0.006 n=29 loss=3.967e-02 viol=0.0 temp=2.85e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_addition
+[20:18:39.239] [planes] [WARNING] | Attempted to get_tagged_planes obj.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)' tags={Subpart.SupportSurface} but mask was empty, obj_tags={'front', 'bottom', 'top', 'back'}
+[20:18:39.239] [annealing] [INFO] | it=4/12 dt=0.006 n=29 loss=3.967e-02 viol=0.0 temp=1.30e-01 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_addition
+[20:18:39.245] [planes] [WARNING] | Attempted to get_tagged_planes obj.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)' tags={Subpart.SupportSurface} but mask was empty, obj_tags={'front', 'bottom', 'top', 'back'}
+[20:18:39.245] [annealing] [INFO] | it=5/12 dt=0.006 n=29 loss=3.967e-02 viol=0.0 temp=5.92e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_addition
+[20:18:39.251] [planes] [WARNING] | Attempted to get_tagged_planes obj.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)' tags={Subpart.SupportSurface} but mask was empty, obj_tags={'front', 'bottom', 'top', 'back'}
+[20:18:39.251] [annealing] [INFO] | it=6/12 dt=0.006 n=29 loss=3.967e-02 viol=0.0 temp=2.70e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_addition
+[20:18:39.257] [planes] [WARNING] | Attempted to get_tagged_planes obj.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)' tags={Subpart.SupportSurface} but mask was empty, obj_tags={'front', 'bottom', 'top', 'back'}
+[20:18:39.257] [annealing] [INFO] | it=7/12 dt=0.006 n=29 loss=3.967e-02 viol=0.0 temp=1.23e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_addition
+[20:18:39.263] [planes] [WARNING] | Attempted to get_tagged_planes obj.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)' tags={Subpart.SupportSurface} but mask was empty, obj_tags={'front', 'bottom', 'top', 'back'}
+[20:18:39.263] [annealing] [INFO] | it=8/12 dt=0.006 n=29 loss=3.967e-02 viol=0.0 temp=5.62e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_addition
+[20:18:39.269] [planes] [WARNING] | Attempted to get_tagged_planes obj.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)' tags={Subpart.SupportSurface} but mask was empty, obj_tags={'front', 'bottom', 'top', 'back'}
+[20:18:39.270] [annealing] [INFO] | it=9/12 dt=0.006 n=29 loss=3.967e-02 viol=0.0 temp=2.56e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_addition
+[20:18:39.276] [planes] [WARNING] | Attempted to get_tagged_planes obj.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)' tags={Subpart.SupportSurface} but mask was empty, obj_tags={'front', 'bottom', 'top', 'back'}
+[20:18:39.276] [annealing] [INFO] | it=10/12 dt=0.006 n=29 loss=3.967e-02 viol=0.0 temp=1.17e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_addition
+[20:18:39.282] [planes] [WARNING] | Attempted to get_tagged_planes obj.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)' tags={Subpart.SupportSurface} but mask was empty, obj_tags={'front', 'bottom', 'top', 'back'}
+[20:18:39.282] [annealing] [INFO] | it=11/12 dt=0.006 n=29 loss=3.967e-02 viol=0.0 temp=1.00e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None propose_addition
+[20:18:39.282] [solve] [INFO] | Finished solving ('obj_on_support_0', 'kitchen_0/0', '609708_KitchenIslandFactory'), added 0 objects, loss=0.0397 viol=0
+[20:18:39.282] [solve] [INFO] |             kitchen_counters  kitchen_sink
+loss                0.039674           NaN
+viol_count          0.000000           0.0
+[20:18:39.285] [solve] [INFO] | Restricting Solver moves to ['addition']
+[20:18:39.291] [solve] [INFO] | Greedily solve ('obj_on_support_1', 'kitchen_0/0', '971474_KitchenSpaceFactory') - stage has 1/4 bounds, active_count=6/29 objs
+[20:18:39.413] [annealing] [INFO] | it=0/12 dt=0.119 n=30 loss=3.967e-02 viol=0.0 temp=3.00e+00 diff=0.00 viol_diff=0.0 prob=1.00 accept=True Addition(SinkFactory, 2 relations)
+[20:18:39.550] [annealing] [INFO] | it=1/12 dt=0.135 n=30 loss=3.967e-02 viol=0.0 temp=1.37e+00 diff=0.00 viol_diff=1.0 prob=1.00 accept=False Addition(SinkFactory, 2 relations)
+[20:18:39.677] [annealing] [INFO] | it=2/12 dt=0.127 n=30 loss=3.967e-02 viol=0.0 temp=6.24e-01 diff=0.00 viol_diff=1.0 prob=1.00 accept=False Addition(SinkFactory, 2 relations)
+[20:18:39.812] [annealing] [INFO] | it=3/12 dt=0.136 n=30 loss=3.967e-02 viol=0.0 temp=2.85e-01 diff=0.00 viol_diff=1.0 prob=1.00 accept=False Addition(SinkFactory, 2 relations)
+[20:18:39.948] [annealing] [INFO] | it=4/12 dt=0.135 n=30 loss=3.967e-02 viol=0.0 temp=1.30e-01 diff=0.00 viol_diff=1.0 prob=1.00 accept=False Addition(SinkFactory, 2 relations)
+[20:18:40.121] [annealing] [INFO] | it=5/12 dt=0.173 n=30 loss=3.967e-02 viol=0.0 temp=5.92e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(SinkFactory, 2 relations)
+[20:18:40.277] [annealing] [INFO] | it=6/12 dt=0.155 n=30 loss=3.967e-02 viol=0.0 temp=2.70e-02 diff=0.00 viol_diff=1.0 prob=1.00 accept=False Addition(SinkFactory, 2 relations)
+[20:18:40.451] [annealing] [INFO] | it=7/12 dt=0.174 n=30 loss=3.967e-02 viol=0.0 temp=1.23e-02 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(SinkFactory, 2 relations)
+[20:18:40.580] [annealing] [INFO] | it=8/12 dt=0.129 n=30 loss=3.967e-02 viol=0.0 temp=5.62e-03 diff=0.00 viol_diff=1.0 prob=1.00 accept=False Addition(SinkFactory, 2 relations)
+[20:18:40.790] [annealing] [INFO] | it=9/12 dt=0.210 n=30 loss=3.967e-02 viol=0.0 temp=2.56e-03 diff=0.00 viol_diff=1.0 prob=1.00 accept=False Addition(SinkFactory, 2 relations)
+[20:18:40.974] [annealing] [INFO] | it=10/12 dt=0.184 n=30 loss=3.967e-02 viol=0.0 temp=1.17e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(SinkFactory, 2 relations)
+[20:18:41.153] [annealing] [INFO] | it=11/12 dt=0.179 n=30 loss=3.967e-02 viol=0.0 temp=1.00e-03 diff=0.00 viol_diff=0.0 prob=1.00 accept=None Addition(SinkFactory, 2 relations)
+[20:18:41.153] [solve] [INFO] | Finished solving ('obj_on_support_1', 'kitchen_0/0', '971474_KitchenSpaceFactory'), added 1 objects, loss=0.0397 viol=0
+[20:18:41.154] [solve] [INFO] |             kitchen_counters  kitchen_sink
+loss                0.039674           NaN
+viol_count          0.000000           0.0
+[20:18:41.176] [logging] [INFO] | [solve_small] finished in 0:00:01.990054
+[20:18:41.177] [annealing] [INFO] | Saving stats /home/yashturkar/Workspace/infinigen/outputs/infinigen_indoors_kitchen/coarse/optim_records.csv
+[20:18:41.407] [annealing] [INFO] | Saving plot /home/yashturkar/Workspace/infinigen/outputs/infinigen_indoors_kitchen/coarse/optim_records.png
+[20:18:41.468] [annealing] [INFO] | Total elapsed optim_records 1.86
+[20:18:41.469] [logging] [INFO] | [populate_assets]
+[20:18:41.469] [populate] [INFO] | Populating placeholders final=True filter=None
+[20:18:41.469] [populate] [INFO] | Populating 0/3 placeholder.name='KitchenSpaceFactory(4790863).spawn_placeholder(177424)'
+Warning: No mesh data to join
+[20:18:42.717] [populate] [INFO] | Populating 1/3 placeholder.name='KitchenIslandFactory(1112434).bbox_placeholder(6018961)'
+Warning: No mesh data to join
+[20:18:43.785] [populate] [INFO] | Populating 2/3 placeholder.name='SinkFactory(4018701).spawn_placeholder(2889896)'
+[20:18:43.980] [utils] [WARNING] | Attempted to use (input_socket.name='End',input_socket.type='VALUE') of node.name='Trim Curve', but it was disabled. Either change attrs={...}, change the socket index, or specify the socket by name (assuming two enabled sockets don't share a name).The input sockets are [('Curve', 'GEOMETRY', 'ENABLED'), ('Selection', 'BOOLEAN', 'ENABLED'), ('Start', 'VALUE', 'ENABLED'), ('End', 'VALUE', 'ENABLED'), ('Start', 'VALUE', 'DISABLED'), ('End', 'VALUE', 'DISABLED')].
+[20:18:44.054] [blender] [WARNING] | SelectObjects failed to select self.objects=[bpy.data.objects['KitchenSpaceFactory(4790863).spawn_asset(177424)']], result was bpy.context.selected_objects=[]. The most common cause is that the objects are in a collection with col.hide_viewport=True
+[20:18:44.166] [blender] [WARNING] | SelectObjects failed to select self.objects=[bpy.data.objects['KitchenSpaceFactory(4790863).spawn_asset(177424)']], result was bpy.context.selected_objects=[]. The most common cause is that the objects are in a collection with col.hide_viewport=True
+[20:18:44.166] [blender] [WARNING] | SelectObjects failed to select self.objects=[bpy.data.objects['KitchenSpaceFactory(4790863).spawn_asset(177424)']], result was bpy.context.selected_objects=[]. The most common cause is that the objects are in a collection with col.hide_viewport=True
+[20:18:44.167] [blender] [WARNING] | SelectObjects failed to select self.objects=[bpy.data.objects['KitchenSpaceFactory(4790863).spawn_asset(177424)']], result was bpy.context.selected_objects=[]. The most common cause is that the objects are in a collection with col.hide_viewport=True
+[20:18:44.257] [blender] [WARNING] | SelectObjects failed to select self.objects=[bpy.data.objects['KitchenSpaceFactory(4790863).spawn_asset(177424)']], result was bpy.context.selected_objects=[]. The most common cause is that the objects are in a collection with col.hide_viewport=True
+[20:18:44.257] [blender] [WARNING] | SelectObjects failed to select self.objects=[bpy.data.objects['KitchenSpaceFactory(4790863).spawn_asset(177424)']], result was bpy.context.selected_objects=[]. The most common cause is that the objects are in a collection with col.hide_viewport=True
+[20:18:44.310] [logging] [INFO] | [populate_assets] finished in 0:00:02.841235
+[20:18:44.313] [logging] [INFO] | [room_doors]
+Placing doors:   0%|          | 0/3 [00:00<?, ?it/s]Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Placing doors:  67%|██████▋   | 2/3 [00:02<00:01,  1.01s/it]Info: Removed 0 vertices
+Info: Removed 0 vertices
+Placing doors: 100%|██████████| 3/3 [00:02<00:00,  1.32it/s]Placing doors: 100%|██████████| 3/3 [00:02<00:00,  1.23it/s]
+[20:18:46.769] [logging] [INFO] | [room_doors] finished in 0:00:02.456297
+[20:18:46.770] [logging] [INFO] | [room_windows]
+[20:18:47.007] [compatibility] [WARNING] | Subsurface Color no longer in use for ShaderNodeBsdfPrincipled
+[20:18:47.922] [compatibility] [WARNING] | Subsurface Color no longer in use for ShaderNodeBsdfPrincipled
+[20:18:47.992] [compatibility] [WARNING] | Subsurface Color no longer in use for ShaderNodeBsdfPrincipled
+[20:18:48.265] [logging] [INFO] | [room_windows] finished in 0:00:01.495488
+[20:18:48.266] [logging] [INFO] | [room_stairs]
+[20:18:48.270] [logging] [INFO] | [room_stairs] finished in 0:00:00.003732
+[20:18:48.270] [logging] [INFO] | [skirting_floor]
+[20:18:50.582] [logging] [INFO] | [skirting_floor] finished in 0:00:02.312584
+[20:18:50.981] [logging] [INFO] | [room_walls]
+[20:18:51.862] [logging] [INFO] | [room_walls] finished in 0:00:00.881591
+[20:18:51.863] [logging] [INFO] | [room_floors]
+[20:18:52.501] [logging] [INFO] | [room_floors] finished in 0:00:00.637842
+[20:18:52.501] [logging] [INFO] | [room_ceilings]
+[20:18:52.514] [logging] [INFO] | [room_ceilings] finished in 0:00:00.012298
+[20:18:52.516] [logging] [INFO] | [lights_off]
+[20:18:52.516] [logging] [INFO] | [lights_off] finished in 0:00:00.000242
+[20:18:52.516] [logging] [INFO] | [invisible_room_ceilings]
+[20:18:52.531] [logging] [INFO] | [invisible_room_ceilings] finished in 0:00:00.014306
+[20:18:52.531] [pipeline] [INFO] | Skipping run_stage(nature_backdrop...) due to unmet prereq='terrain'
+[20:18:52.534] [logging] [INFO] | [Writing output blendfile]
+[20:18:52.534] [execute_tasks] [INFO] | Writing output blendfile to /home/yashturkar/Workspace/infinigen/outputs/infinigen_indoors_kitchen/coarse/scene.blend
+[20:18:52.574] [logging] [INFO] | [Writing output blendfile] finished in 0:00:00.040012
+[20:18:52.575] [logging] [INFO] | [MAIN TOTAL] finished in 0:00:53.142660
+Info: Saved "scene.blend"
+Using fallback
+Using fallback

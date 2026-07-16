@@ -1,0 +1,32 @@
+Run: infinigen_1dcacf23_disable_ceiling_fix_spawn_20260713T011115Z
+Environment: infinigen_1dcacf23
+Map: /Game/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23
+
+Result: PASS
+
+Map fix:
+- Moved Setup_PlayerStart from (350, 1450, 120) to (325, -1425, 120), placing live teleop inside the cleaned room bounds.
+- Disabled four generated ceiling RectLight actors:
+  - Infinigen1dcacf23_Ceiling_RectLight_0
+  - Infinigen1dcacf23_Ceiling_RectLight_1
+  - Infinigen1dcacf23_Ceiling_RectLight_2
+  - Infinigen1dcacf23_Ceiling_RectLight_3
+- Each disabled RectLight component reports visible=false, intensity=0.0, indirect_lighting_intensity=0.0, affects_world=false, and cast_shadows=false.
+- Hid four CeilingLightFactory fixture mesh actors so the generated ceiling-light geometry is not visible in game.
+
+Cook/package:
+- Full 21-map Linux cook/package completed successfully.
+- Archive pak: cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+- Staged pak: cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+- sha256: e7b0b2e707e72531fad9c8bd824f85f4a7455ff371fe7a1bf3714a315fb2877a
+- size_bytes: 4183760227
+- mtime: 2026-07-12T21:16:04.001507588-04:00
+
+Pak verification:
+- SpearSim/Content/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23.umap present.
+- SpearSim/Content/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23.uexp present.
+
+Artifacts:
+- fix report: .control-tower/runs/infinigen_1dcacf23_disable_ceiling_fix_spawn_20260713T011115Z/fix_report.json
+- editor fix log: .control-tower/runs/infinigen_1dcacf23_disable_ceiling_fix_spawn_20260713T011115Z/logs/fix_spawn_and_disable_ceiling_lights.log
+- cook log: .control-tower/runs/infinigen_1dcacf23_disable_ceiling_fix_spawn_20260713T011115Z/logs/cook_package.log

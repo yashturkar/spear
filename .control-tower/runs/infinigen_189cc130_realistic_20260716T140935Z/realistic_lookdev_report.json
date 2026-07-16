@@ -1,0 +1,560 @@
+{
+  "active_light_count": 3,
+  "all_light_actors": [
+    {
+      "active": false,
+      "affects_world": false,
+      "component_class": "DirectionalLightComponent",
+      "intensity": 0.0,
+      "label": "Setup_DirectionalLight",
+      "visible": false
+    },
+    {
+      "active": false,
+      "affects_world": false,
+      "component_class": "SkyLightComponent",
+      "intensity": 0.0,
+      "label": "Setup_SkyLight",
+      "visible": false
+    },
+    {
+      "active": false,
+      "affects_world": false,
+      "component_class": "PointLightComponent",
+      "intensity": 0.0,
+      "label": "Infinigen189cc130_TableLamp_650lm_PointLight",
+      "visible": false
+    },
+    {
+      "active": true,
+      "affects_world": true,
+      "component_class": "PointLightComponent",
+      "intensity": 380.0,
+      "label": "Infinigen189cc130_Realistic_TableLamp_PointLight",
+      "visible": true
+    },
+    {
+      "active": true,
+      "affects_world": true,
+      "component_class": "SkyLightComponent",
+      "intensity": 0.054999999701976776,
+      "label": "Infinigen189cc130_Realistic_Ambient_SkyLight",
+      "visible": true
+    },
+    {
+      "active": true,
+      "affects_world": true,
+      "component_class": "RectLightComponent",
+      "intensity": 55.0,
+      "label": "Infinigen189cc130_Realistic_WindowFill_RectLight",
+      "visible": true
+    }
+  ],
+  "changed_material_slots": [
+    {
+      "actor_label": "Infinigen_BedFactory_1250394__spawn_asset_4644385_",
+      "assigned_slots": [
+        0,
+        1
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 2
+    },
+    {
+      "actor_label": "Infinigen_BlanketFactory_1250394__spawn_asset_4644385_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Fabric_Grey",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_1605105_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Ceiling_Plaster",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_4619103_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Ceiling_Plaster",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_CellShelfFactory_1375221__spawn_asset_4804677_",
+      "assigned_slots": [
+        0,
+        1
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 2
+    },
+    {
+      "actor_label": "Infinigen_ComforterFactory_1250394__spawn_asset_4644385_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Fabric_Grey",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_DeskLampFactory_8507126__spawn_asset_7901138_",
+      "assigned_slots": [
+        0,
+        1
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Lampshade_Warm",
+      "slot_count": 2
+    },
+    {
+      "actor_label": "Infinigen_KitchenCabinetFactory_1387523__spawn_asset_4630190_",
+      "assigned_slots": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 4
+    },
+    {
+      "actor_label": "Infinigen_LargeShelfFactory_1583174__spawn_asset_642900_",
+      "assigned_slots": [
+        0,
+        1
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 2
+    },
+    {
+      "actor_label": "Infinigen_LargeShelfFactory_4322682__spawn_asset_5471509_",
+      "assigned_slots": [
+        0,
+        1
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 2
+    },
+    {
+      "actor_label": "Infinigen_MattressFactory_1250394__spawn_asset_4644385_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Bedding_OffWhite",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_2487019__spawn_asset_1332666_",
+      "assigned_slots": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 5
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_2811083__spawn_asset_3748554_",
+      "assigned_slots": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 5
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_3060825__spawn_asset_9108081_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_3221477__spawn_asset_2063292_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_4565853__spawn_asset_6662185_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_5090519__spawn_asset_3674412_",
+      "assigned_slots": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 5
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_690246__spawn_asset_1497873_",
+      "assigned_slots": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 5
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_7078173__spawn_asset_5346869_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_8452469__spawn_asset_5964342_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_9129415__spawn_asset_3795336_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_9323882__spawn_asset_9892443_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_9496139__spawn_asset_8720761_",
+      "assigned_slots": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 5
+    },
+    {
+      "actor_label": "Infinigen_NatureShelfTrinketsFactory_9748772__spawn_asset_9282356_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_PillowFactory_1250394__spawn_asset_4644385_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Bedding_OffWhite",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_PillowFactory_1250394__spawn_asset_4644385__001",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Bedding_OffWhite",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_SimpleBookcaseFactory_4170166__spawn_asset_280348_",
+      "assigned_slots": [
+        0,
+        1
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 2
+    },
+    {
+      "actor_label": "Infinigen_SimpleDeskFactory_863416__spawn_asset_1747122_",
+      "assigned_slots": [
+        0,
+        1
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood",
+      "slot_count": 2
+    },
+    {
+      "actor_label": "Infinigen_TowelFactory_1250394__spawn_asset_4644385_",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Fabric_Grey",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_bathroom_0_0_ceiling",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Ceiling_Plaster",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_bedroom_0_0_ceiling",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Ceiling_Plaster",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_bedroom_0_0_floor",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Muted_Floor",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_bedroom_0_0_wall",
+      "assigned_slots": [
+        0,
+        1
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Neutral_Plaster",
+      "slot_count": 2
+    },
+    {
+      "actor_label": "Infinigen_dining-room_0_0_ceiling",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Ceiling_Plaster",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_kitchen_0_0_ceiling",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Ceiling_Plaster",
+      "slot_count": 1
+    },
+    {
+      "actor_label": "Infinigen_living-room_0_0_ceiling",
+      "assigned_slots": [
+        0
+      ],
+      "material": "/Game/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Ceiling_Plaster",
+      "slot_count": 1
+    }
+  ],
+  "destroyed_prior_generated_actors": [],
+  "disabled_existing_light_actors": [
+    {
+      "affects_world": false,
+      "class": "DirectionalLight",
+      "component_class": "DirectionalLightComponent",
+      "intensity": 0.0,
+      "label": "Setup_DirectionalLight",
+      "old_intensity": 0.0,
+      "visible": false
+    },
+    {
+      "affects_world": false,
+      "class": "SkyLight",
+      "component_class": "SkyLightComponent",
+      "intensity": 0.0,
+      "label": "Setup_SkyLight",
+      "old_intensity": 0.0,
+      "visible": false
+    },
+    {
+      "affects_world": false,
+      "class": "PointLight",
+      "component_class": "PointLightComponent",
+      "intensity": 0.0,
+      "label": "Infinigen189cc130_TableLamp_650lm_PointLight",
+      "old_intensity": 30.0,
+      "visible": false
+    }
+  ],
+  "map_path": "/Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic",
+  "map_state": {
+    "duplicated_from_source": false,
+    "source_map_path": "/Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130",
+    "target_existed_before": true,
+    "target_map_path": "/Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic"
+  },
+  "player_start": {
+    "label": "Setup_PlayerStart",
+    "new_location": {
+      "x": 300.0,
+      "y": -1000.0,
+      "z": 120.0
+    },
+    "new_rotation": {
+      "pitch": 0.0,
+      "roll": 0.0,
+      "yaw": -74.114
+    },
+    "old_location": {
+      "x": 300.0,
+      "y": -1000.0,
+      "z": 120.0
+    },
+    "old_rotation": {
+      "pitch": 0.0,
+      "roll": 0.0,
+      "yaw": -74.114
+    }
+  },
+  "post_process": {
+    "auto_exposure_bias": -0.3499999940395355,
+    "auto_exposure_max_brightness": 0.8999999761581421,
+    "auto_exposure_max_ev100": null,
+    "auto_exposure_method": "AEM_MANUAL",
+    "auto_exposure_min_brightness": 0.8999999761581421,
+    "auto_exposure_min_ev100": null,
+    "bloom_intensity": 0.07999999821186066,
+    "class": "PostProcessVolume",
+    "color_contrast": "<Struct 'Vector4' (0xb9902ffa0e0) {x: 1.060000, y: 1.060000, z: 1.060000, w: 1.000000}>",
+    "color_saturation": "<Struct 'Vector4' (0xb9902ffa0c0) {x: 0.920000, y: 0.920000, z: 0.920000, w: 1.000000}>",
+    "film_shoulder": 0.25999999046325684,
+    "film_slope": 0.9200000166893005,
+    "film_toe": 0.41999998688697815,
+    "label": "Infinigen189cc130_Realistic_PostProcess",
+    "priority": 20.0,
+    "unbound": true,
+    "vignette_intensity": 0.07999999821186066,
+    "white_temp": 6400.0,
+    "white_tint": -1.0
+  },
+  "reference_note": "apartment_0000 was used as a tone and contrast reference only. This pass authors warm practical lamp lighting, subdued cool fill, fixed lookdev post process, neutral plaster/floor/fabric/wood materials, and a black non-emissive monitor on the duplicated map.",
+  "save_dirty_packages_result": true,
+  "save_target_map_result": true,
+  "saved": true,
+  "spawned_lights": [
+    {
+      "affects_world": true,
+      "attenuation_radius": 420.0,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "ENABLED",
+      "cast_shadows": true,
+      "class": "PointLight",
+      "component_class": "PointLightComponent",
+      "indirect_lighting_intensity": 0.6499999761581421,
+      "intensity": 380.0,
+      "intensity_units": "LUMENS",
+      "label": "Infinigen189cc130_Realistic_TableLamp_PointLight",
+      "location": {
+        "x": 374.31,
+        "y": -1239.11,
+        "z": 119.769
+      },
+      "mobility": "MOVABLE",
+      "rotation": {
+        "pitch": 0.0,
+        "roll": 0.0,
+        "yaw": 0.0
+      },
+      "soft_source_radius": 22.0,
+      "source_height": null,
+      "source_length": 4.0,
+      "source_radius": 8.0,
+      "source_width": null,
+      "temperature": 2800.0,
+      "use_inverse_squared_falloff": true,
+      "use_temperature": true,
+      "visible": true
+    },
+    {
+      "affects_world": true,
+      "attenuation_radius": null,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "USE_PROJECT_SETTING",
+      "cast_shadows": false,
+      "class": "SkyLight",
+      "component_class": "SkyLightComponent",
+      "indirect_lighting_intensity": 0.07999999821186066,
+      "intensity": 0.054999999701976776,
+      "intensity_units": null,
+      "label": "Infinigen189cc130_Realistic_Ambient_SkyLight",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 300.0
+      },
+      "mobility": "MOVABLE",
+      "rotation": {
+        "pitch": 0.0,
+        "roll": 0.0,
+        "yaw": 0.0
+      },
+      "soft_source_radius": null,
+      "source_height": null,
+      "source_length": null,
+      "source_radius": null,
+      "source_width": null,
+      "temperature": null,
+      "use_inverse_squared_falloff": null,
+      "use_temperature": null,
+      "visible": true
+    },
+    {
+      "affects_world": true,
+      "attenuation_radius": 520.0,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "ENABLED",
+      "cast_shadows": true,
+      "class": "RectLight",
+      "component_class": "RectLightComponent",
+      "indirect_lighting_intensity": 0.05000000074505806,
+      "intensity": 55.0,
+      "intensity_units": "LUMENS",
+      "label": "Infinigen189cc130_Realistic_WindowFill_RectLight",
+      "location": {
+        "x": 305.356,
+        "y": -1243.155,
+        "z": 176.438
+      },
+      "mobility": "MOVABLE",
+      "rotation": {
+        "pitch": 0.0,
+        "roll": -0.0,
+        "yaw": 90.0
+      },
+      "soft_source_radius": null,
+      "source_height": 150.0,
+      "source_length": null,
+      "source_radius": null,
+      "source_width": 220.0,
+      "temperature": 5200.0,
+      "use_inverse_squared_falloff": null,
+      "use_temperature": true,
+      "visible": true
+    }
+  ]
+}

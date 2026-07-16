@@ -1,0 +1,51 @@
+Infinigen 1dcacf23 SPEAR import and cook verification
+
+Source blend: /home/yashturkar/Workspace/infinigen/outputs/1dcacf23/fine/scene.blend
+Exported FBX: /home/yashturkar/Workspace/infinigen/outputs/1dcacf23/spear_export_r1024/export_scene.blend/export_scene.fbx
+Unreal map: /Game/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23
+Local map: cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23.umap
+
+Lighting added:
+- 2 warm movable desk/table lamp PointLights
+- 4 warm movable ceiling RectLights
+- 1 low-angle sun DirectionalLight for window/door daylight
+- 1 SkyAtmosphere actor for the atmosphere sun path
+- 1 low ambient SkyLight
+
+Validation report:
+- map_exists: true
+- saved: true
+- mesh_asset_count: 107
+- static_mesh_actor_count: 51
+- matched_table_lamp_count: 2
+- matched_ceiling_light_count: 4
+- matched_window_count: 3
+- matched_door_count: 2
+- spawned_light_count: 9
+- sky_atmosphere_actor_count: 1
+
+Stray-geometry cleanup:
+- removed_stray_room_shells: 16
+- removed_origin_side_artifacts: 40
+- final_bounds_static_mesh_actor_count: 51
+- final_bounds_origin_side_static_meshes_max_y_gt_-500: 0
+
+Cook/package:
+- UAT exit status: 0
+- Package verification: target map .umap/.uexp present in active Linux pak
+- Archive pak: cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+- Staged pak: cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+- sha256: 63d20bfdcdd5899c17ee288611f72d29499124845f237998abef20406c724f50
+- size_bytes: 4183759957
+- mtime: 2026-07-12T09:34:06.983726880-04:00
+- infinigen_6192b2 was not present in the verified pak listing
+
+Caveat:
+- The cleanup and light validation editor scripts saved the map and wrote their reports, then Unreal crashed during shutdown with double free/corruption. The saved map, reports, cook, and pak entries were verified afterward.
+- Runtime visual validation is still pending.
+
+Launch command:
+spear live infinigen_1dcacf23 --setting realistic-2x
+
+Lights-on inspection command:
+spear live infinigen_1dcacf23 --setting realistic-2x -- --scene-light-intensity-scale 1.0 --enable-auto-exposure

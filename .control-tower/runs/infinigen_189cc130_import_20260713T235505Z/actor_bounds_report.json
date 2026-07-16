@@ -1,0 +1,5797 @@
+{
+  "actor_count": 113,
+  "all_actors": [
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 112.136,
+        "y": 96.004,
+        "z": 89.879
+      },
+      "label": "Infinigen_BedFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 112.136,
+      "origin": {
+        "x": 80.981,
+        "y": -1154.161,
+        "z": 101.724
+      },
+      "radius": 172.828,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BedFactory_1250394__spawn_asset_4644385_.BedFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 44.219,
+        "y": 127.185,
+        "z": 41.31
+      },
+      "label": "Infinigen_BlanketFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 127.185,
+      "origin": {
+        "x": 87.092,
+        "y": -1153.57,
+        "z": 67.576
+      },
+      "radius": 140.847,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BlanketFactory_1250394__spawn_asset_4644385_.BlanketFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 7.62,
+        "y": 16.193,
+        "z": 10.795
+      },
+      "label": "Infinigen_BookColumnFactory_6179786__spawn_asset_8414146_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 16.193,
+      "origin": {
+        "x": -14.675,
+        "y": -877.655,
+        "z": 183.215
+      },
+      "radius": 20.9,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookColumnFactory_6179786__spawn_asset_8414146_.BookColumnFactory_6179786__spawn_asset_8414146_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 17.78,
+        "y": 10.16,
+        "z": 7.234
+      },
+      "label": "Infinigen_BookStackFactory_1105440__spawn_asset_7479020_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 17.78,
+      "origin": {
+        "x": 236.186,
+        "y": -1264.991,
+        "z": 61.366
+      },
+      "radius": 21.718,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookStackFactory_1105440__spawn_asset_7479020_.BookStackFactory_1105440__spawn_asset_7479020_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 13.97,
+        "y": 8.255,
+        "z": 5.552
+      },
+      "label": "Infinigen_BookStackFactory_2509525__spawn_asset_7280888_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.97,
+      "origin": {
+        "x": 340.291,
+        "y": -585.694,
+        "z": 104.588
+      },
+      "radius": 17.15,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookStackFactory_2509525__spawn_asset_7280888_.BookStackFactory_2509525__spawn_asset_7280888_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 8.89,
+        "y": 6.985,
+        "z": 6.531
+      },
+      "label": "Infinigen_BookStackFactory_2543730__spawn_asset_150670_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 8.89,
+      "origin": {
+        "x": 257.183,
+        "y": -582.274,
+        "z": 67.009
+      },
+      "radius": 13.057,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookStackFactory_2543730__spawn_asset_150670_.BookStackFactory_2543730__spawn_asset_150670_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 11.691,
+        "y": 12.8,
+        "z": 6.946
+      },
+      "label": "Infinigen_BookStackFactory_3472359__spawn_asset_7187058_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 12.8,
+      "origin": {
+        "x": -7.335,
+        "y": -817.06,
+        "z": 179.366
+      },
+      "radius": 18.675,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookStackFactory_3472359__spawn_asset_7187058_.BookStackFactory_3472359__spawn_asset_7187058_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 14.101,
+        "y": 12.934,
+        "z": 11.162
+      },
+      "label": "Infinigen_BookStackFactory_3861683__spawn_asset_5428391_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 14.101,
+      "origin": {
+        "x": 288.573,
+        "y": -593.349,
+        "z": 71.64
+      },
+      "radius": 22.152,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookStackFactory_3861683__spawn_asset_5428391_.BookStackFactory_3861683__spawn_asset_5428391_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 10.235,
+        "y": 13.422,
+        "z": 9.22
+      },
+      "label": "Infinigen_BookStackFactory_7863600__spawn_asset_2454881_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.422,
+      "origin": {
+        "x": -19.162,
+        "y": -855.652,
+        "z": 26.176
+      },
+      "radius": 19.233,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookStackFactory_7863600__spawn_asset_2454881_.BookStackFactory_7863600__spawn_asset_2454881_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 8.568,
+        "y": 3.817,
+        "z": 3.499
+      },
+      "label": "Infinigen_B\u00e9zierCurve",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 8.568,
+      "origin": {
+        "x": 5.104,
+        "y": -7.52,
+        "z": 0.0
+      },
+      "radius": 10.011,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/B\u00e9zierCurve.B\u00e9zierCurve"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 8.565,
+        "y": 3.817,
+        "z": 3.499
+      },
+      "label": "Infinigen_B\u00e9zierCurve_001",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 8.565,
+      "origin": {
+        "x": 5.102,
+        "y": -7.52,
+        "z": 0.0
+      },
+      "radius": 10.009,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/B\u00e9zierCurve_001.B\u00e9zierCurve_001"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 13.854,
+        "y": 13.854,
+        "z": 4.304
+      },
+      "label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_1605105_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.854,
+      "origin": {
+        "x": 243.769,
+        "y": -691.085,
+        "z": 269.431
+      },
+      "radius": 20.06,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/CeilingLightFactory_4992283__spawn_asset_1605105_.CeilingLightFactory_4992283__spawn_asset_1605105_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 13.854,
+        "y": 13.854,
+        "z": 4.304
+      },
+      "label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_4619103_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.854,
+      "origin": {
+        "x": 44.734,
+        "y": -963.684,
+        "z": 269.431
+      },
+      "radius": 20.06,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/CeilingLightFactory_4992283__spawn_asset_4619103_.CeilingLightFactory_4992283__spawn_asset_4619103_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 13.884,
+        "y": 13.918,
+        "z": 4.678
+      },
+      "label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_6161506_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.918,
+      "origin": {
+        "x": 277.143,
+        "y": -1026.872,
+        "z": 243.141
+      },
+      "radius": 20.208,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/CeilingLightFactory_4992283__spawn_asset_6161506_.CeilingLightFactory_4992283__spawn_asset_6161506_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 13.918,
+        "y": 13.884,
+        "z": 4.677
+      },
+      "label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_7968778_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.918,
+      "origin": {
+        "x": 435.92,
+        "y": -1202.685,
+        "z": 235.824
+      },
+      "radius": 20.208,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/CeilingLightFactory_4992283__spawn_asset_7968778_.CeilingLightFactory_4992283__spawn_asset_7968778_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 19.062,
+        "y": 55.146,
+        "z": 80.312
+      },
+      "label": "Infinigen_CellShelfFactory_1375221__spawn_asset_4804677_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 80.312,
+      "origin": {
+        "x": -12.143,
+        "y": -839.967,
+        "z": 92.158
+      },
+      "radius": 99.27,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/CellShelfFactory_1375221__spawn_asset_4804677_.CellShelfFactory_1375221__spawn_asset_4804677_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 92.029,
+        "y": 119.156,
+        "z": 33.861
+      },
+      "label": "Infinigen_ComforterFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 119.156,
+      "origin": {
+        "x": 133.085,
+        "y": -1153.89,
+        "z": 72.934
+      },
+      "radius": 154.318,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/ComforterFactory_1250394__spawn_asset_4644385_.ComforterFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 5.385,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.726,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube.Cube"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.05,
+        "y": 0.05,
+        "z": 0.05
+      },
+      "label": "Infinigen_Cube_001",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.05,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.087,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_001.Cube_001"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 5.385,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube_002",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.726,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_002.Cube_002"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.05,
+        "y": 0.05,
+        "z": 0.05
+      },
+      "label": "Infinigen_Cube_003",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.05,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.087,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_003.Cube_003"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 3.956,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube_004",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.665,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_004.Cube_004"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.05,
+        "y": 0.05,
+        "z": 0.05
+      },
+      "label": "Infinigen_Cube_005",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.05,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.087,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_005.Cube_005"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 3.956,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube_006",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.665,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_006.Cube_006"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.05,
+        "y": 0.05,
+        "z": 0.05
+      },
+      "label": "Infinigen_Cube_007",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.05,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.087,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_007.Cube_007"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 4.514,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube_008",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.687,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_008.Cube_008"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 10.83,
+        "y": 10.83,
+        "z": 23.452
+      },
+      "label": "Infinigen_DeskLampFactory_8507126__spawn_asset_7901138_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 23.452,
+      "origin": {
+        "x": 369.27,
+        "y": -1243.399,
+        "z": 101.476
+      },
+      "radius": 28.011,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/DeskLampFactory_8507126__spawn_asset_7901138_.DeskLampFactory_8507126__spawn_asset_7901138_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 7.619,
+        "y": 48.163,
+        "z": 128.426
+      },
+      "label": "Infinigen_GlassPanelDoorFactory_7281651__spawn_asset_1_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 128.426,
+      "origin": {
+        "x": 536.645,
+        "y": -1120.533,
+        "z": 140.272
+      },
+      "radius": 137.372,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/GlassPanelDoorFactory_7281651__spawn_asset_1_.GlassPanelDoorFactory_7281651__spawn_asset_1_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 15.456,
+        "y": 86.021,
+        "z": 42.708
+      },
+      "label": "Infinigen_KitchenCabinetFactory_1387523__spawn_asset_4630190_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 86.021,
+      "origin": {
+        "x": 515.699,
+        "y": -573.216,
+        "z": 54.553
+      },
+      "radius": 97.275,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/KitchenCabinetFactory_1387523__spawn_asset_4630190_.KitchenCabinetFactory_1387523__spawn_asset_4630190_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 31.187,
+        "y": 20.943,
+        "z": 38.419
+      },
+      "label": "Infinigen_LargePlantContainerFactory_4128982__spawn_asset_8920034_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 38.419,
+      "origin": {
+        "x": 499.968,
+        "y": -988.275,
+        "z": 51.487
+      },
+      "radius": 53.733,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LargePlantContainerFactory_4128982__spawn_asset_8920034_.LargePlantContainerFactory_4128982__spawn_asset_8920034_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 68.475,
+        "y": 17.943,
+        "z": 82.254
+      },
+      "label": "Infinigen_LargeShelfFactory_1583174__spawn_asset_642900_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 82.254,
+      "origin": {
+        "x": 309.452,
+        "y": -585.55,
+        "z": 94.099
+      },
+      "radius": 108.519,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LargeShelfFactory_1583174__spawn_asset_642900_.LargeShelfFactory_1583174__spawn_asset_642900_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 16.899,
+        "y": 14.55,
+        "z": 57.494
+      },
+      "label": "Infinigen_LargeShelfFactory_4322682__spawn_asset_5471509_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 57.494,
+      "origin": {
+        "x": 29.451,
+        "y": -1266.604,
+        "z": 69.339
+      },
+      "radius": 61.667,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LargeShelfFactory_4322682__spawn_asset_5471509_.LargeShelfFactory_4322682__spawn_asset_5471509_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 14.19,
+        "y": 42.673,
+        "z": 100.377
+      },
+      "label": "Infinigen_LouverDoorFactory_6511470__spawn_asset_2_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": 0.0,
+        "y": 35.238,
+        "z": 100.377
+      },
+      "radius": 109.991,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LouverDoorFactory_6511470__spawn_asset_2_.LouverDoorFactory_6511470__spawn_asset_2_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 14.19,
+        "y": 42.673,
+        "z": 100.377
+      },
+      "label": "Infinigen_LouverDoorFactory_6511470__spawn_asset_3_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": 0.0,
+        "y": 35.238,
+        "z": 100.377
+      },
+      "radius": 109.991,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LouverDoorFactory_6511470__spawn_asset_3_.LouverDoorFactory_6511470__spawn_asset_3_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 11.337,
+        "y": 85.914,
+        "z": 103.424
+      },
+      "label": "Infinigen_LouverDoorFactory_6971052__spawn_asset_0_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.424,
+      "origin": {
+        "x": 0.0,
+        "y": 81.345,
+        "z": 103.424
+      },
+      "radius": 134.93,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LouverDoorFactory_6971052__spawn_asset_0_.LouverDoorFactory_6971052__spawn_asset_0_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 11.337,
+        "y": 85.914,
+        "z": 103.424
+      },
+      "label": "Infinigen_LouverDoorFactory_6971052__spawn_asset_4_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.424,
+      "origin": {
+        "x": 0.0,
+        "y": 81.345,
+        "z": 103.424
+      },
+      "radius": 134.93,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LouverDoorFactory_6971052__spawn_asset_4_.LouverDoorFactory_6971052__spawn_asset_4_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 103.93,
+        "y": 88.932,
+        "z": 14.605
+      },
+      "label": "Infinigen_MattressFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.93,
+      "origin": {
+        "x": 80.982,
+        "y": -1154.16,
+        "z": 61.094
+      },
+      "radius": 137.564,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/MattressFactory_1250394__spawn_asset_4644385_.MattressFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 6.443,
+        "y": 4.537,
+        "z": 29.058
+      },
+      "label": "Infinigen_Mesh",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 29.058,
+      "origin": {
+        "x": -73.037,
+        "y": -9.653,
+        "z": 0.0
+      },
+      "radius": 30.107,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Mesh.Mesh"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 6.443,
+        "y": 4.537,
+        "z": 29.058
+      },
+      "label": "Infinigen_Mesh_001",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 29.058,
+      "origin": {
+        "x": -73.037,
+        "y": -9.653,
+        "z": 0.0
+      },
+      "radius": 30.107,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Mesh_001.Mesh_001"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 40.619,
+        "y": 7.499,
+        "z": 31.506
+      },
+      "label": "Infinigen_MonitorFactory_1148210__spawn_asset_4488226_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 40.619,
+      "origin": {
+        "x": 341.842,
+        "y": -1269.415,
+        "z": 109.122
+      },
+      "radius": 51.949,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/MonitorFactory_1148210__spawn_asset_4488226_.MonitorFactory_1148210__spawn_asset_4488226_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 3.018,
+        "y": 7.335,
+        "z": 6.204
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_2487019__spawn_asset_1332666_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 7.335,
+      "origin": {
+        "x": 516.489,
+        "y": -528.401,
+        "z": 26.05
+      },
+      "radius": 10.07,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_2487019__spawn_asset_1332666_.NatureShelfTrinketsFactory_2487019__spawn_asset_1332666_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.637,
+        "y": 2.82,
+        "z": 6.542
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_2811083__spawn_asset_3748554_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.542,
+      "origin": {
+        "x": 21.891,
+        "y": -1268.773,
+        "z": 28.667
+      },
+      "radius": 9.085,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_2811083__spawn_asset_3748554_.NatureShelfTrinketsFactory_2811083__spawn_asset_3748554_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.811,
+        "y": 6.435,
+        "z": 4.15
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_3060825__spawn_asset_9108081_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.435,
+      "origin": {
+        "x": 0.332,
+        "y": -860.398,
+        "z": 21.105
+      },
+      "radius": 9.613,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_3060825__spawn_asset_9108081_.NatureShelfTrinketsFactory_3060825__spawn_asset_9108081_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 6.983,
+        "y": 6.904,
+        "z": 2.838
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_3221477__spawn_asset_2063292_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.983,
+      "origin": {
+        "x": 250.882,
+        "y": -1272.672,
+        "z": 20.631
+      },
+      "radius": 10.221,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_3221477__spawn_asset_2063292_.NatureShelfTrinketsFactory_3221477__spawn_asset_2063292_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 6.178,
+        "y": 3.748,
+        "z": 3.226
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_4565853__spawn_asset_6662185_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.178,
+      "origin": {
+        "x": -9.123,
+        "y": -795.206,
+        "z": 175.646
+      },
+      "radius": 7.913,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_4565853__spawn_asset_6662185_.NatureShelfTrinketsFactory_4565853__spawn_asset_6662185_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.339,
+        "y": 1.354,
+        "z": 3.277
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_5090519__spawn_asset_3674412_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 5.339,
+      "origin": {
+        "x": 261.888,
+        "y": -1266.213,
+        "z": 93.748
+      },
+      "radius": 6.409,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_5090519__spawn_asset_3674412_.NatureShelfTrinketsFactory_5090519__spawn_asset_3674412_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 2.782,
+        "y": 5.856,
+        "z": 4.729
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_690246__spawn_asset_1497873_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 5.856,
+      "origin": {
+        "x": 520.598,
+        "y": -634.945,
+        "z": 63.182
+      },
+      "radius": 8.025,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_690246__spawn_asset_1497873_.NatureShelfTrinketsFactory_690246__spawn_asset_1497873_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.45,
+        "y": 4.834,
+        "z": 1.771
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_7078173__spawn_asset_5346869_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 5.45,
+      "origin": {
+        "x": 521.637,
+        "y": -507.543,
+        "z": 98.832
+      },
+      "radius": 7.497,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_7078173__spawn_asset_5346869_.NatureShelfTrinketsFactory_7078173__spawn_asset_5346869_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.092,
+        "y": 5.268,
+        "z": 3.663
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_8452469__spawn_asset_5964342_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 5.268,
+      "origin": {
+        "x": 518.876,
+        "y": -503.286,
+        "z": 62.116
+      },
+      "radius": 8.192,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_8452469__spawn_asset_5964342_.NatureShelfTrinketsFactory_8452469__spawn_asset_5964342_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.731,
+        "y": 6.543,
+        "z": 4.255
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_9129415__spawn_asset_3795336_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.543,
+      "origin": {
+        "x": 225.611,
+        "y": -1269.763,
+        "z": 22.048
+      },
+      "radius": 9.683,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_9129415__spawn_asset_3795336_.NatureShelfTrinketsFactory_9129415__spawn_asset_3795336_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.925,
+        "y": 5.475,
+        "z": 1.402
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_9323882__spawn_asset_9892443_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 5.925,
+      "origin": {
+        "x": 25.571,
+        "y": -1258.88,
+        "z": 58.363
+      },
+      "radius": 8.189,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_9323882__spawn_asset_9892443_.NatureShelfTrinketsFactory_9323882__spawn_asset_9892443_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 3.014,
+        "y": 6.295,
+        "z": 6.963
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_9496139__spawn_asset_8720761_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.963,
+      "origin": {
+        "x": 33.393,
+        "y": -1272.062,
+        "z": 133.595
+      },
+      "radius": 9.859,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_9496139__spawn_asset_8720761_.NatureShelfTrinketsFactory_9496139__spawn_asset_8720761_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 6.627,
+        "y": 6.124,
+        "z": 2.163
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_9748772__spawn_asset_9282356_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.627,
+      "origin": {
+        "x": 35.096,
+        "y": -1264.648,
+        "z": 24.287
+      },
+      "radius": 9.279,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_9748772__spawn_asset_9282356_.NatureShelfTrinketsFactory_9748772__spawn_asset_9282356_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 33.197,
+        "y": 33.666,
+        "z": 12.236
+      },
+      "label": "Infinigen_PillowFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 33.666,
+      "origin": {
+        "x": 44.361,
+        "y": -1131.467,
+        "z": 88.979
+      },
+      "radius": 48.838,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/PillowFactory_1250394__spawn_asset_4644385_.PillowFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 31.476,
+        "y": 32.093,
+        "z": 12.236
+      },
+      "label": "Infinigen_PillowFactory_1250394__spawn_asset_4644385__001",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 32.093,
+      "origin": {
+        "x": 7.233,
+        "y": -1185.31,
+        "z": 86.876
+      },
+      "radius": 46.587,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/PillowFactory_1250394__spawn_asset_4644385__001.PillowFactory_1250394__spawn_asset_4644385__001"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 2.478,
+        "y": 5.116,
+        "z": 100.377
+      },
+      "label": "Infinigen_Plane",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": 4.957,
+        "y": -0.0,
+        "z": 95.421
+      },
+      "radius": 100.538,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane.Plane"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 2.478,
+        "y": 5.116,
+        "z": 100.377
+      },
+      "label": "Infinigen_Plane_001",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": 4.957,
+        "y": -0.0,
+        "z": 95.421
+      },
+      "radius": 100.538,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_001.Plane_001"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 85.914,
+        "y": 3.702,
+        "z": 103.424
+      },
+      "label": "Infinigen_Plane_002",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.424,
+      "origin": {
+        "x": -81.345,
+        "y": -0.0,
+        "z": 98.854
+      },
+      "radius": 134.504,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_002.Plane_002"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 85.914,
+        "y": 3.702,
+        "z": 103.424
+      },
+      "label": "Infinigen_Plane_003",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.424,
+      "origin": {
+        "x": -81.345,
+        "y": -0.0,
+        "z": 98.854
+      },
+      "radius": 134.504,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_003.Plane_003"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 48.085,
+        "y": 4.074,
+        "z": 128.426
+      },
+      "label": "Infinigen_Plane_004",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 128.426,
+      "origin": {
+        "x": -38.677,
+        "y": -0.0,
+        "z": 120.155
+      },
+      "radius": 137.194,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_004.Plane_004"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.43,
+        "y": 3.259,
+        "z": 20.691
+      },
+      "label": "Infinigen_Plane_005",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 41.43,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 121.068
+      },
+      "radius": 46.424,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_005.Plane_005"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 13.005,
+        "y": 13.005,
+        "z": 9.659
+      },
+      "label": "Infinigen_PlantContainerFactory_5319861__spawn_asset_207197_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.005,
+      "origin": {
+        "x": 271.021,
+        "y": -583.428,
+        "z": 187.37
+      },
+      "radius": 20.774,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/PlantContainerFactory_5319861__spawn_asset_207197_.PlantContainerFactory_5319861__spawn_asset_207197_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 15.563,
+        "y": 15.563,
+        "z": 23.408
+      },
+      "label": "Infinigen_PlantContainerFactory_7067772__spawn_asset_7007232_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 23.408,
+      "origin": {
+        "x": 327.287,
+        "y": -584.864,
+        "z": 201.023
+      },
+      "radius": 32.13,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/PlantContainerFactory_7067772__spawn_asset_7007232_.PlantContainerFactory_7067772__spawn_asset_7007232_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 162.809,
+        "y": 163.068,
+        "z": 12.949
+      },
+      "label": "Infinigen_RugFactory_888521__spawn_asset_9535398_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 163.068,
+      "origin": {
+        "x": 233.113,
+        "y": -1019.366,
+        "z": 32.236
+      },
+      "radius": 230.794,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/RugFactory_888521__spawn_asset_9535398_.RugFactory_888521__spawn_asset_9535398_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 31.245,
+        "y": 13.339,
+        "z": 39.313
+      },
+      "label": "Infinigen_SimpleBookcaseFactory_4170166__spawn_asset_280348_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 39.313,
+      "origin": {
+        "x": 243.446,
+        "y": -1267.816,
+        "z": 51.158
+      },
+      "radius": 51.958,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/SimpleBookcaseFactory_4170166__spawn_asset_280348_.SimpleBookcaseFactory_4170166__spawn_asset_280348_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 47.752,
+        "y": 25.58,
+        "z": 33.089
+      },
+      "label": "Infinigen_SimpleDeskFactory_863416__spawn_asset_1747122_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 47.752,
+      "origin": {
+        "x": 346.102,
+        "y": -1255.574,
+        "z": 44.934
+      },
+      "radius": 63.478,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/SimpleDeskFactory_863416__spawn_asset_1747122_.SimpleDeskFactory_863416__spawn_asset_1747122_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 16.524,
+        "y": 17.406,
+        "z": 2.484
+      },
+      "label": "Infinigen_TowelFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 17.406,
+      "origin": {
+        "x": 109.476,
+        "y": -1201.476,
+        "z": 93.685
+      },
+      "radius": 24.128,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/TowelFactory_1250394__spawn_asset_4644385_.TowelFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 51.327,
+        "y": 4.612,
+        "z": 63.065
+      },
+      "label": "Infinigen_WindowFactory_25311__spawn_asset_0_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 63.065,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 81.443,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_25311__spawn_asset_0_.WindowFactory_25311__spawn_asset_0_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 171.369,
+        "y": 3.712,
+        "z": 64.159
+      },
+      "label": "Infinigen_WindowFactory_25311__spawn_asset_1_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 171.369,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.0
+      },
+      "radius": 183.024,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_25311__spawn_asset_1_.WindowFactory_25311__spawn_asset_1_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 33.144,
+        "y": 33.144,
+        "z": 62.798
+      },
+      "label": "Infinigen_WindowFactory_25311__spawn_asset_4_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 62.798,
+      "origin": {
+        "x": 8.917,
+        "y": -657.835,
+        "z": 176.438
+      },
+      "radius": 78.362,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_25311__spawn_asset_4_.WindowFactory_25311__spawn_asset_4_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 208.447,
+        "y": 2.828,
+        "z": 64.362
+      },
+      "label": "Infinigen_WindowFactory_25311__spawn_asset_5_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 208.447,
+      "origin": {
+        "x": 305.356,
+        "y": -1288.155,
+        "z": 176.438
+      },
+      "radius": 218.175,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_25311__spawn_asset_5_.WindowFactory_25311__spawn_asset_5_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 4.156,
+        "y": 63.511,
+        "z": 63.866
+      },
+      "label": "Infinigen_WindowFactory_25311__spawn_asset_6_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 63.866,
+      "origin": {
+        "x": -38.155,
+        "y": -993.396,
+        "z": 176.438
+      },
+      "radius": 90.165,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_25311__spawn_asset_6_.WindowFactory_25311__spawn_asset_6_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 151.464,
+        "y": 11.521,
+        "z": 63.576
+      },
+      "label": "Infinigen_WindowFactory_77853__spawn_asset_2_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 151.464,
+      "origin": {
+        "x": 0.0,
+        "y": 7.514,
+        "z": 0.0
+      },
+      "radius": 164.669,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_77853__spawn_asset_2_.WindowFactory_77853__spawn_asset_2_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 78.643,
+        "y": 7.335,
+        "z": 63.466
+      },
+      "label": "Infinigen_WindowFactory_77853__spawn_asset_3_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 78.643,
+      "origin": {
+        "x": 0.0,
+        "y": 4.841,
+        "z": 0.0
+      },
+      "radius": 101.323,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_77853__spawn_asset_3_.WindowFactory_77853__spawn_asset_3_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 47.172,
+        "y": 10.914,
+        "z": 63.784
+      },
+      "label": "Infinigen_WindowFactory_77853__spawn_asset_7_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 63.784,
+      "origin": {
+        "x": 0.0,
+        "y": 7.253,
+        "z": 0.0
+      },
+      "radius": 80.079,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_77853__spawn_asset_7_.WindowFactory_77853__spawn_asset_7_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 95.247,
+        "y": 10.622,
+        "z": 63.489
+      },
+      "label": "Infinigen_WindowFactory_77853__spawn_asset_8_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 95.247,
+      "origin": {
+        "x": 0.0,
+        "y": 7.276,
+        "z": 0.0
+      },
+      "radius": 114.959,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_77853__spawn_asset_8_.WindowFactory_77853__spawn_asset_8_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 58.411,
+        "y": 9.24,
+        "z": 64.019
+      },
+      "label": "Infinigen_WindowFactory_77853__spawn_asset_9_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 64.019,
+      "origin": {
+        "x": 0.0,
+        "y": 6.783,
+        "z": 0.0
+      },
+      "radius": 87.153,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_77853__spawn_asset_9_.WindowFactory_77853__spawn_asset_9_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 113.155,
+        "y": 238.155,
+        "z": 0.0
+      },
+      "label": "Infinigen_bathroom_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 238.155,
+      "origin": {
+        "x": 0.0,
+        "y": -0.0,
+        "z": -0.0
+      },
+      "radius": 263.669,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bathroom_0_0_ceiling.bathroom_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 125.0,
+        "y": 250.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_bathroom_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 250.0,
+      "origin": {
+        "x": -16.522,
+        "y": -9.655,
+        "z": -8.054
+      },
+      "radius": 313.869,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bathroom_0_0_exterior.bathroom_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 113.155,
+        "y": 244.077,
+        "z": 0.0
+      },
+      "label": "Infinigen_bathroom_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 244.077,
+      "origin": {
+        "x": 11.274,
+        "y": 70.351,
+        "z": 0.0
+      },
+      "radius": 269.031,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bathroom_0_0_floor.bathroom_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 119.077,
+        "y": 250.0,
+        "z": 130.945
+      },
+      "label": "Infinigen_bathroom_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 250.0,
+      "origin": {
+        "x": -15.914,
+        "y": -19.285,
+        "z": -14.225
+      },
+      "radius": 306.31,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bathroom_0_0_wall.bathroom_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 288.155,
+        "y": 363.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_bedroom_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 363.155,
+      "origin": {
+        "x": 250.0,
+        "y": -925.0,
+        "z": 274.458
+      },
+      "radius": 463.589,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bedroom_0_0_ceiling.bedroom_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 300.0,
+        "y": 375.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_bedroom_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 375.0,
+      "origin": {
+        "x": 7.107,
+        "y": 69.458,
+        "z": -9.085
+      },
+      "radius": 501.013,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bedroom_0_0_exterior.bedroom_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 294.077,
+        "y": 363.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_bedroom_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 363.155,
+      "origin": {
+        "x": 255.923,
+        "y": -925.0,
+        "z": 11.122
+      },
+      "radius": 467.294,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bedroom_0_0_floor.bedroom_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 300.0,
+        "y": 369.077,
+        "z": 132.392
+      },
+      "label": "Infinigen_bedroom_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 369.077,
+      "origin": {
+        "x": 250.0,
+        "y": -930.923,
+        "z": 142.79
+      },
+      "radius": 493.706,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bedroom_0_0_wall.bedroom_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 238.155,
+        "y": 263.155,
+        "z": 0.0
+      },
+      "label": "Infinigen_dining-room_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 263.155,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.0
+      },
+      "radius": 354.92,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/dining-room_0_0_ceiling.dining-room_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 250.0,
+        "y": 275.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_dining-room_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 275.0,
+      "origin": {
+        "x": 58.93,
+        "y": 7.564,
+        "z": 1.222
+      },
+      "radius": 398.138,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/dining-room_0_0_exterior.dining-room_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 244.077,
+        "y": 269.077,
+        "z": 0.0
+      },
+      "label": "Infinigen_dining-room_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 269.077,
+      "origin": {
+        "x": 56.918,
+        "y": 64.943,
+        "z": 0.0
+      },
+      "radius": 363.285,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/dining-room_0_0_floor.dining-room_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 244.077,
+        "y": 275.0,
+        "z": 130.945
+      },
+      "label": "Infinigen_dining-room_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 275.0,
+      "origin": {
+        "x": 76.381,
+        "y": 4.868,
+        "z": -2.661
+      },
+      "radius": 390.314,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/dining-room_0_0_wall.dining-room_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp.hoof_parent_temp"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_001",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_001.hoof_parent_temp_001"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_002",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_002.hoof_parent_temp_002"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_003",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_003.hoof_parent_temp_003"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_004",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_004.hoof_parent_temp_004"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_005",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_005.hoof_parent_temp_005"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_006",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_006.hoof_parent_temp_006"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_007",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_007.hoof_parent_temp_007"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_008",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_008.hoof_parent_temp_008"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_009",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_009.hoof_parent_temp_009"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_010",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_010.hoof_parent_temp_010"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_011",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_011.hoof_parent_temp_011"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 188.155,
+        "y": 263.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_kitchen_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 263.155,
+      "origin": {
+        "x": -37.515,
+        "y": 46.626,
+        "z": 0.621
+      },
+      "radius": 323.501,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/kitchen_0_0_ceiling.kitchen_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 200.0,
+        "y": 275.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_kitchen_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 275.0,
+      "origin": {
+        "x": -16.879,
+        "y": 39.162,
+        "z": -8.372
+      },
+      "radius": 368.801,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/kitchen_0_0_exterior.kitchen_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 194.077,
+        "y": 263.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_kitchen_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 263.155,
+      "origin": {
+        "x": -73.342,
+        "y": 66.721,
+        "z": -0.648
+      },
+      "radius": 326.981,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/kitchen_0_0_floor.kitchen_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 200.0,
+        "y": 263.155,
+        "z": 132.392
+      },
+      "label": "Infinigen_kitchen_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 263.155,
+      "origin": {
+        "x": -7.447,
+        "y": 36.177,
+        "z": -13.874
+      },
+      "radius": 356.059,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/kitchen_0_0_wall.kitchen_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 338.155,
+        "y": 363.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_living-room_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 363.155,
+      "origin": {
+        "x": 44.662,
+        "y": -33.572,
+        "z": 0.641
+      },
+      "radius": 496.216,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/living-room_0_0_ceiling.living-room_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 350.0,
+        "y": 375.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_living-room_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 375.0,
+      "origin": {
+        "x": 27.328,
+        "y": -20.771,
+        "z": 2.14
+      },
+      "radius": 532.46,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/living-room_0_0_exterior.living-room_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 344.077,
+        "y": 369.077,
+        "z": 0.723
+      },
+      "label": "Infinigen_living-room_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 369.077,
+      "origin": {
+        "x": 39.968,
+        "y": -44.742,
+        "z": -0.68
+      },
+      "radius": 504.587,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/living-room_0_0_floor.living-room_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 350.0,
+        "y": 375.0,
+        "z": 132.392
+      },
+      "label": "Infinigen_living-room_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 375.0,
+      "origin": {
+        "x": 20.376,
+        "y": -13.661,
+        "z": -2.598
+      },
+      "radius": 529.767,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/living-room_0_0_wall.living-room_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_place_cam_overhead",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/place_cam_overhead.place_cam_overhead"
+    },
+    {
+      "class": "DirectionalLight",
+      "extent": {
+        "x": 391.421,
+        "y": 391.421,
+        "z": 353.553
+      },
+      "label": "Setup_DirectionalLight",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 600.0
+      },
+      "max_extent": 391.421,
+      "origin": {
+        "x": 150.0,
+        "y": 150.0,
+        "z": 387.868
+      },
+      "radius": 656.827,
+      "static_mesh": null
+    },
+    {
+      "class": "PlayerStart",
+      "extent": {
+        "x": 184.0,
+        "y": 128.0,
+        "z": 128.0
+      },
+      "label": "Setup_PlayerStart",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 120.0
+      },
+      "max_extent": 184.0,
+      "origin": {
+        "x": 56.0,
+        "y": 0.0,
+        "z": 120.0
+      },
+      "radius": 258.116,
+      "static_mesh": null
+    },
+    {
+      "class": "SkyLight",
+      "extent": {
+        "x": 256.0,
+        "y": 256.0,
+        "z": 278.5
+      },
+      "label": "Setup_SkyLight",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 300.0
+      },
+      "max_extent": 278.5,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 277.5
+      },
+      "radius": 456.765,
+      "static_mesh": null
+    }
+  ],
+  "all_static_mesh_actors": [
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 112.136,
+        "y": 96.004,
+        "z": 89.879
+      },
+      "label": "Infinigen_BedFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 112.136,
+      "origin": {
+        "x": 80.981,
+        "y": -1154.161,
+        "z": 101.724
+      },
+      "radius": 172.828,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BedFactory_1250394__spawn_asset_4644385_.BedFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 44.219,
+        "y": 127.185,
+        "z": 41.31
+      },
+      "label": "Infinigen_BlanketFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 127.185,
+      "origin": {
+        "x": 87.092,
+        "y": -1153.57,
+        "z": 67.576
+      },
+      "radius": 140.847,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BlanketFactory_1250394__spawn_asset_4644385_.BlanketFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 7.62,
+        "y": 16.193,
+        "z": 10.795
+      },
+      "label": "Infinigen_BookColumnFactory_6179786__spawn_asset_8414146_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 16.193,
+      "origin": {
+        "x": -14.675,
+        "y": -877.655,
+        "z": 183.215
+      },
+      "radius": 20.9,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookColumnFactory_6179786__spawn_asset_8414146_.BookColumnFactory_6179786__spawn_asset_8414146_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 17.78,
+        "y": 10.16,
+        "z": 7.234
+      },
+      "label": "Infinigen_BookStackFactory_1105440__spawn_asset_7479020_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 17.78,
+      "origin": {
+        "x": 236.186,
+        "y": -1264.991,
+        "z": 61.366
+      },
+      "radius": 21.718,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookStackFactory_1105440__spawn_asset_7479020_.BookStackFactory_1105440__spawn_asset_7479020_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 13.97,
+        "y": 8.255,
+        "z": 5.552
+      },
+      "label": "Infinigen_BookStackFactory_2509525__spawn_asset_7280888_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.97,
+      "origin": {
+        "x": 340.291,
+        "y": -585.694,
+        "z": 104.588
+      },
+      "radius": 17.15,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookStackFactory_2509525__spawn_asset_7280888_.BookStackFactory_2509525__spawn_asset_7280888_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 8.89,
+        "y": 6.985,
+        "z": 6.531
+      },
+      "label": "Infinigen_BookStackFactory_2543730__spawn_asset_150670_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 8.89,
+      "origin": {
+        "x": 257.183,
+        "y": -582.274,
+        "z": 67.009
+      },
+      "radius": 13.057,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookStackFactory_2543730__spawn_asset_150670_.BookStackFactory_2543730__spawn_asset_150670_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 11.691,
+        "y": 12.8,
+        "z": 6.946
+      },
+      "label": "Infinigen_BookStackFactory_3472359__spawn_asset_7187058_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 12.8,
+      "origin": {
+        "x": -7.335,
+        "y": -817.06,
+        "z": 179.366
+      },
+      "radius": 18.675,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookStackFactory_3472359__spawn_asset_7187058_.BookStackFactory_3472359__spawn_asset_7187058_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 14.101,
+        "y": 12.934,
+        "z": 11.162
+      },
+      "label": "Infinigen_BookStackFactory_3861683__spawn_asset_5428391_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 14.101,
+      "origin": {
+        "x": 288.573,
+        "y": -593.349,
+        "z": 71.64
+      },
+      "radius": 22.152,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookStackFactory_3861683__spawn_asset_5428391_.BookStackFactory_3861683__spawn_asset_5428391_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 10.235,
+        "y": 13.422,
+        "z": 9.22
+      },
+      "label": "Infinigen_BookStackFactory_7863600__spawn_asset_2454881_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.422,
+      "origin": {
+        "x": -19.162,
+        "y": -855.652,
+        "z": 26.176
+      },
+      "radius": 19.233,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BookStackFactory_7863600__spawn_asset_2454881_.BookStackFactory_7863600__spawn_asset_2454881_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 8.568,
+        "y": 3.817,
+        "z": 3.499
+      },
+      "label": "Infinigen_B\u00e9zierCurve",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 8.568,
+      "origin": {
+        "x": 5.104,
+        "y": -7.52,
+        "z": 0.0
+      },
+      "radius": 10.011,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/B\u00e9zierCurve.B\u00e9zierCurve"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 8.565,
+        "y": 3.817,
+        "z": 3.499
+      },
+      "label": "Infinigen_B\u00e9zierCurve_001",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 8.565,
+      "origin": {
+        "x": 5.102,
+        "y": -7.52,
+        "z": 0.0
+      },
+      "radius": 10.009,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/B\u00e9zierCurve_001.B\u00e9zierCurve_001"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 13.854,
+        "y": 13.854,
+        "z": 4.304
+      },
+      "label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_1605105_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.854,
+      "origin": {
+        "x": 243.769,
+        "y": -691.085,
+        "z": 269.431
+      },
+      "radius": 20.06,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/CeilingLightFactory_4992283__spawn_asset_1605105_.CeilingLightFactory_4992283__spawn_asset_1605105_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 13.854,
+        "y": 13.854,
+        "z": 4.304
+      },
+      "label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_4619103_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.854,
+      "origin": {
+        "x": 44.734,
+        "y": -963.684,
+        "z": 269.431
+      },
+      "radius": 20.06,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/CeilingLightFactory_4992283__spawn_asset_4619103_.CeilingLightFactory_4992283__spawn_asset_4619103_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 13.884,
+        "y": 13.918,
+        "z": 4.678
+      },
+      "label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_6161506_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.918,
+      "origin": {
+        "x": 277.143,
+        "y": -1026.872,
+        "z": 243.141
+      },
+      "radius": 20.208,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/CeilingLightFactory_4992283__spawn_asset_6161506_.CeilingLightFactory_4992283__spawn_asset_6161506_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 13.918,
+        "y": 13.884,
+        "z": 4.677
+      },
+      "label": "Infinigen_CeilingLightFactory_4992283__spawn_asset_7968778_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.918,
+      "origin": {
+        "x": 435.92,
+        "y": -1202.685,
+        "z": 235.824
+      },
+      "radius": 20.208,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/CeilingLightFactory_4992283__spawn_asset_7968778_.CeilingLightFactory_4992283__spawn_asset_7968778_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 19.062,
+        "y": 55.146,
+        "z": 80.312
+      },
+      "label": "Infinigen_CellShelfFactory_1375221__spawn_asset_4804677_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 80.312,
+      "origin": {
+        "x": -12.143,
+        "y": -839.967,
+        "z": 92.158
+      },
+      "radius": 99.27,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/CellShelfFactory_1375221__spawn_asset_4804677_.CellShelfFactory_1375221__spawn_asset_4804677_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 92.029,
+        "y": 119.156,
+        "z": 33.861
+      },
+      "label": "Infinigen_ComforterFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 119.156,
+      "origin": {
+        "x": 133.085,
+        "y": -1153.89,
+        "z": 72.934
+      },
+      "radius": 154.318,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/ComforterFactory_1250394__spawn_asset_4644385_.ComforterFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 5.385,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.726,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube.Cube"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.05,
+        "y": 0.05,
+        "z": 0.05
+      },
+      "label": "Infinigen_Cube_001",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.05,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.087,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_001.Cube_001"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 5.385,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube_002",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.726,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_002.Cube_002"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.05,
+        "y": 0.05,
+        "z": 0.05
+      },
+      "label": "Infinigen_Cube_003",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.05,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.087,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_003.Cube_003"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 3.956,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube_004",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.665,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_004.Cube_004"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.05,
+        "y": 0.05,
+        "z": 0.05
+      },
+      "label": "Infinigen_Cube_005",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.05,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.087,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_005.Cube_005"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 3.956,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube_006",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.665,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_006.Cube_006"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.05,
+        "y": 0.05,
+        "z": 0.05
+      },
+      "label": "Infinigen_Cube_007",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.05,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.087,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_007.Cube_007"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 4.514,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube_008",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.687,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_008.Cube_008"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 10.83,
+        "y": 10.83,
+        "z": 23.452
+      },
+      "label": "Infinigen_DeskLampFactory_8507126__spawn_asset_7901138_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 23.452,
+      "origin": {
+        "x": 369.27,
+        "y": -1243.399,
+        "z": 101.476
+      },
+      "radius": 28.011,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/DeskLampFactory_8507126__spawn_asset_7901138_.DeskLampFactory_8507126__spawn_asset_7901138_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 7.619,
+        "y": 48.163,
+        "z": 128.426
+      },
+      "label": "Infinigen_GlassPanelDoorFactory_7281651__spawn_asset_1_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 128.426,
+      "origin": {
+        "x": 536.645,
+        "y": -1120.533,
+        "z": 140.272
+      },
+      "radius": 137.372,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/GlassPanelDoorFactory_7281651__spawn_asset_1_.GlassPanelDoorFactory_7281651__spawn_asset_1_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 15.456,
+        "y": 86.021,
+        "z": 42.708
+      },
+      "label": "Infinigen_KitchenCabinetFactory_1387523__spawn_asset_4630190_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 86.021,
+      "origin": {
+        "x": 515.699,
+        "y": -573.216,
+        "z": 54.553
+      },
+      "radius": 97.275,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/KitchenCabinetFactory_1387523__spawn_asset_4630190_.KitchenCabinetFactory_1387523__spawn_asset_4630190_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 31.187,
+        "y": 20.943,
+        "z": 38.419
+      },
+      "label": "Infinigen_LargePlantContainerFactory_4128982__spawn_asset_8920034_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 38.419,
+      "origin": {
+        "x": 499.968,
+        "y": -988.275,
+        "z": 51.487
+      },
+      "radius": 53.733,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LargePlantContainerFactory_4128982__spawn_asset_8920034_.LargePlantContainerFactory_4128982__spawn_asset_8920034_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 68.475,
+        "y": 17.943,
+        "z": 82.254
+      },
+      "label": "Infinigen_LargeShelfFactory_1583174__spawn_asset_642900_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 82.254,
+      "origin": {
+        "x": 309.452,
+        "y": -585.55,
+        "z": 94.099
+      },
+      "radius": 108.519,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LargeShelfFactory_1583174__spawn_asset_642900_.LargeShelfFactory_1583174__spawn_asset_642900_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 16.899,
+        "y": 14.55,
+        "z": 57.494
+      },
+      "label": "Infinigen_LargeShelfFactory_4322682__spawn_asset_5471509_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 57.494,
+      "origin": {
+        "x": 29.451,
+        "y": -1266.604,
+        "z": 69.339
+      },
+      "radius": 61.667,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LargeShelfFactory_4322682__spawn_asset_5471509_.LargeShelfFactory_4322682__spawn_asset_5471509_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 14.19,
+        "y": 42.673,
+        "z": 100.377
+      },
+      "label": "Infinigen_LouverDoorFactory_6511470__spawn_asset_2_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": 0.0,
+        "y": 35.238,
+        "z": 100.377
+      },
+      "radius": 109.991,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LouverDoorFactory_6511470__spawn_asset_2_.LouverDoorFactory_6511470__spawn_asset_2_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 14.19,
+        "y": 42.673,
+        "z": 100.377
+      },
+      "label": "Infinigen_LouverDoorFactory_6511470__spawn_asset_3_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": 0.0,
+        "y": 35.238,
+        "z": 100.377
+      },
+      "radius": 109.991,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LouverDoorFactory_6511470__spawn_asset_3_.LouverDoorFactory_6511470__spawn_asset_3_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 11.337,
+        "y": 85.914,
+        "z": 103.424
+      },
+      "label": "Infinigen_LouverDoorFactory_6971052__spawn_asset_0_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.424,
+      "origin": {
+        "x": 0.0,
+        "y": 81.345,
+        "z": 103.424
+      },
+      "radius": 134.93,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LouverDoorFactory_6971052__spawn_asset_0_.LouverDoorFactory_6971052__spawn_asset_0_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 11.337,
+        "y": 85.914,
+        "z": 103.424
+      },
+      "label": "Infinigen_LouverDoorFactory_6971052__spawn_asset_4_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.424,
+      "origin": {
+        "x": 0.0,
+        "y": 81.345,
+        "z": 103.424
+      },
+      "radius": 134.93,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LouverDoorFactory_6971052__spawn_asset_4_.LouverDoorFactory_6971052__spawn_asset_4_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 103.93,
+        "y": 88.932,
+        "z": 14.605
+      },
+      "label": "Infinigen_MattressFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.93,
+      "origin": {
+        "x": 80.982,
+        "y": -1154.16,
+        "z": 61.094
+      },
+      "radius": 137.564,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/MattressFactory_1250394__spawn_asset_4644385_.MattressFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 6.443,
+        "y": 4.537,
+        "z": 29.058
+      },
+      "label": "Infinigen_Mesh",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 29.058,
+      "origin": {
+        "x": -73.037,
+        "y": -9.653,
+        "z": 0.0
+      },
+      "radius": 30.107,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Mesh.Mesh"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 6.443,
+        "y": 4.537,
+        "z": 29.058
+      },
+      "label": "Infinigen_Mesh_001",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 29.058,
+      "origin": {
+        "x": -73.037,
+        "y": -9.653,
+        "z": 0.0
+      },
+      "radius": 30.107,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Mesh_001.Mesh_001"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 40.619,
+        "y": 7.499,
+        "z": 31.506
+      },
+      "label": "Infinigen_MonitorFactory_1148210__spawn_asset_4488226_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 40.619,
+      "origin": {
+        "x": 341.842,
+        "y": -1269.415,
+        "z": 109.122
+      },
+      "radius": 51.949,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/MonitorFactory_1148210__spawn_asset_4488226_.MonitorFactory_1148210__spawn_asset_4488226_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 3.018,
+        "y": 7.335,
+        "z": 6.204
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_2487019__spawn_asset_1332666_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 7.335,
+      "origin": {
+        "x": 516.489,
+        "y": -528.401,
+        "z": 26.05
+      },
+      "radius": 10.07,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_2487019__spawn_asset_1332666_.NatureShelfTrinketsFactory_2487019__spawn_asset_1332666_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.637,
+        "y": 2.82,
+        "z": 6.542
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_2811083__spawn_asset_3748554_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.542,
+      "origin": {
+        "x": 21.891,
+        "y": -1268.773,
+        "z": 28.667
+      },
+      "radius": 9.085,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_2811083__spawn_asset_3748554_.NatureShelfTrinketsFactory_2811083__spawn_asset_3748554_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.811,
+        "y": 6.435,
+        "z": 4.15
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_3060825__spawn_asset_9108081_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.435,
+      "origin": {
+        "x": 0.332,
+        "y": -860.398,
+        "z": 21.105
+      },
+      "radius": 9.613,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_3060825__spawn_asset_9108081_.NatureShelfTrinketsFactory_3060825__spawn_asset_9108081_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 6.983,
+        "y": 6.904,
+        "z": 2.838
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_3221477__spawn_asset_2063292_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.983,
+      "origin": {
+        "x": 250.882,
+        "y": -1272.672,
+        "z": 20.631
+      },
+      "radius": 10.221,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_3221477__spawn_asset_2063292_.NatureShelfTrinketsFactory_3221477__spawn_asset_2063292_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 6.178,
+        "y": 3.748,
+        "z": 3.226
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_4565853__spawn_asset_6662185_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.178,
+      "origin": {
+        "x": -9.123,
+        "y": -795.206,
+        "z": 175.646
+      },
+      "radius": 7.913,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_4565853__spawn_asset_6662185_.NatureShelfTrinketsFactory_4565853__spawn_asset_6662185_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.339,
+        "y": 1.354,
+        "z": 3.277
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_5090519__spawn_asset_3674412_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 5.339,
+      "origin": {
+        "x": 261.888,
+        "y": -1266.213,
+        "z": 93.748
+      },
+      "radius": 6.409,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_5090519__spawn_asset_3674412_.NatureShelfTrinketsFactory_5090519__spawn_asset_3674412_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 2.782,
+        "y": 5.856,
+        "z": 4.729
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_690246__spawn_asset_1497873_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 5.856,
+      "origin": {
+        "x": 520.598,
+        "y": -634.945,
+        "z": 63.182
+      },
+      "radius": 8.025,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_690246__spawn_asset_1497873_.NatureShelfTrinketsFactory_690246__spawn_asset_1497873_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.45,
+        "y": 4.834,
+        "z": 1.771
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_7078173__spawn_asset_5346869_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 5.45,
+      "origin": {
+        "x": 521.637,
+        "y": -507.543,
+        "z": 98.832
+      },
+      "radius": 7.497,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_7078173__spawn_asset_5346869_.NatureShelfTrinketsFactory_7078173__spawn_asset_5346869_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.092,
+        "y": 5.268,
+        "z": 3.663
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_8452469__spawn_asset_5964342_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 5.268,
+      "origin": {
+        "x": 518.876,
+        "y": -503.286,
+        "z": 62.116
+      },
+      "radius": 8.192,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_8452469__spawn_asset_5964342_.NatureShelfTrinketsFactory_8452469__spawn_asset_5964342_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.731,
+        "y": 6.543,
+        "z": 4.255
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_9129415__spawn_asset_3795336_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.543,
+      "origin": {
+        "x": 225.611,
+        "y": -1269.763,
+        "z": 22.048
+      },
+      "radius": 9.683,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_9129415__spawn_asset_3795336_.NatureShelfTrinketsFactory_9129415__spawn_asset_3795336_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 5.925,
+        "y": 5.475,
+        "z": 1.402
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_9323882__spawn_asset_9892443_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 5.925,
+      "origin": {
+        "x": 25.571,
+        "y": -1258.88,
+        "z": 58.363
+      },
+      "radius": 8.189,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_9323882__spawn_asset_9892443_.NatureShelfTrinketsFactory_9323882__spawn_asset_9892443_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 3.014,
+        "y": 6.295,
+        "z": 6.963
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_9496139__spawn_asset_8720761_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.963,
+      "origin": {
+        "x": 33.393,
+        "y": -1272.062,
+        "z": 133.595
+      },
+      "radius": 9.859,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_9496139__spawn_asset_8720761_.NatureShelfTrinketsFactory_9496139__spawn_asset_8720761_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 6.627,
+        "y": 6.124,
+        "z": 2.163
+      },
+      "label": "Infinigen_NatureShelfTrinketsFactory_9748772__spawn_asset_9282356_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 6.627,
+      "origin": {
+        "x": 35.096,
+        "y": -1264.648,
+        "z": 24.287
+      },
+      "radius": 9.279,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/NatureShelfTrinketsFactory_9748772__spawn_asset_9282356_.NatureShelfTrinketsFactory_9748772__spawn_asset_9282356_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 33.197,
+        "y": 33.666,
+        "z": 12.236
+      },
+      "label": "Infinigen_PillowFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 33.666,
+      "origin": {
+        "x": 44.361,
+        "y": -1131.467,
+        "z": 88.979
+      },
+      "radius": 48.838,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/PillowFactory_1250394__spawn_asset_4644385_.PillowFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 31.476,
+        "y": 32.093,
+        "z": 12.236
+      },
+      "label": "Infinigen_PillowFactory_1250394__spawn_asset_4644385__001",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 32.093,
+      "origin": {
+        "x": 7.233,
+        "y": -1185.31,
+        "z": 86.876
+      },
+      "radius": 46.587,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/PillowFactory_1250394__spawn_asset_4644385__001.PillowFactory_1250394__spawn_asset_4644385__001"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 2.478,
+        "y": 5.116,
+        "z": 100.377
+      },
+      "label": "Infinigen_Plane",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": 4.957,
+        "y": -0.0,
+        "z": 95.421
+      },
+      "radius": 100.538,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane.Plane"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 2.478,
+        "y": 5.116,
+        "z": 100.377
+      },
+      "label": "Infinigen_Plane_001",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": 4.957,
+        "y": -0.0,
+        "z": 95.421
+      },
+      "radius": 100.538,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_001.Plane_001"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 85.914,
+        "y": 3.702,
+        "z": 103.424
+      },
+      "label": "Infinigen_Plane_002",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.424,
+      "origin": {
+        "x": -81.345,
+        "y": -0.0,
+        "z": 98.854
+      },
+      "radius": 134.504,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_002.Plane_002"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 85.914,
+        "y": 3.702,
+        "z": 103.424
+      },
+      "label": "Infinigen_Plane_003",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.424,
+      "origin": {
+        "x": -81.345,
+        "y": -0.0,
+        "z": 98.854
+      },
+      "radius": 134.504,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_003.Plane_003"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 48.085,
+        "y": 4.074,
+        "z": 128.426
+      },
+      "label": "Infinigen_Plane_004",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 128.426,
+      "origin": {
+        "x": -38.677,
+        "y": -0.0,
+        "z": 120.155
+      },
+      "radius": 137.194,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_004.Plane_004"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.43,
+        "y": 3.259,
+        "z": 20.691
+      },
+      "label": "Infinigen_Plane_005",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 41.43,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 121.068
+      },
+      "radius": 46.424,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_005.Plane_005"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 13.005,
+        "y": 13.005,
+        "z": 9.659
+      },
+      "label": "Infinigen_PlantContainerFactory_5319861__spawn_asset_207197_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 13.005,
+      "origin": {
+        "x": 271.021,
+        "y": -583.428,
+        "z": 187.37
+      },
+      "radius": 20.774,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/PlantContainerFactory_5319861__spawn_asset_207197_.PlantContainerFactory_5319861__spawn_asset_207197_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 15.563,
+        "y": 15.563,
+        "z": 23.408
+      },
+      "label": "Infinigen_PlantContainerFactory_7067772__spawn_asset_7007232_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 23.408,
+      "origin": {
+        "x": 327.287,
+        "y": -584.864,
+        "z": 201.023
+      },
+      "radius": 32.13,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/PlantContainerFactory_7067772__spawn_asset_7007232_.PlantContainerFactory_7067772__spawn_asset_7007232_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 162.809,
+        "y": 163.068,
+        "z": 12.949
+      },
+      "label": "Infinigen_RugFactory_888521__spawn_asset_9535398_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 163.068,
+      "origin": {
+        "x": 233.113,
+        "y": -1019.366,
+        "z": 32.236
+      },
+      "radius": 230.794,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/RugFactory_888521__spawn_asset_9535398_.RugFactory_888521__spawn_asset_9535398_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 31.245,
+        "y": 13.339,
+        "z": 39.313
+      },
+      "label": "Infinigen_SimpleBookcaseFactory_4170166__spawn_asset_280348_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 39.313,
+      "origin": {
+        "x": 243.446,
+        "y": -1267.816,
+        "z": 51.158
+      },
+      "radius": 51.958,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/SimpleBookcaseFactory_4170166__spawn_asset_280348_.SimpleBookcaseFactory_4170166__spawn_asset_280348_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 47.752,
+        "y": 25.58,
+        "z": 33.089
+      },
+      "label": "Infinigen_SimpleDeskFactory_863416__spawn_asset_1747122_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 47.752,
+      "origin": {
+        "x": 346.102,
+        "y": -1255.574,
+        "z": 44.934
+      },
+      "radius": 63.478,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/SimpleDeskFactory_863416__spawn_asset_1747122_.SimpleDeskFactory_863416__spawn_asset_1747122_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 16.524,
+        "y": 17.406,
+        "z": 2.484
+      },
+      "label": "Infinigen_TowelFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 17.406,
+      "origin": {
+        "x": 109.476,
+        "y": -1201.476,
+        "z": 93.685
+      },
+      "radius": 24.128,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/TowelFactory_1250394__spawn_asset_4644385_.TowelFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 51.327,
+        "y": 4.612,
+        "z": 63.065
+      },
+      "label": "Infinigen_WindowFactory_25311__spawn_asset_0_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 63.065,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 81.443,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_25311__spawn_asset_0_.WindowFactory_25311__spawn_asset_0_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 171.369,
+        "y": 3.712,
+        "z": 64.159
+      },
+      "label": "Infinigen_WindowFactory_25311__spawn_asset_1_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 171.369,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.0
+      },
+      "radius": 183.024,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_25311__spawn_asset_1_.WindowFactory_25311__spawn_asset_1_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 33.144,
+        "y": 33.144,
+        "z": 62.798
+      },
+      "label": "Infinigen_WindowFactory_25311__spawn_asset_4_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 62.798,
+      "origin": {
+        "x": 8.917,
+        "y": -657.835,
+        "z": 176.438
+      },
+      "radius": 78.362,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_25311__spawn_asset_4_.WindowFactory_25311__spawn_asset_4_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 208.447,
+        "y": 2.828,
+        "z": 64.362
+      },
+      "label": "Infinigen_WindowFactory_25311__spawn_asset_5_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 208.447,
+      "origin": {
+        "x": 305.356,
+        "y": -1288.155,
+        "z": 176.438
+      },
+      "radius": 218.175,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_25311__spawn_asset_5_.WindowFactory_25311__spawn_asset_5_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 4.156,
+        "y": 63.511,
+        "z": 63.866
+      },
+      "label": "Infinigen_WindowFactory_25311__spawn_asset_6_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 63.866,
+      "origin": {
+        "x": -38.155,
+        "y": -993.396,
+        "z": 176.438
+      },
+      "radius": 90.165,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_25311__spawn_asset_6_.WindowFactory_25311__spawn_asset_6_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 151.464,
+        "y": 11.521,
+        "z": 63.576
+      },
+      "label": "Infinigen_WindowFactory_77853__spawn_asset_2_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 151.464,
+      "origin": {
+        "x": 0.0,
+        "y": 7.514,
+        "z": 0.0
+      },
+      "radius": 164.669,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_77853__spawn_asset_2_.WindowFactory_77853__spawn_asset_2_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 78.643,
+        "y": 7.335,
+        "z": 63.466
+      },
+      "label": "Infinigen_WindowFactory_77853__spawn_asset_3_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 78.643,
+      "origin": {
+        "x": 0.0,
+        "y": 4.841,
+        "z": 0.0
+      },
+      "radius": 101.323,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_77853__spawn_asset_3_.WindowFactory_77853__spawn_asset_3_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 47.172,
+        "y": 10.914,
+        "z": 63.784
+      },
+      "label": "Infinigen_WindowFactory_77853__spawn_asset_7_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 63.784,
+      "origin": {
+        "x": 0.0,
+        "y": 7.253,
+        "z": 0.0
+      },
+      "radius": 80.079,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_77853__spawn_asset_7_.WindowFactory_77853__spawn_asset_7_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 95.247,
+        "y": 10.622,
+        "z": 63.489
+      },
+      "label": "Infinigen_WindowFactory_77853__spawn_asset_8_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 95.247,
+      "origin": {
+        "x": 0.0,
+        "y": 7.276,
+        "z": 0.0
+      },
+      "radius": 114.959,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_77853__spawn_asset_8_.WindowFactory_77853__spawn_asset_8_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 58.411,
+        "y": 9.24,
+        "z": 64.019
+      },
+      "label": "Infinigen_WindowFactory_77853__spawn_asset_9_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 64.019,
+      "origin": {
+        "x": 0.0,
+        "y": 6.783,
+        "z": 0.0
+      },
+      "radius": 87.153,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_77853__spawn_asset_9_.WindowFactory_77853__spawn_asset_9_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 113.155,
+        "y": 238.155,
+        "z": 0.0
+      },
+      "label": "Infinigen_bathroom_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 238.155,
+      "origin": {
+        "x": 0.0,
+        "y": -0.0,
+        "z": -0.0
+      },
+      "radius": 263.669,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bathroom_0_0_ceiling.bathroom_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 125.0,
+        "y": 250.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_bathroom_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 250.0,
+      "origin": {
+        "x": -16.522,
+        "y": -9.655,
+        "z": -8.054
+      },
+      "radius": 313.869,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bathroom_0_0_exterior.bathroom_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 113.155,
+        "y": 244.077,
+        "z": 0.0
+      },
+      "label": "Infinigen_bathroom_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 244.077,
+      "origin": {
+        "x": 11.274,
+        "y": 70.351,
+        "z": 0.0
+      },
+      "radius": 269.031,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bathroom_0_0_floor.bathroom_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 119.077,
+        "y": 250.0,
+        "z": 130.945
+      },
+      "label": "Infinigen_bathroom_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 250.0,
+      "origin": {
+        "x": -15.914,
+        "y": -19.285,
+        "z": -14.225
+      },
+      "radius": 306.31,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bathroom_0_0_wall.bathroom_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 288.155,
+        "y": 363.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_bedroom_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 363.155,
+      "origin": {
+        "x": 250.0,
+        "y": -925.0,
+        "z": 274.458
+      },
+      "radius": 463.589,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bedroom_0_0_ceiling.bedroom_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 300.0,
+        "y": 375.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_bedroom_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 375.0,
+      "origin": {
+        "x": 7.107,
+        "y": 69.458,
+        "z": -9.085
+      },
+      "radius": 501.013,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bedroom_0_0_exterior.bedroom_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 294.077,
+        "y": 363.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_bedroom_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 363.155,
+      "origin": {
+        "x": 255.923,
+        "y": -925.0,
+        "z": 11.122
+      },
+      "radius": 467.294,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bedroom_0_0_floor.bedroom_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 300.0,
+        "y": 369.077,
+        "z": 132.392
+      },
+      "label": "Infinigen_bedroom_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 369.077,
+      "origin": {
+        "x": 250.0,
+        "y": -930.923,
+        "z": 142.79
+      },
+      "radius": 493.706,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bedroom_0_0_wall.bedroom_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 238.155,
+        "y": 263.155,
+        "z": 0.0
+      },
+      "label": "Infinigen_dining-room_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 263.155,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.0
+      },
+      "radius": 354.92,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/dining-room_0_0_ceiling.dining-room_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 250.0,
+        "y": 275.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_dining-room_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 275.0,
+      "origin": {
+        "x": 58.93,
+        "y": 7.564,
+        "z": 1.222
+      },
+      "radius": 398.138,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/dining-room_0_0_exterior.dining-room_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 244.077,
+        "y": 269.077,
+        "z": 0.0
+      },
+      "label": "Infinigen_dining-room_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 269.077,
+      "origin": {
+        "x": 56.918,
+        "y": 64.943,
+        "z": 0.0
+      },
+      "radius": 363.285,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/dining-room_0_0_floor.dining-room_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 244.077,
+        "y": 275.0,
+        "z": 130.945
+      },
+      "label": "Infinigen_dining-room_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 275.0,
+      "origin": {
+        "x": 76.381,
+        "y": 4.868,
+        "z": -2.661
+      },
+      "radius": 390.314,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/dining-room_0_0_wall.dining-room_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp.hoof_parent_temp"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_001",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_001.hoof_parent_temp_001"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_002",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_002.hoof_parent_temp_002"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_003",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_003.hoof_parent_temp_003"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_004",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_004.hoof_parent_temp_004"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_005",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_005.hoof_parent_temp_005"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_006",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_006.hoof_parent_temp_006"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_007",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_007.hoof_parent_temp_007"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_008",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_008.hoof_parent_temp_008"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_009",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_009.hoof_parent_temp_009"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_010",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_010.hoof_parent_temp_010"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_hoof_parent_temp_011",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/hoof_parent_temp_011.hoof_parent_temp_011"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 188.155,
+        "y": 263.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_kitchen_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 263.155,
+      "origin": {
+        "x": -37.515,
+        "y": 46.626,
+        "z": 0.621
+      },
+      "radius": 323.501,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/kitchen_0_0_ceiling.kitchen_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 200.0,
+        "y": 275.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_kitchen_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 275.0,
+      "origin": {
+        "x": -16.879,
+        "y": 39.162,
+        "z": -8.372
+      },
+      "radius": 368.801,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/kitchen_0_0_exterior.kitchen_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 194.077,
+        "y": 263.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_kitchen_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 263.155,
+      "origin": {
+        "x": -73.342,
+        "y": 66.721,
+        "z": -0.648
+      },
+      "radius": 326.981,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/kitchen_0_0_floor.kitchen_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 200.0,
+        "y": 263.155,
+        "z": 132.392
+      },
+      "label": "Infinigen_kitchen_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 263.155,
+      "origin": {
+        "x": -7.447,
+        "y": 36.177,
+        "z": -13.874
+      },
+      "radius": 356.059,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/kitchen_0_0_wall.kitchen_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 338.155,
+        "y": 363.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_living-room_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 363.155,
+      "origin": {
+        "x": 44.662,
+        "y": -33.572,
+        "z": 0.641
+      },
+      "radius": 496.216,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/living-room_0_0_ceiling.living-room_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 350.0,
+        "y": 375.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_living-room_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 375.0,
+      "origin": {
+        "x": 27.328,
+        "y": -20.771,
+        "z": 2.14
+      },
+      "radius": 532.46,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/living-room_0_0_exterior.living-room_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 344.077,
+        "y": 369.077,
+        "z": 0.723
+      },
+      "label": "Infinigen_living-room_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 369.077,
+      "origin": {
+        "x": 39.968,
+        "y": -44.742,
+        "z": -0.68
+      },
+      "radius": 504.587,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/living-room_0_0_floor.living-room_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 350.0,
+        "y": 375.0,
+        "z": 132.392
+      },
+      "label": "Infinigen_living-room_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 375.0,
+      "origin": {
+        "x": 20.376,
+        "y": -13.661,
+        "z": -2.598
+      },
+      "radius": 529.767,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/living-room_0_0_wall.living-room_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "label": "Infinigen_place_cam_overhead",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 0.0,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 0.0,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/place_cam_overhead.place_cam_overhead"
+    }
+  ],
+  "largest_static_mesh_actors": [
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 350.0,
+        "y": 375.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_living-room_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 375.0,
+      "origin": {
+        "x": 27.328,
+        "y": -20.771,
+        "z": 2.14
+      },
+      "radius": 532.46,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/living-room_0_0_exterior.living-room_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 350.0,
+        "y": 375.0,
+        "z": 132.392
+      },
+      "label": "Infinigen_living-room_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 375.0,
+      "origin": {
+        "x": 20.376,
+        "y": -13.661,
+        "z": -2.598
+      },
+      "radius": 529.767,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/living-room_0_0_wall.living-room_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 344.077,
+        "y": 369.077,
+        "z": 0.723
+      },
+      "label": "Infinigen_living-room_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 369.077,
+      "origin": {
+        "x": 39.968,
+        "y": -44.742,
+        "z": -0.68
+      },
+      "radius": 504.587,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/living-room_0_0_floor.living-room_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 300.0,
+        "y": 375.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_bedroom_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 375.0,
+      "origin": {
+        "x": 7.107,
+        "y": 69.458,
+        "z": -9.085
+      },
+      "radius": 501.013,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bedroom_0_0_exterior.bedroom_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 338.155,
+        "y": 363.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_living-room_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 363.155,
+      "origin": {
+        "x": 44.662,
+        "y": -33.572,
+        "z": 0.641
+      },
+      "radius": 496.216,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/living-room_0_0_ceiling.living-room_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 300.0,
+        "y": 369.077,
+        "z": 132.392
+      },
+      "label": "Infinigen_bedroom_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 369.077,
+      "origin": {
+        "x": 250.0,
+        "y": -930.923,
+        "z": 142.79
+      },
+      "radius": 493.706,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bedroom_0_0_wall.bedroom_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 294.077,
+        "y": 363.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_bedroom_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 363.155,
+      "origin": {
+        "x": 255.923,
+        "y": -925.0,
+        "z": 11.122
+      },
+      "radius": 467.294,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bedroom_0_0_floor.bedroom_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 288.155,
+        "y": 363.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_bedroom_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 363.155,
+      "origin": {
+        "x": 250.0,
+        "y": -925.0,
+        "z": 274.458
+      },
+      "radius": 463.589,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bedroom_0_0_ceiling.bedroom_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 250.0,
+        "y": 275.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_dining-room_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 275.0,
+      "origin": {
+        "x": 58.93,
+        "y": 7.564,
+        "z": 1.222
+      },
+      "radius": 398.138,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/dining-room_0_0_exterior.dining-room_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 244.077,
+        "y": 275.0,
+        "z": 130.945
+      },
+      "label": "Infinigen_dining-room_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 275.0,
+      "origin": {
+        "x": 76.381,
+        "y": 4.868,
+        "z": -2.661
+      },
+      "radius": 390.314,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/dining-room_0_0_wall.dining-room_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 200.0,
+        "y": 275.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_kitchen_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 275.0,
+      "origin": {
+        "x": -16.879,
+        "y": 39.162,
+        "z": -8.372
+      },
+      "radius": 368.801,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/kitchen_0_0_exterior.kitchen_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 244.077,
+        "y": 269.077,
+        "z": 0.0
+      },
+      "label": "Infinigen_dining-room_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 269.077,
+      "origin": {
+        "x": 56.918,
+        "y": 64.943,
+        "z": 0.0
+      },
+      "radius": 363.285,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/dining-room_0_0_floor.dining-room_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 200.0,
+        "y": 263.155,
+        "z": 132.392
+      },
+      "label": "Infinigen_kitchen_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 263.155,
+      "origin": {
+        "x": -7.447,
+        "y": 36.177,
+        "z": -13.874
+      },
+      "radius": 356.059,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/kitchen_0_0_wall.kitchen_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 238.155,
+        "y": 263.155,
+        "z": 0.0
+      },
+      "label": "Infinigen_dining-room_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 263.155,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.0
+      },
+      "radius": 354.92,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/dining-room_0_0_ceiling.dining-room_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 194.077,
+        "y": 263.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_kitchen_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 263.155,
+      "origin": {
+        "x": -73.342,
+        "y": 66.721,
+        "z": -0.648
+      },
+      "radius": 326.981,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/kitchen_0_0_floor.kitchen_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 188.155,
+        "y": 263.155,
+        "z": 0.723
+      },
+      "label": "Infinigen_kitchen_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 263.155,
+      "origin": {
+        "x": -37.515,
+        "y": 46.626,
+        "z": 0.621
+      },
+      "radius": 323.501,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/kitchen_0_0_ceiling.kitchen_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 125.0,
+        "y": 250.0,
+        "z": 142.79
+      },
+      "label": "Infinigen_bathroom_0_0_exterior",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 250.0,
+      "origin": {
+        "x": -16.522,
+        "y": -9.655,
+        "z": -8.054
+      },
+      "radius": 313.869,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bathroom_0_0_exterior.bathroom_0_0_exterior"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 119.077,
+        "y": 250.0,
+        "z": 130.945
+      },
+      "label": "Infinigen_bathroom_0_0_wall",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 250.0,
+      "origin": {
+        "x": -15.914,
+        "y": -19.285,
+        "z": -14.225
+      },
+      "radius": 306.31,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bathroom_0_0_wall.bathroom_0_0_wall"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 113.155,
+        "y": 244.077,
+        "z": 0.0
+      },
+      "label": "Infinigen_bathroom_0_0_floor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 244.077,
+      "origin": {
+        "x": 11.274,
+        "y": 70.351,
+        "z": 0.0
+      },
+      "radius": 269.031,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bathroom_0_0_floor.bathroom_0_0_floor"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 113.155,
+        "y": 238.155,
+        "z": 0.0
+      },
+      "label": "Infinigen_bathroom_0_0_ceiling",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 238.155,
+      "origin": {
+        "x": 0.0,
+        "y": -0.0,
+        "z": -0.0
+      },
+      "radius": 263.669,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/bathroom_0_0_ceiling.bathroom_0_0_ceiling"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 162.809,
+        "y": 163.068,
+        "z": 12.949
+      },
+      "label": "Infinigen_RugFactory_888521__spawn_asset_9535398_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 163.068,
+      "origin": {
+        "x": 233.113,
+        "y": -1019.366,
+        "z": 32.236
+      },
+      "radius": 230.794,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/RugFactory_888521__spawn_asset_9535398_.RugFactory_888521__spawn_asset_9535398_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 208.447,
+        "y": 2.828,
+        "z": 64.362
+      },
+      "label": "Infinigen_WindowFactory_25311__spawn_asset_5_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 208.447,
+      "origin": {
+        "x": 305.356,
+        "y": -1288.155,
+        "z": 176.438
+      },
+      "radius": 218.175,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_25311__spawn_asset_5_.WindowFactory_25311__spawn_asset_5_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 171.369,
+        "y": 3.712,
+        "z": 64.159
+      },
+      "label": "Infinigen_WindowFactory_25311__spawn_asset_1_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 171.369,
+      "origin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.0
+      },
+      "radius": 183.024,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_25311__spawn_asset_1_.WindowFactory_25311__spawn_asset_1_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 112.136,
+        "y": 96.004,
+        "z": 89.879
+      },
+      "label": "Infinigen_BedFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 112.136,
+      "origin": {
+        "x": 80.981,
+        "y": -1154.161,
+        "z": 101.724
+      },
+      "radius": 172.828,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BedFactory_1250394__spawn_asset_4644385_.BedFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 151.464,
+        "y": 11.521,
+        "z": 63.576
+      },
+      "label": "Infinigen_WindowFactory_77853__spawn_asset_2_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 151.464,
+      "origin": {
+        "x": 0.0,
+        "y": 7.514,
+        "z": 0.0
+      },
+      "radius": 164.669,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_77853__spawn_asset_2_.WindowFactory_77853__spawn_asset_2_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 92.029,
+        "y": 119.156,
+        "z": 33.861
+      },
+      "label": "Infinigen_ComforterFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 119.156,
+      "origin": {
+        "x": 133.085,
+        "y": -1153.89,
+        "z": 72.934
+      },
+      "radius": 154.318,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/ComforterFactory_1250394__spawn_asset_4644385_.ComforterFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 44.219,
+        "y": 127.185,
+        "z": 41.31
+      },
+      "label": "Infinigen_BlanketFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 127.185,
+      "origin": {
+        "x": 87.092,
+        "y": -1153.57,
+        "z": 67.576
+      },
+      "radius": 140.847,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/BlanketFactory_1250394__spawn_asset_4644385_.BlanketFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 103.93,
+        "y": 88.932,
+        "z": 14.605
+      },
+      "label": "Infinigen_MattressFactory_1250394__spawn_asset_4644385_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.93,
+      "origin": {
+        "x": 80.982,
+        "y": -1154.16,
+        "z": 61.094
+      },
+      "radius": 137.564,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/MattressFactory_1250394__spawn_asset_4644385_.MattressFactory_1250394__spawn_asset_4644385_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 7.619,
+        "y": 48.163,
+        "z": 128.426
+      },
+      "label": "Infinigen_GlassPanelDoorFactory_7281651__spawn_asset_1_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 128.426,
+      "origin": {
+        "x": 536.645,
+        "y": -1120.533,
+        "z": 140.272
+      },
+      "radius": 137.372,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/GlassPanelDoorFactory_7281651__spawn_asset_1_.GlassPanelDoorFactory_7281651__spawn_asset_1_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 48.085,
+        "y": 4.074,
+        "z": 128.426
+      },
+      "label": "Infinigen_Plane_004",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 128.426,
+      "origin": {
+        "x": -38.677,
+        "y": -0.0,
+        "z": 120.155
+      },
+      "radius": 137.194,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_004.Plane_004"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 11.337,
+        "y": 85.914,
+        "z": 103.424
+      },
+      "label": "Infinigen_LouverDoorFactory_6971052__spawn_asset_0_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.424,
+      "origin": {
+        "x": 0.0,
+        "y": 81.345,
+        "z": 103.424
+      },
+      "radius": 134.93,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LouverDoorFactory_6971052__spawn_asset_0_.LouverDoorFactory_6971052__spawn_asset_0_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 11.337,
+        "y": 85.914,
+        "z": 103.424
+      },
+      "label": "Infinigen_LouverDoorFactory_6971052__spawn_asset_4_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.424,
+      "origin": {
+        "x": 0.0,
+        "y": 81.345,
+        "z": 103.424
+      },
+      "radius": 134.93,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LouverDoorFactory_6971052__spawn_asset_4_.LouverDoorFactory_6971052__spawn_asset_4_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 85.914,
+        "y": 3.702,
+        "z": 103.424
+      },
+      "label": "Infinigen_Plane_002",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.424,
+      "origin": {
+        "x": -81.345,
+        "y": -0.0,
+        "z": 98.854
+      },
+      "radius": 134.504,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_002.Plane_002"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 85.914,
+        "y": 3.702,
+        "z": 103.424
+      },
+      "label": "Infinigen_Plane_003",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 103.424,
+      "origin": {
+        "x": -81.345,
+        "y": -0.0,
+        "z": 98.854
+      },
+      "radius": 134.504,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Plane_003.Plane_003"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 95.247,
+        "y": 10.622,
+        "z": 63.489
+      },
+      "label": "Infinigen_WindowFactory_77853__spawn_asset_8_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 95.247,
+      "origin": {
+        "x": 0.0,
+        "y": 7.276,
+        "z": 0.0
+      },
+      "radius": 114.959,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/WindowFactory_77853__spawn_asset_8_.WindowFactory_77853__spawn_asset_8_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 14.19,
+        "y": 42.673,
+        "z": 100.377
+      },
+      "label": "Infinigen_LouverDoorFactory_6511470__spawn_asset_2_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": 0.0,
+        "y": 35.238,
+        "z": 100.377
+      },
+      "radius": 109.991,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LouverDoorFactory_6511470__spawn_asset_2_.LouverDoorFactory_6511470__spawn_asset_2_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 14.19,
+        "y": 42.673,
+        "z": 100.377
+      },
+      "label": "Infinigen_LouverDoorFactory_6511470__spawn_asset_3_",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": 0.0,
+        "y": 35.238,
+        "z": 100.377
+      },
+      "radius": 109.991,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/LouverDoorFactory_6511470__spawn_asset_3_.LouverDoorFactory_6511470__spawn_asset_3_"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 5.385,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.726,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube.Cube"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 5.385,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube_002",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.726,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_002.Cube_002"
+    },
+    {
+      "class": "StaticMeshActor",
+      "extent": {
+        "x": 41.434,
+        "y": 4.514,
+        "z": 100.377
+      },
+      "label": "Infinigen_Cube_008",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "max_extent": 100.377,
+      "origin": {
+        "x": -41.434,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "radius": 108.687,
+      "static_mesh": "/Game/SPEAR/Scenes/infinigen_189cc130/Meshes/Cube_008.Cube_008"
+    }
+  ],
+  "map_path": "/Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130",
+  "static_mesh_actor_count": 110
+}

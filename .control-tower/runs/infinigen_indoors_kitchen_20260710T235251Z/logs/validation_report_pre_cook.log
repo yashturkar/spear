@@ -1,0 +1,125 @@
+{
+    "bounds_max": {
+        "x": 1400.0,
+        "y": 488.504,
+        "z": 272.892
+    },
+    "bounds_min": {
+        "x": -679.212,
+        "y": -1850.0,
+        "z": -155.172
+    },
+    "light_actor_count": 9,
+    "light_component_count": 9,
+    "light_details": [
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "InfinigenKitchen_DimCeiling_RectLight_0",
+            "location": {
+                "x": -240.0,
+                "y": -220.0,
+                "z": 310.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "InfinigenKitchen_DimCeiling_RectLight_1",
+            "location": {
+                "x": 0.0,
+                "y": -220.0,
+                "z": 310.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "InfinigenKitchen_DimCeiling_RectLight_2",
+            "location": {
+                "x": 240.0,
+                "y": -220.0,
+                "z": 310.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "InfinigenKitchen_DimCeiling_RectLight_3",
+            "location": {
+                "x": -240.0,
+                "y": 140.0,
+                "z": 310.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "InfinigenKitchen_DimCeiling_RectLight_4",
+            "location": {
+                "x": 0.0,
+                "y": 140.0,
+                "z": 310.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "InfinigenKitchen_DimCeiling_RectLight_5",
+            "location": {
+                "x": 240.0,
+                "y": 140.0,
+                "z": 310.0
+            }
+        },
+        {
+            "class": "RectLight",
+            "component_class": "RectLightComponent",
+            "label": "InfinigenKitchen_WarmCounterAccent_RectLight",
+            "location": {
+                "x": 0.0,
+                "y": -365.0,
+                "z": 205.0
+            }
+        },
+        {
+            "class": "DirectionalLight",
+            "component_class": "DirectionalLightComponent",
+            "label": "Setup_DirectionalLight",
+            "location": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 600.0
+            }
+        },
+        {
+            "class": "SkyLight",
+            "component_class": "SkyLightComponent",
+            "label": "Setup_SkyLight",
+            "location": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 300.0
+            }
+        }
+    ],
+    "lighting_note": "Added low-intensity movable RectLight fixtures after real Infinigen import; setup directional/skylight reduced for dim live flashlight use.",
+    "map_exists": true,
+    "map_path": "/Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen",
+    "mesh_asset_count": 64,
+    "mesh_dir": "/Game/SPEAR/Scenes/infinigen_indoors_kitchen/Meshes",
+    "spawned_fixture_light_labels": [
+        "InfinigenKitchen_DimCeiling_RectLight_0",
+        "InfinigenKitchen_DimCeiling_RectLight_1",
+        "InfinigenKitchen_DimCeiling_RectLight_2",
+        "InfinigenKitchen_DimCeiling_RectLight_3",
+        "InfinigenKitchen_DimCeiling_RectLight_4",
+        "InfinigenKitchen_DimCeiling_RectLight_5",
+        "InfinigenKitchen_WarmCounterAccent_RectLight"
+    ],
+    "static_mesh_actor_count": 64,
+    "tuned_setup_light_labels": [
+        "Setup_DirectionalLight",
+        "Setup_SkyLight"
+    ]
+}

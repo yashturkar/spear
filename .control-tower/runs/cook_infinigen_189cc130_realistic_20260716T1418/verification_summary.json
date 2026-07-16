@@ -1,0 +1,34 @@
+{
+  "archive_pak": "cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+  "archive_sha256": "4ff1fe983945f30ac0a434387516055b6e344b658207a33b9f873c551d797e00",
+  "archive_size_bytes": 4040510925,
+  "cook_log": ".control-tower/runs/cook_infinigen_189cc130_realistic_20260716T1418/logs/cook_package.log",
+  "finished_at": "2026-07-16T14:18:08Z",
+  "missing_required_entries": [],
+  "notes": [
+    "Cook command used run_uat.py default maps plus /Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic.",
+    "This package is not a full ledger recook."
+  ],
+  "pak_entries_artifact": ".control-tower/runs/cook_infinigen_189cc130_realistic_20260716T1418/logs/pak_entries_realistic.txt",
+  "present_required_entries": [
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic.umap",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic.uexp",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Neutral_Plaster.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Muted_Floor.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_NonEmissive_Black_OffScreen.uasset"
+  ],
+  "required_entries": [
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic.umap",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic.uexp",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Neutral_Plaster.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Muted_Floor.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_189cc130_Realistic_Warm_Wood.uasset",
+    "SpearSim/Content/SPEAR/Scenes/infinigen_189cc130/Materials/M_NonEmissive_Black_OffScreen.uasset"
+  ],
+  "run_id": "cook_infinigen_189cc130_realistic_20260716T1418",
+  "staged_pak": "cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+  "staged_sha256": "4ff1fe983945f30ac0a434387516055b6e344b658207a33b9f873c551d797e00",
+  "staged_size_bytes": 4040510925,
+  "uat_exit_status": 0
+}

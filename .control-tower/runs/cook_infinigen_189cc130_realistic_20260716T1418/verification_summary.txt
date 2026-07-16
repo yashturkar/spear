@@ -1,0 +1,8 @@
+cook_infinigen_189cc130_realistic_20260716T1418 verification
+finished_at: 2026-07-16T14:18:08Z
+uat_exit_status: 0
+archive_sha256: 4ff1fe983945f30ac0a434387516055b6e344b658207a33b9f873c551d797e00
+staged_sha256: 4ff1fe983945f30ac0a434387516055b6e344b658207a33b9f873c551d797e00
+size_bytes: 4040510925
+missing_required_entries: []
+pak_entries_artifact: .control-tower/runs/cook_infinigen_189cc130_realistic_20260716T1418/logs/pak_entries_realistic.txt

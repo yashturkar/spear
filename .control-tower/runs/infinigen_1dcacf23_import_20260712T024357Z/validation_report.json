@@ -1,0 +1,463 @@
+{
+  "bounds_max": {
+    "x": 650.0,
+    "y": -997.366,
+    "z": 277.59
+  },
+  "bounds_min": {
+    "x": 0.0,
+    "y": -1743.652,
+    "z": 14.334
+  },
+  "destroyed_generated_actor_count": 9,
+  "destroyed_generated_actor_labels": [
+    "Infinigen1dcacf23_Ambient_SkyLight",
+    "Infinigen1dcacf23_Ceiling_RectLight_0",
+    "Infinigen1dcacf23_Ceiling_RectLight_1",
+    "Infinigen1dcacf23_Ceiling_RectLight_2",
+    "Infinigen1dcacf23_Ceiling_RectLight_3",
+    "Infinigen1dcacf23_SkyAtmosphere",
+    "Infinigen1dcacf23_Sun_DirectionalLight",
+    "Infinigen1dcacf23_TableLamp_PointLight_0",
+    "Infinigen1dcacf23_TableLamp_PointLight_1"
+  ],
+  "light_actor_count": 10,
+  "lighting_note": "Imported original Infinigen fine blend export and added movable physical-light approximations: warm point lights at both DeskLampFactory meshes, warm rect lights at all CeilingLightFactory meshes, a low-angle sun directional light for window/door daylight, a SkyAtmosphere component for the atmosphere sun, and a low ambient skylight. Runtime scene-light-intensity-scale can still dim these scene lights for flashlight tests.",
+  "map_exists": true,
+  "map_path": "/Game/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23",
+  "matched_ceiling_light_count": 4,
+  "matched_ceiling_lights": [
+    {
+      "bounds": {
+        "extent": {
+          "x": 20.142,
+          "y": 20.142,
+          "z": 7.692
+        },
+        "max": {
+          "x": 370.754,
+          "y": -1501.362,
+          "z": 277.587
+        },
+        "min": {
+          "x": 330.47,
+          "y": -1541.646,
+          "z": 262.204
+        },
+        "origin": {
+          "x": 350.612,
+          "y": -1521.504,
+          "z": 269.896
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_CeilingLightFactory_3923419__spawn_asset_3107171_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 20.142,
+          "y": 20.142,
+          "z": 7.692
+        },
+        "max": {
+          "x": 129.988,
+          "y": -1533.035,
+          "z": 277.588
+        },
+        "min": {
+          "x": 89.704,
+          "y": -1573.318,
+          "z": 262.204
+        },
+        "origin": {
+          "x": 109.846,
+          "y": -1553.177,
+          "z": 269.896
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_CeilingLightFactory_3923419__spawn_asset_3218968_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 20.142,
+          "y": 20.142,
+          "z": 7.692
+        },
+        "max": {
+          "x": 491.006,
+          "y": -1405.108,
+          "z": 277.589
+        },
+        "min": {
+          "x": 450.723,
+          "y": -1445.391,
+          "z": 262.206
+        },
+        "origin": {
+          "x": 470.864,
+          "y": -1425.25,
+          "z": 269.898
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_CeilingLightFactory_3923419__spawn_asset_4684690_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 20.142,
+          "y": 20.142,
+          "z": 7.692
+        },
+        "max": {
+          "x": 551.794,
+          "y": -1597.448,
+          "z": 277.587
+        },
+        "min": {
+          "x": 511.51,
+          "y": -1637.732,
+          "z": 262.204
+        },
+        "origin": {
+          "x": 531.652,
+          "y": -1617.59,
+          "z": 269.896
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_CeilingLightFactory_3923419__spawn_asset_7840408_"
+    }
+  ],
+  "matched_door_count": 2,
+  "matched_table_lamp_count": 2,
+  "matched_table_lamps": [
+    {
+      "bounds": {
+        "extent": {
+          "x": 13.228,
+          "y": 13.228,
+          "z": 26.514
+        },
+        "max": {
+          "x": 48.898,
+          "y": -1704.406,
+          "z": 132.621
+        },
+        "min": {
+          "x": 22.441,
+          "y": -1730.863,
+          "z": 79.594
+        },
+        "origin": {
+          "x": 35.669,
+          "y": -1717.635,
+          "z": 106.108
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_DeskLampFactory_1594202__spawn_asset_1422734_"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 13.389,
+          "y": 13.389,
+          "z": 23.952
+        },
+        "max": {
+          "x": 47.431,
+          "y": -1658.516,
+          "z": 127.698
+        },
+        "min": {
+          "x": 20.653,
+          "y": -1685.293,
+          "z": 79.794
+        },
+        "origin": {
+          "x": 34.042,
+          "y": -1671.905,
+          "z": 103.746
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_DeskLampFactory_5020655__spawn_asset_6539788_"
+    }
+  ],
+  "matched_window_count": 3,
+  "mesh_asset_count": 107,
+  "mesh_dir": "/Game/SPEAR/Scenes/infinigen_1dcacf23/Meshes",
+  "saved": true,
+  "sky_atmosphere_actor_count": 1,
+  "sky_atmosphere_labels": [
+    "Infinigen1dcacf23_SkyAtmosphere"
+  ],
+  "spawned_light_count": 9,
+  "spawned_light_labels": [
+    "Infinigen1dcacf23_Ambient_SkyLight",
+    "Infinigen1dcacf23_Ceiling_RectLight_0",
+    "Infinigen1dcacf23_Ceiling_RectLight_1",
+    "Infinigen1dcacf23_Ceiling_RectLight_2",
+    "Infinigen1dcacf23_Ceiling_RectLight_3",
+    "Infinigen1dcacf23_SkyAtmosphere",
+    "Infinigen1dcacf23_Sun_DirectionalLight",
+    "Infinigen1dcacf23_TableLamp_PointLight_0",
+    "Infinigen1dcacf23_TableLamp_PointLight_1"
+  ],
+  "spawned_lights": [
+    {
+      "attenuation_radius": null,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "USE_PROJECT_SETTING",
+      "cast_shadows": true,
+      "class": "SkyLight",
+      "component_class": "SkyLightComponent",
+      "indirect_lighting_intensity": 0.07999999821186066,
+      "intensity": 0.07999999821186066,
+      "label": "Infinigen1dcacf23_Ambient_SkyLight",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 300.0
+      },
+      "mobility": "MOVABLE",
+      "rotation": {
+        "pitch": 0.0,
+        "roll": 0.0,
+        "yaw": 0.0
+      },
+      "soft_source_radius": null,
+      "source_height": null,
+      "source_radius": null,
+      "source_width": null,
+      "temperature": null,
+      "use_temperature": null
+    },
+    {
+      "attenuation_radius": 720.0,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "USE_PROJECT_SETTING",
+      "cast_shadows": true,
+      "class": "RectLight",
+      "component_class": "RectLightComponent",
+      "indirect_lighting_intensity": 0.25,
+      "intensity": 950.0,
+      "label": "Infinigen1dcacf23_Ceiling_RectLight_0",
+      "location": {
+        "x": 350.612,
+        "y": -1521.504,
+        "z": 261.896
+      },
+      "mobility": "MOVABLE",
+      "rotation": {
+        "pitch": 0.0,
+        "roll": -90.0,
+        "yaw": 0.0
+      },
+      "soft_source_radius": null,
+      "source_height": 58.0,
+      "source_radius": null,
+      "source_width": 58.0,
+      "temperature": 3600.0,
+      "use_temperature": true
+    },
+    {
+      "attenuation_radius": 720.0,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "USE_PROJECT_SETTING",
+      "cast_shadows": true,
+      "class": "RectLight",
+      "component_class": "RectLightComponent",
+      "indirect_lighting_intensity": 0.25,
+      "intensity": 950.0,
+      "label": "Infinigen1dcacf23_Ceiling_RectLight_1",
+      "location": {
+        "x": 109.846,
+        "y": -1553.177,
+        "z": 261.896
+      },
+      "mobility": "MOVABLE",
+      "rotation": {
+        "pitch": 0.0,
+        "roll": -90.0,
+        "yaw": 0.0
+      },
+      "soft_source_radius": null,
+      "source_height": 58.0,
+      "source_radius": null,
+      "source_width": 58.0,
+      "temperature": 3600.0,
+      "use_temperature": true
+    },
+    {
+      "attenuation_radius": 720.0,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "USE_PROJECT_SETTING",
+      "cast_shadows": true,
+      "class": "RectLight",
+      "component_class": "RectLightComponent",
+      "indirect_lighting_intensity": 0.25,
+      "intensity": 950.0,
+      "label": "Infinigen1dcacf23_Ceiling_RectLight_2",
+      "location": {
+        "x": 470.864,
+        "y": -1425.25,
+        "z": 261.898
+      },
+      "mobility": "MOVABLE",
+      "rotation": {
+        "pitch": 0.0,
+        "roll": -90.0,
+        "yaw": 0.0
+      },
+      "soft_source_radius": null,
+      "source_height": 58.0,
+      "source_radius": null,
+      "source_width": 58.0,
+      "temperature": 3600.0,
+      "use_temperature": true
+    },
+    {
+      "attenuation_radius": 720.0,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "USE_PROJECT_SETTING",
+      "cast_shadows": true,
+      "class": "RectLight",
+      "component_class": "RectLightComponent",
+      "indirect_lighting_intensity": 0.25,
+      "intensity": 950.0,
+      "label": "Infinigen1dcacf23_Ceiling_RectLight_3",
+      "location": {
+        "x": 531.652,
+        "y": -1617.59,
+        "z": 261.896
+      },
+      "mobility": "MOVABLE",
+      "rotation": {
+        "pitch": 0.0,
+        "roll": -90.0,
+        "yaw": 0.0
+      },
+      "soft_source_radius": null,
+      "source_height": 58.0,
+      "source_radius": null,
+      "source_width": 58.0,
+      "temperature": 3600.0,
+      "use_temperature": true
+    },
+    {
+      "class": "SkyAtmosphere",
+      "component_class": null,
+      "label": "Infinigen1dcacf23_SkyAtmosphere",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "rotation": {
+        "pitch": 0.0,
+        "roll": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "attenuation_radius": null,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "USE_PROJECT_SETTING",
+      "cast_shadows": true,
+      "class": "DirectionalLight",
+      "component_class": "DirectionalLightComponent",
+      "indirect_lighting_intensity": 0.18000000715255737,
+      "intensity": 2.0,
+      "label": "Infinigen1dcacf23_Sun_DirectionalLight",
+      "location": {
+        "x": -900.0,
+        "y": 1950.0,
+        "z": 780.0
+      },
+      "mobility": "MOVABLE",
+      "rotation": {
+        "pitch": -42.0,
+        "roll": -26.0,
+        "yaw": 0.0
+      },
+      "soft_source_radius": null,
+      "source_height": null,
+      "source_radius": null,
+      "source_width": null,
+      "temperature": 5600.0,
+      "use_temperature": true
+    },
+    {
+      "attenuation_radius": 340.0,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "USE_PROJECT_SETTING",
+      "cast_shadows": true,
+      "class": "PointLight",
+      "component_class": "PointLightComponent",
+      "indirect_lighting_intensity": 0.3499999940395355,
+      "intensity": 650.0,
+      "label": "Infinigen1dcacf23_TableLamp_PointLight_0",
+      "location": {
+        "x": 35.669,
+        "y": -1717.635,
+        "z": 112.736
+      },
+      "mobility": "MOVABLE",
+      "rotation": {
+        "pitch": 0.0,
+        "roll": 0.0,
+        "yaw": 0.0
+      },
+      "soft_source_radius": 16.0,
+      "source_height": null,
+      "source_radius": 8.0,
+      "source_width": null,
+      "temperature": 2700.0,
+      "use_temperature": true
+    },
+    {
+      "attenuation_radius": 340.0,
+      "cast_dynamic_shadows": true,
+      "cast_raytraced_shadow": "USE_PROJECT_SETTING",
+      "cast_shadows": true,
+      "class": "PointLight",
+      "component_class": "PointLightComponent",
+      "indirect_lighting_intensity": 0.3499999940395355,
+      "intensity": 650.0,
+      "label": "Infinigen1dcacf23_TableLamp_PointLight_1",
+      "location": {
+        "x": 34.042,
+        "y": -1671.905,
+        "z": 109.734
+      },
+      "mobility": "MOVABLE",
+      "rotation": {
+        "pitch": 0.0,
+        "roll": 0.0,
+        "yaw": 0.0
+      },
+      "soft_source_radius": 16.0,
+      "source_height": null,
+      "source_radius": 8.0,
+      "source_width": null,
+      "temperature": 2700.0,
+      "use_temperature": true
+    }
+  ],
+  "static_mesh_actor_count": 51,
+  "tuned_setup_lights": [
+    {
+      "intensity": 0.0,
+      "label": "Setup_DirectionalLight"
+    },
+    {
+      "intensity": 0.05999999865889549,
+      "label": "Setup_SkyLight"
+    }
+  ]
+}

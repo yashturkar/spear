@@ -1,0 +1,270 @@
+{
+  "kept_static_mesh_count_after_removal": 91,
+  "map_path": "/Game/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23",
+  "remove_prefixes": [
+    "Infinigen_living-room_0_0_",
+    "Infinigen_bedroom_0_0_",
+    "Infinigen_kitchen_0_0_",
+    "Infinigen_bathroom_0_0_"
+  ],
+  "removed": [
+    {
+      "bounds": {
+        "extent": {
+          "x": 160.664,
+          "y": 160.664,
+          "z": 0.486
+        },
+        "origin": {
+          "x": 38.962,
+          "y": 38.962,
+          "z": 0.378
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_bathroom_0_0_ceiling"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 175.0,
+          "y": 175.0,
+          "z": 145.962
+        },
+        "origin": {
+          "x": 61.193,
+          "y": 25.176,
+          "z": 0.686
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_bathroom_0_0_exterior"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 160.664,
+          "y": 167.832,
+          "z": 0.486
+        },
+        "origin": {
+          "x": 41.885,
+          "y": 71.446,
+          "z": -0.411
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_bathroom_0_0_floor"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 167.832,
+          "y": 167.832,
+          "z": 132.598
+        },
+        "origin": {
+          "x": 61.887,
+          "y": 9.512,
+          "z": -1.734
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_bathroom_0_0_wall"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 360.664,
+          "y": 160.664,
+          "z": 0.876
+        },
+        "origin": {
+          "x": -37.533,
+          "y": 25.015,
+          "z": 0.778
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_bedroom_0_0_ceiling"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 375.0,
+          "y": 175.0,
+          "z": 145.962
+        },
+        "origin": {
+          "x": -32.468,
+          "y": 2.624,
+          "z": -0.807
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_bedroom_0_0_exterior"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 367.832,
+          "y": 160.664,
+          "z": 0.876
+        },
+        "origin": {
+          "x": -103.765,
+          "y": 10.02,
+          "z": -0.8
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_bedroom_0_0_floor"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 367.832,
+          "y": 175.0,
+          "z": 133.377
+        },
+        "origin": {
+          "x": -19.463,
+          "y": -3.57,
+          "z": -2.723
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_bedroom_0_0_wall"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 260.664,
+          "y": 285.664,
+          "z": 0.0
+        },
+        "origin": {
+          "x": -14.177,
+          "y": -0.666,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_kitchen_0_0_ceiling"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 275.0,
+          "y": 300.0,
+          "z": 145.962
+        },
+        "origin": {
+          "x": 35.859,
+          "y": 52.997,
+          "z": 0.35
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_kitchen_0_0_exterior"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 260.664,
+          "y": 292.832,
+          "z": 0.0
+        },
+        "origin": {
+          "x": -40.295,
+          "y": 50.865,
+          "z": 0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_kitchen_0_0_floor"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 267.832,
+          "y": 292.832,
+          "z": 131.626
+        },
+        "origin": {
+          "x": 53.546,
+          "y": 67.125,
+          "z": -1.497
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_kitchen_0_0_wall"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 535.664,
+          "y": 435.664,
+          "z": 0.002
+        },
+        "origin": {
+          "x": 22.921,
+          "y": -2.794,
+          "z": 0.001
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_living-room_0_0_ceiling"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 550.0,
+          "y": 450.0,
+          "z": 145.962
+        },
+        "origin": {
+          "x": 40.177,
+          "y": 2.649,
+          "z": 2.228
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_living-room_0_0_exterior"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 542.832,
+          "y": 442.832,
+          "z": 0.002
+        },
+        "origin": {
+          "x": 14.636,
+          "y": 39.941,
+          "z": -0.0
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_living-room_0_0_floor"
+    },
+    {
+      "bounds": {
+        "extent": {
+          "x": 550.0,
+          "y": 450.0,
+          "z": 131.628
+        },
+        "origin": {
+          "x": 47.648,
+          "y": 0.464,
+          "z": -0.953
+        }
+      },
+      "class": "StaticMeshActor",
+      "label": "Infinigen_living-room_0_0_wall"
+    }
+  ],
+  "removed_count": 16,
+  "saved": true
+}

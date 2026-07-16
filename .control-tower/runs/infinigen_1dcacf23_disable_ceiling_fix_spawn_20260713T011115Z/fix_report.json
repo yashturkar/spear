@@ -1,0 +1,148 @@
+{
+  "map_path": "/Game/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23",
+  "spawn_location": {
+    "x": 325.0,
+    "y": -1425.0,
+    "z": 120.0
+  },
+  "spawn_rotation": {
+    "pitch": 180.0,
+    "yaw": 0.0,
+    "roll": 0.0
+  },
+  "player_starts": [
+    {
+      "label": "Setup_PlayerStart",
+      "class": "PlayerStart",
+      "old_location": {
+        "x": 350.0,
+        "y": 1450.0,
+        "z": 120.0
+      },
+      "new_location": {
+        "x": 325.0,
+        "y": -1425.0,
+        "z": 120.0
+      },
+      "old_rotation": {
+        "pitch": 0.0,
+        "yaw": 180.0,
+        "roll": -0.0
+      },
+      "new_rotation": {
+        "pitch": 7.016709298534876e-15,
+        "yaw": 180.0,
+        "roll": 180.0
+      }
+    }
+  ],
+  "disabled_ceiling_light_actors": [
+    {
+      "label": "Infinigen1dcacf23_Ceiling_RectLight_0",
+      "class": "RectLight",
+      "location": {
+        "x": 350.612,
+        "y": -1521.504,
+        "z": 261.896
+      },
+      "component_class": "RectLightComponent",
+      "visible": false,
+      "intensity": 0.0,
+      "indirect_lighting_intensity": 0.0,
+      "affects_world": false,
+      "cast_shadows": false
+    },
+    {
+      "label": "Infinigen1dcacf23_Ceiling_RectLight_1",
+      "class": "RectLight",
+      "location": {
+        "x": 109.846,
+        "y": -1553.177,
+        "z": 261.896
+      },
+      "component_class": "RectLightComponent",
+      "visible": false,
+      "intensity": 0.0,
+      "indirect_lighting_intensity": 0.0,
+      "affects_world": false,
+      "cast_shadows": false
+    },
+    {
+      "label": "Infinigen1dcacf23_Ceiling_RectLight_2",
+      "class": "RectLight",
+      "location": {
+        "x": 470.864,
+        "y": -1425.25,
+        "z": 261.898
+      },
+      "component_class": "RectLightComponent",
+      "visible": false,
+      "intensity": 0.0,
+      "indirect_lighting_intensity": 0.0,
+      "affects_world": false,
+      "cast_shadows": false
+    },
+    {
+      "label": "Infinigen1dcacf23_Ceiling_RectLight_3",
+      "class": "RectLight",
+      "location": {
+        "x": 531.652,
+        "y": -1617.59,
+        "z": 261.896
+      },
+      "component_class": "RectLightComponent",
+      "visible": false,
+      "intensity": 0.0,
+      "indirect_lighting_intensity": 0.0,
+      "affects_world": false,
+      "cast_shadows": false
+    }
+  ],
+  "disabled_ceiling_fixture_meshes": [
+    {
+      "label": "Infinigen_CeilingLightFactory_3923419__spawn_asset_3107171_",
+      "class": "StaticMeshActor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "component_class": "StaticMeshComponent",
+      "visible": false
+    },
+    {
+      "label": "Infinigen_CeilingLightFactory_3923419__spawn_asset_3218968_",
+      "class": "StaticMeshActor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "component_class": "StaticMeshComponent",
+      "visible": false
+    },
+    {
+      "label": "Infinigen_CeilingLightFactory_3923419__spawn_asset_4684690_",
+      "class": "StaticMeshActor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "component_class": "StaticMeshComponent",
+      "visible": false
+    },
+    {
+      "label": "Infinigen_CeilingLightFactory_3923419__spawn_asset_7840408_",
+      "class": "StaticMeshActor",
+      "location": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "component_class": "StaticMeshComponent",
+      "visible": false
+    }
+  ],
+  "saved": true
+}

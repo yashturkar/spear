@@ -1,0 +1,8 @@
+cook_infinigen_189cc130_realistic_brightened_20260716T1429 verification
+finished_at: 2026-07-16T14:30:06Z
+uat_exit_status: 0
+archive_sha256: 81b65fbe2630aab2a94235460c22a1829260e58def6cb0eb44c5980cef7ac1ea
+staged_sha256: 81b65fbe2630aab2a94235460c22a1829260e58def6cb0eb44c5980cef7ac1ea
+size_bytes: 4040510947
+missing_required_entries: []
+pak_entries_artifact: .control-tower/runs/cook_infinigen_189cc130_realistic_brightened_20260716T1429/logs/pak_entries_realistic.txt

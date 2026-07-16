@@ -1,0 +1,16 @@
+Read blend: "/home/yashturkar/Workspace/infinigen/outputs/189cc130/fine/scene.blend"
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/yashturkar/Workspace/infinigen/src/infinigen/tools/export.py", line 1319, in <module>
+    main(args)
+  File "/home/yashturkar/Workspace/infinigen/src/infinigen/tools/export.py", line 1273, in main
+    bpy.ops.wm.open_mainfile(filepath=str(blendfile))
+  File "/home/yashturkar/Workspace/infinigen/.venv/lib/python3.11/site-packages/bpy/4.2/scripts/modules/bpy/ops.py", line 109, in __call__
+    ret = _op_call(self.idname_py(), kw)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Error: Loading "/home/yashturkar/Workspace/infinigen/outputs/189cc130/fine/scene.blend" failed: Failed to read blend file '/home/yashturkar/Workspace/infinigen/outputs/189cc130/fine/scene.blend', not a blend file
+
+Skipping non-blend file /home/yashturkar/Workspace/infinigen/outputs/189cc130/fine/MaskTag.json
+Skipping non-blend file /home/yashturkar/Workspace/infinigen/outputs/189cc130/fine/polycounts.txt
+Error: Loading "/home/yashturkar/Workspace/infinigen/outputs/189cc130/fine/scene.blend" failed: Failed to read blend file '/home/yashturkar/Workspace/infinigen/outputs/189cc130/fine/scene.blend', not a blend file

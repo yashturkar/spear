@@ -1,0 +1,9 @@
+status=success
+map_path=/Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen
+source_umap=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Content/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen.umap exists=True
+archive_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak exists=True size_bytes=3588317299 mtime_epoch=1783731915.4985173 unrealpak_list_exit=0 ok=True
+archive_entry SpearSim/Content/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen.umap present=True
+archive_entry SpearSim/Content/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen.uexp present=True
+staged_pak=/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak exists=True size_bytes=3588317299 mtime_epoch=1783731915.4985173 unrealpak_list_exit=0 ok=True
+staged_entry SpearSim/Content/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen.umap present=True
+staged_entry SpearSim/Content/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen.uexp present=True

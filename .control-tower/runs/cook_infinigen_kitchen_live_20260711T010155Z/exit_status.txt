@@ -1,0 +1,6 @@
+uat_exit_status=0
+uat_finished_at=2026-07-11T01:05:23Z
+verify_exit_status=0
+direct_dry_run_exit_status=0
+wrapper_dry_run_exit_status=0
+finished_at=2026-07-11T01:05:25Z

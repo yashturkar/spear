@@ -1,0 +1,2 @@
+Previous no-fast_solve and broad fast_solve attempts showed slow solving around KitchenIsland proposals; real_geometry.gin attempts then failed because the local Infinigen build lacks terrain/lib/cpu/sdf_from_mesh/sdf_from_mesh.so.
+Selected fallback remains official Infinigen-Indoors Kitchen generation and uses the local HelloRoom restrict_solving counter/sink pattern without real_geometry, with r1024 export.

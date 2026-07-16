@@ -1,0 +1,166 @@
+{
+  "blend_file": "/home/yashturkar/Workspace/infinigen/outputs/infinigen_indoors_kitchen/coarse/scene.blend",
+  "camera_count": 2,
+  "file_size_bytes": 52700363,
+  "image_count": 1,
+  "largest_meshes": [
+    {
+      "materials": 7,
+      "name": "KitchenIslandFactory(1112434).spawn_asset(6018961)",
+      "polygons": 150086,
+      "vertices": 80720
+    },
+    {
+      "materials": 17,
+      "name": "KitchenSpaceFactory(4790863).spawn_asset(177424)",
+      "polygons": 126369,
+      "vertices": 69506
+    },
+    {
+      "materials": 1,
+      "name": "skirtingboard_support",
+      "polygons": 11845,
+      "vertices": 13846
+    },
+    {
+      "materials": 1,
+      "name": "TapFactory(4018701).spawn_asset(2889896)",
+      "polygons": 9330,
+      "vertices": 9476
+    },
+    {
+      "materials": 4,
+      "name": "WindowFactory(87591).spawn_asset(5)",
+      "polygons": 6329,
+      "vertices": 7266
+    },
+    {
+      "materials": 4,
+      "name": "WindowFactory(87591).spawn_asset(15)",
+      "polygons": 5709,
+      "vertices": 6208
+    },
+    {
+      "materials": 4,
+      "name": "WindowFactory(53315).spawn_asset(11)",
+      "polygons": 5737,
+      "vertices": 6155
+    },
+    {
+      "materials": 4,
+      "name": "WindowFactory(53315).spawn_asset(3)",
+      "polygons": 5743,
+      "vertices": 6137
+    },
+    {
+      "materials": 4,
+      "name": "WindowFactory(87591).spawn_asset(4)",
+      "polygons": 5682,
+      "vertices": 5984
+    },
+    {
+      "materials": 4,
+      "name": "WindowFactory(87591).spawn_asset(16)",
+      "polygons": 5224,
+      "vertices": 5316
+    },
+    {
+      "materials": 1,
+      "name": "SinkFactory(4018701).spawn_asset(2889896)",
+      "polygons": 3492,
+      "vertices": 3524
+    },
+    {
+      "materials": 1,
+      "name": "WindowFactory(53315).spawn_asset(2)",
+      "polygons": 2190,
+      "vertices": 2024
+    },
+    {
+      "materials": 1,
+      "name": "WindowFactory(53315).spawn_asset(12)",
+      "polygons": 866,
+      "vertices": 792
+    },
+    {
+      "materials": 3,
+      "name": "PanelDoorFactory(4264422).spawn_asset(0)",
+      "polygons": 528,
+      "vertices": 702
+    },
+    {
+      "materials": 3,
+      "name": "PanelDoorFactory(4264422).spawn_asset(1)",
+      "polygons": 528,
+      "vertices": 702
+    },
+    {
+      "materials": 3,
+      "name": "PanelDoorFactory(4264422).spawn_asset(2)",
+      "polygons": 528,
+      "vertices": 702
+    },
+    {
+      "materials": 3,
+      "name": "PanelDoorFactory(4264422).spawn_asset(4)",
+      "polygons": 528,
+      "vertices": 702
+    },
+    {
+      "materials": 0,
+      "name": "living-room_0/0.meshed",
+      "polygons": 920,
+      "vertices": 448
+    },
+    {
+      "materials": 2,
+      "name": "bedroom_0/0.wall",
+      "polygons": 522,
+      "vertices": 408
+    },
+    {
+      "materials": 0,
+      "name": "bedroom_0/0.meshed",
+      "polygons": 824,
+      "vertices": 400
+    }
+  ],
+  "light_count": 17,
+  "material_count": 101,
+  "mesh_object_count": 100,
+  "object_count": 121,
+  "polygons": 351837,
+  "representative_objects": [
+    "KitchenIslandFactory(1112434).spawn_asset(6018961)",
+    "KitchenSpaceFactory(4790863).spawn_asset(177424)",
+    "skirtingboard_support",
+    "TapFactory(4018701).spawn_asset(2889896)",
+    "WindowFactory(87591).spawn_asset(5)",
+    "WindowFactory(87591).spawn_asset(15)",
+    "WindowFactory(53315).spawn_asset(11)",
+    "WindowFactory(53315).spawn_asset(3)",
+    "WindowFactory(87591).spawn_asset(4)",
+    "WindowFactory(87591).spawn_asset(16)",
+    "SinkFactory(4018701).spawn_asset(2889896)",
+    "WindowFactory(53315).spawn_asset(2)",
+    "WindowFactory(53315).spawn_asset(12)",
+    "PanelDoorFactory(4264422).spawn_asset(0)",
+    "PanelDoorFactory(4264422).spawn_asset(1)",
+    "PanelDoorFactory(4264422).spawn_asset(2)",
+    "PanelDoorFactory(4264422).spawn_asset(4)",
+    "living-room_0/0.meshed",
+    "bedroom_0/0.wall",
+    "bedroom_0/0.meshed",
+    "living-room_0/0.wall",
+    "WindowFactory(53315).spawn_asset(8)",
+    "Cube",
+    "Cube.002",
+    "Cube.004",
+    "Cube.006",
+    "living-room_0/0",
+    "LiteDoorFactory(9360095).spawn_asset(3)",
+    "WindowFactory(53315).spawn_asset(10)",
+    "WindowFactory(53315).spawn_asset(6)"
+  ],
+  "vertices": 227725
+}

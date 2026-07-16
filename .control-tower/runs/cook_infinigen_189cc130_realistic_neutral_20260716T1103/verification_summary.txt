@@ -1,0 +1,12 @@
+package_version: infinigen_189cc130_realistic_neutral_linux_2026-07-16
+run_id: cook_infinigen_189cc130_realistic_neutral_20260716T1103
+lookdev_run_id: infinigen_189cc130_realistic_neutral_20260716T110212
+uat_exit_status: 0
+verify_exit_status: 0
+sha256: 809d025865d53353f120c7ea48c9f8f5e807ee9c4dd397c0bd2b9160ba27906f
+size_bytes: 4040511001
+mtime: 2026-07-16T11:04:15.763368-04:00
+archive_pak: cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+staged_pak: cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+required_entries_present: True
+missing_entries: []

@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "infinigen_indoors_kitchen_20260710T235251Z",
+  "started_utc": "2026-07-11T00:17:57Z",
+  "tmux_session": "spear_infinigen_kitchen_235251",
+  "tmux_window": "build",
+  "attach_command": "tmux attach -t spear_infinigen_kitchen_235251",
+  "world_name": "infinigen_indoors_kitchen",
+  "source_root": "/home/yashturkar/Workspace/infinigen/outputs/infinigen_indoors_kitchen",
+  "coarse_blend": "/home/yashturkar/Workspace/infinigen/outputs/infinigen_indoors_kitchen/coarse/scene.blend",
+  "source_stats": "/home/yashturkar/Workspace/spear/.control-tower/runs/infinigen_indoors_kitchen_20260710T235251Z/source_stats.json",
+  "fbx_file": "/home/yashturkar/Workspace/infinigen/outputs/infinigen_indoors_kitchen/spear_export_r1024/export_scene.blend/export_scene.fbx",
+  "target_map_path": "/Game/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen",
+  "target_mesh_dir": "/Game/SPEAR/Scenes/infinigen_indoors_kitchen/Meshes",
+  "unreal_engine_dir": "/home/yashturkar/Linux_Unreal_Engine_5.5.4",
+  "material_policy": "import_materials_and_textures_enabled",
+  "collision_policy": "auto_generate_collision_enabled",
+  "export_resolution": 1024,
+  "generation_policy": "official infinigen_examples.generate_indoors Kitchen single-room; real_geometry.gin proved incompatible because the local Infinigen build lacks terrain/lib/cpu/sdf_from_mesh/sdf_from_mesh.so, so selected run uses the documented restrict_solving Kitchen counter/sink path without real_geometry and exports r1024",
+  "lighting_policy": "dim movable Unreal RectLight fixtures added only after import"
+}

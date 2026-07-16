@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "paks": {
+    "archive": {
+      "exists": true,
+      "has_uexp": true,
+      "has_umap": true,
+      "ok": true,
+      "path": "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+      "size_bytes": 3588316599,
+      "unrealpak_list_exit": 0
+    },
+    "staged": {
+      "exists": true,
+      "has_uexp": true,
+      "has_umap": true,
+      "ok": true,
+      "path": "/home/yashturkar/Workspace/spear/cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
+      "size_bytes": 3588316599,
+      "unrealpak_list_exit": 0
+    }
+  },
+  "required_entries": {
+    "uexp": "SpearSim/Content/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen.uexp",
+    "umap": "SpearSim/Content/SPEAR/Scenes/infinigen_indoors_kitchen/Maps/infinigen_indoors_kitchen.umap"
+  },
+  "world": "infinigen_indoors_kitchen"
+}
