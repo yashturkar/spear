@@ -1,0 +1,11 @@
+SpearSim/Content/CollegeCafeteria/levels/L_Showcase.uexp
+SpearSim/Content/CollegeCafeteria/levels/L_Showcase.umap
+SpearSim/Content/CollegeCafeteria/levels/L_Showcase_BuiltData.uasset
+SpearSim/Content/CollegeCafeteria/levels/L_Showcase_BuiltData.uexp
+SpearSim/Content/CollegeCafeteria/materials/MI_Lights_On.uasset
+SpearSim/Content/CollegeCafeteria/materials/MI_Lights_On.uexp
+SpearSim/Content/CollegeCafeteria/materials/MI_Lights_OnBlue.uasset
+SpearSim/Content/CollegeCafeteria/materials/MI_Lights_OnBlue.uexp
+SpearSim/Content/CollegeCafeteria/meshes/SM_Cafeteria.uasset
+SpearSim/Content/CollegeCafeteria/meshes/SM_Cafeteria.ubulk
+SpearSim/Content/CollegeCafeteria/meshes/SM_Cafeteria.uexp

@@ -1,0 +1,25 @@
+College cafeteria showcase cook/package verification
+
+Run ID: cook_college_cafeteria_showcase_20260716T154626
+Finished: 2026-07-16T19:50:04Z
+UAT exit status: 0
+Requested map: /Game/CollegeCafeteria/levels/L_Showcase
+Archive PAK: cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+Staged PAK: cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak
+SHA256: 0f4b8caaf31be899b68ea1f91d0b0be83d8139a0d58a30730b294512bac86696
+Size bytes: 4780552749
+
+Required entries verified with UnrealPak -List:
+- SpearSim/Content/CollegeCafeteria/levels/L_Showcase.umap
+- SpearSim/Content/CollegeCafeteria/levels/L_Showcase.uexp
+- SpearSim/Content/CollegeCafeteria/levels/L_Showcase_BuiltData.uasset
+- SpearSim/Content/CollegeCafeteria/levels/L_Showcase_BuiltData.uexp
+
+Launcher verification:
+- tools/spear-run env list shows college_cafeteria
+- tools/spear-run live college_cafeteria --setting default --dry-run resolves to examples/flashlight/run.py --map-path /Game/CollegeCafeteria/levels/L_Showcase --movement-speed 600 --enable-auto-exposure --startup-warmup-seconds 3
+
+Bounded live smoke:
+- Command: timeout -s INT 75s tools/spear-run live college_cafeteria --setting default
+- Result: map loaded from the packaged PAK, SPEAR RPC connected, camera flashlight spawned, startup warmup completed, and live flashlight control began.
+- Expected stop: timeout interrupted the live loop after validation; no pre-existing or lingering SpearSim runtime process was found.
