@@ -15,27 +15,16 @@ import spear
 
 MAPS = {
     "apartment_0000": "/Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000",
-    "japanese_office_dark": "/Game/JapaneseOffice/Maps/Demonstration_Dark",
 }
 
 # Coarse floor-level goals for maps where we want a hand-authored path. The
 # renderer asks Unreal's navmesh to find the collision-aware path between these
 # goals, then raises the camera to human height. Other maps sample navmesh goals.
-ROUTE_GOALS_BY_MAP = {
-    "japanese_office_dark": [
-        {"X": 0.0, "Y": -900.0, "Z": 10.0},
-        {"X": 0.0, "Y": -350.0, "Z": 10.0},
-        {"X": 560.0, "Y": -350.0, "Z": 10.0},
-        {"X": 560.0, "Y": 120.0, "Z": 10.0},
-        {"X": 650.0, "Y": 800.0, "Z": 10.0},
-        {"X": 650.0, "Y": 1320.0, "Z": 10.0},
-        {"X": 80.0, "Y": 1500.0, "Z": 10.0},
-    ],
-}
+ROUTE_GOALS_BY_MAP = {}
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--map", choices=sorted(MAPS.keys()), default="japanese_office_dark")
+parser.add_argument("--map", choices=sorted(MAPS.keys()), default="apartment_0000")
 parser.add_argument("--duration-seconds", type=float, default=10.0)
 parser.add_argument("--fps", type=int, default=24)
 parser.add_argument("--width", type=int, default=1280)

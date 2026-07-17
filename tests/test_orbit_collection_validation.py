@@ -31,7 +31,7 @@ RUN_SPEC.loader.exec_module(flashlight_run)
 def make_orbit_spec():
     return {
         "schema_version": "1.0.0",
-        "map": "japanese_office_dark",
+        "map": "cafeteria_500sqft_v2_flashlight_validation_dark",
         "map_path": None,
         "start_camera_pose": {
             "camera_location": {"X": 0.0, "Y": 0.0, "Z": 100.0},
@@ -1805,7 +1805,7 @@ with open(os.environ["WORKFLOW_FAKE_LOG"], "a", encoding="utf-8") as f:
     def test_build_config_keeps_sp_core_ini_keys_compatible(self):
         args = orbit_collection.parse_args([
             "--mode", "render",
-            "--map", "japanese_office_dark",
+            "--map-path", "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark",
             "--width", "64",
             "--height", "48",
         ])

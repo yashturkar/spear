@@ -10,35 +10,10 @@ Run it from the repository root:
 python examples/flashlight/run.py
 ```
 
-Use the imported Japanese office map:
+Use the imported cafeteria v2 map:
 
 ```console
-python examples/flashlight/run.py --map japanese_office
-```
-
-Create or refresh the dark duplicate of the Japanese office map after importing
-`Content/JapaneseOffice`:
-
-```console
-python tools/run_editor_script.py \
-  --unreal-engine-dir /home/yashturkar/Linux_Unreal_Engine_5.5.4 \
-  --script /home/yashturkar/Workspace/spear/examples/flashlight/setup_japanese_office_dark.py \
-  --replace-existing-map
-```
-
-Cook the dark map into the standalone package:
-
-```console
-python tools/run_uat.py \
-  --unreal-engine-dir /home/yashturkar/Linux_Unreal_Engine_5.5.4 \
-  --cook-maps /Game/JapaneseOffice/Maps/Demonstration_Dark \
-  -cook -stage -package -archive -pak -skipbuild
-```
-
-Launch the dark duplicate of the Japanese office map:
-
-```console
-python examples/flashlight/run.py --map japanese_office_dark --movement-speed 600
+python examples/flashlight/run.py --map cafeteria_500sqft_v2 --movement-speed 600
 ```
 
 The flashlight entry points disable Unreal auto exposure / eye adaptation by
@@ -157,7 +132,7 @@ python -m pip install -e 'python[examples]'
 Run the live programmatic stream from the repository root:
 
 ```console
-python examples/flashlight/run_programmatic_rerun.py --map japanese_office_dark --movement-speed 600 --disable-scene-lights
+python examples/flashlight/run_programmatic_rerun.py --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark --movement-speed 600 --disable-scene-lights
 ```
 
 The script follows the current live viewport camera instead of a fixed route,
@@ -354,11 +329,11 @@ Close other `SpearSim` or flashlight sessions before rendering; SPEAR expects a
 single process on its RPC port.
 
 The default flythrough route uses Unreal's navmesh to find collision-aware paths
-between coarse floor-level goals, then raises the camera to human height. For
-`japanese_office_dark`, edit `ROUTE_GOALS_BY_MAP` in `render_flythrough.py` to
-tune the route. Other maps, including `apartment_0000`, sample route goals from
-the map navmesh; adjust this with `--num-route-goals`. For debugging, pass
-`--route-mode straight` to render direct line segments between fixed goals.
+between coarse floor-level goals, then raises the camera to human height.
+Maps without a hand-authored route, including `apartment_0000`, sample route
+goals from the map navmesh; adjust this with `--num-route-goals`. For
+debugging, pass `--route-mode straight` to render direct line segments between
+fixed goals.
 
 Pass `--render-ground-truth` to save synchronized per-frame outputs in separate
 folders:

@@ -66,8 +66,6 @@ MAPS = {
     "apartment_0000": "/Game/SPEAR/Scenes/apartment_0000/Maps/apartment_0000",
     "advanced_lighting": "/Game/StarterContent/Maps/Advanced_Lighting",
     "cafeteria_500sqft_v2": "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2",
-    "japanese_office": "/Game/JapaneseOffice/Maps/Demonstration",
-    "japanese_office_dark": "/Game/JapaneseOffice/Maps/Demonstration_Dark",
     "minimal_default": "/Game/StarterContent/Maps/Minimal_Default",
     "starter_map": "/Game/StarterContent/Maps/StarterMap",
     "third_person": "/Game/ThirdPerson/Maps/ThirdPersonMap",

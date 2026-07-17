@@ -73,7 +73,7 @@ current viewport camera, controls an attached spotlight from Python, and logs
 camera-aligned active-illumination observations to Rerun.
 
 ```console
-python examples/flashlight/run_programmatic_rerun.py --map japanese_office_dark --movement-speed 600 --disable-scene-lights
+python examples/flashlight/run_programmatic_rerun.py --map-path /Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark --movement-speed 600 --disable-scene-lights
 ```
 
 The stream logs final-tone-curve RGB, metric depth, and a normalized depth RGB

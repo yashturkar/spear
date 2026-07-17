@@ -19,7 +19,8 @@ cpp/unreal_projects/SpearSim/Content/__ExternalActors__
 cpp/unreal_projects/SpearSim/Content/__ExternalObjects__
 cpp/unreal_projects/SpearSim/Content/Characters
 cpp/unreal_projects/SpearSim/Content/Humoto
-cpp/unreal_projects/SpearSim/Content/JapaneseOffice
+cpp/unreal_projects/SpearSim/Content/CollegeCafeteria/
+cpp/unreal_projects/SpearSim/Content/JapaneseOffice/
 cpp/unreal_projects/SpearSim/Content/Kujiale
 cpp/unreal_projects/SpearSim/Content/LevelPrototyping
 cpp/unreal_projects/SpearSim/Content/Megascans
@@ -86,3 +87,5 @@ examples/flashlight/flythrough_output*
 examples/flashlight/orbit_spec.json
 examples/flashlight/orbit_collection_output*
 examples/flashlight/japanese_office_actors.json
+
+*.umap

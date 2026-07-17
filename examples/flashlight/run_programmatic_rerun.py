@@ -21,8 +21,6 @@ MAPS = {
     "debug_0000": "/Game/SPEAR/Scenes/debug_0000/Maps/debug_0000",
     "debug_0001": "/Game/SPEAR/Scenes/debug_0001/Maps/debug_0001",
     "advanced_lighting": "/Game/StarterContent/Maps/Advanced_Lighting",
-    "japanese_office": "/Game/JapaneseOffice/Maps/Demonstration",
-    "japanese_office_dark": "/Game/JapaneseOffice/Maps/Demonstration_Dark",
     "minimal_default": "/Game/StarterContent/Maps/Minimal_Default",
     "starter_map": "/Game/StarterContent/Maps/StarterMap",
     "third_person": "/Game/ThirdPerson/Maps/ThirdPersonMap",

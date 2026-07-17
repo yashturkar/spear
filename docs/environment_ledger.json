@@ -1,195 +1,30 @@
 {
   "schema_version": "1.0.0",
-  "default_package_version": "college_cafeteria_showcase_linux_2026-07-16",
+  "default_package_version": "full_ledger_plus_infinigen_189cc130_table_lamp_repositioned_screen_off_linux_2026-07-13",
   "active_package": {
-    "package_version": "college_cafeteria_showcase_linux_2026-07-16",
-    "run_id": "cook_college_cafeteria_showcase_20260716T154626",
-    "finished_at": "2026-07-16T19:50:04Z",
+    "package_version": "full_ledger_plus_infinigen_189cc130_table_lamp_repositioned_screen_off_linux_2026-07-13",
+    "run_id": "infinigen_189cc130_table_lamp_only_20260714T002136Z",
+    "finished_at": "2026-07-14T00:59:41Z",
     "uat_exit_status": 0,
     "verify_exit_status": 0,
-    "ledger_target_count": 1,
-    "coverage_summary": "Focused Linux package cooked on 2026-07-16 for the Fab CollegeCafeteria L_Showcase map. It also includes run_uat.py default/template maps and configured always-cook directories, but it is not a full-ledger recook for every environment.",
+    "ledger_target_count": 5,
+    "coverage_summary": "Full-ledger Linux package cooked on 2026-07-13 with the non-licensed SPEAR/Infinigen environments, plus the edited infinigen_189cc130 table-lamp screen-off map.",
     "archive_pak": "cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
     "staged_pak": "cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
-    "sha256": "0f4b8caaf31be899b68ea1f91d0b0be83d8139a0d58a30730b294512bac86696",
-    "size_bytes": 4780552749,
-    "mtime": "2026-07-16T15:50:03.240545603-04:00",
-    "verification_artifact": ".control-tower/runs/cook_college_cafeteria_showcase_20260716T154626/verification_summary.txt",
-    "coverage_artifact": ".control-tower/runs/cook_college_cafeteria_showcase_20260716T154626/logs/pak_entries_college_cafeteria_showcase.txt",
-    "validation_caveat": "Focused cook/package coverage plus bounded live flashlight smoke for college_cafeteria only; older ledger environments still point at their previous package evidence until a full-ledger recook is run.",
+    "sha256": "4b9dc32d6c02ddad8093695f629f0428b0a1595822efbd8ecaac895ad94d53fa",
+    "size_bytes": 5259388196,
+    "verification_artifact": ".control-tower/runs/infinigen_189cc130_table_lamp_only_20260714T002136Z/verification_summary.txt",
+    "validation_caveat": "This package predates the source-tree pruning. Recook after the purge before using package coverage as clean sharing evidence.",
     "source_tree_scene_dirs": [
       "apartment_0000",
       "cafeteria_500sqft_v2",
-      "CollegeCafeteria",
       "infinigen_189cc130",
       "infinigen_1dcacf23",
-      "infinigen_indoors_0000",
-      "JapaneseOffice"
+      "infinigen_indoors_0000"
     ],
-    "source_tree_runnable_count": 9
+    "source_tree_runnable_count": 7
   },
   "environments": [
-    {
-      "alias": "japanese_office",
-      "display_name": "Japanese office",
-      "unreal_map_path": "/Game/JapaneseOffice/Maps/Demonstration",
-      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/JapaneseOffice/Maps/Demonstration.umap",
-      "category": "bundled",
-      "status": "usable",
-      "source": "Bundled JapaneseOffice content; user-edited Demonstration map saved locally on 2026-07-16",
-      "created_or_imported_date": "pre-existing; edited 2026-07-16",
-      "last_cooked_date": "2026-07-16",
-      "package_version": "japanese_office_demonstration_linux_2026-07-16",
-      "cook_artifacts": [
-        ".control-tower/runs/cook_japanese_office_20260716T114249/logs/cook_package.log",
-        ".control-tower/runs/cook_japanese_office_20260716T114249/logs/pak_entries_japanese_office_map.txt",
-        ".control-tower/runs/cook_japanese_office_20260716T114249/verification_summary.txt"
-      ],
-      "validation": {
-        "summary": "Edited Japanese office Demonstration map cooked successfully into the active Linux SPEAR package. The PAK listing verifies Demonstration.umap and Demonstration.uexp are present.",
-        "runtime_visual_validation": "needs-validation"
-      },
-      "recommended_settings": {
-        "live": "default",
-        "map_argument_preference": "--map",
-        "camera_hfov": 63.59,
-        "camera_vfov": 49.40,
-        "light_full_cone_degrees": 60.0,
-        "live_setting_overrides": {
-          "default": [
-            "--movement-speed",
-            "600",
-            "--resx",
-            "690",
-            "--resy",
-            "512",
-            "--camera-hfov",
-            "63.59",
-            "--camera-vfov",
-            "49.40",
-            "--inner-cone-angle",
-            "30.0",
-            "--outer-cone-angle",
-            "30.0"
-          ]
-        }
-      },
-      "notes": [
-        "Run `spear live japanese_office --default` to launch this cooked map through the live runtime.",
-        "Default live launch requests a 690x512 viewport, 63.59 degree HFOV, and 49.40 degree VFOV with the camera flashlight disabled.",
-        "This focused package replaced the active Standalone-Development Linux PAK and is not a full-ledger recook."
-      ],
-      "package_artifact": {
-        "package_version": "japanese_office_demonstration_linux_2026-07-16",
-        "run_id": "cook_japanese_office_20260716T114249",
-        "finished_at": "2026-07-16T15:43:58Z",
-        "uat_exit_status": 0,
-        "verify_exit_status": 0,
-        "archive_pak": "cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
-        "staged_pak": "cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
-        "sha256": "d148b3922fc17a731623380808fb3a9300594bce5375a836df233e030d88a47d",
-        "size_bytes": 4040835575,
-        "required_entries": [
-          "SpearSim/Content/JapaneseOffice/Maps/Demonstration.umap",
-          "SpearSim/Content/JapaneseOffice/Maps/Demonstration.uexp"
-        ],
-        "verification_artifact": ".control-tower/runs/cook_japanese_office_20260716T114249/verification_summary.txt",
-        "pak_entries_artifact": ".control-tower/runs/cook_japanese_office_20260716T114249/logs/pak_entries_japanese_office_map.txt"
-      }
-    },
-    {
-      "alias": "college_cafeteria",
-      "display_name": "College cafeteria",
-      "unreal_map_path": "/Game/CollegeCafeteria/levels/L_Showcase",
-      "local_umap_path": "cpp/unreal_projects/SpearSim/Content/CollegeCafeteria/levels/L_Showcase.umap",
-      "category": "fab-import",
-      "status": "runnable",
-      "source": "Fab CollegeCafeteria environment imported into SpearSim content on 2026-07-16",
-      "created_or_imported_date": "2026-07-16",
-      "last_cooked_date": "2026-07-16",
-      "package_version": "college_cafeteria_showcase_linux_2026-07-16",
-      "cook_artifacts": [
-        ".control-tower/runs/cook_college_cafeteria_showcase_20260716T154626/verification_summary.txt",
-        ".control-tower/runs/cook_college_cafeteria_showcase_20260716T154626/logs/pak_entries_college_cafeteria_showcase.txt"
-      ],
-      "validation": {
-        "summary": "User inspected L_Showcase in the Unreal editor and reported that the showcase looks good. Focused Linux cook/package completed successfully on 2026-07-16, UnrealPak listing verifies the showcase map, built data, and representative cafeteria mesh/material assets are present, and a bounded live flashlight smoke loaded the packaged map, connected SPEAR RPC, spawned the camera flashlight, completed startup warmup, and entered live flashlight control.",
-        "runtime_visual_validation": "bounded-live-smoke-passed",
-        "asset_counts": {
-          "unreal_asset_files": 574,
-          "source_content_bytes": 1373895505
-        }
-      },
-      "recommended_settings": {
-        "live": "beacon",
-        "map_argument_preference": "--map-path",
-        "live_setting_overrides": {
-          "beacon": [
-            "--live-lighting-mode",
-            "realistic",
-            "--flashlight-profile",
-            "realistic_live_flashlight",
-            "--disable-auto-exposure",
-            "--movement-speed",
-            "600",
-            "--scene-light-intensity-scale",
-            "1.0",
-            "--indirect-lighting-intensity",
-            "0.05",
-            "--startup-warmup-seconds",
-            "3"
-          ],
-          "default": [
-            "--movement-speed",
-            "600",
-            "--enable-auto-exposure",
-            "--disable-flashlight"
-          ],
-          "realistic": [
-            "--live-lighting-mode",
-            "realistic",
-            "--flashlight-profile",
-            "realistic_live_flashlight",
-            "--disable-auto-exposure",
-            "--movement-speed",
-            "600",
-            "--scene-light-intensity-scale",
-            "1.0",
-            "--indirect-lighting-intensity",
-            "0.05",
-            "--startup-warmup-seconds",
-            "3"
-          ]
-        }
-      },
-      "notes": [
-        "Primary Fab showcase map for flashlight teleop.",
-        "Imported under /Game/CollegeCafeteria with L_Overview available separately at /Game/CollegeCafeteria/levels/L_Overview.",
-        "Run `spear live college_cafeteria --default` from a display-capable session for the regular environment without a camera flashlight.",
-        "Run `spear live college_cafeteria --beacon` from a display-capable session to launch the cooked map through the flashlight runtime.",
-        "Beacon launch uses realistic live renderer settings, fixed exposure, the inverse-square realistic_live_flashlight profile, and reduced indirect flashlight bounce to avoid a flat screen-space wash.",
-        "Bounded smoke used timeout to stop after live control began; the timeout interrupt produced a control-loop assertion during shutdown, but the map load and flashlight setup completed before interruption."
-      ],
-      "package_artifact": {
-        "package_version": "college_cafeteria_showcase_linux_2026-07-16",
-        "run_id": "cook_college_cafeteria_showcase_20260716T154626",
-        "finished_at": "2026-07-16T19:50:04Z",
-        "uat_exit_status": 0,
-        "verify_exit_status": 0,
-        "archive_pak": "cpp/unreal_projects/SpearSim/Standalone-Development/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
-        "staged_pak": "cpp/unreal_projects/SpearSim/Saved/StagedBuilds/Linux/SpearSim/Content/Paks/SpearSim-Linux.pak",
-        "sha256": "0f4b8caaf31be899b68ea1f91d0b0be83d8139a0d58a30730b294512bac86696",
-        "size_bytes": 4780552749,
-        "required_entries": [
-          "SpearSim/Content/CollegeCafeteria/levels/L_Showcase.umap",
-          "SpearSim/Content/CollegeCafeteria/levels/L_Showcase.uexp",
-          "SpearSim/Content/CollegeCafeteria/levels/L_Showcase_BuiltData.uasset",
-          "SpearSim/Content/CollegeCafeteria/levels/L_Showcase_BuiltData.uexp"
-        ],
-        "verification_artifact": ".control-tower/runs/cook_college_cafeteria_showcase_20260716T154626/verification_summary.txt",
-        "pak_entries_artifact": ".control-tower/runs/cook_college_cafeteria_showcase_20260716T154626/logs/pak_entries_college_cafeteria_showcase.txt"
-      }
-    },
     {
       "alias": "apartment_0000",
       "display_name": "SPEAR apartment",

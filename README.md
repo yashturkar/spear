@@ -174,8 +174,7 @@ checks before starting Unreal:
 
 ```console
 spear env list
-spear live college_cafeteria --default
-spear live college_cafeteria --beacon
+spear live cafeteria_500sqft_v2 --default
 spear live cafeteria_500sqft_v2 --beacon
 spear live infinigen_indoors_0000 --beacon
 spear live infinigen_1dcacf23 --beacon

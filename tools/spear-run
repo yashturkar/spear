@@ -19,8 +19,6 @@ RUN_MAP_ALIASES = {
     "apartment_0000",
     "advanced_lighting",
     "cafeteria_500sqft_v2",
-    "japanese_office",
-    "japanese_office_dark",
     "minimal_default",
     "starter_map",
     "third_person",
@@ -29,7 +27,7 @@ RUN_MAP_ALIASES = {
 }
 RERUN_MAP_ALIASES = RUN_MAP_ALIASES - {"cafeteria_500sqft_v2"}
 ORBIT_MAP_ALIASES = RERUN_MAP_ALIASES
-FLYTHROUGH_MAP_ALIASES = {"apartment_0000", "japanese_office_dark"}
+FLYTHROUGH_MAP_ALIASES = {"apartment_0000"}
 
 LIVE_SETTINGS = {
     "default": [

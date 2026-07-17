@@ -11,9 +11,9 @@ import unittest
 ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), ".."))
 LAUNCHER = os.path.join(ROOT_DIR, "tools", "spear-run")
 LEDGER = os.path.join(ROOT_DIR, "docs", "environment_ledger.json")
-ACTIVE_PACKAGE_VERSION = "college_cafeteria_showcase_linux_2026-07-16"
-ACTIVE_PACKAGE_RUN_ID = "cook_college_cafeteria_showcase_20260716T154626"
-ACTIVE_PACKAGE_SHA256 = "0f4b8caaf31be899b68ea1f91d0b0be83d8139a0d58a30730b294512bac86696"
+ACTIVE_PACKAGE_VERSION = "full_ledger_plus_infinigen_189cc130_table_lamp_repositioned_screen_off_linux_2026-07-13"
+ACTIVE_PACKAGE_RUN_ID = "infinigen_189cc130_table_lamp_only_20260714T002136Z"
+ACTIVE_PACKAGE_SHA256 = "4b9dc32d6c02ddad8093695f629f0428b0a1595822efbd8ecaac895ad94d53fa"
 
 
 def load_launcher_module():
@@ -64,15 +64,14 @@ class SpearLauncherTests(unittest.TestCase):
             {
                 "package_version": ACTIVE_PACKAGE_VERSION,
                 "run_id": ACTIVE_PACKAGE_RUN_ID,
-                "finished_at": "2026-07-16T19:50:04Z",
+                "finished_at": "2026-07-14T00:59:41Z",
                 "uat_exit_status": 0,
                 "verify_exit_status": 0,
-                "ledger_target_count": 1,
+                "ledger_target_count": 5,
                 "coverage_summary": (
-                    "Focused Linux package cooked on 2026-07-16 for the Fab "
-                    "CollegeCafeteria L_Showcase map. It also includes run_uat.py "
-                    "default/template maps and configured always-cook directories, "
-                    "but it is not a full-ledger recook for every environment."
+                    "Full-ledger Linux package cooked on 2026-07-13 with the "
+                    "non-licensed SPEAR/Infinigen environments, plus the edited "
+                    "infinigen_189cc130 table-lamp screen-off map."
                 ),
                 "archive_pak": (
                     "cpp/unreal_projects/SpearSim/Standalone-Development/Linux/"
@@ -83,31 +82,23 @@ class SpearLauncherTests(unittest.TestCase):
                     "SpearSim/Content/Paks/SpearSim-Linux.pak"
                 ),
                 "sha256": ACTIVE_PACKAGE_SHA256,
-                "size_bytes": 4780552749,
-                "mtime": "2026-07-16T15:50:03.240545603-04:00",
+                "size_bytes": 5259388196,
                 "verification_artifact": (
-                    ".control-tower/runs/cook_college_cafeteria_showcase_20260716T154626/"
+                    ".control-tower/runs/infinigen_189cc130_table_lamp_only_20260714T002136Z/"
                     "verification_summary.txt"
                 ),
-                "coverage_artifact": (
-                    ".control-tower/runs/cook_college_cafeteria_showcase_20260716T154626/"
-                    "logs/pak_entries_college_cafeteria_showcase.txt"
-                ),
                 "validation_caveat": (
-                    "Focused cook/package coverage plus bounded live flashlight smoke "
-                    "for college_cafeteria only; older ledger environments still point "
-                    "at their previous package evidence until a full-ledger recook is run."
+                    "This package predates the source-tree pruning. Recook after the "
+                    "purge before using package coverage as clean sharing evidence."
                 ),
                 "source_tree_scene_dirs": [
                     "apartment_0000",
                     "cafeteria_500sqft_v2",
-                    "CollegeCafeteria",
                     "infinigen_189cc130",
                     "infinigen_1dcacf23",
                     "infinigen_indoors_0000",
-                    "JapaneseOffice",
                 ],
-                "source_tree_runnable_count": 9,
+                "source_tree_runnable_count": 7,
             },
         )
         aliases = [env["alias"] for env in ledger["environments"]]
@@ -115,8 +106,6 @@ class SpearLauncherTests(unittest.TestCase):
         self.assertEqual(
             set(aliases),
             {
-                "japanese_office",
-                "college_cafeteria",
                 "apartment_0000",
                 "infinigen_indoors_0000",
                 "cafeteria_500sqft_v2",
@@ -133,8 +122,6 @@ class SpearLauncherTests(unittest.TestCase):
         ]
         self.assertEqual(len(packaged_envs), ledger["active_package"]["ledger_target_count"])
         for alias in [
-            "japanese_office",
-            "college_cafeteria",
             "apartment_0000",
             "cafeteria_500sqft_v2",
             "cafeteria_500sqft_v2_flashlight_validation_dark",
@@ -145,6 +132,8 @@ class SpearLauncherTests(unittest.TestCase):
         ]:
             self.assertIn(alias, aliases)
         for alias in [
+            "japanese_office",
+            "college_cafeteria",
             "japanese_office_dark",
             "abandoned_room",
             "advanced_lighting",
@@ -173,7 +162,7 @@ class SpearLauncherTests(unittest.TestCase):
                 self.assertIsNotNone(env["local_umap_path"])
                 self.assertIsNotNone(env["package_version"])
                 if env["package_version"] == ACTIVE_PACKAGE_VERSION:
-                    self.assertEqual(env["last_cooked_date"], "2026-07-16")
+                    self.assertEqual(env["last_cooked_date"], "2026-07-13")
                     self.assertIn(
                         ledger["active_package"]["verification_artifact"],
                         env["cook_artifacts"],
@@ -188,8 +177,6 @@ class SpearLauncherTests(unittest.TestCase):
         self.assertEqual(
             aliases,
             {
-                "japanese_office",
-                "college_cafeteria",
                 "apartment_0000",
                 "infinigen_indoors_0000",
                 "cafeteria_500sqft_v2",
@@ -200,21 +187,24 @@ class SpearLauncherTests(unittest.TestCase):
             },
         )
 
-    def test_env_show_college_cafeteria_json(self):
-        result = run_launcher("env", "show", "college_cafeteria", "--json")
+    def test_env_show_cafeteria_500sqft_v2_json(self):
+        result = run_launcher("env", "show", "cafeteria_500sqft_v2", "--json")
 
         self.assertEqual(result.returncode, 0, result.stderr)
         data = json.loads(result.stdout)
-        self.assertEqual(data["alias"], "college_cafeteria")
-        self.assertEqual(data["unreal_map_path"], "/Game/CollegeCafeteria/levels/L_Showcase")
+        self.assertEqual(data["alias"], "cafeteria_500sqft_v2")
+        self.assertEqual(
+            data["unreal_map_path"],
+            "/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2",
+        )
         self.assertEqual(data["package_version"], ACTIVE_PACKAGE_VERSION)
 
-    def test_live_college_cafeteria_default_flag_dry_run(self):
-        result = run_launcher("live", "college_cafeteria", "--default", "--dry-run")
+    def test_live_cafeteria_500sqft_v2_default_flag_dry_run(self):
+        result = run_launcher("live", "cafeteria_500sqft_v2", "--default", "--dry-run")
 
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("examples/flashlight/run.py", result.stdout)
-        self.assertIn("--map-path /Game/CollegeCafeteria/levels/L_Showcase", result.stdout)
+        self.assertIn("--map cafeteria_500sqft_v2", result.stdout)
         self.assertIn("--movement-speed 600", result.stdout)
         self.assertIn("--enable-auto-exposure", result.stdout)
         self.assertIn("--disable-flashlight", result.stdout)
@@ -222,31 +212,30 @@ class SpearLauncherTests(unittest.TestCase):
         self.assertNotIn("--flashlight-profile realistic_live_flashlight", result.stdout)
         self.assertNotIn("--startup-warmup-seconds 3", result.stdout)
 
-    def test_live_college_cafeteria_beacon_dry_run(self):
-        result = run_launcher("live", "college_cafeteria", "--beacon", "--dry-run")
+    def test_live_cafeteria_500sqft_v2_beacon_dry_run(self):
+        result = run_launcher("live", "cafeteria_500sqft_v2", "--beacon", "--dry-run")
 
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("examples/flashlight/run.py", result.stdout)
-        self.assertIn("--map-path /Game/CollegeCafeteria/levels/L_Showcase", result.stdout)
+        self.assertIn("--map cafeteria_500sqft_v2", result.stdout)
         self.assertIn("--live-lighting-mode realistic", result.stdout)
         self.assertIn("--flashlight-profile realistic_live_flashlight", result.stdout)
         self.assertIn("--enable-flashlight", result.stdout)
         self.assertIn("--disable-auto-exposure", result.stdout)
         self.assertIn("--movement-speed 600", result.stdout)
-        self.assertIn("--scene-light-intensity-scale 1.0", result.stdout)
-        self.assertIn("--indirect-lighting-intensity 0.05", result.stdout)
+        self.assertIn("--scene-light-intensity-scale 0.0005", result.stdout)
         self.assertIn("--startup-warmup-seconds 3", result.stdout)
 
-    def test_live_college_cafeteria_without_mode_defaults_to_default_flag(self):
-        result = run_launcher("live", "college_cafeteria", "--dry-run")
+    def test_live_cafeteria_500sqft_v2_without_mode_defaults_to_default_flag(self):
+        result = run_launcher("live", "cafeteria_500sqft_v2", "--dry-run")
 
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("--enable-auto-exposure", result.stdout)
         self.assertIn("--disable-flashlight", result.stdout)
         self.assertNotIn("--flashlight-profile realistic_live_flashlight", result.stdout)
 
-    def test_live_college_cafeteria_setting_default_matches_default_flag(self):
-        result = run_launcher("live", "college_cafeteria", "--setting", "default", "--dry-run")
+    def test_live_cafeteria_500sqft_v2_setting_default_matches_default_flag(self):
+        result = run_launcher("live", "cafeteria_500sqft_v2", "--setting", "default", "--dry-run")
 
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("--enable-auto-exposure", result.stdout)
@@ -254,20 +243,8 @@ class SpearLauncherTests(unittest.TestCase):
         self.assertNotIn("--live-lighting-mode realistic", result.stdout)
         self.assertNotIn("--flashlight-profile realistic_live_flashlight", result.stdout)
 
-    def test_live_japanese_office_default_preserves_geometry_without_flashlight(self):
-        result = run_launcher("live", "japanese_office", "--default", "--dry-run")
-
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("--map japanese_office", result.stdout)
-        self.assertIn("--resx 690", result.stdout)
-        self.assertIn("--resy 512", result.stdout)
-        self.assertIn("--camera-hfov 63.59", result.stdout)
-        self.assertIn("--camera-vfov 49.40", result.stdout)
-        self.assertIn("--enable-auto-exposure", result.stdout)
-        self.assertIn("--disable-flashlight", result.stdout)
-
     def test_live_setting_cannot_combine_with_beacon(self):
-        result = run_launcher("live", "college_cafeteria", "--setting", "realistic", "--beacon", "--dry-run")
+        result = run_launcher("live", "cafeteria_500sqft_v2", "--setting", "realistic", "--beacon", "--dry-run")
 
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("--setting cannot be combined", result.stderr)
@@ -326,7 +303,7 @@ class SpearLauncherTests(unittest.TestCase):
     def test_live_beacon_enable_auto_exposure_passthrough_removes_mode_disable(self):
         result = run_launcher(
             "live",
-            "college_cafeteria",
+            "cafeteria_500sqft_v2",
             "--beacon",
             "--dry-run",
             "--",
