@@ -174,11 +174,12 @@ checks before starting Unreal:
 
 ```console
 spear env list
-spear live cafeteria_500sqft_v2 --setting realistic-2x
-spear live infinigen_indoors_0000 --setting realistic-2x
-spear live infinigen_1dcacf23 --setting realistic-2x
-spear live infinigen_189cc130 --setting realistic-2x
-spear live infinigen_189cc130_realistic --setting default -- --enable-auto-exposure --disable-flashlight --scene-light-intensity-scale 1.0
+spear live college_cafeteria --default
+spear live college_cafeteria --beacon
+spear live cafeteria_500sqft_v2 --beacon
+spear live infinigen_indoors_0000 --beacon
+spear live infinigen_1dcacf23 --beacon
+spear live infinigen_189cc130_realistic --default
 spear orbit render cafeteria_500sqft_v2_flashlight_validation_dark
 ```
 
@@ -187,9 +188,9 @@ spear orbit render cafeteria_500sqft_v2_flashlight_validation_dark
 | `cafeteria_500sqft_v2` | `/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2` | Current cafeteria scene. Generated/imported with materials, textures, auto collision, post-import Unreal RectLight fixtures, and successful cook/package validation. User visual validation of the live map is still pending. | `python examples/flashlight/run.py --map cafeteria_500sqft_v2 --movement-speed 600 --disable-auto-exposure --scene-light-intensity-scale 0.2` |
 | `cafeteria_500sqft_v2_flashlight_validation_dark` | `/Game/SPEAR/Scenes/cafeteria_500sqft_v2/Maps/cafeteria_500sqft_v2_flashlight_validation_dark` | Dark validation variant created from cafeteria v2, cooked/packaged, and orbit-validated on 2026-07-01. `scene_off_flashlight_off` stayed black for all 240 RGB frames with median mean luma `0.0`; `scene_off_flashlight_on` showed localized flashlight-only illumination. Metadata still reports unverified capture render-history/show-flag readback and uncleared map build data, so keep the luma/frame checks as acceptance evidence. | `examples/flashlight/run_orbit_workflow.sh render` defaults to this map for the `color-flashlight-only` preset. |
 | `infinigen_indoors_0000` | `/Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000` | End-to-end Infinigen FBX export, Unreal editor import, AssetCheck validation, cook/build, and user-confirmed cooked runtime launch passed on 2026-06-25. | `python examples/flashlight/run.py --map-path /Game/SPEAR/Scenes/infinigen_indoors_0000/Maps/infinigen_indoors_0000 --movement-speed 600` |
-| `infinigen_1dcacf23` | `/Game/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23` | Cleaned Infinigen fine-blend room with corrected spawn, disabled ceiling fixtures, and live launcher support through `--map-path`. Runtime visual validation is still pending. | `spear live infinigen_1dcacf23 --setting realistic-2x` |
-| `infinigen_189cc130` | `/Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130` | User-edited single-room environment with default table-lamp-only lighting, monitor emissive disabled, corrected spawn, and optional camera flashlight via passthrough. Runtime visual validation is still pending. | `spear live infinigen_189cc130 --setting realistic-2x` |
-| `infinigen_189cc130_realistic` | `/Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic` | Lamp-fix cooked lookdev variant preserving the table-lamp validation map while centering the warm practical lamp light, disabling lamp self-shadowing, adding a no-shadow shade glow, raising low cool SkyLight/window fill, using brighter fixed lookdev post process, and keeping neutral apartment-like materials. Cook/package validation passed on 2026-07-16; runtime visual validation should be repeated on the lamp-fix package. | `spear live infinigen_189cc130_realistic --setting default -- --enable-auto-exposure --disable-flashlight --scene-light-intensity-scale 1.0` |
+| `infinigen_1dcacf23` | `/Game/SPEAR/Scenes/infinigen_1dcacf23/Maps/infinigen_1dcacf23` | Cleaned Infinigen fine-blend room with corrected spawn, disabled ceiling fixtures, and live launcher support through `--map-path`. Runtime visual validation is still pending. | `spear live infinigen_1dcacf23 --beacon` |
+| `infinigen_189cc130` | `/Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130` | User-edited single-room environment with default table-lamp-only lighting, monitor emissive disabled, corrected spawn, and optional camera flashlight via passthrough. Runtime visual validation is still pending. | `spear live infinigen_189cc130 --default` |
+| `infinigen_189cc130_realistic` | `/Game/SPEAR/Scenes/infinigen_189cc130/Maps/infinigen_189cc130_realistic` | Lamp-fix cooked lookdev variant preserving the table-lamp validation map while centering the warm practical lamp light, disabling lamp self-shadowing, adding a no-shadow shade glow, raising low cool SkyLight/window fill, using brighter fixed lookdev post process, and keeping neutral apartment-like materials. Cook/package validation passed on 2026-07-16; runtime visual validation should be repeated on the lamp-fix package. | `spear live infinigen_189cc130_realistic --default` |
 
 The main project-specific workflows are:
 
@@ -200,6 +201,11 @@ The main project-specific workflows are:
   `real_handheld_16in_16in`. Cafeteria live testing currently uses
   `realistic_live_flashlight`; `realistic_live_flashlight_2x` is the same
   realistic profile with doubled intensity (`1600.0`) for brighter trials.
+- Simple live launcher modes: `spear live <environment> --default` launches the
+  normal environment with no camera flashlight. `spear live <environment>
+  --beacon` launches the current realistic camera-flashlight setup. The older
+  `--setting` flag remains for compatibility, but new commands should use one
+  of these two mode flags.
 - Realistic live cafeteria command:
 
   ```console

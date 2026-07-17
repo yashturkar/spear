@@ -209,19 +209,68 @@ class SpearLauncherTests(unittest.TestCase):
         self.assertEqual(data["unreal_map_path"], "/Game/CollegeCafeteria/levels/L_Showcase")
         self.assertEqual(data["package_version"], ACTIVE_PACKAGE_VERSION)
 
-    def test_live_college_cafeteria_default_dry_run(self):
-        result = run_launcher("live", "college_cafeteria", "--setting", "default", "--dry-run")
+    def test_live_college_cafeteria_default_flag_dry_run(self):
+        result = run_launcher("live", "college_cafeteria", "--default", "--dry-run")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("examples/flashlight/run.py", result.stdout)
+        self.assertIn("--map-path /Game/CollegeCafeteria/levels/L_Showcase", result.stdout)
+        self.assertIn("--movement-speed 600", result.stdout)
+        self.assertIn("--enable-auto-exposure", result.stdout)
+        self.assertIn("--disable-flashlight", result.stdout)
+        self.assertNotIn("--live-lighting-mode realistic", result.stdout)
+        self.assertNotIn("--flashlight-profile realistic_live_flashlight", result.stdout)
+        self.assertNotIn("--startup-warmup-seconds 3", result.stdout)
+
+    def test_live_college_cafeteria_beacon_dry_run(self):
+        result = run_launcher("live", "college_cafeteria", "--beacon", "--dry-run")
 
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("examples/flashlight/run.py", result.stdout)
         self.assertIn("--map-path /Game/CollegeCafeteria/levels/L_Showcase", result.stdout)
         self.assertIn("--live-lighting-mode realistic", result.stdout)
         self.assertIn("--flashlight-profile realistic_live_flashlight", result.stdout)
+        self.assertIn("--enable-flashlight", result.stdout)
         self.assertIn("--disable-auto-exposure", result.stdout)
         self.assertIn("--movement-speed 600", result.stdout)
         self.assertIn("--scene-light-intensity-scale 1.0", result.stdout)
         self.assertIn("--indirect-lighting-intensity 0.05", result.stdout)
         self.assertIn("--startup-warmup-seconds 3", result.stdout)
+
+    def test_live_college_cafeteria_without_mode_defaults_to_default_flag(self):
+        result = run_launcher("live", "college_cafeteria", "--dry-run")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("--enable-auto-exposure", result.stdout)
+        self.assertIn("--disable-flashlight", result.stdout)
+        self.assertNotIn("--flashlight-profile realistic_live_flashlight", result.stdout)
+
+    def test_live_college_cafeteria_setting_default_matches_default_flag(self):
+        result = run_launcher("live", "college_cafeteria", "--setting", "default", "--dry-run")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("--enable-auto-exposure", result.stdout)
+        self.assertIn("--disable-flashlight", result.stdout)
+        self.assertNotIn("--live-lighting-mode realistic", result.stdout)
+        self.assertNotIn("--flashlight-profile realistic_live_flashlight", result.stdout)
+
+    def test_live_japanese_office_default_preserves_geometry_without_flashlight(self):
+        result = run_launcher("live", "japanese_office", "--default", "--dry-run")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("--map japanese_office", result.stdout)
+        self.assertIn("--resx 690", result.stdout)
+        self.assertIn("--resy 512", result.stdout)
+        self.assertIn("--camera-hfov 63.59", result.stdout)
+        self.assertIn("--camera-vfov 49.40", result.stdout)
+        self.assertIn("--enable-auto-exposure", result.stdout)
+        self.assertIn("--disable-flashlight", result.stdout)
+
+    def test_live_setting_cannot_combine_with_beacon(self):
+        result = run_launcher("live", "college_cafeteria", "--setting", "realistic", "--beacon", "--dry-run")
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("--setting cannot be combined", result.stderr)
 
     def test_live_infinigen_indoors_0000_falls_back_to_map_path(self):
         result = run_launcher("live", "infinigen_indoors_0000", "--dry-run")
@@ -273,6 +322,20 @@ class SpearLauncherTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("--enable-flashlight", result.stdout)
         self.assertNotIn("--disable-flashlight", result.stdout)
+
+    def test_live_beacon_enable_auto_exposure_passthrough_removes_mode_disable(self):
+        result = run_launcher(
+            "live",
+            "college_cafeteria",
+            "--beacon",
+            "--dry-run",
+            "--",
+            "--enable-auto-exposure",
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("--enable-auto-exposure", result.stdout)
+        self.assertNotIn("--disable-auto-exposure", result.stdout)
 
     def test_live_infinigen_189cc130_realistic_default_uses_map_path(self):
         result = run_launcher(

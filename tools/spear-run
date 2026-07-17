@@ -71,6 +71,23 @@ LIVE_SETTINGS = {
     ],
 }
 
+LIVE_MODES = {
+    "default": [
+        "--movement-speed",
+        "600",
+        "--enable-auto-exposure",
+        "--disable-flashlight",
+    ],
+    "beacon": LIVE_SETTINGS["realistic"],
+}
+
+FLASHLIGHT_BOOLEAN_FLAGS = {"--enable-flashlight", "--disable-flashlight"}
+AUTO_EXPOSURE_BOOLEAN_FLAGS = {"--enable-auto-exposure", "--disable-auto-exposure"}
+BOOLEAN_FLAG_GROUPS = (
+    FLASHLIGHT_BOOLEAN_FLAGS,
+    AUTO_EXPOSURE_BOOLEAN_FLAGS,
+)
+
 VISIBLE_BY_DEFAULT_STATUSES = {
     "preferred-baseline",
     "preferred-needs-live-validation",
@@ -139,12 +156,33 @@ def live_setting_args_for(env: dict, setting: str) -> list[str]:
     return list(overrides.get(setting, LIVE_SETTINGS[setting]))
 
 
+def live_mode_args_for(env: dict, mode: str) -> list[str]:
+    overrides = (
+        env.get("recommended_settings", {})
+        .get("live_setting_overrides", {})
+    )
+    if mode == "beacon":
+        base_args = list(overrides.get("beacon", overrides.get("realistic", LIVE_MODES["beacon"])))
+        return remove_args(
+            base_args,
+            FLASHLIGHT_BOOLEAN_FLAGS | AUTO_EXPOSURE_BOOLEAN_FLAGS,
+        ) + ["--enable-flashlight", "--disable-auto-exposure"]
+    base_args = list(overrides.get("default", LIVE_MODES[mode]))
+    return remove_args(
+        base_args,
+        FLASHLIGHT_BOOLEAN_FLAGS | AUTO_EXPOSURE_BOOLEAN_FLAGS,
+    ) + ["--enable-auto-exposure", "--disable-flashlight"]
+
+
+def remove_args(args: list[str], flags: set[str]) -> list[str]:
+    return [arg for arg in args if arg not in flags]
+
+
 def resolve_boolean_passthrough(base_args: list[str], extra_args: list[str]) -> list[str]:
     resolved = list(base_args)
-    if "--enable-flashlight" in extra_args:
-        resolved = [arg for arg in resolved if arg not in {"--enable-flashlight", "--disable-flashlight"}]
-    if "--disable-flashlight" in extra_args:
-        resolved = [arg for arg in resolved if arg not in {"--enable-flashlight", "--disable-flashlight"}]
+    for flag_group in BOOLEAN_FLAG_GROUPS:
+        if any(flag in extra_args for flag in flag_group):
+            resolved = remove_args(resolved, flag_group)
     return resolved + extra_args
 
 
@@ -227,7 +265,15 @@ def env_show(args: argparse.Namespace) -> int:
 def live(args: argparse.Namespace, extra_args: list[str]) -> int:
     try:
         env = get_environment(args.env)
-        live_args = live_setting_args_for(env=env, setting=args.setting)
+        if args.setting is not None:
+            if args.live_mode is not None:
+                return fail("--setting cannot be combined with --default or --beacon.")
+            if args.setting == "default":
+                live_args = live_mode_args_for(env=env, mode="default")
+            else:
+                live_args = live_setting_args_for(env=env, setting=args.setting)
+        else:
+            live_args = live_mode_args_for(env=env, mode=args.live_mode or "default")
         argv = (
             python_cmd("examples/flashlight/run.py")
             + map_args_for(env, RUN_MAP_ALIASES)
@@ -364,7 +410,24 @@ def build_parser() -> argparse.ArgumentParser:
     live_parser.add_argument(
         "--setting",
         choices=sorted(LIVE_SETTINGS.keys()),
-        default="default",
+        default=None,
+        help="Deprecated compatibility setting. Prefer --default or --beacon.",
+    )
+    live_mode_group = live_parser.add_mutually_exclusive_group()
+    live_mode_group.add_argument(
+        "--default",
+        dest="live_mode",
+        action="store_const",
+        const="default",
+        default=None,
+        help="Launch the environment normally without the camera flashlight.",
+    )
+    live_mode_group.add_argument(
+        "--beacon",
+        dest="live_mode",
+        action="store_const",
+        const="beacon",
+        help="Launch with the realistic camera flashlight setup.",
     )
     live_parser.add_argument("--dry-run", action="store_true")
     live_parser.set_defaults(func=lambda args, extra: live(args, extra))

@@ -75,8 +75,8 @@
         }
       },
       "notes": [
-        "Run `spear live japanese_office --setting default` to launch this cooked map through the flashlight runtime.",
-        "Default live launch requests a 690x512 viewport, 63.59 degree HFOV, 49.40 degree VFOV, and 60 degree full inner/outer flashlight cones.",
+        "Run `spear live japanese_office --default` to launch this cooked map through the live runtime.",
+        "Default live launch requests a 690x512 viewport, 63.59 degree HFOV, and 49.40 degree VFOV with the camera flashlight disabled.",
         "This focused package replaced the active Standalone-Development Linux PAK and is not a full-ledger recook."
       ],
       "package_artifact": {
@@ -121,10 +121,10 @@
         }
       },
       "recommended_settings": {
-        "live": "realistic",
+        "live": "beacon",
         "map_argument_preference": "--map-path",
         "live_setting_overrides": {
-          "default": [
+          "beacon": [
             "--live-lighting-mode",
             "realistic",
             "--flashlight-profile",
@@ -138,6 +138,12 @@
             "0.05",
             "--startup-warmup-seconds",
             "3"
+          ],
+          "default": [
+            "--movement-speed",
+            "600",
+            "--enable-auto-exposure",
+            "--disable-flashlight"
           ],
           "realistic": [
             "--live-lighting-mode",
@@ -159,8 +165,9 @@
       "notes": [
         "Primary Fab showcase map for flashlight teleop.",
         "Imported under /Game/CollegeCafeteria with L_Overview available separately at /Game/CollegeCafeteria/levels/L_Overview.",
-        "Run `spear live college_cafeteria --setting default` from a display-capable session to launch the cooked map through the flashlight runtime.",
-        "Default launch uses realistic live renderer settings, fixed exposure, the inverse-square realistic_live_flashlight profile, and reduced indirect flashlight bounce to avoid a flat screen-space wash.",
+        "Run `spear live college_cafeteria --default` from a display-capable session for the regular environment without a camera flashlight.",
+        "Run `spear live college_cafeteria --beacon` from a display-capable session to launch the cooked map through the flashlight runtime.",
+        "Beacon launch uses realistic live renderer settings, fixed exposure, the inverse-square realistic_live_flashlight profile, and reduced indirect flashlight bounce to avoid a flat screen-space wash.",
         "Bounded smoke used timeout to stop after live control began; the timeout interrupt produced a control-loop assertion during shutdown, but the map load and flashlight setup completed before interruption."
       ],
       "package_artifact": {
@@ -592,12 +599,12 @@
         "Bounds dump wrote actor_bounds_report.json successfully, then Unreal crashed during shutdown with free(): invalid size; the report was already on disk before the shutdown crash.",
         "Runtime visual validation remains pending before data collection.",
         "2026-07-14 user edited the map down to the desired single room; the table-lamp-only pass preserved that edit and did not reimport from FBX/blend.",
-        "The main command spear live infinigen_189cc130 --setting realistic-2x uses a ledger override with --scene-light-intensity-scale 1.0 so the table lamp remains 650 lumens at runtime.",
-        "Only runtime light intended to remain active is Infinigen189cc130_TableLamp_650lm_PointLight; this environment overrides realistic-2x with --disable-flashlight so the camera flashlight is not spawned.",
+        "The main command spear live infinigen_189cc130 --default uses the normal live mode with no camera flashlight so the table lamp remains the inspected runtime light.",
+        "Only runtime light intended to remain active in default mode is Infinigen189cc130_TableLamp_650lm_PointLight.",
         "The monitor/screen actor is explicitly non-emissive: no LightComponent, emissive_light_source=false, and both material slots use M_NonEmissive_Black_OffScreen.",
         "The table-lamp PointLight was repositioned to (376.31, -1233.11, 119.769), on the lamp side farthest from the monitor, with distance_to_monitor_origin 51.18 cm.",
         "The 2026-07-13 lamp-repositioned full-ledger recook packaged this edited table-lamp-only screen-off map; archived and staged paks both have sha256 4b9dc32d6c02ddad8093695f629f0428b0a1595822efbd8ecaac895ad94d53fa and size 5259388196 bytes.",
-        "To spawn the camera flashlight for this table-lamp scene, run spear live infinigen_189cc130 --setting realistic-2x -- --enable-flashlight; put --dry-run before -- when inspecting the command."
+        "To spawn the camera flashlight for this table-lamp scene, run spear live infinigen_189cc130 --beacon."
       ]
     },
     {
@@ -678,7 +685,7 @@
         "live": "default",
         "map_argument_preference": "--map-path",
         "scene_light_intensity_scale": 1.0,
-        "inspection_live": "spear live infinigen_189cc130_realistic --setting default -- --enable-auto-exposure --disable-flashlight --scene-light-intensity-scale 1.0",
+        "inspection_live": "spear live infinigen_189cc130_realistic --default",
         "live_setting_overrides": {
           "default": [
             "--movement-speed",
@@ -692,7 +699,7 @@
         "Lamp-fix focused Linux cook/package completed on 2026-07-16 and verified the new map/material entries in archive and staged paks. This is not a full-ledger recook.",
         "Runtime screenshots showed the neutral package was still too dark and the lamp illuminated mostly one direction; this package centers the lamp light, disables lamp self-shadowing, adds a no-shadow shade glow, and raises fixed exposure/fill.",
         "Default launcher settings disable the camera flashlight so the authored practical lights can be inspected directly. Use -- --enable-flashlight only for flashlight interaction checks.",
-        "Recommended live command: spear live infinigen_189cc130_realistic --setting default -- --enable-auto-exposure --disable-flashlight --scene-light-intensity-scale 1.0"
+        "Recommended live command: spear live infinigen_189cc130_realistic --default"
       ],
       "package_artifact": {
         "package_version": "infinigen_189cc130_realistic_lampfix_linux_2026-07-16",
